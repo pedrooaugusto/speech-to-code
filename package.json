@@ -1,0 +1,21 @@
+{
+  "name": "speech-to-code",
+  "version": "0.0.1",
+  "description": "Transforming natural language in code",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "prestart": "bash ./tools.sh"
+  },
+  "keywords": [
+    "Speech-to-code"
+  ],
+  "author": "Pedro Silva",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "electron": "^11.2.3",
+    "spoken": "file:spoken",
+    "yaml": "^1.10.0"
+  }
+}

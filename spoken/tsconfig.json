@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "target": "ES2018",
+        "module": "CommonJS",
+        "jsx": "react",
+        "strict": true,
+        "pretty": true,
+        "outDir": "dist",
+        /* Additional Checks */
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        /* Module Resolution Options */
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "allowJs": true
+    },
+    "exclude": [
+        "node_modules",
+        "test",
+        "release"
+    ],
+    "include": ["src/**/*"]
+}
