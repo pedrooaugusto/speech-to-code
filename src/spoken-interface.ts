@@ -26,3 +26,4 @@ class SpokenInterface {
 }
 
 export default new SpokenInterface()
+
