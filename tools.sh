@@ -17,4 +17,10 @@ tsc
 # copy robot-python
 cp ./src/robot/*.py ./dist/src/robot
 
+# copy whole webapp folder
+cp -r webapp dist/
+
+# export google cloud api key
+export GOOGLE_APPLICATION_CREDENTIALS=/c/Users/yuram/Documents/speech-to-code/src/services/key.json
+
 echo "Ready to built."

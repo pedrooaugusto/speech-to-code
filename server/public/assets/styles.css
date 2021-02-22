@@ -1,0 +1,62 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+header {
+    background: black;
+    height: 95px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+header .title {
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+main .record {
+    height: 300px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main .record .btn {
+    width: 50px;
+    height: 50px;
+    background: #12c93e;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+
+main .record .label {
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+main .record.on .btn {
+    background: #d72121;
+}
+
+main .transcription {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+main .transcription label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+main .transcription .transcription-text {
+    border: solid 1px #c8c8c8;
+    padding: 5px;
+    height: 45px;
+    border-radius: 3px;
+}

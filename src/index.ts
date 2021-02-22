@@ -12,13 +12,13 @@ async function createWindow(): Promise<void> {
 		y: 50,
 		alwaysOnTop: true,
 		webPreferences: {
-			nodeIntegration: !false,
+			nodeIntegration: false,
 			contextIsolation: true,
 			preload: path.resolve(__dirname, 'preload.js')
 		},
 	})
 
-	await window.loadFile('webapp/index.html')
+	await window.loadFile('dist/webapp/index.html')
 }
 
 app.whenReady().then(createWindow)

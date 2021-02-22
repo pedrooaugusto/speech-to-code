@@ -5,8 +5,9 @@
   "main": "dist/src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "prestart": "bash ./tools.sh"
+    "start": "set GOOGLE_APPLICATION_CREDENTIALS=src/services/key.json&& electron .",
+    "prestart": "bash ./tools.sh",
+    "devServer": "light-server -s webapp -p 5000 -w \"webapp/**\""
   },
   "keywords": [
     "Speech-to-code"
@@ -14,8 +15,14 @@
   "author": "Pedro Silva",
   "license": "GPL-3.0-or-later",
   "dependencies": {
+    "@google-cloud/speech": "^4.2.0",
     "electron": "^11.2.3",
     "spoken": "file:spoken",
     "yaml": "^1.10.0"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "light-server": "^2.9.1",
+    "socket.io": "^3.1.1"
   }
 }
