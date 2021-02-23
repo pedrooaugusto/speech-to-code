@@ -4,7 +4,6 @@ const app = express()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 const Session = require('./src/voice-recognition-session')
-const fs = require('fs')
 
 http.listen(3000, () => {
 	console.log('listening on *:3000')
@@ -20,19 +19,11 @@ io.on('connection', (socket) => {
 	})
 
 	socket.on('VoiceRecognitionSession:data', ({ data }) => {
-		console.log('data')
 		Session.current().write(data)
-		/*fs.readFile('name.oga', {}, async function(err, m) {
-			//Session.current().write(m)
-			await Session.current().bola({
-				content: m.toString('base64')
-			})
-			console.log(err)
-		})*/
 	})
 
 	socket.on('VoiceRecognitionSession:stop', (data) => {
-		console.log('close')
+		console.log('[App.VoiceRecognitionSession.stop]')
 		Session.close()
 	})
 
@@ -54,10 +45,7 @@ io.on('connection', (socket) => {
 
 		fn()
 
-		console.log('start')
+		console.log('[App.VoiceRecognitionSession.start]')
 	})
 
 })
-
-
-console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS)

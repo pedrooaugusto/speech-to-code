@@ -1,3 +1,3 @@
 node_modules
 dist
-src/services/key.json
+server/key.json

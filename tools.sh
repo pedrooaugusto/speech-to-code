@@ -17,10 +17,12 @@ tsc
 # copy robot-python
 cp ./src/robot/*.py ./dist/src/robot
 
-# copy whole webapp folder
+# copy whole webapp folder (remove the folder webapp in the future: server now)
 cp -r webapp dist/
 
-# export google cloud api key
-export GOOGLE_APPLICATION_CREDENTIALS=/c/Users/yuram/Documents/speech-to-code/src/services/key.json
+# export google cloud api key (this does not work)
+# bash --rcfile <(echo '. ~/.bashrc; npm run prodServer &')
+# npm run prodServer & 
+# export GOOGLE_APPLICATION_CREDENTIALS=/c/Users/yuram/Documents/speech-to-code/src/services/key.json
 
 echo "Ready to built."

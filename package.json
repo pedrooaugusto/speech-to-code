@@ -5,9 +5,10 @@
   "main": "dist/src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set GOOGLE_APPLICATION_CREDENTIALS=src/services/key.json&& electron .",
+    "start": "electron .",
     "prestart": "bash ./tools.sh",
-    "devServer": "light-server -s webapp -p 5000 -w \"webapp/**\""
+    "devServer": "light-server -s webapp -p 5000 -w \"webapp/**\"",
+    "prodServer": "set GOOGLE_APPLICATION_CREDENTIALS=server/key.json&& node server/app.js"
   },
   "keywords": [
     "Speech-to-code"

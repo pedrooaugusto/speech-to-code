@@ -10,37 +10,6 @@ export function useVoiceRecognition() {
     useEffect(async () => {
         console.log('did mount')
 
-        //const r = await Microphone.getMediaRecorder()
-        //const r = await Microphone.getAudioContext()
-
-        /*r.ondataavailable = (event) => {
-            console.log('eoi')
-            var blob = new Blob([event.data], { 'type' : 'audio/ogg; codecs=opus' })
-            var audioURL = URL.createObjectURL(blob)
-            console.log(audioURL)
-            var audio = document.createElement('audio')
-            audio.setAttribute('controls', '')
-            audio.controls = true
-            audio.src = audioURL
-            document.body.appendChild(audio)
-            socket.emit('VoiceRecognitionSession:data', { data: event.data })
-        }*/
-
-        /*r.processor.onaudioprocess = (data) => {
-            console.log('eoi')
-            console.log(data)
-
-            data = data.inputBuffer.getChannelData(0) || new Float32Array(4096)
-            
-            for (var b = data.length, d = new Int16Array(b); b--; ) {
-                d[b] = 32767 * Math.min(1, data[b])
-            }
-    
-            this.socket.send(d.buffer)
-
-            socket.emit('VoiceRecognitionSession:data', { data: d.buffer })
-        }*/
-
         myRecorder.init((data) => {
             socket.emit('VoiceRecognitionSession:data', { data })
         })
@@ -50,7 +19,7 @@ export function useVoiceRecognition() {
         })
 
         socket.on('VoiceRecognitionSession:results', (data) => {
-            console.log(`Transcription: ${data.results[0].alternatives[0].transcript}`)
+            console.log(JSON.stringify(data))
             setResults(data)
         })
 
@@ -61,20 +30,11 @@ export function useVoiceRecognition() {
         socket.emit('VoiceRecognitionSession:start', {}, () => {
             myRecorder.start()  
         })
-
-        //const r = await Microphone.getMediaRecorder()
-
-        //r.start()
-        // setTimeout(() => myRecorder.start(), 700)
     })
 
     const stop = useCallback(async () => {
-        //const r = await Microphone.getMediaRecorder()
-
-        //r.stop()
-
         myRecorder.stop().then(() => {
-            socket.emit('VoiceRecognitionSession:stop')
+            setTimeout(() => socket.emit('VoiceRecognitionSession:stop'), 750)
         })
     })
 
@@ -84,98 +44,6 @@ export function useVoiceRecognition() {
         stop
     }
 }
-
-
-class Microphone {
-    static stream = null
-    static mediaRecorder = null
-    static audioContext = null
-
-    static async getMicrophone() {
-        try {
-            if (Microphone.stream == null) {
-                Microphone.stream = await navigator.mediaDevices.getUserMedia({
-                    audio: {
-                        echoCancellation: !false,
-                        noiseSuppression: false,
-                        autoGainControl: false
-                    },
-                    video: false
-                })
-            }
-
-            return Microphone.stream
-        } catch(err) {
-            console.error(err)
-
-            Microphone.stream = null
-            Microphone.mediaRecorder = null
-            Microphone.audioContext = null
-
-            return null
-        }
-    }
-
-    static async getMediaRecorder() {
-        try {
-            if (Microphone.mediaRecorder == null) {
-                await Microphone.getMicrophone()
-
-                Microphone.mediaRecorder = new MediaRecorder(Microphone.stream)
-
-                return Microphone.mediaRecorder
-            }
-
-            return Microphone.mediaRecorder
-        } catch(err) {
-            console.error(err)
-
-            Microphone.stream = null
-            Microphone.mediaRecorder = null
-            Microphone.audioContext = null
-
-            return null
-        }
-    }
-
-    static async getAudioContext() {
-        try {
-            if (Microphone.audioContext == null) {
-                const stream = await Microphone.getMicrophone()
-
-                const audioContext = new AudioContext()
-                audioContext.suspend()
-
-                const streamSource = audioContext.createMediaStreamSource(stream)
-                const processor = audioContext.createScriptProcessor(4096, 1, 1)
-
-                processor.connect(audioContext.destination)
-                streamSource.connect(processor)
-
-                Microphone.audioContext = {
-                    audioContext,
-                    streamSource,
-                    processor,
-                    mediaTrack: stream.getTracks()[0]
-                }
-
-                return Microphone.audioContext
-            }
-
-            return Microphone.audioContext
-
-        } catch(err) {
-            console.error(err)
-
-            Microphone.stream = null
-            Microphone.mediaRecorder = null
-            Microphone.audioContext = null
-
-            return null
-        }        
-    }
-}
-
 
 class MyRecorder {
     static recorder = null

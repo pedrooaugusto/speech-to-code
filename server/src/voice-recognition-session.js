@@ -54,8 +54,6 @@ class VoiceRecognitionSession {
     }
 
     write(chunk, encoding, cb) {
-        console.log(chunk)
-        //this.recognizeStream.write({ audio_content: chunk })
         this.recognizeStream.write(chunk)
     }
 }

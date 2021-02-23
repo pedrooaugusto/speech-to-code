@@ -18,7 +18,9 @@ async function createWindow(): Promise<void> {
 		},
 	})
 
-	await window.loadFile('dist/webapp/index.html')
+	await window.loadURL('http://localhost:3000/')
+
+	//await window.loadFile('dist/webapp/index.html')
 }
 
 app.whenReady().then(createWindow)
