@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron'
 
 contextBridge.exposeInMainWorld(
-    'ipcRendererShell',
+    'ipcRenderer',
     {
         send: (channel: string, data: any) => {
             ipcRenderer.send(channel, data)

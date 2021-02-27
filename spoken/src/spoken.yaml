@@ -18,7 +18,6 @@ categories:
         impl: |
           async function moveCursor(command, robot, editor, context) {
             // yara yara do something
-            console.log('line')
             return await editor.goToLine(command[1])
           }
 
@@ -98,6 +97,7 @@ categories:
             - escreva o seguinte termo {term}
         impl: |
           async function write(command, robot, editor, context) {
+            console.log('[Spoken]: Executing:\n\t "Write {term}"')
             return await robot.write(command[1])
           }
 

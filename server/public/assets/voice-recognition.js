@@ -2,13 +2,11 @@ import { useState, useCallback, useEffect } from 'https://unpkg.com/preact@10.3.
 import socket from './socket.js'
 
 export function useVoiceRecognition() {
-    const [results, setResults] = useState({})
+    const [results, setResults] = useState("")
     const myRecorder = MyRecorder.getRecorder()
 
-    console.log(socket)
-
     useEffect(async () => {
-        console.log('did mount')
+        console.log('[useVoiceRecognition] Initialization')
 
         myRecorder.init((data) => {
             socket.emit('VoiceRecognitionSession:data', { data })
@@ -19,14 +17,19 @@ export function useVoiceRecognition() {
         })
 
         socket.on('VoiceRecognitionSession:results', (data) => {
-            console.log(JSON.stringify(data))
+            setTimeout(() => ipcRenderer.send('Spoken:analyze', data), 3000)
+        })
+
+        // Inter process comunication: listen to node context requests
+        ipcRenderer.on('Spoken:analysisResults', (data) => {
+            console.log('here: ' + data)
             setResults(data)
         })
 
     }, [])
 
     const start = useCallback(async () => {
-        //socket.emit('VoiceRecognitionSession:stop')
+        // socket.emit('VoiceRecognitionSession:stop')
         socket.emit('VoiceRecognitionSession:start', {}, () => {
             myRecorder.start()  
         })
@@ -38,10 +41,23 @@ export function useVoiceRecognition() {
         })
     })
 
+    const analyzeSentence = useCallback((phrase) => {
+        const w = {
+            results: [{
+                alternatives: [{
+                    transcript: phrase
+                }]
+            }]
+        }
+
+        ipcRenderer.send('Spoken:analyze', w)
+    })
+
     return {
         results,
         start,
-        stop
+        stop,
+        analyzeSentence
     }
 }
 

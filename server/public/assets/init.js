@@ -1,5 +1,5 @@
 import { html, render } from 'https://unpkg.com/htm@3.0.4/preact/index.mjs?module'
-import { useState } from 'https://unpkg.com/preact@10.3.2/hooks/dist/hooks.module.js?module'
+import { useState, useCallback, useEffect } from 'https://unpkg.com/preact@10.3.2/hooks/dist/hooks.module.js?module'
 import { useVoiceRecognition } from './voice-recognition.js'
 
 function App (props) {
@@ -21,15 +21,24 @@ function Header() {
 
 function Main() {
     const [recording, setRecording] = useState(false)
-    const vr = useVoiceRecognition()
+    const { results, start, stop, analyzeSentence } = useVoiceRecognition()
+
     const toggleRecording = () => {
-        if (recording) {
-            vr.stop()
-        } else {
-            vr.start()
-        }
+        recording ? stop() : start()
         setRecording(!recording)
     }
+
+    const analyze = (evt) => {
+        const text = document.querySelector('.transcription-text').innerText
+        setTimeout(() => analyzeSentence(text), 4000)
+    }
+
+    useEffect(() => {
+		ipcRenderer.on('VoiceRecognition:toggleRecording', (r) => {
+            r ? start() : stop()
+            setRecording(r)
+        })
+    }, [])
 
     return html`
         <main>
@@ -39,7 +48,8 @@ function Main() {
             </div>
             <div class="transcription">
                 <label>Transcription</label>
-                <div class="transcription-text"></div>
+                <div class="transcription-text">${results}</div>
+                <!--<button onClick=${analyze}>Analyze</button> -->
             </div>
         </main>
     `

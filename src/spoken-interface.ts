@@ -7,7 +7,11 @@ class SpokenInterface {
     #robot = RobotService.defaultRobot
     #editor = EditorService.defaultEditor
 
-    onComand = async (event: IpcMainEvent, command: string, ...args: unknown[]) => {
+    onComand = async (event: IpcMainEvent, command: string | any, ...args: unknown[]) => {
+        command = command?.results?.[0].alternatives?.[0]?.transcript
+
+        event.reply('Spoken:analysisResults', command)
+
         const matchedCommand = Spoken.matchPhrase(command, 'pt_br')
 
         if (matchedCommand) {

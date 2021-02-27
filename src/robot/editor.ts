@@ -43,10 +43,11 @@ export class MSNotepadEditor extends Editor {
 	// CTRL + G + ESC + ESC
 	async goToLine(number: string) {
 		try {
-			this.robot.hotKey('ctrl', 'g')
-			this.robot.write(number)
-			this.robot.press('enter')
-			this.robot.press('esc')
+			await this.robot.hotKey('ctrl', 'g')
+			await this.sleep(200)
+			await this.robot.write(number)
+			await this.robot.press('enter')
+			await this.robot.press('esc')
 		} catch (err) {
 			console.error('[MSNotepadEditor.goToLine]:\n\t' + err)
 			throw err
@@ -55,6 +56,14 @@ export class MSNotepadEditor extends Editor {
 
 	setCurrentLine(from: number): void {
 
+	}
+
+	async sleep(msec: number) {
+		return new Promise(resolve => setTimeout(resolve, msec))
+	}
+
+	async write(text: string) {
+		return await this.robot.write(text)
 	}
 }
 
