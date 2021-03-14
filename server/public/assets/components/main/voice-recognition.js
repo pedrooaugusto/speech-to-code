@@ -6,7 +6,7 @@ export function useVoiceRecognition() {
     const myRecorder = MyRecorder.getRecorder()
 
     useEffect(async () => {
-        console.log('[useVoiceRecognition] Initialization')
+        console.log('[server.webapp.main.useVoiceRecognition] Initialization')
 
         myRecorder.init((data) => {
             socket.emit('VoiceRecognitionSession:data', { data })
@@ -23,7 +23,6 @@ export function useVoiceRecognition() {
         // Inter process comunication: listen to node context requests
         if (typeof ipcRenderer !== 'undefined')
             ipcRenderer.on('Spoken:analysisResults', (data) => {
-                console.log('here: ' + data.phrase)
                 setResults(data.phrase)
             })
         else

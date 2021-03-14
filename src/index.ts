@@ -25,7 +25,7 @@ async function createWindow(): Promise<void> {
 	await window.loadURL('http://localhost:3000/')
 
 	const ret = globalShortcut.register('CommandOrControl+X', () => {
-		console.log('[SpeechToText.index] Toggle Recording!')
+		console.log('[wrapper.createWindow] Toggle Recording!')
 
 		if (window != null) {
 			window.webContents.send('VoiceRecognition:toggleRecording', !window.recording)
@@ -34,7 +34,7 @@ async function createWindow(): Promise<void> {
 	})
 
 	if (!ret) {
-		console.log('registration failed')
+		console.log('[wrapper.createWindow] Registration failed')
 	}
 }
 
@@ -47,4 +47,4 @@ app.on('window-all-closed', () => {
 	app.quit()
 })
 
-ipcMain.on('Spoken:analyze', SpokenInterface.onComand1)
+ipcMain.on('Spoken:analyze', SpokenInterface.onComand)

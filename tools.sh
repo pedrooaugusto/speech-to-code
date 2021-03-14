@@ -17,9 +17,6 @@ tsc
 # copy robot-python
 cp ./src/robot/*.py ./dist/src/robot
 
-# copy whole webapp folder (remove the folder webapp in the future: its on the server now)
-cp -r webapp dist/
-
 # compile sass files
 sass server/public/assets/styles.scss:server/public/assets/styles.css --no-source-map
 

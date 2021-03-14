@@ -24,8 +24,7 @@ class VoiceRecognitionSession {
         return this
     }
 
-    bola = async (audio) => {
-        console.log(audio.content.length)
+    recognizeFile = async (audio) => {
         const response = await this.client.recognize({
             config: {
                 enableAutomaticPunctuation: false,

@@ -8,7 +8,7 @@ const SpokenRouter = require('./src/spoken/route')
 const Spoken = require('./src/spoken/index')
 
 http.listen(3000, () => {
-	console.log('listening on *:3000')
+	console.log('[server.app] Listening on *:3000')
 })
 
 app.use(express.static(path.resolve(__dirname, 'public')))
@@ -16,10 +16,10 @@ app.use(express.static(path.resolve(__dirname, 'public')))
 app.use('/spoken', SpokenRouter)
 
 io.on('connection', (socket) => {
-	console.log('a user connected')
+	console.log('[server.app] A user connected')
 
 	socket.on('disconnect', () => {
-		console.log('be gone!')
+		console.log('[server.app] A user has left!')
 	})
 
 	socket.on('VoiceRecognitionSession:data', ({ data }) => {
