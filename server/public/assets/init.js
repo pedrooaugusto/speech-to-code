@@ -1,58 +1,42 @@
 import { html, render } from 'https://unpkg.com/htm@3.0.4/preact/index.mjs?module'
 import { useState, useCallback, useEffect } from 'https://unpkg.com/preact@10.3.2/hooks/dist/hooks.module.js?module'
-import { useVoiceRecognition } from './voice-recognition.js'
+import Main from './components/main/index.js'
+import Header from './components/header/index.js'
+import Spoken from './components/spoken/index.js'
 
 function App (props) {
     return html`
         <div>
             <${Header} />
-            <${Main} />
+            <${Router}
+                pages=${[
+                    { hash: '', component: Main },
+                    { hash: '#/spoken', component: Spoken }
+                ]}
+            />
         </div>
     `
 }
 
-function Header() {
-    return html`
-        <header>
-            <div class="title">Speech to Code</div>
-        </header>
-    `
-}
-
-function Main() {
-    const [recording, setRecording] = useState(false)
-    const { results, start, stop, analyzeSentence } = useVoiceRecognition()
-
-    const toggleRecording = () => {
-        recording ? stop() : start()
-        setRecording(!recording)
-    }
-
-    const analyze = (evt) => {
-        const text = document.querySelector('.transcription-text').innerText
-        setTimeout(() => analyzeSentence(text), 4000)
-    }
+function Router(props) {
+    const [hash, setHash] = useState(location.hash)
 
     useEffect(() => {
-		ipcRenderer.on('VoiceRecognition:toggleRecording', (r) => {
-            r ? start() : stop()
-            setRecording(r)
-        })
+        function hashchange() {
+            setHash(location.hash)
+        }
+
+        window.addEventListener('hashchange', hashchange)
+
+        return () => {
+            window.removeEventListener('hashchange', hashchange)
+        }
+
     }, [])
 
-    return html`
-        <main>
-            <div class="record ${recording ? 'on' : 'off'}">
-                <div class="btn" onClick=${toggleRecording}></div>
-                <div class="label"><b>${recording ? 'Stop': 'Start'}</b> recording</div>
-            </div>
-            <div class="transcription">
-                <label>Transcription</label>
-                <div class="transcription-text">${results}</div>
-                <!--<button onClick=${analyze}>Analyze</button> -->
-            </div>
-        </main>
-    `
+    const page = props.pages.find(page => page.hash == hash)
+
+    return page ? html`<${page.component} />` : null
 }
 
 render(html`<${App} />`, document.getElementById("preact-root"))

@@ -4,12 +4,16 @@ const app = express()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 const Session = require('./src/voice-recognition-session')
+const SpokenRouter = require('./src/spoken/route')
+const Spoken = require('./src/spoken/index')
 
 http.listen(3000, () => {
 	console.log('listening on *:3000')
 })
 
 app.use(express.static(path.resolve(__dirname, 'public')))
+
+app.use('/spoken', SpokenRouter)
 
 io.on('connection', (socket) => {
 	console.log('a user connected')
@@ -23,7 +27,7 @@ io.on('connection', (socket) => {
 	})
 
 	socket.on('VoiceRecognitionSession:stop', (data) => {
-		console.log('[App.VoiceRecognitionSession.stop]')
+		console.log('[server.app.VoiceRecognitionSession.stop] Voice recognition session has stoped')
 		Session.close()
 	})
 
@@ -37,15 +41,13 @@ io.on('connection', (socket) => {
 			socket.emit('VoiceRecognitionSession:error', err)
 		})
 		.on('data', (results) => {
-			console.log(results)
-
-			socket.emit('VoiceRecognitionSession:results', results)
+			socket.emit('VoiceRecognitionSession:results', Spoken.findComand(results))
 		})
 		.start()
 
 		fn()
 
-		console.log('[App.VoiceRecognitionSession.start]')
+		console.log('[server.app.VoiceRecognitionSession.start] Voice recognition session has started')
 	})
 
 })

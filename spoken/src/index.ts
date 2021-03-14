@@ -1,14 +1,17 @@
 import yaml from 'yaml'
 import fs from 'fs'
 import path from 'path'
+import Modules, { ModuleDefinition, CommandDefinition } from './modules'
 
 class Spoken {
-    private langs: LanguageDefinition[] = []
+    private langs: ModuleDefinition[] = []
+    public modules: Modules
 
     constructor() {
         this.langs.push(
             yaml.parse(fs.readFileSync(path.resolve(__dirname, 'spoken.yaml'), 'utf-8'))
         )
+        this.modules = new Modules(this.langs)
     }
 
     private phraseToRegex(text: string): RegExp {
@@ -21,7 +24,7 @@ class Spoken {
     }
 
     public matchPhrase(phrase: string, lang: string): Command | null {
-        console.log('[Spoken.matchPhrase] Looking for match of: ' + phrase)
+        console.log('[Spoken.matchPhrase] Looking for a match for: ' + phrase)
         const c = this.findCommand(command => {
             const matchedPhrase = command.phrases[lang].find(item => {
                 return this.phraseToRegex(item).exec(phrase)
@@ -42,7 +45,7 @@ class Spoken {
         return this.findCommand(a => a.id === id)
     }
 
-    private findCommand(predicate: (command: CommandDefintion) => boolean | RegExpExecArray): Command | null {
+    private findCommand(predicate: (command: CommandDefinition) => boolean | RegExpExecArray): Command | null {
         for (const lang of this.langs) {
             for (const categorie in (lang.categories || {})) {
                 const command = lang.categories?.[categorie]?.commands?.find?.(predicate)
@@ -57,10 +60,10 @@ class Spoken {
 }
 
 class Command {
-    private command: CommandDefintion
-    private regexMatch: RegExpExecArray
+    public command: CommandDefinition
+    public regexMatch: RegExpExecArray
 
-    constructor(command: CommandDefintion, regexMatch: RegExpExecArray) {
+    constructor(command: CommandDefinition, regexMatch: RegExpExecArray) {
         this.command = command
         this.regexMatch = regexMatch
     }
@@ -94,23 +97,4 @@ class Command {
 
 export default new Spoken()
 
-export type LanguageDefinition = {
-    name: string,
-    desc: string,
-    commands?: CommandDefintion[],
-    categories?: {
-        [key: string]:  {
-            desc: string,
-            commands: CommandDefintion[]
-        }
-    }
-}
-
-export type CommandDefintion = {
-    id: number,
-    desc: string,
-    phrases: {
-        [key: string]: string[]
-    }
-    impl: string
-}
+export { ModuleDefinition, CommandDefinition }

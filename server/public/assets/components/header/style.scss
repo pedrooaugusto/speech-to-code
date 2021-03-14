@@ -1,0 +1,100 @@
+header {
+    background: black;
+    height: 95px;
+    margin-bottom: 15px;
+    display: flex;
+}
+
+header .menu {
+    flex: 0.1;
+    color: white;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+header .menu-items {
+    position: absolute;
+    background: #ffffff;
+    height: 100vh;
+    width: 200px;
+    left: -100%;
+    z-index: 5;
+    transition-duration: 0.15s;
+}
+
+header .menu-items-shade {
+    position: absolute;
+    background: #00000091;
+    display: none;
+    height: 100vh;
+    width: 100%;
+    z-index: 2;
+}
+
+header .menu-items-shade.open {
+    display: block;
+}
+
+header .menu-items.open {
+    left: 0px;
+}
+
+header .menu-items .about {
+    padding: 10px;
+}
+
+header .menu-items .about .title {
+    font-size: 18px;
+    padding-bottom: 5px;
+}
+
+header .menu-items .divider {
+    width: 100%;
+    height: 0.5px;
+    background: #adadad;
+}
+
+
+header .menu-items .about .sub {
+    font-size: 10px;
+}
+
+header .menu-items ul {
+    list-style: none;
+    margin: 0px;
+    margin-top: 15px;
+    padding: 0;
+    padding-left: 10px;
+}
+
+header .menu-items ul li {
+    margin-bottom: 10px;
+    /* font-size: 18px; */
+    text-decoration: none;
+}
+
+header .menu-items ul li a {
+    text-decoration: none;
+    color: #000000;
+}
+
+header .menu .icon {
+    font-weight: bolder;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+header .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0.8;
+}
+
+header .brand .title {
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+    font-family: monospace;
+}

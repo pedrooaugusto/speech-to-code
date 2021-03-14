@@ -10,9 +10,9 @@ let window: MyBrowserWindow | null = null
 
 async function createWindow(): Promise<void> {
 	window = new BrowserWindow({
-		width: 300,
+		width: 320,
 		height: 650,
-		x: screen.getPrimaryDisplay().size.width - 350,
+		x: screen.getPrimaryDisplay().size.width - 370,
 		y: 50,
 		alwaysOnTop: true,
 		webPreferences: {
@@ -47,4 +47,4 @@ app.on('window-all-closed', () => {
 	app.quit()
 })
 
-ipcMain.on('Spoken:analyze', SpokenInterface.onComand)
+ipcMain.on('Spoken:analyze', SpokenInterface.onComand1)

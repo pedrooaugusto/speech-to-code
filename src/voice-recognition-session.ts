@@ -36,7 +36,6 @@ class VoiceRecognitionSession {
     }
 
     write(chunk: any, encoding?: string, cb?: Function) {
-        console.log(chunk)
         this.recognizeStream.write(chunk)
     }
 }

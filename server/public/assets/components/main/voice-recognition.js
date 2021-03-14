@@ -21,10 +21,13 @@ export function useVoiceRecognition() {
         })
 
         // Inter process comunication: listen to node context requests
-        ipcRenderer.on('Spoken:analysisResults', (data) => {
-            console.log('here: ' + data)
-            setResults(data)
-        })
+        if (typeof ipcRenderer !== 'undefined')
+            ipcRenderer.on('Spoken:analysisResults', (data) => {
+                console.log('here: ' + data.phrase)
+                setResults(data.phrase)
+            })
+        else
+            console.error('[voice-recognition.useVoiceRecognition] Error: ipcRenderer not defined!')
 
     }, [])
 
