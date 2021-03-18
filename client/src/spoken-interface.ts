@@ -1,10 +1,8 @@
 import { IpcMainEvent } from 'electron'
-import RobotService from './robot/robot'
-import EditorService from './robot/editor'
+import EditorService from './editors/editor-service'
 
 class SpokenInterface {
-    #robot = RobotService.defaultRobot
-    #editor = EditorService.defaultEditor
+    #editor = EditorService.default
 
     onComand = async (event: IpcMainEvent, res: SpokenSearchResponse, ...args: unknown[]) => {
         event.reply('Spoken:analysisResults', { phrase: res.phrase, ok: !!res.command })
@@ -13,7 +11,10 @@ class SpokenInterface {
             const fn = eval(`(() => ${res.command.impl})()`)
 
             try {
-                const result = await fn(res.command.matchedRegex, this.#robot, this.#editor, {})
+                const result = await fn(res.command.matchedRegex, this.#editor, {})
+
+                console.log('[wrapper.SpokenInterface.onCommand]: Result: ' + JSON.stringify(result || null))
+                
                 if (result != null) {
                     event.reply('command-reply', res.phrase, result)
                 }

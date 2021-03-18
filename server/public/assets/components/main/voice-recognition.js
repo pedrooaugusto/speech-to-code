@@ -51,8 +51,7 @@ export function useVoiceRecognition() {
                 }]
             }]
         }
-
-        ipcRenderer.send('Spoken:analyze', w)
+        socket.emit('VoiceRecognitionSession:byPass', w)
     })
 
     return {

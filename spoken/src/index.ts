@@ -3,6 +3,10 @@ import fs from 'fs'
 import path from 'path'
 import Modules, { ModuleDefinition, CommandDefinition } from './modules'
 
+declare global {
+    var __dirname: string
+}
+
 class Spoken {
     private langs: ModuleDefinition[] = []
     public modules: Modules

@@ -31,6 +31,11 @@ io.on('connection', (socket) => {
 		Session.close()
 	})
 
+	socket.on('VoiceRecognitionSession:byPass', (data) => {
+		console.log('[server.app.VoiceRecognitionSession.byPass] Bypassing voice recognition engine')
+		socket.emit('VoiceRecognitionSession:results', Spoken.findComand(data))
+	})
+
 	socket.on('VoiceRecognitionSession:start', (data, fn) => {
 		Session
 		.newSession()

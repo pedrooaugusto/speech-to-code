@@ -13,7 +13,7 @@ export default function Main() {
     }
 
     const analyze = (evt) => {
-        const text = document.querySelector('.transcription-text').innerText
+        const text = document.querySelector('.transcription-text.input').innerText
         setTimeout(() => analyzeSentence(text), 4000)
     }
 
@@ -36,7 +36,8 @@ export default function Main() {
             <div class="transcription">
                 <label>Transcription</label>
                 <div class="transcription-text">${results}</div>
-                <!--<button onClick=${analyze}>Analyze</button> -->
+                <div class="transcription-text input" contentEditable></div>
+                <button onClick=${analyze}>Analyze</button>
             </div>
         </main>
     `

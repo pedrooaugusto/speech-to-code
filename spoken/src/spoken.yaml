@@ -16,7 +16,7 @@ categories:
             - vá para linha {numeral}
             - linha {numeral}
         impl: |
-          async function moveCursor(command, robot, editor, context) {
+          async function moveCursor(command, editor, context) {
             // yara yara do something
             return await editor.goToLine(command[1])
           }
@@ -39,7 +39,7 @@ categories:
               crie uma linha nova,
             ]
         impl: |
-          async function newLineBelow(phraseMatch, robot, editor, context) {
+          async function newLineBelow(command, editor, context) {
             return await editor.newLine()
           }
 
@@ -50,7 +50,7 @@ categories:
           en: [new line above, create a new line above]
           pt_br: [linha nova acima, crie uma linha nova acima]
         impl: |
-          function newLineAbove(command, mouse, keyboard, context) {
+          function newLineAbove(command, editor, context) {
             // yara yara something
           }
 
@@ -64,7 +64,7 @@ categories:
             - remova linha {numeral}
             - remova a linha {numeral}
         impl: |
-          function removeLine(command, robot, editor, context) {
+          function removeLine(command, editor, context) {
             // yara yara something
           }
 
@@ -79,7 +79,7 @@ categories:
             - selecione {term} na linha {numeral}
             - na linha {numeral} selecione {term}
         impl: |
-          function selectTerm(command, robot, editor, context) {
+          function selectTerm(command, editor, context) {
             // yara yara something
           }
 
@@ -96,9 +96,9 @@ categories:
             - escreva {term}
             - escreva o seguinte termo {term}
         impl: |
-          async function write(command, robot, editor, context) {
+          async function write(command, editor, context) {
             console.log('[Spoken]: Executing:\n\t "Write {term}"')
-            return await robot.write(command[1])
+            return await editor.write(command[1])
           }
 
 # Spoken - VsCode

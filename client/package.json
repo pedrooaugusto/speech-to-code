@@ -1,21 +1,23 @@
 {
-  "name": "spoken",
+  "name": "speech-to-code.client",
   "version": "0.0.1",
   "description": "Transforming natural language in code",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && cp ./src/spoken.yaml ./dist"
+    "start": "electron .",
+    "prestart": "bash ./tools.sh"
   },
   "keywords": [
     "Speech-to-code"
   ],
-  "dependencies": {
-    "yaml": "^1.10.0"
-  },
   "author": "Pedro Silva",
   "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "electron": "^11.2.3",
+    "node-ipc": "^9.1.4"
+  },
   "devDependencies": {
-    "@types/node": "^14.14.35"
+    "@types/node-ipc": "^9.1.3"
   }
 }
