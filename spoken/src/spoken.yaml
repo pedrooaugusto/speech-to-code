@@ -16,7 +16,7 @@ categories:
             - vá para linha {numeral}
             - linha {numeral}
         impl: |
-          async function moveCursor(command, editor, context) {
+          async function goToLine(command, editor, context) {
             // yara yara do something
             return await editor.goToLine(command[1])
           }

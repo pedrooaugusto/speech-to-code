@@ -99,7 +99,7 @@ header .brand .title {
 }
 
 main.main .record {
-  height: 300px;
+  height: 265px;
   display: flex;
   flex-flow: column;
   align-items: center;
@@ -123,21 +123,58 @@ main.main .record.on .btn {
   background: #d72121;
 }
 
-main.main .transcription {
+main.main .transcription, main.main .debug {
   padding-left: 10px;
   padding-right: 10px;
+  margin-bottom: 15px;
 }
 
-main.main .transcription label {
+main.main .transcription label, main.main .debug label {
   display: block;
   margin-bottom: 5px;
 }
 
-main.main .transcription .transcription-text {
+main.main .transcription .transcription-text, main.main .debug .transcription-text {
   border: solid 1px #c8c8c8;
   padding: 5px;
   height: 45px;
   border-radius: 3px;
+}
+
+main.main .debug button {
+  margin-top: 10px;
+}
+
+main.main .editor-in-use {
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+}
+main.main .editor-in-use div {
+  font-weight: bold;
+  margin-right: 10px;
+}
+main.main .editor-in-use ul {
+  list-style: none;
+  display: flex;
+}
+main.main .editor-in-use ul, main.main .editor-in-use ul li {
+  margin: 0px;
+  padding: 0px;
+}
+main.main .editor-in-use ul:not(:last-child), main.main .editor-in-use ul li:not(:last-child) {
+  margin-right: 15px;
+}
+main.main .editor-in-use ul li {
+  cursor: pointer;
+}
+main.main .editor-in-use ul .selected {
+  text-decoration: underline;
+  font-weight: bolder;
+  color: red;
+}
+main.main .editor-in-use ul .selected.on {
+  color: royalblue;
 }
 
 main.spoken {

@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, screen, globalShortcut } from 'electron'
 import path from 'path'
 import SpokenInterface from './spoken-interface'
+import EditorService from './editors/editor-service'
 
 interface MyBrowserWindow extends BrowserWindow {
 	recording?: boolean
@@ -36,6 +37,20 @@ async function createWindow(): Promise<void> {
 	if (!ret) {
 		console.log('[wrapper.createWindow] Registration failed')
 	}
+
+	setTimeout(() => {
+		window?.webContents?.send?.('Config:onChangeEditor', EditorService.state)
+	}, 300)
+
+	EditorService.onStateChange((s) => {
+		window?.webContents?.send?.('Config:onChangeEditor', s)
+	})
+
+	ipcMain.on('Spoken:analyze', SpokenInterface.onComand)
+	ipcMain.on('Config:onChangeEditor', (event, editor) => {
+		EditorService.setCurrentEditor(editor)
+		event.reply('Config:onChangeEditor', EditorService.state)
+	})
 }
 
 app.whenReady().then(createWindow)
@@ -46,5 +61,3 @@ app.on('window-all-closed', () => {
 	globalShortcut.unregisterAll()
 	app.quit()
 })
-
-ipcMain.on('Spoken:analyze', SpokenInterface.onComand)

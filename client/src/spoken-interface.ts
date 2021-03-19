@@ -2,8 +2,6 @@ import { IpcMainEvent } from 'electron'
 import EditorService from './editors/editor-service'
 
 class SpokenInterface {
-    #editor = EditorService.default
-
     onComand = async (event: IpcMainEvent, res: SpokenSearchResponse, ...args: unknown[]) => {
         event.reply('Spoken:analysisResults', { phrase: res.phrase, ok: !!res.command })
 
@@ -11,7 +9,7 @@ class SpokenInterface {
             const fn = eval(`(() => ${res.command.impl})()`)
 
             try {
-                const result = await fn(res.command.matchedRegex, this.#editor, {})
+                const result = await fn(res.command.matchedRegex, EditorService.currentEditor, {})
 
                 console.log('[wrapper.SpokenInterface.onCommand]: Result: ' + JSON.stringify(result || null))
                 

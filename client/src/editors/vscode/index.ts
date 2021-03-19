@@ -4,30 +4,49 @@ import * as ipc from 'node-ipc'
 ipc.config.id = 'speechtocodechannel-client'
 ipc.config.retry = 1500
 ipc.config.silent = true
+ipc.config.maxRetries = 2
 
 class VSCodeEditor extends Editor {
-    connected = false
     map = new Map<number, [Function, Function]>()
+    callback: null | ((editor: Editor) => void) = null
 
     constructor() {
-        super('VSCodeEditor')
-        if(false) this.init()
+        super('VSCode')
     }
+
+    onStatusChange(cb: (editor: Editor) => void) { this.callback = cb }
+    turnOff() { ipc.disconnect('speechtocodechannel') }
+    turnOn() { this.init() }
 
     private init() {
         ipc.connectTo('speechtocodechannel', () => {
+            let wasConnectedAtLeastOnce = false
+
             ipc.of.speechtocodechannel.on('error', (err: unknown) => {
                 console.log('[client.VSCodeRobot.error]: Error: ' + err)
             })
 
             ipc.of.speechtocodechannel.on('destroy', () => {
                 console.log('[client.VSCodeRobot.destroy]: Socket destroyed!')
-                this.connected = false
+
+                this.status = 'OFF'
+                if (!wasConnectedAtLeastOnce) console.log('Unable to open connection!')
+                this.callback?.(this)
+            })
+
+            ipc.of.speechtocodechannel.on('socket.disconnected', () => {
+                console.log('[client.VSCodeRobot.socket.disconnected]: Socket disconnected!')
+
+                this.status = 'OFF'
+                this.callback?.(this)
             })
 
             ipc.of.speechtocodechannel.on('connect', () => {
-                this.connected = true
                 console.log('[client.VSCodeRobot.connect]: Connected!')
+
+                this.status = 'ON'
+                wasConnectedAtLeastOnce = true
+                this.callback?.(this)
             })
 
             ipc.of.speechtocodechannel.on('runCommand/response', this.onResponse)

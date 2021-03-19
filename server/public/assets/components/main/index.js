@@ -5,11 +5,19 @@ import { useVoiceRecognition } from './voice-recognition.js'
 
 export default function Main() {
     const [recording, setRecording] = useState(false)
+    const [editorState, setEditorState] = useState([])
+
     const { results, start, stop, analyzeSentence } = useVoiceRecognition()
 
     const toggleRecording = () => {
         recording ? stop() : start()
         setRecording(!recording)
+    }
+
+    const changeEditor = (t) => {
+        if (typeof ipcRenderer !== 'undefined') {
+            ipcRenderer.send('Config:onChangeEditor', t)
+        }
     }
 
     const analyze = (evt) => {
@@ -18,24 +26,49 @@ export default function Main() {
     }
 
     useEffect(() => {
-        if (typeof ipcRenderer !== 'undefined')
+        if (typeof ipcRenderer !== 'undefined') {
             ipcRenderer.on('VoiceRecognition:toggleRecording', (r) => {
                 r ? start() : stop()
                 setRecording(r)
             })
-        else
+
+            ipcRenderer.on('Config:onChangeEditor', (e) => {
+                setEditorState(e)
+            })
+        } else {
             console.error('[Init.Main] Error: ipcRenderer not defined!')
+        }
     }, [])
 
     return html`
         <main class="main">
+            <div class="editor-in-use">
+                <div>Editors:</div>
+                <ul>
+                    ${editorState.map(({ name, current, status }) => {
+                        const cls = (current ? 'selected ' : '') + (status === 'ON' ? 'on' : '')
+
+                        return html`
+                            <li
+                                class="${cls}"
+                                onClick=${() => changeEditor(name)}                                
+                            >
+                                ${name}
+                            </li>
+                        `
+                    })}
+                </ul>
+            </div>
             <div class="record ${recording ? 'on' : 'off'}">
                 <div class="btn" onClick=${toggleRecording}></div>
                 <div class="label"><b>${recording ? 'Stop': 'Start'}</b> recording</div>
             </div>
             <div class="transcription">
-                <label>Transcription</label>
+                <label>Transcription:</label>
                 <div class="transcription-text">${results}</div>
+            </div>
+            <div class="debug">
+                <label>Debug:</label>
                 <div class="transcription-text input" contentEditable></div>
                 <button onClick=${analyze}>Analyze</button>
             </div>

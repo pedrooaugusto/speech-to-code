@@ -1,11 +1,52 @@
 import MSNotepadEditor, { Editor } from './default'
 import VSCodeEditor from './vscode/'
 
-class EditorService {
-    editors: Editor[] = [VSCodeEditor as unknown as Editor, MSNotepadEditor]
+type EditorState = { name: string, current: boolean, status: string }
 
-    get default(): Editor {
-        return this.editors[1]
+class EditorService {
+    editors: Editor[]
+    state: EditorState[]
+    #currentEditorName: string
+    #stateChangeCallback: null | ((state: EditorState[]) => void) = null
+
+    constructor() {
+        this.editors = [VSCodeEditor, MSNotepadEditor]
+        this.#currentEditorName = VSCodeEditor.getName()
+        this.state = this.getState()
+
+        for (const editor of this.editors) {
+            editor.onStatusChange(() => {
+                this.state = this.getState()
+                this.#stateChangeCallback?.(this.state)
+            })
+        }
+
+        VSCodeEditor.turnOn()
+    }
+
+    private getState() {
+        return this.editors.map(item => ({
+            name: item.getName(),
+            status: item.status,
+            current: item.getName() === this.#currentEditorName
+        }))
+    }
+
+    onStateChange(fn: (s: EditorState[]) => void) {
+        this.#stateChangeCallback = fn
+    }
+
+    get currentEditor(): Editor {
+        return this.editors.find(a => a.getName() === this.#currentEditorName) ?? this.editors[0]
+    }
+
+    setCurrentEditor(e: string) {
+        this.currentEditor.turnOff()
+        this.#currentEditorName = e
+        this.currentEditor.turnOn()
+
+        this.state = this.getState()
+        this.#stateChangeCallback?.(this.state)
     }
 
     register(editor: Editor) {

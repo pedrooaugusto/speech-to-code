@@ -53,46 +53,22 @@ class RobotVscode {
             });
         });
     }
-    keyUp(keyNumber) {
+    removeSelection() {
         throw new Error('Method not implemented.');
     }
-    keyDown(keyNumber) {
+    newLine() {
         throw new Error('Method not implemented.');
     }
-    press(keyNumber) {
+    removeLine() {
+        throw new Error('Method not implemented.');
+    }
+    selectLines(from, to) {
+        throw new Error('Method not implemented.');
+    }
+    goToLine(number) {
         throw new Error('Method not implemented.');
     }
     hotKey(...keys) {
-        throw new Error('Method not implemented.');
-    }
-    screenSize() {
-        throw new Error('Method not implemented.');
-    }
-    mousePosition() {
-        throw new Error('Method not implemented.');
-    }
-    moveTo(x, y) {
-        throw new Error('Method not implemented.');
-    }
-    move(x, y) {
-        throw new Error('Method not implemented.');
-    }
-    dragTo(x, y) {
-        throw new Error('Method not implemented.');
-    }
-    drag(x, y) {
-        throw new Error('Method not implemented.');
-    }
-    click(x, y, button) {
-        throw new Error('Method not implemented.');
-    }
-    dbClick(x, y, button) {
-        throw new Error('Method not implemented.');
-    }
-    mouseUp(x, y, button) {
-        throw new Error('Method not implemented.');
-    }
-    mouseDown(x, y, button) {
         throw new Error('Method not implemented.');
     }
 }

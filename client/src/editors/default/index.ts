@@ -1,4 +1,6 @@
 export abstract class Editor {
+	public status: 'ON' | 'OFF' = 'OFF'
+
 	constructor(protected editorName: string) {
 		this.editorName = editorName
 	}
@@ -12,6 +14,10 @@ export abstract class Editor {
 	abstract selectLines(from: number | undefined, to: number | undefined): Promise<string | Error>
 	abstract goToLine(number: string): Promise<string | Error>
     abstract hotKey(...keys: string[]): Promise<void | Error>
+
+	abstract turnOn(): void | Error
+	abstract turnOff(): void | Error
+	abstract onStatusChange(callback: (editor: Editor) => void): void
 }
 
 // Microsoft Notepad editor
@@ -22,6 +28,7 @@ class MSNotepadEditor extends Editor {
     constructor() {
 		super('MSNotepad')
         this.spawn = require("child_process").spawn
+		this.status = 'ON'
     }
 
     private run(method: string, ...args: any[]): Promise<string | Error | undefined> {
@@ -109,6 +116,10 @@ class MSNotepadEditor extends Editor {
 	async sleep(msec: number) {
 		return new Promise(resolve => setTimeout(resolve, msec))
 	}
+
+	turnOn() {}
+	turnOff() {}
+	onStatusChange() {}
 }
 
 export default new MSNotepadEditor()
