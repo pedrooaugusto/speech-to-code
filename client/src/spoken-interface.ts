@@ -9,7 +9,7 @@ class SpokenInterface {
             const fn = eval(`(() => ${res.command.impl})()`)
 
             try {
-                const result = await fn(res.command.matchedRegex, EditorService.currentEditor, {})
+                const result = await fn(res.command.commandArgs, EditorService.currentEditor, {})
 
                 console.log('[wrapper.SpokenInterface.onCommand]: Result: ' + JSON.stringify(result || null))
                 
@@ -31,7 +31,7 @@ type SpokenSearchResponse = {
     command: {
         id: number,
         desc: string,
-        matchedRegex: string[],
+        commandArgs: Record<string, string>,
         phrases: {
             [key: string]: string[]
         }

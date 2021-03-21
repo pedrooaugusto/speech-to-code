@@ -10,3 +10,13 @@ export type TaskRequest = {
     extra: { [key: string]: any};
     id: number;
 }
+
+export interface Robot {
+    write(text: string): Promise<void | Error>
+	removeSelection(): Promise<string | Error>
+	newLine(): Promise<void | Error>
+	removeLine(): Promise<string | Error>
+	selectLines(from: number | undefined, to: number | undefined): Promise<string | Error>
+	goToLine(number: string): Promise<string | Error>
+    hotKey(...keys: string[]): Promise<void | Error>
+}

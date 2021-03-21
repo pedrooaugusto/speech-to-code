@@ -9,33 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ipc = require("node-ipc");
+exports.createInstance = void 0;
 const vscode = require("vscode");
 const logger_1 = require("./logger");
 class RobotVscode {
-    proxy(request, socket) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                logger_1.default('[vscode-driver.robot-vscode.proxy]: Received request to process:\n\t' + JSON.stringify(request));
-                // @ts-ignore
-                const response = yield this[request.type](...request.extra.args);
-                logger_1.default('[vscode-driver.robot-vscode.proxy]: Emiting response for ' + request.id);
-                ipc.server.emit(socket, 'runCommand/response', {
-                    id: request.id,
-                    err: false,
-                    response
-                });
-            }
-            catch (err) {
-                logger_1.default('[vscode-driver.robot-vscode.proxy]: Error executing ' + request.type + '\n' + err);
-                ipc.server.emit(socket, 'runCommand/response', {
-                    id: request.id,
-                    err: err || true,
-                    response: null
-                });
-            }
-        });
-    }
+    /**
+     * Writes something in the current text input
+     * @param text The text to be written
+     */
     write(text) {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((res, rej) => {
@@ -65,12 +46,91 @@ class RobotVscode {
     selectLines(from, to) {
         throw new Error('Method not implemented.');
     }
+    /**
+     * Moves the cursor to a different line
+     * @param number Line number
+     */
     goToLine(number) {
-        throw new Error('Method not implemented.');
+        return new Promise((res, rej) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const editor = vscode.window.activeTextEditor;
+                const destLine = parseInt(number);
+                if (editor == null)
+                    return rej(new Error('No active text editor'));
+                const line = editor.selection.active.line + 1;
+                const to = destLine > line ? 'down' : 'up';
+                const value = to === 'down' ? destLine - line : line - destLine;
+                vscode.commands.executeCommand('cursorMove', { to, value, by: 'line' }).then(() => {
+                    vscode.commands.executeCommand('revealLine', { lineNumber: destLine, at: 'center' }).then(() => {
+                        vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineFirstNonWhitespaceCharacter' }).then(() => {
+                            res(editor.document.lineAt(destLine - 1).text);
+                        });
+                    });
+                });
+                // const { range, text } = editor.document.lineAt(parseInt(number) - 1)
+                // editor.selection = new vscode.Selection(range.start, range.end)
+                // editor.revealRange(range)
+            }
+            catch (err) {
+                rej(err);
+            }
+        }));
     }
     hotKey(...keys) {
         throw new Error('Method not implemented.');
     }
+    /**
+     * Retrieves the content of the provided line
+     *
+     * @param number | undefined line number
+     */
+    getLine(number) {
+        return new Promise((res, rej) => {
+            try {
+                const editor = vscode.window.activeTextEditor;
+                if (editor == null)
+                    return rej(new Error('No active text editor'));
+                number = number != null ? number : editor.selection.active.line + 1;
+                res({
+                    lineNumber: number,
+                    text: editor.document.lineAt(number).text
+                });
+            }
+            catch (err) {
+                rej(err);
+            }
+        });
+    }
+    /**
+     * Indents the provided selection or the active one
+     *
+     * @param p1 Start string[] (line, cursor)
+     * @param p2 Finish string[] (line, cursor)
+     */
+    indentSelection(p1, p2) {
+        return new Promise((res, rej) => {
+            var _a, _b;
+            try {
+                const editor = vscode.window.activeTextEditor;
+                if (editor == null)
+                    return rej(new Error('No active text editor'));
+                p1[0] = (_a = p1[0]) !== null && _a !== void 0 ? _a : editor.selection.active.line;
+                p2[0] = (_b = p2[0]) !== null && _b !== void 0 ? _b : editor.selection.active.line;
+                const sp1 = p1.map(a => parseInt(a, 10));
+                const sp2 = p2.map(a => parseInt(a, 10));
+                editor.selection = new vscode.Selection(sp1[0], sp1[1], sp2[0], sp2[1]);
+                vscode.commands.executeCommand('editor.action.reindentselectedlines', {}).then(a => {
+                    res();
+                });
+            }
+            catch (err) {
+                rej(err);
+            }
+        });
+    }
 }
-exports.default = new RobotVscode();
+function createInstance() {
+    return new RobotVscode();
+}
+exports.createInstance = createInstance;
 //# sourceMappingURL=robot-vscode.js.map

@@ -1,5 +1,6 @@
 import { html } from 'https://unpkg.com/htm@3.0.4/preact/index.mjs?module'
 import { useState, useEffect } from 'https://unpkg.com/preact@10.3.2/hooks/dist/hooks.module.js?module'
+import IpcRenderer from './electron-ipc.js'
 import { useVoiceRecognition } from './voice-recognition.js'
 
 
@@ -15,9 +16,7 @@ export default function Main() {
     }
 
     const changeEditor = (t) => {
-        if (typeof ipcRenderer !== 'undefined') {
-            ipcRenderer.send('Config:onChangeEditor', t)
-        }
+        IpcRenderer.send('Config:changeEditor', t)
     }
 
     const analyze = (evt) => {
@@ -26,18 +25,16 @@ export default function Main() {
     }
 
     useEffect(() => {
-        if (typeof ipcRenderer !== 'undefined') {
-            ipcRenderer.on('VoiceRecognition:toggleRecording', (r) => {
-                r ? start() : stop()
-                setRecording(r)
-            })
+        IpcRenderer.on('VoiceRecognition:toggleRecording', (r) => {
+            r ? start() : stop()
+            setRecording(r)
+        })
 
-            ipcRenderer.on('Config:onChangeEditor', (e) => {
-                setEditorState(e)
-            })
-        } else {
-            console.error('[Init.Main] Error: ipcRenderer not defined!')
-        }
+        IpcRenderer.on('Config:onChangeEditorState', (e) => {
+            setEditorState(e)
+        })
+
+        IpcRenderer.send('Config:changeEditor', null)
     }, [])
 
     return html`

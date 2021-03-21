@@ -38,18 +38,14 @@ async function createWindow(): Promise<void> {
 		console.log('[wrapper.createWindow] Registration failed')
 	}
 
-	setTimeout(() => {
-		window?.webContents?.send?.('Config:onChangeEditor', EditorService.state)
-	}, 300)
-
-	EditorService.onStateChange((s) => {
-		window?.webContents?.send?.('Config:onChangeEditor', s)
-	})
+	EditorService.onStateChange((s) => window?.webContents?.send?.('Config:onChangeEditorState', s))
+	EditorService.init()
 
 	ipcMain.on('Spoken:analyze', SpokenInterface.onComand)
-	ipcMain.on('Config:onChangeEditor', (event, editor) => {
-		EditorService.setCurrentEditor(editor)
-		event.reply('Config:onChangeEditor', EditorService.state)
+	ipcMain.on('Config:changeEditor', (event, editor) => {
+		if (editor) EditorService.setCurrentEditor(editor)
+
+		event.reply('Config:onChangeEditorState', EditorService.state)
 	})
 }
 

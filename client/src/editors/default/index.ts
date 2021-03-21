@@ -7,6 +7,10 @@ export abstract class Editor {
 
 	public getName(): string { return this.editorName }
 
+	/**
+	 * Writes something in the current text input
+	 * @param text The text to be written
+	 */
 	abstract write(text: string): Promise<void | Error>
 	abstract removeSelection(): Promise<string | Error>
 	abstract newLine(): Promise<void | Error>

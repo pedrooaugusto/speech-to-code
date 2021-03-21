@@ -20,8 +20,6 @@ class EditorService {
                 this.#stateChangeCallback?.(this.state)
             })
         }
-
-        VSCodeEditor.turnOn()
     }
 
     private getState() {
@@ -34,6 +32,12 @@ class EditorService {
 
     onStateChange(fn: (s: EditorState[]) => void) {
         this.#stateChangeCallback = fn
+
+        return this
+    }
+
+    init () {
+        this.currentEditor.turnOn()
     }
 
     get currentEditor(): Editor {

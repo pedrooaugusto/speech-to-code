@@ -12,7 +12,7 @@ class SpokenInterface {
             phrase: [trsc],
             command: matchedCommand ? {
                 ...matchedCommand.command,
-                matchedRegex: matchedCommand.regexMatch,
+                commandArgs: matchedCommand.commandArgs,
             } : null
         }
     }

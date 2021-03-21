@@ -10,15 +10,15 @@ categories:
         desc: Moves the cursor to a different line.
         phrases:
           en:
-            - go to line {numeral}
-            - line {numeral}
+            - go to line {number:numeral}
+            - line {number:numeral}
           pt_br:
-            - vá para linha {numeral}
-            - linha {numeral}
+            - vá para linha {number:numeral}
+            - linha {number:numeral}
         impl: |
           async function goToLine(command, editor, context) {
             // yara yara do something
-            return await editor.goToLine(command[1])
+            return await editor.goToLine(command.number)
           }
 
       - id: 0x1
@@ -87,18 +87,45 @@ categories:
     desc: Things related to text input
     commands:
       - id: 0x400
-        desc: Just write.
+        desc: Just write something.
         phrases:
           en:
-            - write {term}
-            - write the following term {term}
+            - write {text:term}
+            - write the following term {text:term}
           pt_br:
-            - escreva {term}
-            - escreva o seguinte termo {term}
+            - escreva {text:term}
+            - escreva o seguinte termo {text:term}
         impl: |
           async function write(command, editor, context) {
             console.log('[Spoken]: Executing:\n\t "Write {term}"')
-            return await editor.write(command[1])
+            return await editor.write(command.text)
+          }
+
+      - id: 0x401
+        desc: Declares a constant or a variable.
+        phrases:
+          en:
+            - declare a {memType:constant|variable} called {name:term}
+            - declare a {memType:constant|variable} called {name:term} with value {value:term}
+            - declare a {memType:constant|variable} called {name:term} of type {type:term}
+            - declare a {memType:constant|variable} called {name:term} of type {type:term} with value {value:term}
+          pt_br:
+            - declare uma {memType:constante|variável} chamada {name:term}
+            - declare uma {memType:constante|variável} chamada {name:term} com valor {value:term}
+            - declare uma {memType:constante|variável} chamada {name:term} do tipo {type:term}
+            - declare uma {memType:constante|variável} chamada {name:term} do tipo {type:term} com valor {value:term}
+        impl: |
+          async function declareConst(c, editor, context) {
+            console.log('[Spoken]: Executing: "Declare a variable."')
+            // const { text, lineNumber } = editor.getLine()
+            const memType = parseInt(c.memType || 0, 10) === 0 ? 'const ' : 'let '
+            const type = c.type ? `:${c.type}` : ''
+            const value = c.value ? ` = ${c.value}` : '' 
+
+            const text = `${memType}${c.name}${type}${value}`
+
+            await editor.write(text)
+            return await editor.indentSelection([undefined, 0], [undefined, text.length])
           }
 
 # Spoken - VsCode

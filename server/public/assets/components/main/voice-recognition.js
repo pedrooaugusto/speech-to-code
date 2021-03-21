@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'https://unpkg.com/preact@10.3.2/hooks/dist/hooks.module.js?module'
 import socket from './socket.js'
+import IpcRenderer from './electron-ipc.js'
 
 export function useVoiceRecognition() {
     const [results, setResults] = useState("")
@@ -17,16 +18,13 @@ export function useVoiceRecognition() {
         })
 
         socket.on('VoiceRecognitionSession:results', (data) => {
-            setTimeout(() => ipcRenderer.send('Spoken:analyze', data), 3000)
+            setTimeout(() => IpcRenderer.send('Spoken:analyze', data), 3000)
         })
 
         // Inter process comunication: listen to node context requests
-        if (typeof ipcRenderer !== 'undefined')
-            ipcRenderer.on('Spoken:analysisResults', (data) => {
-                setResults(data.phrase)
-            })
-        else
-            console.error('[voice-recognition.useVoiceRecognition] Error: ipcRenderer not defined!')
+        IpcRenderer.on('Spoken:analysisResults', (data) => {
+            setResults(data.phrase)
+        })
 
     }, [])
 

@@ -4,7 +4,7 @@
   "description": "Transforming natural language in code",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tsc && cp ./src/spoken.yaml ./dist && node dist/test.js",
     "build": "tsc && cp ./src/spoken.yaml ./dist"
   },
   "keywords": [

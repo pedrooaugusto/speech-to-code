@@ -96,11 +96,42 @@ class VSCodeEditor extends Editor {
     selectLines(from: number | undefined, to: number | undefined): Promise<string | Error> {
         throw new Error('Method not implemented.')
     }
+
     goToLine(number: string): Promise<string | Error> {
-        throw new Error('Method not implemented.')
+        console.log('[client.VSCodeRobot.goToLine]: Sending request to execute gotToLine(' + number + ')')
+
+        return this.runTask({
+            type: 'goToLine',
+            context: {},
+            extra: { args: [number] }
+        })
     }
+
+    indentSelection(p1: [string, string], p2: [string, string]): Promise<void | Error> {
+        console.log('[client.VSCodeRobot.goToLine]: Sending request to execute indentSelection(...)')
+        const task = {
+            type: 'indentSelection',
+            context: {},
+            extra: { args: [p1, p2] }
+        }
+
+        return this.runTask(task)
+    }
+
     hotKey(...keys: string[]): Promise<void | Error> {
         throw new Error('Method not implemented.')
+    }
+
+    private runTask<T>(task: Record<string, unknown>): Promise<T> {
+        return new Promise((res, rej) => {
+            const id = +new Date()
+
+            task.id = id
+
+            ipc.of.speechtocodechannel.emit('runCommand', task)
+
+            this.map.set(id, [res, rej])
+        })
     }
     
 }
