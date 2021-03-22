@@ -68,20 +68,13 @@ class VSCodeEditor extends Editor {
     }
 
     write(text: string): Promise<void | Error> {
-        return new Promise((res, rej) => {
-            const id = +new Date()
+        console.log('[client.VSCodeRobot.write]: Sending request to execute write(' + text + ')')
 
-            console.log('[client.VSCodeRobot.write]: Sending request to execute write(' + text + ')')
-
-            ipc.of.speechtocodechannel.emit('runCommand', {
-                id,
-                type: 'write',
-                context: {},
-                extra: { args: [text] }
-            })
-
-            this.map.set(id, [res, rej])
-        })
+        return this.runTask(ipc.of.speechtocodechannel.emit('runCommand', {
+            type: 'write',
+            context: {},
+            extra: { args: [text] }
+        }))
     }
 
     removeSelection(): Promise<string | Error> {
