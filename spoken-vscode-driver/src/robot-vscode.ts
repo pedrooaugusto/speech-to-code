@@ -2,6 +2,7 @@ import * as vscode from 'vscode'
 import { Robot } from './index'
 import Log from './logger'
 
+// @TODO: Replace everything 'robot' for editor
 class RobotVscode implements Robot {
 
     /**
@@ -28,9 +29,29 @@ class RobotVscode implements Robot {
     removeSelection(): Promise<string | Error> {
         throw new Error('Method not implemented.')
     }
+
+    /**
+     * Creates a new line above the current line.
+     * 
+     * @returns undefined if evrything went well, error otherwise
+     */
     newLine(): Promise<void | Error> {
-        throw new Error('Method not implemented.')
+        return new Promise((res, rej) => {
+            Log('[vscode-driver.robot-vscode.newLine]: Executing newLine')
+
+            const editor = vscode.window.activeTextEditor
+
+            if (editor == null) return rej(new Error('No active text editor'))
+
+            editor.edit((editBuilder) => {
+                editBuilder.insert(editor.selection.active, '\n')
+            }).then(ok => {
+                if (!ok) return rej(new Error('Something went wrong!'))
+                res()
+            })
+        })
     }
+
     removeLine(): Promise<string | Error> {
         throw new Error('Method not implemented.')
     }
@@ -101,7 +122,7 @@ class RobotVscode implements Robot {
     }
 
     /**
-     * Indents the provided selection or the active one
+     * Indents the provided selection or the active one.
      *
      * @param p1 Start string[] (line, cursor)
      * @param p2 Finish string[] (line, cursor)
@@ -122,6 +143,7 @@ class RobotVscode implements Robot {
                 editor.selection = new vscode.Selection(sp1[0], sp1[1], sp2[0], sp2[1])
 
                 vscode.commands.executeCommand('editor.action.reindentselectedlines', {}).then(a => {
+                    editor.selection = new vscode.Selection(editor.selection.end, editor.selection.end)
                     res()
                 })
             } catch(err) {

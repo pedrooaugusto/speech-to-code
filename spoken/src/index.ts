@@ -1,7 +1,6 @@
-import yaml from 'yaml'
-import fs from 'fs'
-import path from 'path'
 import Modules, { ModuleDefinition, CommandDefinition } from './modules'
+// @ts-ignore
+import LANG from './spoken'
 
 declare global {
     var __dirname: string
@@ -13,7 +12,7 @@ class Spoken {
 
     constructor() {
         this.langs.push(
-            yaml.parse(fs.readFileSync(path.resolve(__dirname, 'spoken.yaml'), 'utf-8'))
+            LANG.default
         )
         this.modules = new Modules(this.langs)
     }
@@ -34,6 +33,7 @@ class Spoken {
     private phraseToRegex(text: string): RegExp {
         text = this.exposeArgs(text).map(item => item[0]).join(' ')
         text = text
+            .replace(/{any}/gi, '(.*)')
             .replace(/{term}/gi, '(\\S+)')
             .replace(/{numeral}/gi, '(\\d+)')
             .replace(/{(\S*)}/gi, '($1)') + '$'
@@ -54,6 +54,8 @@ class Spoken {
 
                 const commandArgsObj: Record<string, string | number> = {}
                 const commandArgsArray: string[][] = this.exposeArgs(matchedPhrase).filter(a => !!a[1]) as string[][]
+                // @TODO This can be very simplified the first element of the list
+                // dont need to be in the loop
                 for (let i = 0; i < execResult.length; i++) {
                     if (i === 0) {
                         commandArgsObj.phrase = execResult[i]

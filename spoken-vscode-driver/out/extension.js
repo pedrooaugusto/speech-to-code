@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivate = exports.activate = void 0;
 const vscode = require("vscode");
 const logger_1 = require("./logger");
+// import IpcProxy from './ipc-proxy'
+// import RobotVSCodeProxy from './robot-proxy'
 function activate(context) {
     logger_1.default('Congratulations, your extension "spoken-vscode-driver" is now active!');
     let disposable = vscode.commands.registerCommand('spoken-vscode-driver.helloWorld', () => __awaiter(this, void 0, void 0, function* () {
@@ -19,8 +21,10 @@ function activate(context) {
         const editor = vscode.window.activeTextEditor;
         if (editor == null)
             throw new Error('none');
-        editor.selection = new vscode.Selection(14, 0, 14, 52);
-        vscode.commands.executeCommand('editor.action.reindentselectedlines', {});
+        vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineFirstNonWhitespaceCharacter' }).then(() => {
+        });
+        // editor.selection = new vscode.Selection(14, 0, 14, 52)
+        // vscode.commands.executeCommand('editor.action.reindentselectedlines', {})
         // vscode.commands.executeCommand('editor.action.insertLineBefore', {})
         /*const destLine = 55
         

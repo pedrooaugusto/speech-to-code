@@ -21,7 +21,8 @@
     "exclude": [
         "node_modules",
         "test",
-        "release"
+        "release",
+        "d.ts"
     ],
     "include": ["src/**/*"]
 }

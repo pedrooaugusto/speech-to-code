@@ -1,0 +1,28 @@
+digraph DeclareVariable {
+    id="declare_variable";
+    label="Declarar Variável pt-BR";
+    lang="pt-BR";
+    langName="Portugês";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 6 13 10;
+    node[shape=circle];
+
+    0 -> 1 [label=" (declare, crie)"];
+    1 -> 2 [label=" (uma)"];
+    {1 2} -> 3 [label=" (constante, variável)", store=memType];
+    3 -> 5 [label=" (chamada)"];
+    5 -> 6 [label=" ({term})", store=name];
+    6 -> 11 [label=" (do)"];
+    {11 6} -> 12 [label=" (tipo)"];
+    12 -> 13 [label=" ({term})", store=type];
+    {6 13} -> 14 [label=" (igual)"];
+    14 -> 9 [label=" (a)"];
+    {13 6} -> 7 [label=" (com)"];
+    {6 13 7} -> 8 [label=" (o)"];
+    {8 6 13 7} -> 9 [label=" (valor)"];
+    {9 14} -> 10 [label=" ({term})", store=value];
+
+    title="New variable or constant";
+    desc="Declares a new constant or variable in the current line";
+}

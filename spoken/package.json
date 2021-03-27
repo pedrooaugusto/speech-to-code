@@ -1,21 +1,27 @@
 {
-  "name": "spoken",
+  "name": "speech2code.spoken",
   "version": "0.0.1",
   "description": "Transforming natural language in code",
   "main": "dist/index.js",
   "scripts": {
-    "test": "tsc && cp ./src/spoken.yaml ./dist && node dist/test.js",
-    "build": "tsc && cp ./src/spoken.yaml ./dist"
+    "test1": "tsc && jest dist/__tests__",
+    "test": "npm run build && node dist/test.js",
+    "build": "tsc && cp ./src/spoken.yaml ./dist && node dist/build1.js"
   },
   "keywords": [
     "Speech-to-code"
   ],
-  "dependencies": {
-    "yaml": "^1.10.0"
-  },
+  "dependencies": {},
   "author": "Pedro Silva",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@types/node": "^14.14.35"
+    "@hpcc-js/wasm": "^1.4.1",
+    "@types/graphlib": "^2.1.7",
+    "@types/jest": "^26.0.22",
+    "@types/node": "^14.14.35",
+    "graphlib-dot": "^0.6.4",
+    "jest": "^26.6.3",
+    "svg2img": "^0.9.1",
+    "yaml": "^1.10.0"
   }
 }

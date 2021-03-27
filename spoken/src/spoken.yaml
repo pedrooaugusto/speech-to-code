@@ -90,11 +90,11 @@ categories:
         desc: Just write something.
         phrases:
           en:
-            - write {text:term}
-            - write the following term {text:term}
+            - write {text:any}
+            - write the following term {text:any}
           pt_br:
-            - escreva {text:term}
-            - escreva o seguinte termo {text:term}
+            - escreva {text:any}
+            - escreva o seguinte termo {text:any}
         impl: |
           async function write(command, editor, context) {
             console.log('[Spoken]: Executing:\n\t "Write {term}"')
@@ -111,8 +111,18 @@ categories:
             - declare a {memType:constant|variable} called {name:term} of type {type:term} with value {value:term}
           pt_br:
             - declare uma {memType:constante|variável} chamada {name:term}
-            - declare uma {memType:constante|variável} chamada {name:term} com valor {value:term}
+            - declare uma {memType:constante|variável} chamada {name:term} com o valor {value:term}
             - declare uma {memType:constante|variável} chamada {name:term} do tipo {type:term}
+            - declare uma {memType:constante|variável} chamada {name:term} do tipo {type:term} com o valor {value:term}
+            ### remove this
+            - declaro uma {memType:constante|variável} chamada {name:term}
+            - declaro uma {memType:constante|variável} chamada {name:term} com o valor {value:term}
+            - declaro uma {memType:constante|variável} chamada {name:term} do tipo {type:term}
+            - declaro uma {memType:constante|variável} chamada {name:term} do tipo {type:term} com o valor {value:term}
+            ### remove this as well
+            - declaro uma {memType:constante|variável} chamada {name:term} com valor {value:term}
+            - declaro uma {memType:constante|variável} chamada {name:term} do tipo {type:term} com valor {value:term}
+            - declare uma {memType:constante|variável} chamada {name:term} com valor {value:term}
             - declare uma {memType:constante|variável} chamada {name:term} do tipo {type:term} com valor {value:term}
         impl: |
           async function declareConst(c, editor, context) {

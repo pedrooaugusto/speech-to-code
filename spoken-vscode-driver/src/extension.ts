@@ -1,7 +1,7 @@
 import * as vscode from 'vscode'
 import Log from './logger'
-import IpcProxy from './ipc-proxy'
-import RobotVSCodeProxy from './robot-proxy'
+// import IpcProxy from './ipc-proxy'
+// import RobotVSCodeProxy from './robot-proxy'
 
 export function activate(context: vscode.ExtensionContext) {
 	
@@ -12,8 +12,12 @@ export function activate(context: vscode.ExtensionContext) {
 		const editor = vscode.window.activeTextEditor
 
 		if (editor == null) throw new Error('none')
-		editor.selection = new vscode.Selection(14, 0, 14, 52)
-		vscode.commands.executeCommand('editor.action.reindentselectedlines', {})
+
+		vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineFirstNonWhitespaceCharacter' }).then(() => {
+
+		})
+		// editor.selection = new vscode.Selection(14, 0, 14, 52)
+		// vscode.commands.executeCommand('editor.action.reindentselectedlines', {})
 
 		// vscode.commands.executeCommand('editor.action.insertLineBefore', {})
 		/*const destLine = 55

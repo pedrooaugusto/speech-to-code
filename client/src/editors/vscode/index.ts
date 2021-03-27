@@ -70,19 +70,27 @@ class VSCodeEditor extends Editor {
     write(text: string): Promise<void | Error> {
         console.log('[client.VSCodeRobot.write]: Sending request to execute write(' + text + ')')
 
-        return this.runTask(ipc.of.speechtocodechannel.emit('runCommand', {
+        return this.runTask({
             type: 'write',
             context: {},
             extra: { args: [text] }
-        }))
+        })
     }
 
     removeSelection(): Promise<string | Error> {
         throw new Error('Method not implemented.')
     }
+
     newLine(): Promise<void | Error> {
-        throw new Error('Method not implemented.')
+        console.log('[client.VSCodeRobot.newLine]: Sending request to execute newLine()')
+
+        return this.runTask({
+            type: 'newLine',
+            context: {},
+            extra: { args: [] }
+        })
     }
+
     removeLine(): Promise<string | Error> {
         throw new Error('Method not implemented.')
     }

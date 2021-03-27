@@ -1,3 +1,5 @@
 node_modules
 dist
 server/key.json
+server/key-gcloud.json
+server/key-azure.json

@@ -1,5 +1,9 @@
 import Spoken from './index'
 
-const f = Spoken.matchPhrase('declare uma constante chamada A do tipo int', 'pt_br')
+let f = Spoken.matchPhrase('Declaro uma variável chamada bola com o valor 50', 'pt_br')
 
-//console.log(f)
+if (f == null) throw new Error('Something went wrong')
+
+f = Spoken.matchPhrase('escreva quem é você', 'pt_br')
+
+if (f == null) throw new Error('Something went wrong')

@@ -1,7 +1,7 @@
 {
-	"name": "spoken-vscode-driver",
+	"name": "speech2code.editors.vscode",
 	"displayName": "spoken-vscode-driver",
-	"description": "The default VSCode driver for spoken",
+	"description": "The default VSCode driver for Spoken",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.54.0"
@@ -24,7 +24,7 @@
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
-		"watch": "tsc-watch  --onSuccess \"npm run copy-robot\" -p ./",
+		"watch1": "tsc-watch  --onSuccess \"npm run copy-robot\" -p ./",
 		"pretest": "npm run compile && npm run lint",
 		"lint": "eslint src --ext ts",
 		"test": "node ./out/test/runTest.js",

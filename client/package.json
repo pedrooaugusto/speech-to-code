@@ -1,7 +1,7 @@
 {
-  "name": "speech-to-code.client",
+  "name": "speech2code.client",
   "version": "0.0.1",
-  "description": "Transforming natural language in code",
+  "description": "Speech to Code electron client implmentation",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

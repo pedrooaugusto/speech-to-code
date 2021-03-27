@@ -1,0 +1,82 @@
+main.main .record {
+    height: 265px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main.main .record .btn {
+    width: 50px;
+    height: 50px;
+    background: #12c93e;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+main.main .record .label {
+    padding-top: 10px;
+    font-size: 16px;
+}
+
+main.main .record.on .btn {
+    background: #d72121;
+}
+
+main.main .transcription, main.main .debug {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 15px;
+}
+
+main.main .transcription label, main.main .debug label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+main.main .transcription .transcription-text, main.main .debug .transcription-text {
+    border: solid 1px #c8c8c8;
+    padding: 5px;
+    height: 45px;
+    border-radius: 3px;
+}
+
+main.main .debug {
+    button {
+        margin-top: 10px;
+    }
+}
+
+main.main .editor-in-use {
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    div {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+    ul {
+        list-style: none;
+        display: flex;
+        &, li {
+            margin: 0px;
+            padding: 0px;
+            &:not(:last-child) {
+                margin-right: 15px;
+            }
+        }
+
+        li {
+            cursor: pointer;
+        }
+
+        .selected {
+            text-decoration: underline;
+            font-weight: bolder;
+            color: red;
+            &.on {
+                color: royalblue;
+            }
+        }
+    }
+}

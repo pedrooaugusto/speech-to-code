@@ -37,8 +37,25 @@ class RobotVscode {
     removeSelection() {
         throw new Error('Method not implemented.');
     }
+    /**
+     * Creates a new line above the current line.
+     *
+     * @returns undefined if evrything went well, error otherwise
+     */
     newLine() {
-        throw new Error('Method not implemented.');
+        return new Promise((res, rej) => {
+            logger_1.default('[vscode-driver.robot-vscode.newLine]: Executing newLine');
+            const editor = vscode.window.activeTextEditor;
+            if (editor == null)
+                return rej(new Error('No active text editor'));
+            editor.edit((editBuilder) => {
+                editBuilder.insert(editor.selection.active, '\n');
+            }).then(ok => {
+                if (!ok)
+                    return rej(new Error('Something went wrong!'));
+                res();
+            });
+        });
     }
     removeLine() {
         throw new Error('Method not implemented.');
@@ -102,7 +119,7 @@ class RobotVscode {
         });
     }
     /**
-     * Indents the provided selection or the active one
+     * Indents the provided selection or the active one.
      *
      * @param p1 Start string[] (line, cursor)
      * @param p2 Finish string[] (line, cursor)
@@ -120,6 +137,7 @@ class RobotVscode {
                 const sp2 = p2.map(a => parseInt(a, 10));
                 editor.selection = new vscode.Selection(sp1[0], sp1[1], sp2[0], sp2[1]);
                 vscode.commands.executeCommand('editor.action.reindentselectedlines', {}).then(a => {
+                    editor.selection = new vscode.Selection(editor.selection.end, editor.selection.end);
                     res();
                 });
             }

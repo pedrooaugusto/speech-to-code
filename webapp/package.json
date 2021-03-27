@@ -1,0 +1,49 @@
+{
+  "name": "speech2code.webapp",
+  "description": "The webapp react implementation of the speech2code frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^26.0.21",
+    "@types/node": "^12.20.6",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.2",
+    "microsoft-cognitiveservices-speech-sdk": "^1.16.0",
+    "node-sass": "^5.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.2.3",
+    "spoken": "file:../spoken"
+  },
+  "scripts": {
+    "start": "SET PORT=5000 && react-scripts start",
+    "build": "npm run build-spoken && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "prestart": "npm run build-spoken",
+    "build-spoken": "cd ../spoken && npm run build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:3000"
+}
