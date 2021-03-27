@@ -1,11 +1,15 @@
 const path = require('path')
+const fs = require('fs')
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
 const Session = require('./src/voice-recognition-session')
 const SpokenRouter = require('./src/spoken/route')
 const Spoken = require('./src/spoken/index')
+
+app.use(cors())
 
 http.listen(3000, () => {
 	console.log('[server.app] Listening on *:3000')
@@ -31,11 +35,6 @@ io.on('connection', (socket) => {
 		Session.close()
 	})
 
-	socket.on('VoiceRecognitionSession:byPass', (data) => {
-		console.log('[server.app.VoiceRecognitionSession.byPass] Bypassing voice recognition engine')
-		socket.emit('VoiceRecognitionSession:results', Spoken.findComand(data))
-	})
-
 	socket.on('VoiceRecognitionSession:start', (data, fn) => {
 		Session
 		.newSession()
@@ -53,6 +52,18 @@ io.on('connection', (socket) => {
 		fn()
 
 		console.log('[server.app.VoiceRecognitionSession.start] Voice recognition session has started')
+	})
+
+	socket.on('VoiceRecognitionSession:byPass', (data) => {
+		console.log('[server.app.VoiceRecognitionSession.byPass] Bypassing voice recognition engine')
+		socket.emit('VoiceRecognitionSession:results', Spoken.findComand(data))
+	})
+
+	socket.on('VoiceRecognitionSession:auth', (data) => {
+		console.log('[server.app.VoiceRecognitionSession.auth] Request for API access token')
+		const key = JSON.stringify(fs.readFileSync(path.resolve(__dirname, 'key-azure.json')))
+
+		socket.emit('VoiceRecognitionSession:authResults', key)
 	})
 
 })

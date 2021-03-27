@@ -1,24 +1,25 @@
 {
-  "name": "speech-to-code.server",
+  "name": "speech2code.server",
   "version": "0.0.1",
   "description": "Speech to Code NodeJS server",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set GOOGLE_APPLICATION_CREDENTIALS=key.json&& node app.js",
-    "build": "echo \"Nothing to build!\"",
-    "prestart": "npm run build-spoken && sass public/assets/styles.scss:public/assets/styles.css --no-source-map",
-    "watchscss": "sass --watch public/assets/styles.scss:public/assets/styles.css --no-source-map",
-    "build-spoken": "cd ../spoken && npm run build"
+    "start": "set GOOGLE_APPLICATION_CREDENTIALS=key-gcloud.json&& node app.js",
+    "build": "npm run build-spoken && npm run build-webapp",
+    "prestart1": "npm run build",
+    "build-spoken": "cd ../spoken && npm run build",
+    "build-webapp": "rm -rf public/* && cd ../webapp && npm run build && cp -R build/* ../server/public"
   },
   "keywords": [
     "Speech-to-code"
   ],
   "dependencies": {
     "@google-cloud/speech": "^4.2.0",
-    "spoken": "file:../spoken",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "socket.io": "^3.1.1"
+    "socket.io": "^3.1.1",
+    "spoken": "file:../spoken"
   },
   "author": "Pedro Silva",
   "license": "GPL-3.0-or-later"
