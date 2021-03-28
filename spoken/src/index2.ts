@@ -17,9 +17,9 @@ class Spoken {
 
         const command = new Automata(this.grammars.langs[lang])
             .recoginize(phrase)
-            //.map(item => new MatchedCommandWrapper(item[0], item[1]))
+            .map(([graph, state]) => new MatchedCommandWrapper(graph, state.args))
 
-        return command.length ? null : null
+        return command.length ? command : null
     }
 
     public findById(id: string, lang: string): (MatchedCommandWrapper | null) {
@@ -42,10 +42,10 @@ class MatchedCommandWrapper {
     langName: string
     title: string
     desc: string
-    path: (string | Record<string, string>)[]
+    path: (string | null | Record<string, string>)[]
     args: Record<string, string>
 
-    constructor(graph: graphlib.Graph, path: (string | Record<string, string>)[] = []) {
+    constructor(graph: graphlib.Graph, path: (string | null | Record<string, string>)[] = []) {
         const graphInfo = graph.graph()
         this.id = graphInfo.id
         this.label = graphInfo.label

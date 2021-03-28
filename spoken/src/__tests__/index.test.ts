@@ -13,3 +13,15 @@ test('it can search for a command given a id', async () => {
     expect(graph).not.toBe(null)
     expect((graph || {}).id).toBe('declare_variable')
 })
+
+test('it can search for a command given a phrase', async () => {
+    const command = Spoken.recognizePhrase('declarar constante chamada bola', 'pt-BR')
+
+    expect(command).toMatchObject([{
+        id: 'declare_variable',
+        args: {
+            memType: 'constante',
+            name: 'bola'
+        }
+    }])
+})

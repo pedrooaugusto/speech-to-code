@@ -1,4 +1,5 @@
 import * as graphlib from './graphlib'
+import JaroWinklerDistance from './string-distance/jaro-winlker'
 
 export default class {
     grammar: GraphJsonView[]
@@ -32,18 +33,21 @@ export default class {
     }
 
     recoginize(phrase: string): [graphlib.Graph, State][] {
+        const result = []
 
         for (const commands of this.grammar) {
-            const r = this.phraseBelongsToGrammar(phrase, commands)
+            const match = this.phraseBelongsToGrammar(phrase, commands)
 
-            if (r != null) return [r]
+            // TODO: Add support for nested commands
+            if (match != null) {
+                result.push(match)
+                break
+            }
         }
 
-        return []
+        return result
     }
 }
-// declare uma constante
-// declare constante
 
 type Args = (string | Record<string, string> | null)[]
 export type State = { isFinal: boolean; id: string; args: Args }
@@ -83,17 +87,14 @@ export class Automata {
             if (typeof condition === 'string') {
                 if (condition === 'λ') return null
 
-                if (this.compareStrings(word, condition)) {
-                    if (transition.store) return { [transition.store]: word }
-                    return word
-                }
+                if (this.compareStrings(word, condition))
+                    return transition.store ? { [transition.store]: word } : word
+
             } else {
                 const match = condition.exec(word)
-                if (match != null) {
-                    if (transition.store) return { [transition.store]: match[1] }
 
-                    return match[1]
-                }
+                if (match != null)
+                    return transition.store ? { [transition.store]: match[1] } : match[1]
             }
         }
 
@@ -101,7 +102,9 @@ export class Automata {
     }
 
     compareStrings(word: string, condition: string) {
-        return word === condition
+        if (word === condition) return true
+
+        return JaroWinklerDistance(word, condition) > 0.835
     }
 
     setState(state: State, word?: string | null) {

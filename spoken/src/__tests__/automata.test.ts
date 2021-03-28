@@ -94,3 +94,21 @@ test('it can detect if a phrase belongs to a grammar', async () => {
     ])
 })
 
+test('it can tolerate small speell errors and still find the correct match', async () => {
+    const recoginizer = new Recognizer(grammars.langs['pt-BR'])
+    let r = recoginizer.recoginize('declarar uma constant chamada bola')[0]
+
+    expect(r.length).toEqual(2)
+    expect(r[1].args).toEqual([
+        "declarar", "uma", {"memType": "constant"},
+        "chamada", {"name": "bola"}
+    ])
+
+    r = recoginizer.recoginize('declara uma variável chamada azul d tip inteiro')[0]
+    expect(r.length).toEqual(2)
+    expect(r[1].args).toEqual([
+        "declara", "uma", {"memType": "variável"},
+        "chamada", {"name": "azul"}, "d", "tip",
+        {"type": "inteiro"}
+    ])
+})
