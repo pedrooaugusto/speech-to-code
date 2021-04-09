@@ -13,8 +13,8 @@ async function DeclareVariable(command: ParsedDeclareVariable, editor: Editor, c
 }
 
 enum MemType {
-    constant = "0",
-    variable = "1"
+    constant = 0,
+    variable = 1
 }
 
 type ParsedDeclareVariable = {

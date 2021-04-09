@@ -101,14 +101,14 @@ function distance(s1, s2) {
 // dj is the Jaro Distance (if you've already computed it), leave blank and the method handles it
 // ignoreCase: if true strings are first converted to lower case before comparison
 function JaroWinklerDistance(s1, s2, dj, ignoreCase) {
+    if (ignoreCase) {
+        s1 = s1.toLowerCase()
+        s2 = s2.toLowerCase()
+    }
+
     if (s1 === s2) {
         return 1
     } else {
-        if (ignoreCase) {
-            s1 = s1.toLowerCase()
-            s2 = s2.toLowerCase()
-        }
-
         // console.log(news1);
         // console.log(news2);
 

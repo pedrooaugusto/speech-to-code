@@ -13,5 +13,6 @@ tsc
 
 # copy robot-python
 cp ./src/editors/default/*.py ./dist/editors/default
+cp -r icons ./dist/
 
 echo "Ready to built."

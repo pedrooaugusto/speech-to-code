@@ -81,35 +81,51 @@ class VSCodeEditor extends Editor {
         throw new Error('Method not implemented.')
     }
 
-    newLine(): Promise<void | Error> {
+    newLine(pos: 0 | 1): Promise<void | Error> {
         console.log('[client.VSCodeRobot.newLine]: Sending request to execute newLine()')
 
         return this.runTask({
             type: 'newLine',
             context: {},
-            extra: { args: [] }
+            extra: { args: [pos] }
         })
     }
 
     removeLine(): Promise<string | Error> {
         throw new Error('Method not implemented.')
     }
+
     selectLines(from: number | undefined, to: number | undefined): Promise<string | Error> {
         throw new Error('Method not implemented.')
     }
 
-    goToLine(number: string): Promise<string | Error> {
+    goToLine(number: string, cursorPosition: 'END' | 'BEGIN' = 'BEGIN'): Promise<string | Error> {
         console.log('[client.VSCodeRobot.goToLine]: Sending request to execute gotToLine(' + number + ')')
 
         return this.runTask({
             type: 'goToLine',
             context: {},
-            extra: { args: [number] }
+            extra: { args: [number, cursorPosition] }
+        })
+    }
+
+    moveCursorTo(
+        to: 'END_LINE' | 'BEGIN_LINE' | 'SYMBOL' | null,
+        symbol: string | undefined,
+        leapSize: number | undefined,
+        goto: boolean = true
+    ): Promise<number | Error> {
+        console.log('[client.VSCodeRobot.moveCursorTo]: Sending request to execute moveCursorTo(...)')
+
+        return this.runTask({
+            type: 'moveCursorTo',
+            context: {},
+            extra: { args: [to, symbol, leapSize, goto] }
         })
     }
 
     indentSelection(p1: [string, string], p2: [string, string]): Promise<void | Error> {
-        console.log('[client.VSCodeRobot.goToLine]: Sending request to execute indentSelection(...)')
+        console.log('[client.VSCodeRobot.indentSelection]: Sending request to execute indentSelection(...)')
         const task = {
             type: 'indentSelection',
             context: {},

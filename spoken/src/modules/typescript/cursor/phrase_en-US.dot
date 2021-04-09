@@ -1,0 +1,28 @@
+digraph Cursor {
+    id="cursor";
+    label="Moves the cursor";
+    lang="en-US";
+    langName="English";
+    pad="0.5";
+    rankdir=LR;
+    node[shape=doublecircle]; 3 10 12 6;
+    node[shape=circle];
+
+    0 -> 1 [label="(cursor)"];
+    1 -> 2 [label="(line)"];
+    2 -> 3 [label="({numeral})", store=line];
+
+    {1 7} -> 5 [label="(symbol)"];
+    1 -> 7 [label="({term})", store=leapSize, normalize="ordinalNumber"];
+    5 -> 6 [label="({term})", store=letter];
+
+    1 -> 8 [label="(begin, end)", store=linePosition];
+    8 -> 10 [label="(line)"];
+
+    1 -> 11 [label="(next)"];
+    11 -> 13 [label="({numeral})", store=leapSize];
+    {11 13} -> 12 [label="(symbol)"];
+
+    title="Move cursor";
+    desc="Moves the cursor to a different line or token";
+}

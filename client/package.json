@@ -4,7 +4,7 @@
   "description": "Speech to Code electron client implmentation",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tsc && node dist/editors/vscode/index.test.js",
     "start": "electron .",
     "prestart": "bash ./tools.sh"
   },

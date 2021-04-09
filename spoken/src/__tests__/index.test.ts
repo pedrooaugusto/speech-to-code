@@ -1,4 +1,4 @@
-import Spoken from '../index2'
+import Spoken from '../index'
 
 beforeAll(async () => {
     await Spoken.init()
@@ -15,13 +15,17 @@ test('it can search for a command given a id', async () => {
 })
 
 test('it can search for a command given a phrase', async () => {
-    const command = Spoken.recognizePhrase('declarar constante chamada bola', 'pt-BR')
+    let command = Spoken.recognizePhrase('declarar constante chamada bola', 'pt-BR')
 
     expect(command).toMatchObject([{
         id: 'declare_variable',
         args: {
-            memType: 'constante',
+            memType: 0,
             name: 'bola'
         }
     }])
+
+    command = Spoken.recognizePhrase('THE', 'pt-BR')
+
+    expect(command).toBeNull()
 })

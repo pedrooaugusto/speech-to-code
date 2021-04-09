@@ -1,141 +1,86 @@
-import Modules, { ModuleDefinition, CommandDefinition } from './modules'
-// @ts-ignore
-import LANG from './spoken'
-
-declare global {
-    var __dirname: string
-}
+import * as graphlib from './graphlib'
+import Automata from './automata'
+import LOG from './logger'
 
 class Spoken {
-    private langs: ModuleDefinition[] = []
-    public modules: Modules
+    public grammars: GrammarCollection | null = null
 
-    constructor() {
-        this.langs.push(
-            LANG.default
-        )
-        this.modules = new Modules(this.langs)
+    async init() {
+        this.grammars = await loadGrammar()
     }
 
-    private exposeArgs(text: string): (string | null)[][] {
-        const arr = text.split(' ')
-        const result: (string | null)[][] = []
+    private grammarIsLoaded() {
+        if (this.grammars == null) throw new Error('Grammar is not loaded')
+    }
 
-        for (const w of arr) {
-            const r = /^{(\S*):(\S*)}$/gi.exec(w)
+    public recognizePhrase(phrase: string, lang: string): (MatchedCommandWrapper[] | null) {
+        if (this.grammars == null) throw new Error('Grammar is not loaded')
 
-            result.push([r ? `{${r[2]}}` : w, r ? r[1] : null])
+        LOG.info('Looking for a match for: ', '"' + phrase + '"')
+        const command = new Automata(this.grammars.langs[lang])
+            .recoginize(phrase)
+            .map(([graph, state]) => new MatchedCommandWrapper(graph, state.args))
+
+        return command.length ? command : null
+    }
+
+    public findById(id: string, lang: string): (MatchedCommandWrapper | null) {
+        if (this.grammars == null) throw new Error('Grammar is not loaded')
+
+        for (const strCommand of this.grammars.langs[lang]) {
+            const graphObj: graphlib.Graph = graphlib.json.read(strCommand)
+
+            if (graphObj.graph().id === id) return new MatchedCommandWrapper(graphObj)
         }
 
-        return result
-    }
-
-    private phraseToRegex(text: string): RegExp {
-        text = this.exposeArgs(text).map(item => item[0]).join(' ')
-        text = text
-            .replace(/{any}/gi, '(.*)')
-            .replace(/{term}/gi, '(\\S+)')
-            .replace(/{numeral}/gi, '(\\d+)')
-            .replace(/{(\S*)}/gi, '($1)') + '$'
-
-        return new RegExp(text, 'gi')
-    }
-
-    public matchPhrase(phrase: string, lang: string): Command | null {
-        console.log('[Spoken.matchPhrase] Looking for a match for: ' + phrase)
-        const c = this.findCommand(command => {
-            const matchedPhrase = command.phrases[lang].find(item => {
-                return this.phraseToRegex(item).exec(phrase)
-            })
-
-            if (matchedPhrase) {
-                const execResult = this.phraseToRegex(matchedPhrase).exec(phrase)
-                if (!execResult) return false
-
-                const commandArgsObj: Record<string, string | number> = {}
-                const commandArgsArray: string[][] = this.exposeArgs(matchedPhrase).filter(a => !!a[1]) as string[][]
-                // @TODO This can be very simplified the first element of the list
-                // dont need to be in the loop
-                for (let i = 0; i < execResult.length; i++) {
-                    if (i === 0) {
-                        commandArgsObj.phrase = execResult[i]
-                    } else {
-                        // its a list: {a|b|c} -> 0, 1, 2
-                        const [argPattern, argName] = commandArgsArray[i - 1]
-                        // {(word|)+word}
-                        const list = /{((\S+\|)+\S*\w)}/gi.exec(argPattern)
-
-                        if (!list) commandArgsObj[argName] = execResult[i]
-                        else commandArgsObj[argName] = list[1].split("|").findIndex(a => a === execResult[i])
-                    }
-                }
-
-                return commandArgsObj
-            }
-
-            return false
-        })
-
-        if (c) console.log('[Spoken.matchPhrase] Match found at: ' + JSON.stringify(c.getCommandArgs()))
-        else console.log('[Spoken.matchPhrase] Match not found')
-
-        return c
-    }
-
-    public matchId(id: number): Command | null {
-        return this.findCommand(a => a.id === id)
-    }
-
-    private findCommand(predicate: (command: CommandDefinition) => boolean | Record<string, string | number>): Command | null {
-        for (const lang of this.langs) {
-            for (const categorie in (lang.categories || {})) {
-                const command = lang.categories?.[categorie]?.commands?.find?.(predicate)
-
-                if (command) {
-                    return new Command(command, predicate(command) as Record<string, string>)
-                }
-            }
-        }
         return null
+    }
+
+}
+
+class MatchedCommandWrapper {
+    id: string
+    label: string
+    lang: string
+    langName: string
+    title: string
+    desc: string
+    path: (string | null | Record<string, string | number>)[]
+    args: Record<string, string | number>
+    impl: string
+
+    constructor(graph: graphlib.Graph, path: (string | null | Record<string, string | number>)[] = []) {
+        const graphInfo = graph.graph()
+        this.id = graphInfo.id
+        this.label = graphInfo.label
+        this.lang = graphInfo.lang
+        this.langName = graphInfo.langName
+        this.title = graphInfo.title
+        this.desc = graphInfo.desc
+        this.impl = graphInfo.impl
+        this.path = path
+        this.args = (path
+            .filter(a => a != null && typeof a !== 'string') as Record<string, string>[])
+            .reduce((acc, el) => ({...acc, ...el}), {})
     }
 }
 
-class Command {
-    public command: CommandDefinition
-    public commandArgs: Record<string, string | number>
+async function loadGrammar() {
+    if (typeof require === 'function' && require('fs')?.readFileSync !== undefined) {
+        const fs = require('fs')
+        const path = require('path')
 
-    constructor(command: CommandDefinition, args: Record<string, string>) {
-        this.command = command
-        this.commandArgs = args
+        return JSON.parse(fs.readFileSync(path.resolve(__dirname, 'grammar.json'), 'utf-8'))
+
+    } else if(typeof fetch === 'function') {
+        const r = await fetch('grammar.json')
+
+        return await r.json()
     }
 
-    public getId(): number {
-        return this.command.id
-    }
+    console.error('Unable to load grammar!')
 
-    public getDesc(): string {
-        return this.getDesc()
-    }
-
-    public getCommandArgs() {
-        return this.commandArgs
-    }
-
-    public getPhrases(idiom: string | undefined | null): string[] | { [key: string]: string[] } {
-        if (idiom == undefined) return this.command.phrases
-
-        return this.command.phrases[idiom]
-    }
-
-    public getImpl(): string {
-        return this.command.impl
-    }
-
-    public makeFunction(): Function {
-        return eval(`(() => ${this.getImpl()})()`)
-    }
+    return null
 }
 
 export default new Spoken()
-
-export { ModuleDefinition, CommandDefinition }

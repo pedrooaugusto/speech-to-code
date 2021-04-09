@@ -1,5 +1,8 @@
 node_modules
 dist
+.vscode-test
+server/public
 server/key.json
 server/key-gcloud.json
 server/key-azure.json
+spoken-vscode-driver/out

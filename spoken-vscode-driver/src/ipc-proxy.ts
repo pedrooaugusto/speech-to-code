@@ -23,6 +23,10 @@ class IpcProxy {
 
         ipc.server.start()
     }
+
+    close() {
+        ipc.server.stop()
+    }
 }
 
 export default new IpcProxy()

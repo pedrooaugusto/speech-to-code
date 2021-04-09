@@ -19,7 +19,8 @@ async function init() {
 
         for (const command of commands) {
             const cPath = path.resolve(mPath, command)
-            const dotFiles = list('FILES')(cPath).filter(a => a.startsWith('phrase_') && a.endsWith('.dot'))
+            const temp1 = list('FILES')(cPath)
+            const dotFiles = temp1.filter(a => a.startsWith('phrase_') && a.endsWith('.dot'))
             const readme = {id: command, langs: {}}
             let graph = null
 
@@ -50,8 +51,8 @@ async function init() {
             readme.code = fs.readFileSync(implFile, 'utf-8')
 
             const m = "" +
-                      "## " + readme.title + "\n\n" +
-                      "" + readme.desc + "\n\n" +
+                      "## " + (readme.title || 'yara yara yara') + "\n\n" +
+                      "" + (readme.desc || 'yara yara yara') + "\n\n" +
                       "**Phrases:**\n\n" +
                       "" + Object.entries(readme.langs)
                             .map(

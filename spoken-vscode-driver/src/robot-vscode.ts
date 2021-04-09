@@ -35,13 +35,17 @@ class RobotVscode implements Robot {
      * 
      * @returns undefined if evrything went well, error otherwise
      */
-    newLine(): Promise<void | Error> {
-        return new Promise((res, rej) => {
+    newLine(pos: 0 | 1): Promise<void | Error> {
+        return new Promise(async (res, rej) => {
             Log('[vscode-driver.robot-vscode.newLine]: Executing newLine')
 
             const editor = vscode.window.activeTextEditor
 
             if (editor == null) return rej(new Error('No active text editor'))
+
+            if (pos === 0) {
+                await this.goToLine(String(editor.selection.active.line), 'END')
+            }
 
             editor.edit((editBuilder) => {
                 editBuilder.insert(editor.selection.active, '\n')
@@ -63,7 +67,7 @@ class RobotVscode implements Robot {
      * Moves the cursor to a different line
      * @param number Line number
      */
-    goToLine(number: string): Promise<string | Error> {
+    goToLine(number: string, cursorPosition: 'END' | 'BEGIN' = 'BEGIN'): Promise<string | Error> {
         return new Promise(async (res, rej) => {
             try {
                 const editor = vscode.window.activeTextEditor
@@ -77,7 +81,8 @@ class RobotVscode implements Robot {
 
                 vscode.commands.executeCommand('cursorMove', { to, value, by: 'line' }).then(() => {
                     vscode.commands.executeCommand('revealLine', { lineNumber: destLine, at: 'center' }).then(() => {
-                        vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineFirstNonWhitespaceCharacter' }).then(() => {
+                        const t = `wrappedLine${cursorPosition === 'BEGIN' ? 'First' : 'Last'}NonWhitespaceCharacter`
+                        vscode.commands.executeCommand('cursorMove', { to: t }).then(() => {
                             res(editor.document.lineAt(destLine - 1).text)
                         })
                     })
@@ -90,6 +95,81 @@ class RobotVscode implements Robot {
             } catch(err) {
                 rej(err)
             }
+        })
+    }
+
+    /**
+     * Finds the position of a given token in the current line
+     * 
+     * @param to string What should be searched for
+     * @param leapSize number How many matches should be skiped
+     */
+    moveCursorTo(
+        to: 'END_LINE' | 'BEGIN_LINE' | 'SYMBOL' | null,
+        symbol: string | undefined,
+        leapSize: number | undefined,
+        goto: boolean = true
+    ): Promise<number | Error> {
+        return new Promise(async (res, rej) => {
+            const editor = vscode.window.activeTextEditor
+
+            if (editor == null) return rej(new Error('No active text editor'))
+
+            const currentLine = editor.document.lineAt(editor.selection.active.line)
+
+            if (to === 'BEGIN_LINE' || to === 'END_LINE') {
+                const column = to === 'BEGIN_LINE'
+                    ? currentLine?.firstNonWhitespaceCharacterIndex
+                    : currentLine?.range?.end?.character
+
+                const pos = 'wrappedLine' + (to === 'BEGIN_LINE' ? 'First' : 'Last') + 'NonWhitespaceCharacter'
+
+                if (!goto) return res(column)
+
+                return vscode.commands.executeCommand('cursorMove', { to: pos }).then(() => {
+                    res(column)
+                })
+
+            } else {
+                if (to === null) {
+                    const value = editor.selection.active.character + (leapSize as number)
+
+                    if (!goto) return res(value)
+
+                    return vscode.commands
+                        .executeCommand('cursorMove', { to: 'right', value: leapSize, by: 'character' })
+                        .then(() => {
+                            res(value)
+                        })
+                }
+
+                if (to === 'SYMBOL') {
+                    const text = currentLine.text.substr(editor.selection.active.character + 1)
+
+                    // @ts-ignore
+                    const indices = Array.from(text.matchAll(new RegExp(symbol, 'gi'))).map(a => a.index)
+
+                    if (indices.length === 0) return rej('Match not found for symbol: ' + symbol)
+
+                    if(leapSize === -1) leapSize = indices.length
+                    else if(leapSize == undefined) leapSize = 1
+
+                    if (!indices[leapSize - 1]) return rej('Match not found for symbol: ' + symbol)
+
+                    const value = indices[leapSize - 1] + 1
+
+                    if (!goto) return res(value)
+
+                    return vscode.commands
+                        .executeCommand('cursorMove', { to: 'right', value: value, by: 'character' })
+                        .then(() => {
+                            res(value)
+                        })
+                }
+
+            }
+
+            return rej(new Error('Unknown operation!'))
         })
     }
 

@@ -3,3 +3,11 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+
+const fakeIpc = {
+    send: jest.fn(),
+    on: jest.fn()
+}
+
+// @ts-ignore
+global.ipcRenderer = fakeIpc

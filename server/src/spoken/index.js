@@ -5,14 +5,20 @@ class SpokenInterface {
         console.log('[server.src.Spoken.findCommand] Warn: Ignoring other matches!')
 
         const trsc = voiceToTextResponse?.results?.[0].alternatives?.[0]?.transcript
-        const matchedCommand = Spoken.matchPhrase(trsc, 'pt_br')
+        const sResult = Spoken.recognizePhrase(trsc, 'pt-BR')
+
+        const wrapper = sResult ? sResult[0] : null
 
         return {
             _rawVoiceToTextResponse: voiceToTextResponse,
             phrase: [trsc],
-            command: matchedCommand ? {
-                ...matchedCommand.command,
-                commandArgs: matchedCommand.commandArgs,
+            command: wrapper ? {
+                id: wrapper.id,
+                desc: wrapper.desc,
+                commandArgs: wrapper.args,
+                impl: wrapper.impl,
+                lang: wrapper.lang,
+                path: wrapper.path
             } : null
         }
     }

@@ -1,21 +1,15 @@
 import * as vscode from 'vscode'
 import Log from './logger'
-// import IpcProxy from './ipc-proxy'
-// import RobotVSCodeProxy from './robot-proxy'
+import IpcProxy from './ipc-proxy'
+import RobotVSCodeProxy from './robot-proxy'
 
 export function activate(context: vscode.ExtensionContext) {
 	
-	Log('Congratulations, your extension "spoken-vscode-driver" is now active!')
+	Log('Spoken VSCode driver is ready!')
 	
-	let disposable = vscode.commands.registerCommand('spoken-vscode-driver.helloWorld', async () => {
-		vscode.window.showInformationMessage('Hello World from spoken-vscode-driver!42')
-		const editor = vscode.window.activeTextEditor
+	let disposable = vscode.commands.registerCommand('spoken.helloWorld', async () => {
+		vscode.window.showInformationMessage('Hello World from VSCode Spoken!')
 
-		if (editor == null) throw new Error('none')
-
-		vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineFirstNonWhitespaceCharacter' }).then(() => {
-
-		})
 		// editor.selection = new vscode.Selection(14, 0, 14, 52)
 		// vscode.commands.executeCommand('editor.action.reindentselectedlines', {})
 
@@ -50,9 +44,11 @@ export function activate(context: vscode.ExtensionContext) {
 	})
 	
 	context.subscriptions.push(disposable)
-	
-	// IpcProxy.on('runCommand', RobotVSCodeProxy)
-	// IpcProxy.init()
+
+	IpcProxy.on('runCommand', RobotVSCodeProxy)
+	IpcProxy.init()
 }
 
-export function deactivate() {}
+export function deactivate() {
+	IpcProxy.close()
+}

@@ -1,4 +1,4 @@
-import yaml from 'yaml'
+// import yaml from 'yaml'
 import fs from 'fs'
 import path from 'path'
 
@@ -35,7 +35,7 @@ export default class Modules {
             module.categories[category.name].commands[i] = command
         }
 
-        fs.writeFileSync(path.resolve(__dirname, 'spoken1.yaml'), yaml.stringify(module) , 'utf-8')
+        //fs.writeFileSync(path.resolve(__dirname, 'spoken1.yaml'), yaml.stringify(module) , 'utf-8')
     }
 
     removeCommand(

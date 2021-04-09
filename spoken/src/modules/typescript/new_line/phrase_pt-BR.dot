@@ -1,0 +1,21 @@
+digraph NovaLinha {
+    id="new_line";
+    label="Adiciona uma linha nova cima ou abaixo";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 2 3;
+    node[shape=circle];
+
+    {0 5} -> 1 [label="(nova)"];
+    {1 5} -> 2 [label="(linha)"];
+    {2 4} -> 3 [label="(acima, abaixo)", store=position];
+    0 -> 4 [label="(linha)"];
+    0 -> 5 [label="(crie)"];
+    5 -> 5 [label="(uma)"];
+    4 -> 2 [label="(nova)"]
+
+    title="Cria uma linha nova";
+    desc="Cria uma linha nova abaixo ou acima da linha atual";
+}

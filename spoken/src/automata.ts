@@ -1,5 +1,8 @@
+// @ts-ignore
+const NumberRecognizers = require('./recognizers-text-number')
 import * as graphlib from './graphlib'
 import JaroWinklerDistance from './string-distance/jaro-winlker'
+import LOG from './logger'
 
 export default class {
     grammar: GraphJsonView[]
@@ -41,6 +44,7 @@ export default class {
             // TODO: Add support for nested commands
             if (match != null) {
                 result.push(match)
+                LOG.info('Match found for:', '"' + phrase + '"', "ID:", match[0].graph().id, "Args:", match[1].args)
                 break
             }
         }
@@ -49,7 +53,7 @@ export default class {
     }
 }
 
-type Args = (string | Record<string, string> | null)[]
+type Args = (string | Record<string, string | number> | null)[]
 export type State = { isFinal: boolean; id: string; args: Args }
 
 export class Automata {
@@ -80,29 +84,46 @@ export class Automata {
         return null
     }
 
-    transitionIsPossible(word: string, transition: Record<string, string | undefined>): undefined | null | string | Record<string, string> {
+    transitionIsPossible(
+        word: string,
+        transition: Record<string, string | undefined>
+    ): undefined | null | string | Record<string, string | number> {
+
         const conditions = this.normalizeTransitionInput(transition as Record<string, string>)
 
-        for (const condition of conditions) {
+        for (let i = 0; i < conditions.length; i++) {
+            const condition = conditions[i]
+
             if (typeof condition === 'string') {
                 if (condition === 'λ') return null
 
-                if (this.compareStrings(word, condition))
-                    return transition.store ? { [transition.store]: word } : word
+                if (Automata.compareStrings(word, condition))
+                    return transition.store ? { [transition.store]: i } : word
 
             } else {
                 const match = condition.exec(word)
 
-                if (match != null)
-                    return transition.store ? { [transition.store]: match[1] } : match[1]
+                if (match != null) {
+                    let term = match[1]
+
+                    if (transition.normalize === 'ordinalNumber') {
+                        let t = Normalizer.ordinalNumber(this.graph.graph().lang, term)
+
+                        if (t === null) return undefined
+
+                        term = t.toString()
+                    }
+
+                    return transition.store ? { [transition.store]: term } : term
+                }
             }
         }
 
         return undefined
     }
 
-    compareStrings(word: string, condition: string) {
-        if (word === condition) return true
+    static compareStrings(word: string, condition: string) {
+        if (word.toLocaleLowerCase() === condition.toLocaleLowerCase()) return true
 
         return JaroWinklerDistance(word, condition) > 0.835
     }
@@ -129,4 +150,37 @@ export class Automata {
         return str
     }
 
+}
+
+export class Normalizer {
+    public static ordinalNumber(lang: string, text: string) {
+        // @ts-ignore
+        if (lang === 'pt-BR') {
+            if (Automata.compareStrings(text, 'último')) return -1
+
+            //@ts-ignore
+            const result = NumberRecognizers.recognizeOrdinal(text, NumberRecognizers.Culture.Portuguese)
+
+            if(result?.[0]?.resolution?.value) {
+                return parseInt(result[0].resolution.value, 10)
+            }
+
+            return null
+        }
+
+        if (lang === 'en-US') {
+            if (text === 'last') return -1
+
+            //@ts-ignore
+            const result = NumberRecognizers.recognizeOrdinal(text, NumberRecognizers.Culture.English)
+
+            if(result?.[0]?.resolution?.value) {
+                return parseInt(result[0].resolution.value, 10)
+            }
+
+            return null
+        }
+
+        throw new Error('Unsupported language!')
+    }
 }

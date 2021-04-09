@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "set GOOGLE_APPLICATION_CREDENTIALS=key-gcloud.json&& node app.js",
-    "build": "npm run build-spoken && npm run build-webapp",
+    "build": "npm run build-webapp",
     "prestart1": "npm run build",
     "build-spoken": "cd ../spoken && npm run build",
     "build-webapp": "rm -rf public/* && cd ../webapp && npm run build && cp -R build/* ../server/public"

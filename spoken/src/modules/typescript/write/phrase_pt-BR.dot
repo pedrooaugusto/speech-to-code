@@ -1,0 +1,16 @@
+digraph Write {
+    id="write";
+    label="Escreve algo no editor de texto";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.5";
+    rankdir=LR;
+    node[shape=doublecircle]; 1;
+    node[shape=circle];
+
+    0 -> 1 [label="(escreva)"];
+    1 -> 1 [label="({any})", store=text];
+
+    title="Escreva";
+    desc="Escreve um pedaço de texto no editor de texto";
+}

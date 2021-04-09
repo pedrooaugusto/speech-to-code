@@ -19,6 +19,10 @@ app.use(express.static(path.resolve(__dirname, 'public')))
 
 app.use('/spoken', SpokenRouter)
 
+app.get('/azure/token', (req, res) => {
+	res.status(200).send(fs.readFileSync(path.resolve(__dirname, 'key-azure.json'), 'utf-8'))
+})
+
 io.on('connection', (socket) => {
 	console.log('[server.app] A user connected')
 

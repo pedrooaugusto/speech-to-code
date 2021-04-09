@@ -1,0 +1,16 @@
+digraph Write {
+    id="write";
+    label="Just writes something in the editor";
+    lang="en-US";
+    langName="English";
+    pad="0.5";
+    rankdir=LR;
+    node[shape=doublecircle]; 1;
+    node[shape=circle];
+
+    0 -> 1 [label="(write)"];
+    1 -> 1 [label="({any})", store=text];
+
+    title="Writes some text";
+    desc="Just writes something the text edtiro";
+}

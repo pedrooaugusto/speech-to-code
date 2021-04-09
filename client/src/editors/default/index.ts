@@ -13,7 +13,7 @@ export abstract class Editor {
 	 */
 	abstract write(text: string): Promise<void | Error>
 	abstract removeSelection(): Promise<string | Error>
-	abstract newLine(): Promise<void | Error>
+	abstract newLine(pos: 0 | 1): Promise<void | Error>
 	abstract removeLine(): Promise<string | Error>
 	abstract selectLines(from: number | undefined, to: number | undefined): Promise<string | Error>
 	abstract goToLine(number: string): Promise<string | Error>
@@ -75,7 +75,7 @@ class MSNotepadEditor extends Editor {
 		throw new Error('Method not implemented.')
 	}
 
-	async newLine(): Promise<void | Error> {
+	async newLine(pos: 0 | 1): Promise<void | Error> {
 		try {
 			await this.press('end')
 			await this.press('enter')

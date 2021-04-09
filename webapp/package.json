@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prestart": "npm run build-spoken",
-    "build-spoken": "cd ../spoken && npm run build"
+    "build-spoken": "cd ../spoken && npm run build && cp dist/grammar.json ../webapp/public"
   },
   "eslintConfig": {
     "extends": [

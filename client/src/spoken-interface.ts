@@ -6,13 +6,13 @@ class SpokenInterface {
         event.reply('Spoken:analysisResults', { phrase: res.phrase, ok: !!res.command })
 
         if (res.command) {
-            const fn = eval(`(() => ${res.command.impl})()`)
+            const fn = eval(`(() => { ${res.command.impl} })()`)
 
             try {
                 const result = await fn(res.command.commandArgs, EditorService.currentEditor, {})
 
                 console.log('[wrapper.SpokenInterface.onCommand]: Result: ' + JSON.stringify(result || null))
-                
+
                 if (result != null) {
                     event.reply('command-reply', res.phrase, result)
                 }
@@ -29,14 +29,13 @@ type SpokenSearchResponse = {
     _rawVoiceToTextResponse: any,
     phrase: string[],
     command: {
-        id: number,
+        id: string,
         desc: string,
         commandArgs: Record<string, string>,
-        phrases: {
-            [key: string]: string[]
-        }
-        impl: string
-    }
+        impl: string,
+        lang: string,
+        path: (string | Record<string, string> | null)[]
+    } | null
 }
 
 export default new SpokenInterface()

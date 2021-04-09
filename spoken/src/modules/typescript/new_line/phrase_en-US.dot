@@ -1,0 +1,20 @@
+digraph NewLine {
+    id="new_line";
+    label="Just creates a new line somewhere";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 2 3;
+    node[shape=circle];
+
+    {0 5} -> 1 [label="(new)"];
+    {1 5} -> 2 [label="(line)"];
+    {2 4} -> 3 [label="(above, below)", store=position];
+    0 -> 4 [label="(line)"];
+    0 -> 5 [label="(create)"];
+    5 -> 5 [label="(a)"];
+
+    title="Create a new line";
+    desc="Creates a new line above or bellow the current line";
+}

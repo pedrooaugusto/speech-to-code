@@ -21,6 +21,7 @@ async function createWindow(): Promise<void> {
 			contextIsolation: true,
 			preload: path.resolve(__dirname, 'preload.js')
 		},
+		icon: path.resolve(__dirname, 'icons', 'icon36x36.ico')
 	})
 
 	await window.loadURL('http://localhost:3000/')
