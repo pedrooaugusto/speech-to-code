@@ -1,9 +1,10 @@
 import { useState, useCallback, useEffect } from 'react'
-import socket from './socket'
-import IpcRenderer from './electron-ipc'
+import { VoiceRecognitionHook } from '../use-voice-recognition'
+import socket from '../socket-io'
+import IpcRenderer from '../electron-ipc'
 
-export function useVoiceRecognition() {
-    const [results, setResults] = useState("")
+export const useVoiceRecognition: VoiceRecognitionHook = () => {
+    const [results, setResults] = useState('')
     const myRecorder = MyRecorder.getRecorder()
 
     useEffect(() => {
@@ -41,7 +42,7 @@ export function useVoiceRecognition() {
         })
     }, [])
 
-    const analyzeSentence = useCallback((phrase) => {
+    const analyzeSentence = useCallback(async (phrase: string) => {
         const w = {
             results: [{
                 alternatives: [{
@@ -59,6 +60,7 @@ export function useVoiceRecognition() {
         analyzeSentence
     }
 }
+
 
 type AudioContextWrapper = {
     audioContext: AudioContext,

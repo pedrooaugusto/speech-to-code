@@ -22,7 +22,7 @@ async function init() {
             const dotFiles = allFiles.filter(a => a.startsWith('phrase_') && a.endsWith('.dot'))
             const compiledImplFile = path.resolve(COD, module, command, 'impl.js')
             const code = fs.readFileSync(compiledImplFile, 'utf-8')
-            let graphObject = null
+            let graphObject: any = null
 
             for (const phrase of dotFiles) {
                 try {
@@ -30,9 +30,15 @@ async function init() {
                     const fileContent = fs.readFileSync(pPath, 'utf-8')
 
                     graphObject = dot.read(fileContent)
+                    
+                    const finalStates = graphObject.nodes().filter((a: any) => graphObject.node(a).shape === 'doublecircle')
+                    const paths = dot.graphlib.alg.dijkstra(graphObject, '0')
+
+                    const phrases = mountTree(finalStates, paths, graphObject).map(item => item.join(" ")).join(";")
 
                     const graphInfo = graphObject.graph()
                     graphInfo.impl = code
+                    graphInfo.phrases = phrases
 
                     if (!grammar.langs[graphInfo.lang]) grammar.langs[graphInfo.lang] = []
 
@@ -55,6 +61,15 @@ async function init() {
     fs.rmdirSync(path.resolve(__dirname, '__tests__'), { recursive: true })
 }
 
+function mountTree(finalStates: string[], paths: Record<string, { distance: number, predecessor: string }>, graph: any) {
+    function trace(current: string, previous: string): string[] {
+        if (previous === '0') return [graph.edge(previous, current).label]
+
+        return trace(previous, paths[previous].predecessor).concat(graph.edge(previous, current).label)
+    }
+
+    return finalStates.map(item => trace(item, paths[item].predecessor))
+}
 
 function list(type: string | number) {
     type = type === 'FOLDER' ? 0 : 1

@@ -4,7 +4,7 @@
 	"description": "Code With Voice - The default VSCode driver for Spoken",
 	"publisher": "august",
 	"version": "0.0.1",
-	"icon": "icon-brain.png",
+	"icon": "icon.png",
 	"license": "MIT",
 	"repository": {
 		"type": "git",

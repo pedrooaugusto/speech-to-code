@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import IpcRenderer from './electron-ipc'
-import { useVoiceRecognition } from './voice-recognition'
-import useAzureVoiceRecognition from '../../services/use-auzre-voice-recognition'
+import IpcRenderer from '../../services/electron-ipc'
+import { useVoiceRecognition as useGoogleVoiceRecognition } from '../../services/google/use-voice-recognition'
+import useAzureVoiceRecognition from '../../services/azure/use-voice-recognition'
 
 export default function Main() {
     const [recording, setRecording] = useState(false)
     const [editorState, setEditorState] = useState([])
 
-    const { results, start, stop, analyzeSentence } = useAzureVoiceRecognition() //useVoiceRecognition()
+    const { results, start, stop, analyzeSentence } = useAzureVoiceRecognition()
 
     const toggleRecording = () => {
-        recording ? stop() : start()
+        // recording ? stop() : start()
         setRecording(!recording)
     }
 
@@ -47,6 +47,7 @@ export default function Main() {
 
                         return (
                             <li
+                                key={name}
                                 className={cls}
                                 onClick={() => changeEditor(name)}                                
                             >

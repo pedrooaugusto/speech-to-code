@@ -1,9 +1,9 @@
 import { useState, useCallback, useEffect } from 'react'
 import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk'
 import Spoken from 'spoken'
-import { VoiceRecognitionHook } from './use-voice-recognition'
-import MyRecognizer from './azure-voice-recognizer'
-import IpcRenderer from '../components/main/electron-ipc'
+import { VoiceRecognitionHook } from '../use-voice-recognition'
+import MyRecognizer from './voice-recognizer'
+import IpcRenderer from '../electron-ipc'
 
 const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
     const [results, setResults] = useState('')

@@ -2,9 +2,9 @@ import React from 'react'
 import { act, render, screen } from '@testing-library/react'
 import { waitFor } from '@testing-library/dom'
 
-import useAzureVoiceRecognition from '../services/use-auzre-voice-recognition'
+import useAzureVoiceRecognition from '../services/azure/use-voice-recognition'
 import { VoiceRecognitionHook } from '../services/use-voice-recognition'
-import MyRecognizer from '../services/azure-voice-recognizer'
+import MyRecognizer from '../services/azure/voice-recognizer'
 
 declare global {
     namespace NodeJS {
@@ -18,7 +18,7 @@ declare global {
 }
 
 beforeAll(() => {
-    jest.spyOn(MyRecognizer.prototype, 'init').mockImplementation(() => 'Mocked')
+    jest.spyOn(MyRecognizer.prototype, 'init').mockImplementation(() => Promise.resolve())
 })
 
 test('it does not break', async () => {

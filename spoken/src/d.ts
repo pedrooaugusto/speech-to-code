@@ -1,7 +1,7 @@
 declare module 'graphlib-dot' {
 	type Graph = {
-		graph: () => Record<string, string>
-	}
+		graph: () => Record<string, string>,
+	} & any
 
 	const graphlib1: {
 		read: (dotFile: string) => Graph,
@@ -9,7 +9,8 @@ declare module 'graphlib-dot' {
 			json: {
 				read: (str: string) => any,
 				write: (obj: Record<string, unknown>) => any
-			}
+			},
+			alg: any
 		}
 	}
 
