@@ -3,10 +3,10 @@ import * as graphlib from '../graphlib'
 const fs = require('fs')
 const path = require('path')
 
-const grammars: GrammarCollection = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'grammar.json'), 'utf-8'))
+const modules: SpokenModule[] = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'grammar.json'), 'utf-8'))
 
 test('it can sanitize a transition string', async () => {
-    const graph: graphlib.Graph = getGraph('declare_variable') as graphlib.Graph
+    const graph: graphlib.Graph = Get('grammar', 'declare_variable') as graphlib.Graph
 
     const automata = new Automata(graph)
 
@@ -23,7 +23,7 @@ test('it can sanitize a transition string', async () => {
 })
 
 test('it is possible to make transitions', async () => {
-    const graph: graphlib.Graph = getGraph('declare_variable') as graphlib.Graph
+    const graph: graphlib.Graph = Get('grammar', 'declare_variable') as graphlib.Graph
 
     const automata = new Automata(graph)
     const transitionIsPossible = (w: string, label: string, store?: string, normalize?: string) =>
@@ -45,7 +45,7 @@ test('it is possible to make transitions', async () => {
 })
 
 test('it is possible to go to the next state', async () => {
-    let graph: graphlib.Graph | null = getGraph('declare_variable')
+    let graph: graphlib.Graph | null = Get('grammar', 'declare_variable') as graphlib.Graph
 
     if (graph == null) throw new Error('graph cannot be null')
 
@@ -60,7 +60,7 @@ test('it is possible to go to the next state', async () => {
 })
 
 test('it can detect if a phrase belongs to a grammar', async () => {
-    const recoginizer = new Recognizer(grammars.langs['pt-BR'])
+    const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar['pt-BR'])
     let r = recoginizer.recoginize('declare uma constante chamada bola')[0]
     expect(r.length).toEqual(2)
     expect(r[1].args).toEqual(["declare", "uma", {"memType": 0}, "chamada", {"name": "bola"}])
@@ -102,7 +102,7 @@ test('it can detect if a phrase belongs to a grammar', async () => {
 })
 
 test('it can tolerate small speell errors and still find the correct match', async () => {
-    const recoginizer = new Recognizer(grammars.langs['pt-BR'])
+    const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar['pt-BR'])
     let r = recoginizer.recoginize('declarar uma constant chamada bola')[0]
 
     expect(r.length).toEqual(2)
@@ -121,7 +121,7 @@ test('it can tolerate small speell errors and still find the correct match', asy
 })
 
 test('it can normalize some words in the sentence', async () => {
-    const recoginizer = new Recognizer(grammars.langs['pt-BR'])
+    const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar['pt-BR'])
     let r = recoginizer.recoginize('cursor terceiro letra j')[0]
 
     expect(r.length).toEqual(2)
@@ -148,14 +148,19 @@ test('it can normalize some words', async () => {
 })
 
 
-function getGraph(id: string) {
+function Get(what: 'grammar' |  'module', id: string) {
     let graph: graphlib.Graph | null = null
 
-    for (let item of grammars.langs['pt-BR']) {
-        graph = graphlib.json.read(item) as graphlib.Graph
+    for (const mod of modules) {
+        if (what === 'module' && mod.id === id) return mod
+        else if (what  === 'grammar') {
+            for (let item of mod.grammar['pt-BR']) {
+                graph = graphlib.json.read(item) as graphlib.Graph
 
-        if (graph.graph().id === id) break
+                if (graph.graph().id === id) return graph
+            }
+        }
     }
 
-    return graph
+    return null
 }

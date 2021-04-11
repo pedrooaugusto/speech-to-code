@@ -10,11 +10,28 @@ const modules = list('FOLDER')(SRC)
 init()
 
 async function init() {
-    const grammar: Record<string, any> = { langs: {} }
+    const modulesObj: {
+        id: string,
+        desc: string,
+        label: string,
+        grammar: Record<string, any>
+    }[] = []
 
     for (const module of modules) {
         const modulePath = path.resolve(SRC, module)
         const folders = list('FOLDER')(modulePath)
+        const moduleInfo = dot.read(fs.readFileSync(path.resolve(modulePath, module + '.dot'), 'utf-8')).graph()
+        const moduleObj: {
+            id: string,
+            desc: string,
+            label: string,
+            grammar: Record<string, any>
+        } = {
+            id: module,
+            desc: moduleInfo.desc,
+            label: moduleInfo.label,
+            grammar: {}
+        }
 
         for (const command of folders) {
             const commandPath = path.resolve(modulePath, command)
@@ -40,9 +57,9 @@ async function init() {
                     graphInfo.impl = code
                     graphInfo.phrases = phrases
 
-                    if (!grammar.langs[graphInfo.lang]) grammar.langs[graphInfo.lang] = []
+                    if (!moduleObj.grammar[graphInfo.lang]) moduleObj.grammar[graphInfo.lang] = []
 
-                    grammar.langs[graphInfo.lang].push(dot.graphlib.json.write(graphObject))
+                    moduleObj.grammar[graphInfo.lang].push(dot.graphlib.json.write(graphObject))
 
                     graphObject = null
                   } catch (err) {
@@ -50,9 +67,11 @@ async function init() {
                 }
             }
         }
+
+        modulesObj.push(moduleObj)
     }
 
-    const dict = JSON.stringify(grammar)
+    const dict = JSON.stringify(modulesObj)
     fs.writeFileSync(path.resolve(__dirname, 'grammar.json'), dict)
 
     // Remove non essential files

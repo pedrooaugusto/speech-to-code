@@ -23,8 +23,11 @@ declare type ParsedPhrase = {
 
 declare type GraphJsonView = Record<string, unknown>
 
-declare type GrammarCollection = {
-    langs: Record<string, GraphJsonView[]>
+declare type SpokenModule = {
+	id: string,
+	desc: string,
+	label: string,
+	grammar: Record<string, GraphJsonView[]>
 }
 
 enum PositionEnum {

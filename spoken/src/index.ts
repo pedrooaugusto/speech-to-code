@@ -3,34 +3,41 @@ import Automata from './automata'
 import LOG from './logger'
 
 class Spoken {
-    public grammars: GrammarCollection | null = null
+    public modules: SpokenModule[] = []
 
     async init() {
-        this.grammars = await loadGrammar()
+        this.modules = await loadModules()
     }
 
     private grammarIsLoaded() {
-        if (this.grammars == null) throw new Error('Grammar is not loaded')
+        if (this.modules.length == 0) throw new Error('Grammar is not loaded')
     }
 
     public recognizePhrase(phrase: string, lang: string): (MatchedCommandWrapper[] | null) {
-        if (this.grammars == null) throw new Error('Grammar is not loaded')
+        if (this.modules == null) throw new Error('Grammar is not loaded')
 
         LOG.info('Looking for a match for: ', '"' + phrase + '"')
-        const command = new Automata(this.grammars.langs[lang])
-            .recoginize(phrase)
-            .map(([graph, state]) => new MatchedCommandWrapper(graph, state.args))
+        for (const mod of this.modules) {
+            const command = new Automata(mod.grammar[lang])
+                .recoginize(phrase)
+                .map(([graph, state]) => new MatchedCommandWrapper(graph, state.args))
 
-        return command.length ? command : null
+            if (command.length) return command
+        }
+
+        return null
     }
 
     public findById(id: string, lang: string): (MatchedCommandWrapper | null) {
-        if (this.grammars == null) throw new Error('Grammar is not loaded')
+        if (this.modules.length == 0) throw new Error('Grammar is not loaded')
 
-        for (const strCommand of this.grammars.langs[lang]) {
-            const graphObj: graphlib.Graph = graphlib.json.read(strCommand)
+        for (const mod of this.modules) {
+            for (const strCommand of mod.grammar[lang]) {
+                // dont need to do that
+                const graphObj: graphlib.Graph = graphlib.json.read(strCommand)
 
-            if (graphObj.graph().id === id) return new MatchedCommandWrapper(graphObj)
+                if (graphObj.graph().id === id) return new MatchedCommandWrapper(graphObj)
+            }
         }
 
         return null
@@ -65,7 +72,7 @@ class MatchedCommandWrapper {
     }
 }
 
-async function loadGrammar() {
+async function loadModules() {
     if (typeof require === 'function' && require('fs')?.readFileSync !== undefined) {
         const fs = require('fs')
         const path = require('path')
@@ -80,7 +87,7 @@ async function loadGrammar() {
 
     console.error('Unable to load grammar!')
 
-    return null
+    return []
 }
 
 export default new Spoken()

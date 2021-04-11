@@ -6,7 +6,7 @@ beforeAll(async () => {
 })
 
 test('it can load the grammar', async () => {
-    expect(Spoken.grammars).not.toBeNull()
+    expect(Spoken.modules).not.toBeNull()
 })
 
 test('it can generate the power set off all commands', async () => {
@@ -53,11 +53,12 @@ function mountTree(finalStates: string[], paths: Record<string, { distance: numb
 function getGraph(id: string) {
     let graph: graphlib.Graph | null = null
 
-    // @ts-ignore
-    for (let item of Spoken.grammars.langs['pt-BR']) {
-        graph = graphlib.json.read(item) as graphlib.Graph
+    for (const mod of Spoken.modules) {
+        for (let item of mod.grammar['pt-BR']) {
+            graph = graphlib.json.read(item) as graphlib.Graph
 
-        if (graph.graph().id === id) break
+            if (graph.graph().id === id) break
+        }
     }
 
     return graph
