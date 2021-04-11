@@ -1,0 +1,21 @@
+digraph TypeScript {
+    id="typescript";
+    label="Typescript voice commands";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=circle]; 0;
+    node[shape=doublecircle];
+
+    // START GENERATED
+    0 -> 1 [label="(cursor)"];
+    0 -> 2 [label="(declare_variable)"];
+    0 -> 3 [label="(go_to_line)"];
+    0 -> 4 [label="(new_line)"];
+    0 -> 5 [label="(write)"];
+    // END GENERATED
+
+    title="Typescript voice commands";
+    desc="Collection of voice commands of the typescript language";
+}

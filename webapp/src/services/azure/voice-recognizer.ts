@@ -35,9 +35,47 @@ export default class MyRecognizer {
     start() {
         if (this.recognizer == null) return console.error('[webapp.services.azure-voice-recognition]: Session is closed!')
 
+        const wavFragments: { [id: number]: ArrayBuffer } = []
+        let wavFragmentCount: number = 0
+        SpeechSDK.Connection.fromRecognizer(this.recognizer).messageSent = function(args) {
+            if (args.message.path === 'audio' && args.message.isBinaryMessage && args.message.binaryMessage !== null) {
+                wavFragments[wavFragmentCount++] = args.message.binaryMessage;
+            }
+        }
+
+        // this.recognizer.startContinuousRecognitionAsync
+
         this.recognizer.recognizeOnceAsync(result => {
             console.log('[webapp.services.azure-voice-recognition]: Results ', result)
             if(result.reason == SpeechSDK.ResultReason.RecognizedSpeech) {
+
+                {
+                    let byteCount: number = 0;
+                    for (let i: number = 0; i < wavFragmentCount; i++) {
+                        byteCount += wavFragments[i].byteLength;
+                    }
+                
+                    // Output array.
+                    const sentAudio: Uint8Array = new Uint8Array(byteCount);
+                
+                    byteCount = 0;
+                    for (let i: number = 0; i < wavFragmentCount; i++) {
+                        sentAudio.set(new Uint8Array(wavFragments[i]), byteCount);
+                        byteCount += wavFragments[i].byteLength;
+                    }
+                
+                    // Set the file size in the wave header:
+                    /*const view = new DataView(sentAudio.buffer);
+                    view.setUint32(4, byteCount, true);
+                    view.setUint32(40, byteCount, true);*/
+
+                    // @ts-ignore
+                    window.sentAudio = sentAudio
+                    new AudioContext().decodeAudioData(sentAudio.buffer, (buffer) => {
+                        console.log(buffer)
+                    })
+                }
+
                 const h = this.handlers.get('results')
 
                 if(h != null) h(result)

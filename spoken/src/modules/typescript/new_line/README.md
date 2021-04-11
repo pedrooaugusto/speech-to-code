@@ -1,16 +1,36 @@
-## Create a new line
+## New line
 
-Creates a new line above or bellow the current line
+Creates a new line above or below the current line
 
-**Phrases:**
+### Languages
 
-* English
-	![English](phrase_en-US.png)
-* Português
-	![Português](phrase_pt-BR.png)
+This command is available in the following languages
 
+**English**
 
-**Implementation:**
+The following automata is responsible for recognizing the command `New line` in english:
+
+![English](phrase_en-US.png)
+
+The following are examples of phrases, in english, used to trigger the command `New line`:
+
+1. (create) (line)
+2. (line) (above, below)
+
+**Português**
+
+O automata seguinte é reponsável por reconhecer o comando `New line` em português:
+
+![Português](phrase_pt-BR.png)
+
+As seguintes frases, em português, podem ser usadas para ativar o comando `New line`:
+
+1. (crie) (linha)
+2. (linha) (acima, abaixo)
+
+### Implementation
+
+Full implementation of this command can be found on this repository under the file [impl.ts](impl.ts)
 
 ```typescript
 async function newLine(command: NewLineParsedArgs, editor: Editor, context: {}) {
@@ -25,5 +45,6 @@ type NewLineParsedArgs = {
 
 // @ts-ignore
 return newLine
-(...) see more
+
+(...)
 ```

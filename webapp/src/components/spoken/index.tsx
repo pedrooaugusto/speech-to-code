@@ -29,7 +29,7 @@ export default function SpokenModules() {
     useEffect(() => {
         const modules = [{
             name: 'Typescript',
-            desc: 'The default module for typescript - code with voice using TypeScript',
+            desc: 'Code with voice using TypeScript',
             commands: (Spoken.grammars?.langs?.['en-US'] || []).map(({ value }: Record<string, Record<string, unknown>>) => ({
                 id: value.id,
                 desc: value.label,
@@ -106,7 +106,7 @@ export default function SpokenModules() {
                                     {(modalInfo.command.phrases || []).map((value) => {
                                         return (
                                             <li className="idiom" key={value}>
-                                                <input type="text" defaultValue={value} name="phrase"/>
+                                                <input type="text" defaultValue={value} name="phrase" readOnly/>
                                             </li>
                                         )
                                     })}
@@ -114,10 +114,10 @@ export default function SpokenModules() {
                             </div>
                         </div>
                     </div>
-                    <div className="module__footer">
+                    {/*<div className="module__footer">
                         <button>Save</button>
                         <button>Remove</button>
-                    </div>
+                    </div>*/}
                 </div>
             )}
         </main>

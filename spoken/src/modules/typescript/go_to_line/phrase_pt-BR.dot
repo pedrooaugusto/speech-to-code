@@ -1,6 +1,6 @@
 digraph GoToLine {
     id="GoToLine";
-    label="Troca o cursor de linha";
+    label="Trocar linha";
     lang="pt-BR";
     langName="Português";
     pad="0.2";
@@ -14,6 +14,6 @@ digraph GoToLine {
     {2 1 0 5} -> 3 [label="(linha)"];
     3 -> 4 [label="({numeral})", store=line];
 
-    title="Cria uma linha nova";
-    desc="Cria uma linha nova abaixo ou acima da linha atual";
+    title="Trocar linha";
+    desc="Move or cursor para uma linha diferente";
 }

@@ -10,7 +10,7 @@ export default function Main() {
     const { results, start, stop, analyzeSentence } = useAzureVoiceRecognition()
 
     const toggleRecording = () => {
-        // recording ? stop() : start()
+        recording ? stop() : start()
         setRecording(!recording)
     }
 

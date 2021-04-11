@@ -1,9 +1,9 @@
 digraph Cursor {
     id="cursor";
-    label="Move o cursor";
+    label="Mover o cursor";
     lang="pt-BR";
     langName="Português";
-    pad="0.5";
+    pad="0.2";
     rankdir=LR;
     node[shape=doublecircle]; 3 10 12 6;
     node[shape=circle];
@@ -23,6 +23,6 @@ digraph Cursor {
     11 -> 13 [label="({numeral})", store=leapSize];
     {11 13} -> 12 [label="(símbolo, letra)"];
 
-    title="Move o cursor";
+    title="Mover o cursor";
     desc="Move o cursor para uma linha ou símbolo";
 }

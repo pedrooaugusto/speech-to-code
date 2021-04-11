@@ -1,6 +1,6 @@
 digraph DeclareVariable {
     id="declare_variable";
-    label="Declarar Variável pt-BR";
+    label="Nova constante ou variável";
     lang="pt-BR";
     langName="Portugês";
     pad="0.2";
@@ -23,6 +23,6 @@ digraph DeclareVariable {
     {8 6 13 7} -> 9 [label=" (valor)"];
     {9 14} -> 10 [label=" ({term})", store=value];
 
-    title="New variable or constant";
-    desc="Declares a new constant or variable in the current line";
+    title="Nova constante ou variável";
+    desc="Declara uma nova constante ou variável na linha atual";
 }

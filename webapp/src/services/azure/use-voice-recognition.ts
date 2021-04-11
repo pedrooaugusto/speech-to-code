@@ -16,7 +16,7 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 
         recognizer
             .on('results', (result: SpeechSDK.SpeechRecognitionResult) => {
-                // setResults(result.text)
+                setResults(result.text)
                 setTimeout(() => IpcRenderer.send('Spoken:analyze', findComand(result)), 1000)
             })
             .on('error', (err) => {

@@ -1,6 +1,6 @@
 digraph NovaLinha {
     id="new_line";
-    label="Adiciona uma linha nova cima ou abaixo";
+    label="Linha nova";
     lang="pt-BR";
     langName="Português";
     pad="0.2";
@@ -16,6 +16,6 @@ digraph NovaLinha {
     5 -> 5 [label="(uma)"];
     4 -> 2 [label="(nova)"]
 
-    title="Cria uma linha nova";
+    title="Linha nova";
     desc="Cria uma linha nova abaixo ou acima da linha atual";
 }

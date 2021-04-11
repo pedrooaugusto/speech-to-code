@@ -1,16 +1,34 @@
-## Writes some text
+## Write text
 
-Just writes something the text edtiro
+Write some text in the editor
 
-**Phrases:**
+### Languages
 
-* English
-	![English](phrase_en-US.png)
-* Português
-	![Português](phrase_pt-BR.png)
+This command is available in the following languages
 
+**English**
 
-**Implementation:**
+The following automata is responsible for recognizing the command `Write text` in english:
+
+![English](phrase_en-US.png)
+
+The following are examples of phrases, in english, used to trigger the command `Write text`:
+
+1. (write)
+
+**Português**
+
+O automata seguinte é reponsável por reconhecer o comando `Write text` em português:
+
+![Português](phrase_pt-BR.png)
+
+As seguintes frases, em português, podem ser usadas para ativar o comando `Write text`:
+
+1. (escreva)
+
+### Implementation
+
+Full implementation of this command can be found on this repository under the file [impl.ts](impl.ts)
 
 ```typescript
 async function write(command: WriteParsedArgs, editor: Editor, context: {}) {
@@ -25,5 +43,6 @@ type WriteParsedArgs = {
 
 // @ts-ignore
 return write
-(...) see more
+
+(...)
 ```

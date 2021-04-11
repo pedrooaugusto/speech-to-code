@@ -1,6 +1,6 @@
 digraph NewLine {
     id="new_line";
-    label="Just creates a new line somewhere";
+    label="New line";
     lang="en-US";
     langName="English";
     pad="0.2";
@@ -15,6 +15,6 @@ digraph NewLine {
     0 -> 5 [label="(create)"];
     5 -> 5 [label="(a)"];
 
-    title="Create a new line";
-    desc="Creates a new line above or bellow the current line";
+    title="New line";
+    desc="Creates a new line above or below the current line";
 }
