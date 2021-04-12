@@ -12,7 +12,7 @@ let window: MyBrowserWindow | null = null
 async function createWindow(): Promise<void> {
 	window = new BrowserWindow({
 		width: 320,
-		height: 650,
+		height: 685,
 		x: screen.getPrimaryDisplay().size.width - 370,
 		y: 50,
 		alwaysOnTop: true,
@@ -23,6 +23,13 @@ async function createWindow(): Promise<void> {
 		},
 		icon: path.resolve(__dirname, 'icons', 'icon36x36.ico')
 	})
+
+	window.webContents.on('new-window', function(e, url) {
+		e.preventDefault()
+		require('electron').shell.openExternal(url)
+	})
+
+	window.setMenuBarVisibility(false)
 
 	await window.loadURL('http://localhost:3000/')
 

@@ -1,6 +1,7 @@
 node_modules
 dist
 .vscode-test
+bin
 server/public
 server/key.json
 server/key-gcloud.json

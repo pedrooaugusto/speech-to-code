@@ -1,46 +1,66 @@
 main.spoken {
-    font-family: system-ui;
-    h2 {
-        margin-top: 0px;
-    }
+    font-family: 'Roboto';
+    color: #1E3D58;
     display: flex;
     justify-content: center;
+    .title {
+        margin-bottom: 35px;
+        margin-top: 25px;
+        h2 {
+            margin: 0px;
+            margin-bottom: 5px;
+        }
+        .sub {
+            font-size: 12px;
+        }
+    }
     & .wrapper {
         flex: 0.95;
     }
     .module {
-        border: solid 1px #eee;
-        border-radius: 3px;
-        padding: 5px;
+        border: solid 1px #E8EEF1;
+        border-radius: 5px;
+        padding: 10px 5px;
         .module__title {
-            font-size: 16px;
+            font-size: 14px;
+            font-weight: bold;
             margin-bottom: 10px;
             position: relative;
-            span {
-                position: absolute;
-                right: 0px;
-                top: -2px;
-                display: block;
-                width: 20px;
-                height: 20px;
-                display: flex;
-                justify-content: center;
-                text-align: center;
-                align-items: center;
+            text-transform: capitalize;
+            a {color: #1E3D58;}
+            i {
                 cursor: pointer;
-                font-size: 16px;
+                position: absolute;
+                font-size: 21px;
+                font-weight: bold;
                 transition-duration: 0.25s;
-                transform: rotate(90deg);
+                top: -3px;
+                &.angle {
+                    right: 10px;
+                    transform: rotate(0deg);
+                }
+                &.info {
+                    font-size: 18px;
+                    right: 40px;
+                    top: -1px;
+                }
             }
         }
         .module__desc {
             font-size: 12px;
-            color: #000000;
+        }
+        .divider {
+            margin-top: 10px;
+            height: 1px;
+            background: #E8EEF1;
+            display: none;
         }
         .module__commands {
             display: none;
             margin-top: 15px;
-            font-size: 12px;
+            font-family: 'Roboto';
+            font-size: 14px;
+            font-weight: 500;
             ul {
                 list-style:none;
                 margin: 0px;
@@ -54,147 +74,99 @@ main.spoken {
                     cursor: pointer;
                     &:hover {
                         &:after {
-                            background: black;
+                            background: #057DCD;
                         }
                     }
                     &:after {
                         content: '';
                         position: absolute;
-                        width: 3px;
+                        width: 4px;
                         height: 100%;
-                        background: #8b7aff;
+                        background: #43B0F1;
                         top: 0px;
                         left: 0px;
-                        transition-duration: 0.2s;
+                        transition-duration: 0.1s;
                     }
                 }
             }
         }
         &.open {
-            .module__title span {
-                transform: rotate(-90deg);
+            .module__title i.angle {
+                transform: rotate(180deg);
             }
             .module__commands {
                 display: block;
             }
+            .divider {display: block;}
         }
     }
-    .module__details {
-        position: absolute;
-        z-index: 5;
-        width: 100%;
-        min-height: 100vh;
-        background: white;
-        top: 0px;
-        .module__details__wrapper {
-            padding: 5px;
-        }
-        .module__main-header {
-            margin-bottom: 10px;
+}
+
+#modal .command__details {
+    position: absolute;
+    z-index: 5;
+    left: 5%;
+    width: 90%;
+    max-height: 270px;
+    overflow-y: auto;
+    background: white;
+    top: 25%;
+    border-radius: 5px;
+    font-family: 'Roboto';
+    color: #1E3D58;
+    .wrapper {
+        padding: 10px;
+        .main-header {
             h2 {
+                margin: 0px;
+                font-size: 16px;
                 margin-bottom: 5px;
             }
             div {
-                color: #444;
-                font-size: 14px;
+                font-size: 12px;
             }
-            span {
-                position: absolute;
-                top: 5px;
-                right: 5px;
-                width: 20px;
-                height: 20px;
-                display: flex;
-                color: black;
+
+            a {color: #1E3D58;}
+            i {
                 cursor: pointer;
-                align-items: center;
-                justify-content: center;
-                line-height: 1;
-                font-size: 36px;
-                font-weight: bolder;
+                position: absolute;
+                font-size: 21px;
+                font-weight: bold;
+                &.info {
+                    font-size: 18px;
+                    right: 11px;
+                    top: 12px;
+                }
             }
         }
         .divider {
-            width: 100%;
-            height: 0.5px;
-            background: #dadada;
-        }
-        h4 {
-            margin: 15px 0px;
-        }
-        .module__main {
-            .field {
-                flex-flow:column;
-                line-height: 1;
-                margin-bottom: 25px;
-                .label {
-                    margin-bottom: 10px;
-                    font-size: 14px;
-                }
-                .value {
-                    font-size: 18px;
-                    height: 30px;
-                    border: solid 1px #c8c8c8;
-                    border-radius: 4px;
-                    padding: 0px 5px;
-                    width: 100%;
-                }
-                textarea {
-                    border: solid 1px #c8c8c8;
-                    border-radius: 4px;
-                    resize: none;
-                    width: 100%;
-                    height: 65px;
-                }
-                &.desc {
-                    textarea {
-                        font-family: system-ui;
-                        font-size: 14px;
-                    }
-                }
-                &.impl {
-                    textarea {
-                        height: 80px;
-                        font-size: 12px;
-                        resize: vertical;
-                    }
-                }
-                &.phrases {
-                    .idioms {
-                        padding-inline-start: 18px;
-                        li.idiom {
-                            margin-bottom: 20px;
-                            input {
-                                font-size: 12px;
-                                border: solid 1px #c8c8c8;
-                                border-radius: 4px;
-                                padding: 5px 5px;
-                                width: 100%;
-                            }
-                            .commands {
-                                padding-inline-start: 18px;
-                                margin-top: 15px;
-                                li:not(:last-child) {
-                                    margin-bottom: 10px;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            margin-top: 10px;
+            height: 1px;
+            background: #E8EEF1;
         }
 
-        .module__footer {
-            display: flex;
-            width: 100%;
-            //padding: 15px 15px;
-            justify-content: space-around;
-            margin-bottom: 10px;
-            button {
-                width: 48%;
-                padding: 10px;
-                border: none;
-                cursor: pointer;
+        .body {
+            margin-top: 10px;
+            .label {
+                font-size: 14px;
+            }
+            ul, li {
+                margin: 0px;
+                padding: 0px;
+                list-style: none;
+            }
+            ul{
+                margin-top: 10px;
+            }
+            li {
+                font-size: 12px;
+                margin-bottom: 10px;
+                background: #F4F4F4;
+                min-height: 30px;
+                border-radius: 4px;
+                padding: 5px 5px;
+                display: flex;
+                align-items: center;
             }
         }
     }

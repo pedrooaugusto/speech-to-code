@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk'
 import Spoken from 'spoken'
 import { VoiceRecognitionHook } from '../use-voice-recognition'

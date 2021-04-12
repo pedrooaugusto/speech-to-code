@@ -10,3 +10,17 @@ body {
 * {
     box-sizing: border-box;
 }
+
+#modal .shade {
+    position: absolute;
+    background: #00000091;
+    display: none;
+    top: 0px;
+    height: 100vh;
+    width: 100%;
+    z-index: 2;
+}
+
+#modal .shade.open {
+    display: block;
+}

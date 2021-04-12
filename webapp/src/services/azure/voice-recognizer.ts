@@ -15,8 +15,6 @@ export default class MyRecognizer {
         return MyRecognizer.recognizer
     }
 
-    constructor() {}
-
     async init() {
         // THIS IS BAD!
         // https://github.com/Azure-Samples/AzureSpeechReactSample
@@ -47,7 +45,7 @@ export default class MyRecognizer {
 
         this.recognizer.recognizeOnceAsync(result => {
             console.log('[webapp.services.azure-voice-recognition]: Results ', result)
-            if(result.reason == SpeechSDK.ResultReason.RecognizedSpeech) {
+            if(result.reason === SpeechSDK.ResultReason.RecognizedSpeech) {
 
                 {
                     let byteCount: number = 0;

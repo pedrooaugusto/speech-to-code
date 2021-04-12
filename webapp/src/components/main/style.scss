@@ -7,11 +7,20 @@ main.main .record {
 }
 
 main.main .record .btn {
-    width: 50px;
-    height: 50px;
-    background: #12c93e;
+    width: 125px;
+    height: 125px;
     border-radius: 100%;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    i {
+        color: #057DCD;
+        font-size: 42px;
+        display: inline;
+        position: absolute;
+    }
 }
 
 main.main .record .label {
@@ -23,18 +32,54 @@ main.main .record.on .btn {
     background: #d72121;
 }
 
-main.main .transcription, main.main .debug {
+main.main .transcription-history .content {
+    height: 250px;
+    border-radius: 4px;
+    border: solid 2px #43B0F1;
+    padding: 5px;
+    font-family: 'Roboto';
+    overflow-y: auto;
+    .phrase {
+        font-size: 12px;
+        height: 28px;
+        display: flex;
+        padding: 0 8px;
+        align-items: center;
+        background-color: #F9F9F9;
+        color: #1E3D58;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        &.final {
+            background-color: #E4E4E4;
+        }
+        &.recognized {
+            background-color: #43B0F1;
+            color: white;
+            font-size: 14px;
+            position: relative;
+            cursor: pointer;
+            height: 32px;
+            i {
+                position: absolute;
+                right: 10px;
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+main.main .debug, main.main .transcription-history {
     padding-left: 10px;
     padding-right: 10px;
     margin-bottom: 15px;
 }
 
-main.main .transcription label, main.main .debug label {
+main.main .debug label {
     display: block;
     margin-bottom: 5px;
 }
 
-main.main .transcription .transcription-text, main.main .debug .transcription-text {
+main.main .debug .transcription-text {
     border: solid 1px #c8c8c8;
     padding: 5px;
     height: 45px;

@@ -2,17 +2,32 @@ import React, { useEffect, useState } from 'react'
 import Header from './components/header'
 import Main from './components/main'
 import Spoken from './components/spoken'
+import GloablContext, { GlobalContext as GC } from './services/global-context'
 
-export default function App (props: any) {
+export default function App(props: any) {
     return (
-        <div>
-            <Header />
-            <Router
-                pages={[
-                    { hash: '', component: Main },
-                    { hash: '#/spoken', component: Spoken }
-                ]}
-            />
+        <GloablContext>
+            <div>
+                <Header />
+                <Router
+                    pages={[
+                        { hash: '', component: Main },
+                        { hash: '#/spoken', component: Spoken }
+                    ]}
+                />
+            </div>
+            <ModalSection />
+        </GloablContext>
+    )
+}
+
+const ModalSection = () => {
+    const { toggleShade, shadeIsOpen } = React.useContext(GC)
+
+    return (
+        <div id="modal">
+            <div className={`shade ${shadeIsOpen ? 'open' : ''}`} onClick={() => toggleShade()}></div>
+            <div className="content"></div>
         </div>
     )
 }

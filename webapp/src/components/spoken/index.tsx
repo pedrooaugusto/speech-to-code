@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import ReactDOM from 'react-dom'
 import Spoken from 'spoken'
-import api from '../api'
+import { GlobalContext } from '../../services/global-context'
 
 type GraphJsonView = {
     [key: string]: unknown,
@@ -33,98 +34,115 @@ type CommandDefinition = {
     desc: string
 }
 
+const DOC_LINK = 'https://github.com/pedrooaugusto/speech-to-code/tree/main/spoken/src/modules'
 
 export default function SpokenModules() {
     const [modules, setModules] = useState<SpokenModule[]>([])
     const [modalInfo, setModalInfo] = useState<null | ModalInfo>(null)
     const [open, setOpen] = useState(false)
     const lang = 'en-US'
+    const context = useContext(GlobalContext)
 
     useEffect(() => {
-        const modules = Spoken.modules
+        if (Spoken.modules.length === 0) {
+            Spoken.init().then(() => {
+                const modules = Spoken.modules
+    
+                setModules(modules)                
+            })
+        } else {
+            const modules = Spoken.modules
 
-        console.log(modules)
-
-        setModules(modules)
-
+            setModules(modules)
+        }
     }, [])
 
     return (
         <main className="spoken">
             <div className="wrapper">
-                <h2>Modules</h2>
-                {/*<div className="search-box">
-                    <input type="text" name="search" autocomplete="off" />
-                </div>*/}
-                {modules.map(mod => {
-                    return (
-                        <div className={`module ${open ? 'open' : ''}`} key={mod.id}>
-                            <div className="module__title">
-                                {mod.label}
-                                <span onClick={() => setOpen(!open)}>❯</span>
+                <div className="title">
+                    <h2>Modules</h2>
+                    <div className="sub">Each module represents a set of commands that can be said out loud.</div>
+                </div>
+                <div className="modules">
+                    {modules.map(mod => {
+                        return (
+                            <div className={`module ${open ? 'open' : ''}`} key={mod.id}>
+                                <div className="module__title">
+                                    {mod.id}
+                                    <i onClick={() => setOpen(!open)} className="fa fa-angle-down angle" />
+                                    <a
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        href={`${DOC_LINK}/${mod.id}#${mod.label.replaceAll(' ', '-')}`}
+                                        title="More information about this command"
+                                    >
+                                        <i className="fa fa-info-circle info" />
+                                    </a>
+                                </div>
+                                <div className="module__desc">{mod.desc}</div>
+                                <div className="divider"></div>
+                                <div className="module__commands">
+                                    <ul>
+                                        {mod.grammar[lang].map((c) => {
+                                            return (
+                                                <li
+                                                    onClick={() => {
+                                                        setModalInfo({ module: mod, command: c.value })
+                                                        context.toggleShade()
+                                                    }}
+                                                    key={c.value.id}
+                                                >
+                                                    {c.value.label}
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                </div>
                             </div>
-                            <div className="module__desc">{mod.desc}</div>
-                            <div className="module__commands">
-                                <ul>
-                                    {mod.grammar[lang].map((c) => {
-                                        return (
-                                            <li
-                                                onClick={() => setModalInfo({ module: mod, command: c.value })}
-                                                key={c.value.id}
-                                            >
-                                                {c.value.label}
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
-                            </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
-            {modalInfo !== null && (
-                <div className="module__details">
-                    <div className="module__details__wrapper">
-                        <div className="module__main-header">
-                            <h2>{modalInfo.module.label}</h2>
-                            <span title="close" onClick={() => setModalInfo(null)}>×</span>
-                            <div>{modalInfo.module.desc}</div>
+            {(modalInfo != null) && (<DetailsModal isOpen={context.shadeIsOpen}>
+                <div className="command__details">
+                    <div className="wrapper">
+                        <div className="main-header">
+                            <h2>{modalInfo!.command.label}</h2>
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={`${DOC_LINK}/${modalInfo.module.id}/${modalInfo.command.id}#${modalInfo.command.label.replaceAll(' ', '-')}`}
+                                title="More information about this command"
+                            >
+                                <i className="fa fa-info-circle info" />
+                            </a>
+                            <div>{modalInfo!.command.desc}</div>
                         </div>
                         <div className="divider"></div>
-                        <div className="module__main">
-                            <h4>Command:</h4>
-                            <div className="field">
-                                <div className="label">#ID:</div>
-                                <input type="text" readOnly className="value" value={modalInfo.command.id} />
-                            </div>
-                            <div className="field desc">
-                                <div className="label">Description:</div>
-                                <textarea defaultValue={modalInfo.command.desc} />
-                            </div>
-                            <div className="field impl">
-                                <div className="label">Implementation:</div>
-                                <textarea defaultValue={modalInfo.command.impl} />
-                            </div>
-                            <div className="field phrases">
-                                <div className="label">Phrases:</div>
-                                <ul className="idioms">
-                                    {(modalInfo.command.phrases.split(';') || []).map((value) => {
-                                        return (
-                                            <li className="idiom" key={value}>
-                                                <input type="text" defaultValue={value} name="phrase" readOnly />
-                                            </li>
-                                        )
-                                    })}
-                                </ul>
-                            </div>
+                        <div className="body">
+                            <div className="label">Phrases:</div>
+                            <ul>
+                                {modalInfo.command.phrases.split(';').map(item => {
+                                    return (
+                                        <li key={item}>{item}</li>
+                                    )
+                                })}
+                            </ul>
                         </div>
                     </div>
-                    {/*<div className="module__footer">
-                        <button>Save</button>
-                        <button>Remove</button>
-                    </div>*/}
                 </div>
-            )}
+            </DetailsModal>)}
         </main>
     )
+}
+
+const DetailsModal = ({ isOpen, children }: { isOpen: boolean, children: React.ReactNode }) => {
+    if (!isOpen) return null
+
+    const el = document.querySelector('#modal .content')
+
+    if (!el) return null
+
+    return ReactDOM.createPortal(isOpen ? children : null, el)
 }
