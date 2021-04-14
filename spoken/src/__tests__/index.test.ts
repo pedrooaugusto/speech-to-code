@@ -26,7 +26,6 @@ test('it can search for a command given a id', async () => {
 
 test('it can search for a command given a phrase', async () => {
     let command = Spoken.recognizePhrase('declarar constante chamada bola', 'pt-BR')
-
     expect(command).toMatchObject([{
         id: 'declare_variable',
         args: {
@@ -36,8 +35,33 @@ test('it can search for a command given a phrase', async () => {
     }])
 
     command = Spoken.recognizePhrase('THE', 'pt-BR')
-
     expect(command).toBeNull()
+
+    command = Spoken.recognizePhrase('write hello how are you ?', 'en-US')
+    expect(command![0]).toMatchObject({
+        id: 'write',
+        path: [
+            'write',
+            null,
+            { text: 'hello' },
+            { text: 'how' },
+            { text: 'are' },
+            { text: 'you' },
+            { text: '?' }
+        ]
+    })
+
+    command = Spoken.recognizePhrase('write it hello friend', 'en-US')
+    expect(command![0]).toMatchObject({
+        id: 'write',
+        path: ['write', 'it', null, { text: 'hello' }, { text: 'friend' }]
+    })
+    
+    command = Spoken.recognizePhrase('write down hello friend', 'en-US')
+    expect(command![0]).toMatchObject({
+        id: 'write',
+        path: ['write', 'down', { text: 'hello' }, { text: 'friend' }]
+    })
 })
 
 function mountTree(finalStates: string[], paths: Record<string, { distance: number, predecessor: string }>, graph: graphlib.Graph) {

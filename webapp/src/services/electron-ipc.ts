@@ -1,6 +1,7 @@
 interface ElectronIpc {
     send: (channel: string, ...args: any) => void,
-    on: (channel: string, cb: (...args: any) => void) => void
+    on: (channel: string, cb: (...args: any) => void) => void,
+    removeAllListeners: (channel: string) => void
 }
 
 class FakeIpc implements ElectronIpc {
@@ -21,6 +22,10 @@ class FakeIpc implements ElectronIpc {
         if (channel === 'Config:changeEditor') {
             this.changeEditor(editor)
         }
+    }
+
+    removeAllListeners (channel: string) {
+        console.warn('IPC not defined (this is a electron application!)')
     }
 
     changeEditor(editor: string) {

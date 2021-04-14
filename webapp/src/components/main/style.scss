@@ -41,9 +41,9 @@ main.main .transcription-history .content {
     overflow-y: auto;
     .phrase {
         font-size: 12px;
-        height: 28px;
+        min-height: 28px;
         display: flex;
-        padding: 0 8px;
+        padding: 8px;
         align-items: center;
         background-color: #F9F9F9;
         color: #1E3D58;
@@ -58,7 +58,6 @@ main.main .transcription-history .content {
             font-size: 14px;
             position: relative;
             cursor: pointer;
-            height: 32px;
             i {
                 position: absolute;
                 right: 10px;
@@ -92,36 +91,3 @@ main.main .debug {
     }
 }
 
-main.main .editor-in-use {
-    padding-left: 10px;
-    padding-right: 10px;
-    display: flex;
-    div {
-        font-weight: bold;
-        margin-right: 10px;
-    }
-    ul {
-        list-style: none;
-        display: flex;
-        &, li {
-            margin: 0px;
-            padding: 0px;
-            &:not(:last-child) {
-                margin-right: 15px;
-            }
-        }
-
-        li {
-            cursor: pointer;
-        }
-
-        .selected {
-            text-decoration: underline;
-            font-weight: bolder;
-            color: red;
-            &.on {
-                color: royalblue;
-            }
-        }
-    }
-}

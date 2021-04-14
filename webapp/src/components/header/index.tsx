@@ -1,10 +1,23 @@
 import React, { useState } from 'react'
+import Spoken from 'spoken'
 import { GlobalContext } from '../../services/global-context'
 
 export default function Header() {
     const [open, setOpen] = useState(false)
+    const [langs, setLangs] = useState<{ lang: any, langName: any}[]>([])
     const context = React.useContext(GlobalContext)
     const selectedEditor = (context.editorState || []).find((a: any) => (a.status === 'ON' && a.current)) || {}
+
+    React.useEffect(() => {
+        const langs_ = []
+        for (const module of Spoken.modules as { grammar: Record<string, Record<string, any>> }[]) {
+            for (const item of Object.values(module.grammar)) {
+                langs_.push({ lang: item[0].value.lang, langName: item[0].value.langName,})
+            }
+        }
+
+        setLangs(langs_)
+    }, [])
 
     return (
         <header>
@@ -54,9 +67,19 @@ export default function Header() {
                         </div>
                         <div className="setting">
                             <label>Input language:</label>
-                            <select className="input">
-                                <option value="default">English</option>
-                                <option value="default">Português</option>
+                            <select
+                                className="input"
+                                value={context.language || ''}
+                                onChange={(evt: any) => context.changeLanguage(evt.target.value)}
+                            >
+                                {langs.map((item) =>
+                                    <option
+                                        value={item.lang}
+                                        key={item.lang}
+                                    >
+                                        {item.langName}
+                                    </option>
+                                )}
                             </select>
                         </div>
                     </div>

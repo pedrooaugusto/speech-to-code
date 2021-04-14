@@ -8,6 +8,9 @@ contextBridge.exposeInMainWorld(
         },
         on: (channel: string, func: Function) => {
             ipcRenderer.on(channel, (event, ...args) => func(...args))
+        },
+        removeAllListeners: (str: string) => {
+            ipcRenderer.removeAllListeners(str)
         }
     }
 )

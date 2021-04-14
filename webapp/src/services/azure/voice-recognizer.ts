@@ -15,7 +15,7 @@ export default class MyRecognizer {
         return MyRecognizer.recognizer
     }
 
-    async init() {
+    async init(lang: string) {
         // THIS IS BAD!
         // https://github.com/Azure-Samples/AzureSpeechReactSample
         // https://github.com/Azure-Samples/cognitive-services-speech-sdk/blob/master/quickstart/javascript/browser/from-microphone/index.html
@@ -24,83 +24,53 @@ export default class MyRecognizer {
         const { key } = await res.json()
 
         this.speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, 'brazilsouth')
-        this.speechConfig.speechRecognitionLanguage = 'pt-BR'
-        this.speechConfig.setServiceProperty('punctuation', 'explicit', SpeechSDK.ServicePropertyChannel.UriQueryParameter);
+        this.speechConfig.speechRecognitionLanguage = lang
+        this.speechConfig.setServiceProperty('punctuation', 'explicit', SpeechSDK.ServicePropertyChannel.UriQueryParameter)
         this.audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput()
         this.recognizer = new SpeechSDK.SpeechRecognizer(this.speechConfig, this.audioConfig)
+
+        this.recognizer.recognizing = throttle((sender: SpeechSDK.Recognizer, event: SpeechSDK.SpeechRecognitionEventArgs) => {
+            const fn = this.handlers.get('results')
+
+            if(fn != null) fn(event.result, false)
+        }, 1000)
+
+        this.recognizer.recognized = (sender, event) => {
+            const fn = this.handlers.get('results')
+
+            if(fn != null) fn(event.result, true)
+        }
     }
 
     start() {
         if (this.recognizer == null) return console.error('[webapp.services.azure-voice-recognition]: Session is closed!')
 
-        const wavFragments: { [id: number]: ArrayBuffer } = []
-        let wavFragmentCount: number = 0
-        SpeechSDK.Connection.fromRecognizer(this.recognizer).messageSent = function(args) {
-            if (args.message.path === 'audio' && args.message.isBinaryMessage && args.message.binaryMessage !== null) {
-                wavFragments[wavFragmentCount++] = args.message.binaryMessage;
-            }
-        }
-
-        // this.recognizer.startContinuousRecognitionAsync
-
-        this.recognizer.recognizeOnceAsync(result => {
-            console.log('[webapp.services.azure-voice-recognition]: Results ', result)
-            if(result.reason === SpeechSDK.ResultReason.RecognizedSpeech) {
-
-                {
-                    let byteCount: number = 0;
-                    for (let i: number = 0; i < wavFragmentCount; i++) {
-                        byteCount += wavFragments[i].byteLength;
-                    }
-                
-                    // Output array.
-                    const sentAudio: Uint8Array = new Uint8Array(byteCount);
-                
-                    byteCount = 0;
-                    for (let i: number = 0; i < wavFragmentCount; i++) {
-                        sentAudio.set(new Uint8Array(wavFragments[i]), byteCount);
-                        byteCount += wavFragments[i].byteLength;
-                    }
-                
-                    // Set the file size in the wave header:
-                    /*const view = new DataView(sentAudio.buffer);
-                    view.setUint32(4, byteCount, true);
-                    view.setUint32(40, byteCount, true);*/
-
-                    // @ts-ignore
-                    window.sentAudio = sentAudio
-                    new AudioContext().decodeAudioData(sentAudio.buffer, (buffer) => {
-                        console.log(buffer)
-                    })
-                }
-
-                const h = this.handlers.get('results')
-
-                if(h != null) h(result)
-            } else {
-                const h = this.handlers.get('error')
-
-                if(h != null) h({ err: new Error('Something went wrong!'), result })
-            }
+        this.recognizer.startContinuousRecognitionAsync(() => {
+            console.log('[webapp.services.azure-voice-recognition]: Started')
         }, (err) => {
-            console.log('[webapp.services.azure-voice-recognition]: Err ' + err.toString())
-
-            const h = this.handlers.get('error')
-
-            if(h != null) h({ err: new Error('Something went wrong!'), result: null })
+            console.error(err)
         })
+
     }
 
     stop() {
         if (this.recognizer == null) return console.error('[webapp.services.azure-voice-recognition]: Session is closed!')
 
+        this.recognizer.stopContinuousRecognitionAsync(() => {
+            console.info('[webapp.services.azure-voice-recognition]: Stopped')
+        })
         // this.recognizer.close()
     }
 
     destroy () {
+        console.log('destroyed')
         this.recognizer?.close()
+        this.audioConfig?.close()
+        this.speechConfig?.close()
+
         this.recognizer = null
         this.audioConfig = null
+        this.speechConfig = null
         this.handlers.clear()
     }
 
@@ -108,5 +78,17 @@ export default class MyRecognizer {
         this.handlers.set(event, fn)
 
         return this
+    }
+}
+
+function throttle<T extends CallableFunction>(fn: T, time: number) {
+    let lastCall = 0
+
+    return (...args: any) => {
+        if (Date.now() - lastCall >= time) {
+            lastCall = Date.now()
+
+            return fn(...args)
+        }
     }
 }

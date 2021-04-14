@@ -5,9 +5,9 @@ const cors = require('cors')
 const app = express()
 const http = require('http').createServer(app)
 const io = require('socket.io')(http)
-const Session = require('./src/voice-recognition-session')
+// const Session = require('./src/voice-recognition-session')
 const SpokenRouter = require('./src/spoken/route')
-const Spoken = require('./src/spoken/index')
+// const Spoken = require('./src/spoken/index')
 
 app.use(cors())
 
@@ -30,6 +30,14 @@ io.on('connection', (socket) => {
 		console.log('[server.app] A user has left!')
 	})
 
+	socket.on('VoiceRecognitionSession:auth', (data) => {
+		console.log('[server.app.VoiceRecognitionSession.auth] Request for API access token')
+		const key = JSON.stringify(fs.readFileSync(path.resolve(__dirname, 'key-azure.json')))
+
+		socket.emit('VoiceRecognitionSession:authResults', key)
+	})
+
+	/* This code make this app compatible with Google STT services, right now we are using Azure...
 	socket.on('VoiceRecognitionSession:data', ({ data }) => {
 		Session.current().write(data)
 	})
@@ -61,13 +69,6 @@ io.on('connection', (socket) => {
 	socket.on('VoiceRecognitionSession:byPass', (data) => {
 		console.log('[server.app.VoiceRecognitionSession.byPass] Bypassing voice recognition engine')
 		socket.emit('VoiceRecognitionSession:results', Spoken.findComand(data))
-	})
-
-	socket.on('VoiceRecognitionSession:auth', (data) => {
-		console.log('[server.app.VoiceRecognitionSession.auth] Request for API access token')
-		const key = JSON.stringify(fs.readFileSync(path.resolve(__dirname, 'key-azure.json')))
-
-		socket.emit('VoiceRecognitionSession:authResults', key)
-	})
+	})*/
 
 })

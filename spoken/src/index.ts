@@ -68,7 +68,14 @@ class MatchedCommandWrapper {
         this.path = path
         this.args = (path
             .filter(a => a != null && typeof a !== 'string') as Record<string, string>[])
-            .reduce((acc, el) => ({...acc, ...el}), {})
+            .reduce((acc, el) => {
+                const key = Object.keys(el)[0]
+
+                if (acc[key]) acc[key] += ' ' + el[key]
+                else acc[key] = el[key]
+
+                return acc
+            }, {})
     }
 }
 

@@ -3,6 +3,11 @@ import { VoiceRecognitionHook } from '../use-voice-recognition'
 import socket from '../socket-io'
 import IpcRenderer from '../electron-ipc'
 
+/**
+ * @deprecated Now we use Azure voice recognition service, maybe in the future
+ * we can make google STT work again.
+ * @returns VoiceRecognitionHook
+ */
 export const useVoiceRecognition: VoiceRecognitionHook = () => {
     const [results, setResults] = useState('')
     const myRecorder = MyRecorder.getRecorder()

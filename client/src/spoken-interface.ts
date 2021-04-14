@@ -3,8 +3,6 @@ import EditorService from './editors/editor-service'
 
 class SpokenInterface {
     onComand = async (event: IpcMainEvent, res: SpokenSearchResponse, ...args: unknown[]) => {
-        event.reply('Spoken:analysisResults', { phrase: res.phrase, ok: !!res.command })
-
         if (res.command) {
             const fn = eval(`(() => { ${res.command.impl} })()`)
 
@@ -14,7 +12,7 @@ class SpokenInterface {
                 console.log('[wrapper.SpokenInterface.onCommand]: Result: ' + JSON.stringify(result || null))
 
                 if (result != null) {
-                    event.reply('command-reply', res.phrase, result)
+                    event.reply('Spoken:executeCommandResult', res, result)
                 }
             } catch (err) {
                 console.error('[wrapper.SpokenInterface.onCommand]\n\t' + err)

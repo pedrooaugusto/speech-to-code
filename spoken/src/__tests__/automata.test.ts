@@ -53,10 +53,43 @@ test('it is possible to go to the next state', async () => {
 
     let s = automata.currentState
     expect(s = automata.nextState('declare') as State).toMatchObject({id: '1', args: ['declare']})
-    automata.setState(s, '')
+    automata.setState(s)
     expect(s = automata.nextState('uma') as State).toMatchObject({id: '2', args: ['declare', 'uma']})
-    automata.setState(s, '')
+    automata.setState(s)
     expect(automata.nextState('constante')).toMatchObject({id: '3', args: ['declare', 'uma', {memType: 0}]})
+})
+
+test('it is able to exaust every transition before making the empty one', async() => {
+    let graph: graphlib.Graph | null = Get('grammar', 'write', 'en-US') as graphlib.Graph
+
+    if (graph == null) throw new Error('graph cannot be null')
+
+    const automata = new Automata(graph)
+
+    let s = automata.currentState
+    expect(s = automata.nextState('write') as State).toMatchObject({ args: ['write'] })
+    automata.setState(s)
+
+    expect(s = automata.nextState('it') as State).toMatchObject({args: ['write', 'it'], isFinal: false })
+    automata.setState(s)
+
+    expect(s = automata.nextState('down') as State).toMatchObject({ args: ['write', 'it', 'down'], isFinal: true})
+    automata.setState(s)
+
+    expect(s = automata.nextState('who') as State).toMatchObject({ args: ['write', 'it', 'down', { text: 'who' }], isFinal: true})
+    automata.setState(s)
+
+    expect(s = automata.nextState('are') as State).toMatchObject({
+        args: [
+            'write',
+            'it',
+            'down',
+            { text: 'who' },
+            { text: 'are' }
+        ],
+        isFinal: true
+    })
+    automata.setState(s)
 })
 
 test('it can detect if a phrase belongs to a grammar', async () => {
@@ -148,13 +181,13 @@ test('it can normalize some words', async () => {
 })
 
 
-function Get(what: 'grammar' |  'module', id: string) {
+function Get(what: 'grammar' |  'module', id: string, lang: string = 'pt-BR') {
     let graph: graphlib.Graph | null = null
 
     for (const mod of modules) {
         if (what === 'module' && mod.id === id) return mod
         else if (what  === 'grammar') {
-            for (let item of mod.grammar['pt-BR']) {
+            for (let item of mod.grammar[lang]) {
                 graph = graphlib.json.read(item) as graphlib.Graph
 
                 if (graph.graph().id === id) return graph

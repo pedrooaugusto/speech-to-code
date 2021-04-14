@@ -3,6 +3,7 @@ import IpcRenderer from '../../services/electron-ipc'
 // import { useVoiceRecognition as useGoogleVoiceRecognition } from '../../services/google/use-voice-recognition'
 import useAzureVoiceRecognition from '../../services/azure/use-voice-recognition'
 import { MicrophoneButton } from './MicrophoneButton'
+import { RecognitionRequest } from '../../services/use-voice-recognition'
 
 export default function Main() {
     const [recording, setRecording] = useState(false)
@@ -24,6 +25,10 @@ export default function Main() {
             r ? start() : stop()
             setRecording(r)
         })
+
+        return () => {
+            IpcRenderer.removeAllListeners('VoiceRecognition:toggleRecording')
+        }
     }, [])
 
     return (
@@ -32,7 +37,7 @@ export default function Main() {
                 recording={recording}
                 toggleRecording={toggleRecording}
             />
-            <TranscriptionHistory />
+            <TranscriptionHistory results={results as RecognitionRequest} />
             {/* <div className="debug">
                 <label>Debug:</label>
                 <div className="transcription-text input" contentEditable></div>
@@ -42,40 +47,31 @@ export default function Main() {
     )
 }
 
-const hist = [{
-    text: 'This is a simple',
-    isFinal: false,
-    recognized: false
-},{
-    text: 'This is a simple test',
-    isFinal: false,
-    recognized: false
-},{
-    text: 'This is a simple text',
-    isFinal: !false,
-    recognized: false
-},{
-    text: 'Go to line',
-    isFinal: false,
-    recognized: false
-},{
-    text: 'Go to line 12',
-    isFinal: !false,
-    recognized: !false
-}]
+function TranscriptionHistory(
+    props: {
+        results: RecognitionRequest
+    }
+) {
+    const [history, setHistory] = React.useState<RecognitionRequest[]>([])
 
-function TranscriptionHistory(props: { results?: {}[] }) {
     useEffect(() => {
         const h = document.querySelector('.transcription-history .content')
-        if (h != null) h.scrollTop = h.scrollHeight
-    }, [])
+
+        if (h != null)
+            h.scrollTop = h.scrollHeight
+
+    }, [history.length])
+
+    useEffect(() => {
+        if (props.results?.id && props.results?.text) setHistory((h) => h.concat(props.results))
+    }, [props.results?.id])
 
     return (
         <div className="transcription-history">
             <div className="content phrases">
-                {hist.map(item => {
+                {history.map(item => {
                     return (
-                        <div key={item.text} className={`phrase ${item.isFinal ? 'final' : ''} ${item.recognized ? 'recognized' : ''}`}>
+                        <div key={item.id} className={`phrase ${item.isFinal ? 'final' : ''} ${item.recognized ? 'recognized' : ''}`}>
                             {item.text}
                             {item.recognized && <i className="fa fa-bolt" />}
                         </div>

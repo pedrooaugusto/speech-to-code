@@ -37,25 +37,10 @@ type CommandDefinition = {
 const DOC_LINK = 'https://github.com/pedrooaugusto/speech-to-code/tree/main/spoken/src/modules'
 
 export default function SpokenModules() {
-    const [modules, setModules] = useState<SpokenModule[]>([])
+    // const [modules, setModules] = useState<SpokenModule[]>([])
     const [modalInfo, setModalInfo] = useState<null | ModalInfo>(null)
     const [open, setOpen] = useState(false)
-    const lang = 'en-US'
     const context = useContext(GlobalContext)
-
-    useEffect(() => {
-        if (Spoken.modules.length === 0) {
-            Spoken.init().then(() => {
-                const modules = Spoken.modules
-    
-                setModules(modules)                
-            })
-        } else {
-            const modules = Spoken.modules
-
-            setModules(modules)
-        }
-    }, [])
 
     return (
         <main className="spoken">
@@ -65,7 +50,7 @@ export default function SpokenModules() {
                     <div className="sub">Each module represents a set of commands that can be said out loud.</div>
                 </div>
                 <div className="modules">
-                    {modules.map(mod => {
+                    {Spoken.modules.map(mod => {
                         return (
                             <div className={`module ${open ? 'open' : ''}`} key={mod.id}>
                                 <div className="module__title">
@@ -84,7 +69,7 @@ export default function SpokenModules() {
                                 <div className="divider"></div>
                                 <div className="module__commands">
                                     <ul>
-                                        {mod.grammar[lang].map((c) => {
+                                        {mod.grammar[context.language].map((c: any) => {
                                             return (
                                                 <li
                                                     onClick={() => {

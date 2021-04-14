@@ -4,6 +4,6 @@ export default {
 
         const lines = Error().stack?.split('\n').slice(2, 3)[0]
 
-        console.log('[INFO]', '[' + lines?.trim() + ']:', ...data)
+        console.info('[INFO]', '[' + lines?.trim() + ']:', ...data)
     }
 }

@@ -29,7 +29,7 @@ async function createWindow(): Promise<void> {
 		require('electron').shell.openExternal(url)
 	})
 
-	window.setMenuBarVisibility(false)
+	// window.setMenuBarVisibility(false)
 
 	await window.loadURL('http://localhost:3000/')
 
@@ -49,7 +49,7 @@ async function createWindow(): Promise<void> {
 	EditorService.onStateChange((s) => window?.webContents?.send?.('Config:onChangeEditorState', s))
 	EditorService.init()
 
-	ipcMain.on('Spoken:analyze', SpokenInterface.onComand)
+	ipcMain.on('Spoken:executeCommand', SpokenInterface.onComand)
 	ipcMain.on('Config:changeEditor', (event, editor) => {
 		if (editor) EditorService.setCurrentEditor(editor)
 

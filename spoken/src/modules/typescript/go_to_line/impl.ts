@@ -9,4 +9,4 @@ type GoToLineParsedArgs = {
 } & ParsedPhrase
 
 // @ts-ignore
-return newLine
+return goToLine

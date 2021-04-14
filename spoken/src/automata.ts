@@ -65,9 +65,19 @@ export class Automata {
         this.currentState = { isFinal: false, id: "0", args: [] }
     }
 
+    private sortSucessors = (current: string) => (a: string, b: string) => {
+        const aC = (this.graph.edge(current, a).label as string).includes('λ')
+        const bC = (this.graph.edge(current, b).label as string).includes('λ')
+
+        if (!aC && bC) return -1
+        else if(aC && !bC) return 1
+
+        return 0
+    }
+
     nextState(word: string) {
         const current = this.currentState.id
-        const successors = this.graph.successors(current) as string[]
+        const successors = (this.graph.successors(current) as string[]).sort(this.sortSucessors(current))
 
         for (const successor of successors) {
             const transitionAttr: Record<string, string> = this.graph.edge(current, successor)

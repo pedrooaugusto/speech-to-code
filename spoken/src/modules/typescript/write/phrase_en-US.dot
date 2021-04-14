@@ -8,7 +8,11 @@ digraph Write {
     node[shape=doublecircle]; 1;
     node[shape=circle];
 
-    0 -> 1 [label="(write)"];
+    0 -> 1 [label="(print)"];
+    0 -> 2 [label="(write)"];
+    2 -> 1 [label="(down, λ)"];
+    2 -> 3 [label="(it)"];
+    3 -> 1 [label="(down, λ)"];
     1 -> 1 [label="({any})", store=text];
 
     title="Write text";

@@ -8,11 +8,11 @@ digraph Cursor {
     node[shape=doublecircle]; 3 10 12 6;
     node[shape=circle];
 
-    0 -> 1 [label="(cursor)"];
+    0 -> 1 [label="(cursor, pointer)"];
     1 -> 2 [label="(line)"];
     2 -> 3 [label="({numeral})", store=line];
 
-    {1 7} -> 5 [label="(symbol)"];
+    {1 7} -> 5 [label="(symbol, letter)"];
     1 -> 7 [label="({term})", store=leapSize, normalize="ordinalNumber"];
     5 -> 6 [label="({term})", store=letter];
 

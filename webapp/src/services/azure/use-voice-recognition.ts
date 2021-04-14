@@ -1,38 +1,54 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk'
 import Spoken from 'spoken'
-import { VoiceRecognitionHook } from '../use-voice-recognition'
+import { VoiceRecognitionHook, RecognitionRequest } from '../use-voice-recognition'
 import MyRecognizer from './voice-recognizer'
 import IpcRenderer from '../electron-ipc'
+import { GlobalContext } from '../global-context'
 
 const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
-    const [results, setResults] = useState('')
+    const [results, setResults] = useState<RecognitionRequest | null>(null)
+    const { language = 'pt-BR' } = useContext(GlobalContext)
     const recognizer = MyRecognizer.getRecognizer()
 
     useEffect(() => {
-        console.log('[webapp.services.azure-voice-recognition]: Initialized')
+        IpcRenderer.on('Spoken:executeCommandResult', (command: SpokenSearchResponse, result: any) => {
+            console.log('[webapp.services.azure-voice-recognition.onResultError]: Execute command result: ' + result)
+        })
 
-        Spoken.init()
+        return () => {
+            IpcRenderer.removeAllListeners('Spoken:executeCommandResult')
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log('[webapp.services.azure-voice-recognition]: Initializing')
 
         recognizer
-            .on('results', (result: SpeechSDK.SpeechRecognitionResult) => {
-                setResults(result.text)
-                setTimeout(() => IpcRenderer.send('Spoken:analyze', findComand(result)), 1000)
+            .on('results', (result: SpeechSDK.SpeechRecognitionResult, isFinal: boolean) => {
+                if (!result.text || result.text.trim() === '') return
+
+                const attempt = { text: result.text, isFinal, id: Date.now(), recognized: false }
+
+                if (isFinal) {
+                    const match = findComand(result, language)
+
+                    attempt.recognized = !!match.command
+
+                    if (attempt.recognized) IpcRenderer.send('Spoken:executeCommand', match)
+                }
+
+                setResults(attempt)
             })
             .on('error', (err) => {
                 console.error('[webapp.services.azure-voice-recognition.onResultError]: Error', err.toString())
             })
-            .init()
-
-        // Inter process comunication: listen to node context requests
-        IpcRenderer.on('Spoken:analysisResults', (data) => {
-            setResults(data.phrase)
-        })
+            .init(language)
 
         return () => {
             recognizer.destroy()
         }
-    }, [])
+    }, [language])
 
     const start = async () => {
         recognizer.start()
@@ -44,7 +60,7 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 
     const analyzeSentence = async (phrase: string, timeout:number | null = 3000) => {
         const w = { text: phrase }
-        const fn = () => IpcRenderer.send('Spoken:analyze', findComand(w as unknown as SpeechSDK.SpeechRecognitionResult))
+        const fn = () => IpcRenderer.send('Spoken:analyze', findComand(w as unknown as SpeechSDK.SpeechRecognitionResult, language))
 
         if (timeout) setTimeout(fn, timeout)
         else fn()
@@ -59,11 +75,11 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 }
 
 
-function findComand(voiceToTextResponse: SpeechSDK.SpeechRecognitionResult): SpokenSearchResponse {
+function findComand(voiceToTextResponse: SpeechSDK.SpeechRecognitionResult, language: string): SpokenSearchResponse {
     console.log('[webapp.services.azure-voice-recognition] Warn: Ignoring other matches!')
 
     const trsc = voiceToTextResponse.text
-    const sResult = Spoken.recognizePhrase(trsc.toLocaleLowerCase(), 'pt-BR')
+    const sResult = Spoken.recognizePhrase(trsc.toLocaleLowerCase(), language)
     const wrapper = sResult ? sResult[0] : null
 
     return {
