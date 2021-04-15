@@ -20,11 +20,6 @@ async function cursor(args: CursorParsedArgs, editor: Editor, context: {}) {
     return await editor.moveCursorTo('BEGIN_LINE')
 }
 
-function normalizeOrdinalNumber(str: string) {
-    const pt_br = ['primeiro', 'segundo', 'terceiro', 'quarto', 'quinto', 'sexto', 'sétimo', 'oitavo', 'nono', 'décimo']
-    const en_us = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eight', 'nineth', 'tenth']
-}
-
 enum LinePostionEnum {
     BEGIN = 0,
     END = 1

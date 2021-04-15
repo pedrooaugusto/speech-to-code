@@ -22,10 +22,12 @@ The following automata is responsible for recognizing the command `Move cursor` 
 
 The following are examples of phrases, in english, used to trigger the command `Move cursor`:
 
-1. (cursor) (line) ({numeral})
-2. (cursor) (symbol) ({term})
-3. (cursor) (begin, end) (line)
-4. (cursor) (next) (symbol)
+1. (cursor, pointer) (line) ({numeral})
+2. (cursor, pointer) (symbol, letter) ({term})
+3. (cursor, pointer) ({term}) (symbol, letter) ({term})
+4. (cursor, pointer) (begin, end) (line)
+5. (cursor, pointer) (next) (symbol)
+6. (cursor, pointer) (next) ({numeral}) (symbol)
 
 **Português**
 
@@ -37,8 +39,10 @@ As seguintes frases, em português, podem ser usadas para ativar o comando `Move
 
 1. (cursor, ponteiro) (linha) ({numeral})
 2. (cursor, ponteiro) (símbolo, letra) ({term})
-3. (cursor, ponteiro) (começo, final) (linha)
-4. (cursor, ponteiro) (próximo) (símbolo, letra)
+3. (cursor, ponteiro) ({term}) (símbolo, letra) ({term})
+4. (cursor, ponteiro) (começo, final) (linha)
+5. (cursor, ponteiro) (próximo) (símbolo, letra)
+6. (cursor, ponteiro) (próximo) ({numeral}) (símbolo, letra)
 
 ### Implementation
 
@@ -73,9 +77,12 @@ The following automata is responsible for recognizing the command `New constant 
 
 The following are examples of phrases, in english, used to trigger the command `New constant or variable`:
 
-1. (declare, create)  (constant, variable)  (called)  ({term})
-2. (declare, create)  (constant, variable)  (called)  ({term})  (equals)  ({term})
-3. (declare, create)  (constant, variable)  (called)  ({term})  (of, λ)  (type)  ({term})
+1. (declare, create) (constant, variable) (called) ({term})
+2. (declare, create) (constant, variable) (called) ({term}) (with, λ) (value) ({term})
+3. (declare, create) (constant, variable) (called) ({term}) (equals) ({term})
+4. (declare, create) (constant, variable) (called) ({term}) (of, λ) (type) ({term}) (with, λ) (value) ({term})
+5. (declare, create) (constant, variable) (called) ({term}) (of, λ) (type) ({term}) (equals) ({term})
+6. (declare, create) (constant, variable) (called) ({term}) (of, λ) (type) ({term})
 
 **Portugês**
 
@@ -85,9 +92,22 @@ O automata seguinte é reponsável por reconhecer o comando `New constant or var
 
 As seguintes frases, em português, podem ser usadas para ativar o comando `New constant or variable`:
 
-1. (declare, crie)  (constante, variável)  (chamada)  ({term})
-2. (declare, crie)  (constante, variável)  (chamada)  ({term})  (valor)  ({term})
-3. (declare, crie)  (constante, variável)  (chamada)  ({term})  (tipo)  ({term})
+1. (declare, crie) (uma) (constante, variável) (chamada) ({term})
+2. (declare, crie) (constante, variável) (chamada) ({term})
+3. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (com) (o) (valor) ({term})
+4. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (com) (valor) ({term})
+5. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (o) (valor) ({term})
+6. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (valor) ({term})
+7. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (com) (o) (valor) ({term})
+8. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (com) (valor) ({term})
+9. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (o) (valor) ({term})
+10. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (valor) ({term})
+11. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (igual) (a) ({term})
+12. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (igual) ({term})
+13. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (com) (o) (valor) ({term})
+14. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (com) (valor) ({term})
+15. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (o) (valor) ({term})
+16. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (valor) ({term})
 
 ### Implementation
 
@@ -122,7 +142,9 @@ The following automata is responsible for recognizing the command `Change line` 
 
 The following are examples of phrases, in english, used to trigger the command `Change line`:
 
-1. (line) ({numeral})
+1. (go) (to) (line) ({numeral})
+2. (go) (line) ({numeral})
+3. (line) ({numeral})
 
 **Português**
 
@@ -132,7 +154,10 @@ O automata seguinte é reponsável por reconhecer o comando `Change line` em por
 
 As seguintes frases, em português, podem ser usadas para ativar o comando `Change line`:
 
-1. (linha) ({numeral})
+1. (vá, vai) (para) (linha) ({numeral})
+2. (vá, vai) (para) (a) (linha) ({numeral})
+3. (vá, vai) (linha) ({numeral})
+4. (linha) ({numeral})
 
 ### Implementation
 
@@ -173,8 +198,13 @@ The following automata is responsible for recognizing the command `New line` in 
 
 The following are examples of phrases, in english, used to trigger the command `New line`:
 
-1. (create) (line)
-2. (line) (above, below)
+1. (new) (line)
+2. (create) (new) (line)
+3. (create) (line)
+4. (new) (line) (above, below)
+5. (line) (above, below)
+6. (create) (new) (line) (above, below)
+7. (create) (line) (above, below)
 
 **Português**
 
@@ -184,8 +214,15 @@ O automata seguinte é reponsável por reconhecer o comando `New line` em portug
 
 As seguintes frases, em português, podem ser usadas para ativar o comando `New line`:
 
-1. (crie) (linha)
-2. (linha) (acima, abaixo)
+1. (nova) (linha)
+2. (linha) (nova)
+3. (crie) (nova) (linha)
+4. (crie) (linha)
+5. (nova) (linha) (acima, abaixo)
+6. (linha) (nova) (acima, abaixo)
+7. (linha) (acima, abaixo)
+8. (crie) (nova) (linha) (acima, abaixo)
+9. (crie) (linha) (acima, abaixo)
 
 ### Implementation
 
@@ -226,7 +263,9 @@ The following automata is responsible for recognizing the command `Write text` i
 
 The following are examples of phrases, in english, used to trigger the command `Write text`:
 
-1. (write)
+1. (print) ({any})
+2. (write) (down, λ) ({any})
+3. (write) (it) (down, λ) ({any})
 
 **Português**
 
@@ -236,7 +275,7 @@ O automata seguinte é reponsável por reconhecer o comando `Write text` em port
 
 As seguintes frases, em português, podem ser usadas para ativar o comando `Write text`:
 
-1. (escreva)
+1. (escreva) ({any})
 
 ### Implementation
 

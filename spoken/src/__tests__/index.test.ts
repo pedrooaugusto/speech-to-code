@@ -1,5 +1,6 @@
 import Spoken from '../index'
 import * as graphlib from '../graphlib'
+import { AutomataPaths } from '../automata'
 
 beforeAll(async () => {
     await Spoken.init()
@@ -10,12 +11,9 @@ test('it can load the grammar', async () => {
 })
 
 test('it can generate the power set off all commands', async () => {
-    const graph: graphlib.Graph = getGraph('declare_variable') as graphlib.Graph
+    const graph: graphlib.Graph = getGraph('write') as graphlib.Graph
 
-    const finalStates = graph.nodes().filter(a => graph.node(a).shape === 'doublecircle')
-    const paths = graphlib.alg.dijkstra(graph, '0')
-
-    expect(mountTree(finalStates, paths, graph).length).not.toEqual(0)
+    expect(AutomataPaths.allPathsToFinalStates(graph).length).not.toBe(0)
 })
 
 test('it can search for a command given a id', async () => {
@@ -63,16 +61,6 @@ test('it can search for a command given a phrase', async () => {
         path: ['write', 'down', { text: 'hello' }, { text: 'friend' }]
     })
 })
-
-function mountTree(finalStates: string[], paths: Record<string, { distance: number, predecessor: string }>, graph: graphlib.Graph) {
-    function trace(current: string, previous: string): string[] {
-        if (previous === '0') return [graph.edge(previous, current).label]
-
-        return trace(previous, paths[previous].predecessor).concat(graph.edge(previous, current).label)
-    }
-
-    return finalStates.map(item => trace(item, paths[item].predecessor))
-}
 
 function getGraph(id: string) {
     let graph: graphlib.Graph | null = null

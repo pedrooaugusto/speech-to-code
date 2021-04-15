@@ -108,7 +108,7 @@ class RobotVscode implements Robot {
         to: 'END_LINE' | 'BEGIN_LINE' | 'SYMBOL' | null,
         symbol: string | undefined,
         leapSize: number | undefined,
-        goto: boolean = true
+        moveCursor: boolean = true
     ): Promise<number | Error> {
         return new Promise(async (res, rej) => {
             const editor = vscode.window.activeTextEditor
@@ -124,7 +124,7 @@ class RobotVscode implements Robot {
 
                 const pos = 'wrappedLine' + (to === 'BEGIN_LINE' ? 'First' : 'Last') + 'NonWhitespaceCharacter'
 
-                if (!goto) return res(column)
+                if (!moveCursor) return res(column)
 
                 return vscode.commands.executeCommand('cursorMove', { to: pos }).then(() => {
                     res(column)
@@ -134,7 +134,7 @@ class RobotVscode implements Robot {
                 if (to === null) {
                     const value = editor.selection.active.character + (leapSize as number)
 
-                    if (!goto) return res(value)
+                    if (!moveCursor) return res(value)
 
                     return vscode.commands
                         .executeCommand('cursorMove', { to: 'right', value: leapSize, by: 'character' })
@@ -158,7 +158,7 @@ class RobotVscode implements Robot {
 
                     const value = indices[leapSize - 1] + 1
 
-                    if (!goto) return res(value)
+                    if (!moveCursor) return res(value)
 
                     return vscode.commands
                         .executeCommand('cursorMove', { to: 'right', value: value, by: 'character' })

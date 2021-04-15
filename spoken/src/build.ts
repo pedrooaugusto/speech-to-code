@@ -1,6 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import dot from 'graphlib-dot'
+import { AutomataPaths } from './automata'
 
 const SRC = path.resolve(__dirname, '..', 'src', 'modules')
 const COD = path.resolve(__dirname, 'modules')
@@ -47,15 +48,10 @@ async function init() {
                     const fileContent = fs.readFileSync(pPath, 'utf-8')
 
                     graphObject = dot.read(fileContent)
-                    
-                    const finalStates = graphObject.nodes().filter((a: any) => graphObject.node(a).shape === 'doublecircle')
-                    const paths = dot.graphlib.alg.dijkstra(graphObject, '0')
-
-                    const phrases = mountTree(finalStates, paths, graphObject).map(item => item.join(" ")).join(";")
 
                     const graphInfo = graphObject.graph()
                     graphInfo.impl = code
-                    graphInfo.phrases = phrases
+                    graphInfo.phrases = AutomataPaths.allPathsToFinalStates(graphObject).slice(0, 16)
 
                     if (!moduleObj.grammar[graphInfo.lang]) moduleObj.grammar[graphInfo.lang] = []
 
@@ -78,16 +74,6 @@ async function init() {
     fs.unlinkSync(path.resolve(__dirname, 'd.js'))
     fs.rmdirSync(path.resolve(__dirname, 'modules'), { recursive: true })
     fs.rmdirSync(path.resolve(__dirname, '__tests__'), { recursive: true })
-}
-
-function mountTree(finalStates: string[], paths: Record<string, { distance: number, predecessor: string }>, graph: any) {
-    function trace(current: string, previous: string): string[] {
-        if (previous === '0') return [graph.edge(previous, current).label]
-
-        return trace(previous, paths[previous].predecessor).concat(graph.edge(previous, current).label)
-    }
-
-    return finalStates.map(item => trace(item, paths[item].predecessor))
 }
 
 function list(type: string | number) {

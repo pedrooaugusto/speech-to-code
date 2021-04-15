@@ -14,7 +14,9 @@ The following automata is responsible for recognizing the command `Write text` i
 
 The following are examples of phrases, in english, used to trigger the command `Write text`:
 
-1. (write)
+1. (print) ({any})
+2. (write) (down, λ) ({any})
+3. (write) (it) (down, λ) ({any})
 
 **Português**
 
@@ -24,7 +26,7 @@ O automata seguinte é reponsável por reconhecer o comando `Write text` em port
 
 As seguintes frases, em português, podem ser usadas para ativar o comando `Write text`:
 
-1. (escreva)
+1. (escreva) ({any})
 
 ### Implementation
 

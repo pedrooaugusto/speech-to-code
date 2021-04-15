@@ -41,9 +41,7 @@ async function init() {
                     await svgToImage(svg, automataPath.replace(/.dot/gi, '.png'))
 
                     const graph = dot.read(fileContent)
-                    const finalStates = graph.nodes().filter((a) => graph.node(a).shape === 'doublecircle')
-                    const paths = dot.graphlib.alg.dijkstra(graph, '0')
-                    const phrases = mountTree(finalStates, paths, graph).map(item => item.join(' ')).map(a => a.trim())
+                    const phrases = AutomataPaths.allPathsToFinalStates(graph).slice(0, 16)
 
                     graphInfo = graph.graph()
 
@@ -168,16 +166,6 @@ function buildLangSection(readme) {
     return text.join('\n\n')
 }
 
-function mountTree(finalStates, paths, graph) {
-    function trace(current, previous) {
-        if (previous === '0') return [graph.edge(previous, current).label]
-
-        return trace(previous, paths[previous].predecessor).concat(graph.edge(previous, current).label)
-    }
-
-    return finalStates.map(item => trace(item, paths[item].predecessor))
-}
-
 function list(type) {
     type = type === 'FOLDER' ? 0 : 1
     return (folder, aditionalFilter = () => true) => {
@@ -201,4 +189,61 @@ function svgToImage(svg, fileName) {
             return res(true)
         })
     })
+}
+
+class AutomataPaths {
+
+    static  printAllPathsUtil(
+        graph, u, d,
+        isVisited, localPathList,
+        results
+    ) {
+        if (u === d) {
+            const sus = graph.successors(u.toString())
+            if (sus?.length && sus.includes(d.toString())) {
+                return results.push([...localPathList, u])
+            } else {
+                return results.push([...localPathList])
+            }
+        }
+    
+        isVisited[u] = true
+    
+        for (const t of graph.successors(u.toString())) {
+            const i = parseInt(t, 10)
+    
+            if (!isVisited[i]) {
+                localPathList.push(i)
+                AutomataPaths.printAllPathsUtil(graph, i, d, isVisited, localPathList, results)
+                localPathList.splice(localPathList.findIndex(a => a === i), 1)
+            }
+        }
+    
+        isVisited[u] = false
+    }
+    
+    static allPathsToFinalStates(graph) {
+        const finalStates = graph.nodes().filter((a) => graph.node(a).shape === 'doublecircle').map(a => parseInt(a, 10))
+        const results = []
+        const isVisited = new Array()
+        const pathList = new Array()
+
+        pathList.push(0)
+    
+        for (const finalState of finalStates) {
+            AutomataPaths.printAllPathsUtil(graph, 0, finalState, isVisited, pathList, results)
+        }
+    
+        const phrases = []
+        for (const item of results) {
+            const strItem = []
+            for (let i = 0; i < item.length - 1; i++) {
+                strItem.push(graph.edge(item[i].toString(), item[i + 1].toString()).label.trim())
+            }
+    
+            phrases.push(strItem.join(' '))
+        }
+    
+        return phrases
+    }
 }

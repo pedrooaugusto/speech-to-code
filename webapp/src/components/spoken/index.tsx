@@ -5,13 +5,7 @@ import { GlobalContext } from '../../services/global-context'
 
 type GraphJsonView = {
     [key: string]: unknown,
-    value: {
-        id: string,
-        label: string,
-        impl: string,
-        phrases: string,
-        desc: string
-    }
+    value: CommandDefinition
 }
 
 type SpokenModule = {
@@ -29,7 +23,7 @@ type ModalInfo = {
 type CommandDefinition = {
     id: string,
     label: string,
-    phrases: string,
+    phrases: string[],
     impl: string,
     desc: string
 }
@@ -108,7 +102,7 @@ export default function SpokenModules() {
                         <div className="body">
                             <div className="label">Phrases:</div>
                             <ul>
-                                {modalInfo.command.phrases.split(';').map(item => {
+                                {modalInfo.command.phrases.map(item => {
                                     return (
                                         <li key={item}>{item}</li>
                                     )

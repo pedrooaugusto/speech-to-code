@@ -194,3 +194,60 @@ export class Normalizer {
         throw new Error('Unsupported language!')
     }
 }
+
+export class AutomataPaths {
+
+    private static  printAllPathsUtil(
+        graph: graphlib.Graph, u: number, d: number,
+        isVisited: boolean[], localPathList: number[],
+        results: number[][]
+    ): (void | number) {
+        if (u === d) {
+            const sus = graph.successors(u.toString()) as string[]
+            if (sus?.length && sus.includes(d.toString())) {
+                return results.push([...localPathList, u])
+            } else {
+                return results.push([...localPathList])
+            }
+        }
+    
+        isVisited[u] = true
+    
+        for (const t of graph.successors(u.toString()) as string[]) {
+            const i = parseInt(t, 10)
+    
+            if (!isVisited[i]) {
+                localPathList.push(i)
+                AutomataPaths.printAllPathsUtil(graph, i, d, isVisited, localPathList, results)
+                localPathList.splice(localPathList.findIndex(a => a === i), 1)
+            }
+        }
+    
+        isVisited[u] = false
+    }
+    
+    public static allPathsToFinalStates(graph: graphlib.Graph) {
+        const finalStates = graph.nodes().filter((a) => graph.node(a).shape === 'doublecircle').map(a => parseInt(a, 10))
+        const results: number[][] = []
+        const isVisited = new Array()
+        const pathList = new Array<number>()
+    
+        pathList.push(0)
+    
+        for (const finalState of finalStates) {
+            AutomataPaths.printAllPathsUtil(graph, 0, finalState, isVisited, pathList, results)
+        }
+    
+        const phrases = []
+        for (const item of results) {
+            const strItem = []
+            for (let i = 0; i < item.length - 1; i++) {
+                strItem.push(graph.edge(item[i].toString(), item[i + 1].toString()).label.trim())
+            }
+    
+            phrases.push(strItem.join(' '))
+        }
+    
+        return phrases
+    }
+}
