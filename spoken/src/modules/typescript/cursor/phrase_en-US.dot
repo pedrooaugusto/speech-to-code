@@ -10,17 +10,17 @@ digraph Cursor {
 
     0 -> 1 [label="(cursor, pointer)"];
     1 -> 2 [label="(line)"];
-    2 -> 3 [label="({numeral})", store=line];
+    2 -> 3 [label="({number})", store=line];
 
     {1 7} -> 5 [label="(symbol, letter)"];
-    1 -> 7 [label="({term})", store=leapSize, normalize="ordinalNumber"];
+    1 -> 7 [label="({ordinalNumber})", store=leapSize, normalize="ordinalNumber"];
     5 -> 6 [label="({term})", store=symbol];
 
     1 -> 8 [label="(begin, end)", store=linePosition];
     8 -> 10 [label="(line)"];
 
     1 -> 11 [label="(next)"];
-    11 -> 13 [label="({numeral})", store=leapSize];
+    11 -> 13 [label="({number})", store=leapSize];
     {11 13} -> 12 [label="(symbol)"];
 
     title="Move cursor";

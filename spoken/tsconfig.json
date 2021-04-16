@@ -22,7 +22,8 @@
     "exclude": [
         "node_modules",
         "test",
-        "release"
+        "release",
+        "dist"
     ],
     "include": ["src/**/*"]
 }

@@ -12,25 +12,25 @@ The following automata is responsible for recognizing the command `Write text` i
 
 ![English](phrase_en-US.png)
 
-The following are examples of phrases, in english, used to trigger the command `Write text`:
+The following are some examples of phrases, in english, used to trigger the command `Write text`:
 
-1. (print) ({any})
-2. (write) (down, λ) ({any})
-3. (write) (it) (down, λ) ({any})
+1. print who are you
+2. write who are you
+3. write it down the universe is cracked
 
 **Português**
 
-O automata seguinte é reponsável por reconhecer o comando `Write text` em português:
+O automata seguinte é reponsável por reconhecer o comando `Escrever texto` em português:
 
 ![Português](phrase_pt-BR.png)
 
-As seguintes frases, em português, podem ser usadas para ativar o comando `Write text`:
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escrever texto`:
 
-1. (escreva) ({any})
+1. escreva isto é um teste
 
 ### Implementation
 
-Full implementation of this command can be found on this repository under the file [impl.ts](impl.ts)
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
 async function write(command: WriteParsedArgs, editor: Editor, context: {}) {

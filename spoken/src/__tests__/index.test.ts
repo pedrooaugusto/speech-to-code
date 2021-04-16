@@ -1,6 +1,6 @@
 import Spoken from '../index'
 import * as graphlib from '../graphlib'
-import { AutomataPaths } from '../automata'
+import { allRecognizablePhrases } from '../utils'
 
 beforeAll(async () => {
     await Spoken.init()
@@ -10,10 +10,11 @@ test('it can load the grammar', async () => {
     expect(Spoken.modules).not.toBeNull()
 })
 
-test('it can generate the power set off all commands', async () => {
-    const graph: graphlib.Graph = getGraph('write') as graphlib.Graph
+test('it can generate the power set off all phrases of a given commands', async () => {
+    const graph: graphlib.Graph = getGraph('write', 'en-US') as graphlib.Graph
+    const s = allRecognizablePhrases(graph)
 
-    expect(AutomataPaths.allPathsToFinalStates(graph).length).not.toBe(0)
+    expect(s.length).not.toBe(0)
 })
 
 test('it can search for a command given a id', async () => {
@@ -22,7 +23,7 @@ test('it can search for a command given a id', async () => {
     expect((graph || {}).id).toBe('declare_variable')
 })
 
-test('it can search for a command given a phrase', async () => {
+test.only('it can search for a command given a phrase', async () => {
     let command = Spoken.recognizePhrase('declarar constante chamada bola', 'pt-BR')
     expect(command).toMatchObject([{
         id: 'declare_variable',
@@ -60,13 +61,17 @@ test('it can search for a command given a phrase', async () => {
         id: 'write',
         path: ['write', 'down', { text: 'hello' }, { text: 'friend' }]
     })
+
+    command = Spoken.recognizePhrase('point 41st let there be', 'en-US')
+
+    console.log(command)
 })
 
-function getGraph(id: string) {
+function getGraph(id: string, lang: string = 'pt-BR') {
     let graph: graphlib.Graph | null = null
 
     for (const mod of Spoken.modules) {
-        for (let item of mod.grammar['pt-BR']) {
+        for (let item of mod.grammar[lang]) {
             graph = graphlib.json.read(item) as graphlib.Graph
 
             if (graph.graph().id === id) break

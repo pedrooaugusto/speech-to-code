@@ -1,8 +1,7 @@
-// @ts-ignore
-const NumberRecognizers = require('./recognizers-text-number')
 import * as graphlib from './graphlib'
 import JaroWinklerDistance from './string-distance/jaro-winlker'
 import LOG from './logger'
+import ModulesInfo from './modules/info'
 
 export default class {
     grammar: GraphJsonView[]
@@ -59,6 +58,7 @@ export type State = { isFinal: boolean; id: string; args: Args }
 export class Automata {
     graph: graphlib.Graph
     currentState: State
+    transitionStringNormalizer = new TransitionStringNormalizer()
 
     constructor(graph: graphlib.Graph) {
         this.graph = graph
@@ -99,7 +99,7 @@ export class Automata {
         transition: Record<string, string | undefined>
     ): undefined | null | string | Record<string, string | number> {
 
-        const conditions = this.normalizeTransitionInput(transition as Record<string, string>)
+        const conditions = this.transitionStringNormalizer.normalizeTransition(transition as Record<string, string>)
 
         for (let i = 0; i < conditions.length; i++) {
             const condition = conditions[i]
@@ -116,12 +116,14 @@ export class Automata {
                 if (match != null) {
                     let term = match[1]
 
-                    if (transition.normalize === 'ordinalNumber') {
-                        let t = Normalizer.ordinalNumber(this.graph.graph().lang, term)
+                    if (transition.normalize) {
+                        const lang = this.graph.graph().lang
+                        // @ts-ignore
+                        const fn = ModulesInfo.normalizers[transition.normalize]![lang]
+                        const t = fn ? fn(term, Automata.compareStrings) : null
+                        if (t == null) return undefined
 
-                        if (t === null) return undefined
-
-                        term = t.toString()
+                        term = t
                     }
 
                     return transition.store ? { [transition.store]: term } : term
@@ -142,112 +144,24 @@ export class Automata {
         this.currentState = state
     }
 
-    normalizeTransitionInput(edgeAttr: Record<string, string>): (string | RegExp)[] {
-        const label = edgeAttr.label.trim().replace(/\(/, '').replace(/\)$/, '')
+}
 
-        return label.split(/, |,/).map(this.templateToRegex)
+export class TransitionStringNormalizer {
+    sanitizeTransitionString(str: string): string[] {
+        return str.trim().replace(/\(/, '').replace(/\)$/, '').split(/, |,/)
     }
 
-    templateToRegex(str: string) {
-        if (str.startsWith('{') && str.endsWith('}'))
-            return new RegExp(
-                str
-                    .replace(/{any}/gi, '(.*)')
-                    .replace(/{term}/gi, '(\\S+)')
-                    .replace(/{numeral}/gi, '(\\d+)')
-            )
+    normalizeTransition(edgeAttr: Record<string, string>): (string | RegExp)[] {
+        const temp = this.sanitizeTransitionString(edgeAttr.label)
+
+        return temp.map((item) => this.buildTemplates(item))
+    }
+
+    buildTemplates(str: string) {
+        if (str.startsWith('{') && str.endsWith('}')) {
+            return new RegExp((ModulesInfo.templates as any)[str.trim()].value)
+        }
 
         return str
-    }
-
-}
-
-export class Normalizer {
-    public static ordinalNumber(lang: string, text: string) {
-        // @ts-ignore
-        if (lang === 'pt-BR') {
-            if (Automata.compareStrings(text, 'último')) return -1
-
-            //@ts-ignore
-            const result = NumberRecognizers.recognizeOrdinal(text, NumberRecognizers.Culture.Portuguese)
-
-            if(result?.[0]?.resolution?.value) {
-                return parseInt(result[0].resolution.value, 10)
-            }
-
-            return null
-        }
-
-        if (lang === 'en-US') {
-            if (text === 'last') return -1
-
-            //@ts-ignore
-            const result = NumberRecognizers.recognizeOrdinal(text, NumberRecognizers.Culture.English)
-
-            if(result?.[0]?.resolution?.value) {
-                return parseInt(result[0].resolution.value, 10)
-            }
-
-            return null
-        }
-
-        throw new Error('Unsupported language!')
-    }
-}
-
-export class AutomataPaths {
-
-    private static  printAllPathsUtil(
-        graph: graphlib.Graph, u: number, d: number,
-        isVisited: boolean[], localPathList: number[],
-        results: number[][]
-    ): (void | number) {
-        if (u === d) {
-            const sus = graph.successors(u.toString()) as string[]
-            if (sus?.length && sus.includes(d.toString())) {
-                return results.push([...localPathList, u])
-            } else {
-                return results.push([...localPathList])
-            }
-        }
-    
-        isVisited[u] = true
-    
-        for (const t of graph.successors(u.toString()) as string[]) {
-            const i = parseInt(t, 10)
-    
-            if (!isVisited[i]) {
-                localPathList.push(i)
-                AutomataPaths.printAllPathsUtil(graph, i, d, isVisited, localPathList, results)
-                localPathList.splice(localPathList.findIndex(a => a === i), 1)
-            }
-        }
-    
-        isVisited[u] = false
-    }
-    
-    public static allPathsToFinalStates(graph: graphlib.Graph) {
-        const finalStates = graph.nodes().filter((a) => graph.node(a).shape === 'doublecircle').map(a => parseInt(a, 10))
-        const results: number[][] = []
-        const isVisited = new Array()
-        const pathList = new Array<number>()
-    
-        pathList.push(0)
-    
-        for (const finalState of finalStates) {
-            AutomataPaths.printAllPathsUtil(graph, 0, finalState, isVisited, pathList, results)
-        }
-    
-        const phrases = []
-        for (const item of results) {
-            const strItem = []
-            for (let i = 0; i < item.length - 1; i++) {
-                strItem.push(graph.edge(item[i].toString(), item[i + 1].toString()).label.trim())
-            }
-    
-            phrases.push(strItem.join(' '))
-        }
-    
-        return phrases
     }
 }

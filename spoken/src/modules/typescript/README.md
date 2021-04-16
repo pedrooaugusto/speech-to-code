@@ -20,33 +20,33 @@ The following automata is responsible for recognizing the command `Move cursor` 
 
 ![English](cursor/phrase_en-US.png)
 
-The following are examples of phrases, in english, used to trigger the command `Move cursor`:
+The following are some examples of phrases, in english, used to trigger the command `Move cursor`:
 
-1. (cursor, pointer) (line) ({numeral})
-2. (cursor, pointer) (symbol, letter) ({term})
-3. (cursor, pointer) ({term}) (symbol, letter) ({term})
-4. (cursor, pointer) (begin, end) (line)
-5. (cursor, pointer) (next) (symbol)
-6. (cursor, pointer) (next) ({numeral}) (symbol)
+1. pointer line 1
+2. cursor symbol number
+3. pointer 1ª symbol number
+4. pointer begin line
+5. pointer next symbol
+6. cursor next 42 symbol
 
 **Português**
 
-O automata seguinte é reponsável por reconhecer o comando `Move cursor` em português:
+O automata seguinte é reponsável por reconhecer o comando `Mover o cursor` em português:
 
 ![Português](cursor/phrase_pt-BR.png)
 
-As seguintes frases, em português, podem ser usadas para ativar o comando `Move cursor`:
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Mover o cursor`:
 
-1. (cursor, ponteiro) (linha) ({numeral})
-2. (cursor, ponteiro) (símbolo, letra) ({term})
-3. (cursor, ponteiro) ({term}) (símbolo, letra) ({term})
-4. (cursor, ponteiro) (começo, final) (linha)
-5. (cursor, ponteiro) (próximo) (símbolo, letra)
-6. (cursor, ponteiro) (próximo) ({numeral}) (símbolo, letra)
+1. cursor linha 1
+2. ponteiro símbolo valor
+3. cursor último símbolo lista
+4. ponteiro começo linha
+5. cursor próximo símbolo
+6. cursor próximo 42 símbolo
 
 ### Implementation
 
-Full implementation of this command can be found on this repository under the file [impl.ts](impl.ts)
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
 async function cursor(args: CursorParsedArgs, editor: Editor, context: {}) {
@@ -75,43 +75,43 @@ The following automata is responsible for recognizing the command `New constant 
 
 ![English](declare_variable/phrase_en-US.png)
 
-The following are examples of phrases, in english, used to trigger the command `New constant or variable`:
+The following are some examples of phrases, in english, used to trigger the command `New constant or variable`:
 
-1. (declare, create) (constant, variable) (called) ({term})
-2. (declare, create) (constant, variable) (called) ({term}) (with, λ) (value) ({term})
-3. (declare, create) (constant, variable) (called) ({term}) (equals) ({term})
-4. (declare, create) (constant, variable) (called) ({term}) (of, λ) (type) ({term}) (with, λ) (value) ({term})
-5. (declare, create) (constant, variable) (called) ({term}) (of, λ) (type) ({term}) (equals) ({term})
-6. (declare, create) (constant, variable) (called) ({term}) (of, λ) (type) ({term})
+1. create variable called number
+2. declare constant called value value temp
+3. declare variable called value equals graph
+4. declare constant called temp type text value text
+5. create variable called value of type text equals text
+6. create variable called temp type number
 
 **Portugês**
 
-O automata seguinte é reponsável por reconhecer o comando `New constant or variable` em português:
+O automata seguinte é reponsável por reconhecer o comando `Nova constante ou variável` em português:
 
 ![Portugês](declare_variable/phrase_pt-BR.png)
 
-As seguintes frases, em português, podem ser usadas para ativar o comando `New constant or variable`:
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Nova constante ou variável`:
 
-1. (declare, crie) (uma) (constante, variável) (chamada) ({term})
-2. (declare, crie) (constante, variável) (chamada) ({term})
-3. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (com) (o) (valor) ({term})
-4. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (com) (valor) ({term})
-5. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (o) (valor) ({term})
-6. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (valor) ({term})
-7. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (com) (o) (valor) ({term})
-8. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (com) (valor) ({term})
-9. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (o) (valor) ({term})
-10. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (valor) ({term})
-11. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (igual) (a) ({term})
-12. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (igual) ({term})
-13. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (com) (o) (valor) ({term})
-14. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (com) (valor) ({term})
-15. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (o) (valor) ({term})
-16. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (valor) ({term})
+1. crie uma variável chamada temp
+2. declare constante chamada valor
+3. declare uma constante chamada texto com o valor valor
+4. declare uma variável chamada numero com valor lista
+5. crie uma variável chamada numero o valor numero
+6. crie uma variável chamada valor valor texto
+7. crie uma constante chamada numero do tipo texto com o valor valor
+8. crie uma variável chamada texto do tipo numero com valor valor
+9. crie uma variável chamada numero do tipo numero o valor lista
+10. crie uma variável chamada valor do tipo valor valor lista
+11. declare uma constante chamada valor do tipo valor igual a valor
+12. declare uma constante chamada lista do tipo temp igual texto
+13. declare uma constante chamada numero tipo lista com o valor valor
+14. crie uma variável chamada valor tipo numero com valor valor
+15. crie uma constante chamada lista tipo temp o valor valor
+16. declare uma constante chamada valor tipo valor valor lista
 
 ### Implementation
 
-Full implementation of this command can be found on this repository under the file [impl.ts](impl.ts)
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
 async function DeclareVariable(command: ParsedDeclareVariable, editor: Editor, context: {}) {
@@ -140,28 +140,28 @@ The following automata is responsible for recognizing the command `Change line` 
 
 ![English](go_to_line/phrase_en-US.png)
 
-The following are examples of phrases, in english, used to trigger the command `Change line`:
+The following are some examples of phrases, in english, used to trigger the command `Change line`:
 
-1. (go) (to) (line) ({numeral})
-2. (go) (line) ({numeral})
-3. (line) ({numeral})
+1. go to line 1
+2. go line 42
+3. line 42
 
 **Português**
 
-O automata seguinte é reponsável por reconhecer o comando `Change line` em português:
+O automata seguinte é reponsável por reconhecer o comando `Trocar linha` em português:
 
 ![Português](go_to_line/phrase_pt-BR.png)
 
-As seguintes frases, em português, podem ser usadas para ativar o comando `Change line`:
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Trocar linha`:
 
-1. (vá, vai) (para) (linha) ({numeral})
-2. (vá, vai) (para) (a) (linha) ({numeral})
-3. (vá, vai) (linha) ({numeral})
-4. (linha) ({numeral})
+1. vá para linha 42
+2. vá para a linha 1
+3. vai linha 42
+4. linha 42
 
 ### Implementation
 
-Full implementation of this command can be found on this repository under the file [impl.ts](impl.ts)
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
 async function goToLine(command: GoToLineParsedArgs, editor: Editor, context: {}) {
@@ -196,37 +196,37 @@ The following automata is responsible for recognizing the command `New line` in 
 
 ![English](new_line/phrase_en-US.png)
 
-The following are examples of phrases, in english, used to trigger the command `New line`:
+The following are some examples of phrases, in english, used to trigger the command `New line`:
 
-1. (new) (line)
-2. (create) (new) (line)
-3. (create) (line)
-4. (new) (line) (above, below)
-5. (line) (above, below)
-6. (create) (new) (line) (above, below)
-7. (create) (line) (above, below)
+1. new line
+2. create new line
+3. create line
+4. new line below
+5. line below
+6. create new line above
+7. create line above
 
 **Português**
 
-O automata seguinte é reponsável por reconhecer o comando `New line` em português:
+O automata seguinte é reponsável por reconhecer o comando `Linha nova` em português:
 
 ![Português](new_line/phrase_pt-BR.png)
 
-As seguintes frases, em português, podem ser usadas para ativar o comando `New line`:
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Linha nova`:
 
-1. (nova) (linha)
-2. (linha) (nova)
-3. (crie) (nova) (linha)
-4. (crie) (linha)
-5. (nova) (linha) (acima, abaixo)
-6. (linha) (nova) (acima, abaixo)
-7. (linha) (acima, abaixo)
-8. (crie) (nova) (linha) (acima, abaixo)
-9. (crie) (linha) (acima, abaixo)
+1. nova linha
+2. linha nova
+3. crie nova linha
+4. crie linha
+5. nova linha acima
+6. linha nova abaixo
+7. linha acima
+8. crie nova linha acima
+9. crie linha acima
 
 ### Implementation
 
-Full implementation of this command can be found on this repository under the file [impl.ts](impl.ts)
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
 async function newLine(command: NewLineParsedArgs, editor: Editor, context: {}) {
@@ -261,25 +261,25 @@ The following automata is responsible for recognizing the command `Write text` i
 
 ![English](write/phrase_en-US.png)
 
-The following are examples of phrases, in english, used to trigger the command `Write text`:
+The following are some examples of phrases, in english, used to trigger the command `Write text`:
 
-1. (print) ({any})
-2. (write) (down, λ) ({any})
-3. (write) (it) (down, λ) ({any})
+1. print who are you
+2. write who are you
+3. write it down the universe is cracked
 
 **Português**
 
-O automata seguinte é reponsável por reconhecer o comando `Write text` em português:
+O automata seguinte é reponsável por reconhecer o comando `Escrever texto` em português:
 
 ![Português](write/phrase_pt-BR.png)
 
-As seguintes frases, em português, podem ser usadas para ativar o comando `Write text`:
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escrever texto`:
 
-1. (escreva) ({any})
+1. escreva isto é um teste
 
 ### Implementation
 
-Full implementation of this command can be found on this repository under the file [impl.ts](impl.ts)
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
 async function write(command: WriteParsedArgs, editor: Editor, context: {}) {

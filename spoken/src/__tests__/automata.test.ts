@@ -1,4 +1,4 @@
-import Recognizer, { Automata, State, Normalizer } from '../automata'
+import Recognizer, { Automata, State } from '../automata'
 import * as graphlib from '../graphlib'
 const fs = require('fs')
 const path = require('path')
@@ -10,7 +10,7 @@ test('it can sanitize a transition string', async () => {
 
     const automata = new Automata(graph)
 
-    const normalizer = (label: string) => automata.normalizeTransitionInput({ label })
+    const normalizer = (label: string) => automata.transitionStringNormalizer.normalizeTransition({ label })
 
     expect(normalizer('(the)')).toEqual(['the'])
     expect(normalizer('  (maybe)')).toEqual(['maybe'])
@@ -153,33 +153,26 @@ test('it can tolerate small speell errors and still find the correct match', asy
     ])
 })
 
-test('it can normalize some words in the sentence', async () => {
-    const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar['pt-BR'])
-    let r = recoginizer.recoginize('cursor terceiro letra j')[0]
+test('it can normalize ordinal numbers in the sentence', async () => {
+    function recogn(phrase: string, lang: string) {
+        const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar[lang])
+        return recoginizer.recoginize(phrase)[0][1].args
+    }
 
-    expect(r.length).toEqual(2)
-    expect(r[1].args).toEqual([
-        'cursor',
-        { leapSize: '3' },
-        'letra',
-        { symbol: 'j' }
-    ])
+    expect(recogn('cursor terceiro letra j', 'pt-BR')).toMatchObject(['cursor', {leapSize: '3'}, 'letra', {symbol: 'j'}])
+    expect(recogn('cursor primeira letra j', 'pt-BR')).toMatchObject(['cursor', {leapSize: '1'}, 'letra', {symbol: 'j'}])
+    expect(recogn('cursor nona letra j', 'pt-BR')).toMatchObject(['cursor', {leapSize: '9'}, 'letra', {symbol: 'j'}])
+    expect(recogn('cursor última letra j', 'pt-BR')).toMatchObject(['cursor', {leapSize: '-1'}, 'letra', {symbol: 'j'}])
+    expect(recogn('cursor 14ª letra j', 'pt-BR')).toMatchObject(['cursor', {leapSize: '14'}, 'letra', {symbol: 'j'}])
+    expect(recogn('cursor 11ª letra j', 'pt-BR')).toMatchObject(['cursor', {leapSize: '11'}, 'letra', {symbol: 'j'}])
+
+    expect(recogn('pointer third letter j', 'en-US')).toMatchObject(['pointer', {leapSize: '3'}, 'letter', {symbol: 'j'}])
+    expect(recogn('pointer fourth letter j', 'en-US')).toMatchObject(['pointer', {leapSize: '4'}, 'letter', {symbol: 'j'}])
+    expect(recogn('pointer tenth letter j', 'en-US')).toMatchObject(['pointer', {leapSize: '10'}, 'letter', {symbol: 'j'}])
+    expect(recogn('pointer last letter j', 'en-US')).toMatchObject(['pointer', {leapSize: '-1'}, 'letter', {symbol: 'j'}])
+    expect(recogn('pointer 32º letter j', 'en-US')).toMatchObject(['pointer', {leapSize: '32'}, 'letter', {symbol: 'j'}])
+    expect(recogn('pointer 12º letter j', 'en-US')).toMatchObject(['pointer', {leapSize: '12'}, 'letter', {symbol: 'j'}])
 })
-
-test('it can normalize some words', async () => {
-    expect(Normalizer.ordinalNumber('pt-BR', 'segunda')).toEqual(2)
-    expect(Normalizer.ordinalNumber('pt-BR', 'terceiro')).toEqual(3)
-    expect(Normalizer.ordinalNumber('pt-BR', 'sexta')).toEqual(6)
-    expect(Normalizer.ordinalNumber('pt-BR', 'último')).toEqual(-1)
-    expect(Normalizer.ordinalNumber('pt-BR', 'gfge')).toEqual(null)
-
-    expect(Normalizer.ordinalNumber('en-US', 'second')).toEqual(2)
-    expect(Normalizer.ordinalNumber('en-US', 'third')).toEqual(3)
-    expect(Normalizer.ordinalNumber('en-US', 'sixth')).toEqual(6)
-    expect(Normalizer.ordinalNumber('en-US', 'last')).toEqual(-1)
-    expect(Normalizer.ordinalNumber('en-US', 'lddast')).toEqual(null)
-})
-
 
 function Get(what: 'grammar' |  'module', id: string, lang: string = 'pt-BR') {
     let graph: graphlib.Graph | null = null

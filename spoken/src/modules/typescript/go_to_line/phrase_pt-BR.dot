@@ -1,5 +1,5 @@
 digraph GoToLine {
-    id="GoToLine";
+    id="go_to_line";
     label="Trocar linha";
     lang="pt-BR";
     langName="Português";
@@ -12,7 +12,7 @@ digraph GoToLine {
     1 -> 2 [label="(para)"];
     2 -> 5 [label="(a)"];
     {2 1 0 5} -> 3 [label="(linha)"];
-    3 -> 4 [label="({numeral})", store=line];
+    3 -> 4 [label="({number})", store=line];
 
     title="Trocar linha";
     desc="Move or cursor para uma linha diferente";

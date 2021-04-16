@@ -1,33 +1,28 @@
-import path from 'path'
-import fs from 'fs'
-import dot from 'graphlib-dot'
-import { AutomataPaths } from './automata'
+const path = require('path')
+const fs = require('fs')
+const dot = require('graphlib-dot')
+const {
+    listArchives,
+    allRecognizablePhrases,
+    automataToImage
+} = require('./utils.js')
+
 
 const SRC = path.resolve(__dirname, '..', 'src', 'modules')
 const COD = path.resolve(__dirname, 'modules')
 
-const modules = list('FOLDER')(SRC)
+const modules = listArchives('FOLDER')(SRC)
 
 init()
 
 async function init() {
-    const modulesObj: {
-        id: string,
-        desc: string,
-        label: string,
-        grammar: Record<string, any>
-    }[] = []
+    const modulesObj = []
 
     for (const module of modules) {
         const modulePath = path.resolve(SRC, module)
-        const folders = list('FOLDER')(modulePath)
+        const folders = listArchives('FOLDER')(modulePath)
         const moduleInfo = dot.read(fs.readFileSync(path.resolve(modulePath, module + '.dot'), 'utf-8')).graph()
-        const moduleObj: {
-            id: string,
-            desc: string,
-            label: string,
-            grammar: Record<string, any>
-        } = {
+        const moduleObj = {
             id: module,
             desc: moduleInfo.desc,
             label: moduleInfo.label,
@@ -36,11 +31,11 @@ async function init() {
 
         for (const command of folders) {
             const commandPath = path.resolve(modulePath, command)
-            const allFiles = list('FILES')(commandPath)
+            const allFiles = listArchives('FILE')(commandPath)
             const dotFiles = allFiles.filter(a => a.startsWith('phrase_') && a.endsWith('.dot'))
             const compiledImplFile = path.resolve(COD, module, command, 'impl.js')
             const code = fs.readFileSync(compiledImplFile, 'utf-8')
-            let graphObject: any = null
+            let graphObject = null
 
             for (const phrase of dotFiles) {
                 try {
@@ -51,7 +46,7 @@ async function init() {
 
                     const graphInfo = graphObject.graph()
                     graphInfo.impl = code
-                    graphInfo.phrases = AutomataPaths.allPathsToFinalStates(graphObject).slice(0, 16)
+                    graphInfo.phrases = allRecognizablePhrases(graphObject).slice(0, 16)
 
                     if (!moduleObj.grammar[graphInfo.lang]) moduleObj.grammar[graphInfo.lang] = []
 
@@ -72,20 +67,8 @@ async function init() {
 
     // Remove non essential files
     fs.unlinkSync(path.resolve(__dirname, 'd.js'))
-    fs.rmdirSync(path.resolve(__dirname, 'modules'), { recursive: true })
+    listArchives('FOLDER')(path.resolve(__dirname, 'modules')).map(item => {        
+        fs.rmdirSync(path.resolve(__dirname, 'modules', item), { recursive: true })
+    })
     fs.rmdirSync(path.resolve(__dirname, '__tests__'), { recursive: true })
-}
-
-function list(type: string | number) {
-    type = type === 'FOLDER' ? 0 : 1
-    return (folder: string) => {
-        return fs.readdirSync(folder).filter((file) => {
-            if (type == null) return true
-
-            const isFolder = fs.statSync(path.resolve(folder, file)).isDirectory()
-
-            // @ts-ignore
-            return type ^ isFolder
-        })
-    }
 }

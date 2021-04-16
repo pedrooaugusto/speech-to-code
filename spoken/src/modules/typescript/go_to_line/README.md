@@ -12,28 +12,28 @@ The following automata is responsible for recognizing the command `Change line` 
 
 ![English](phrase_en-US.png)
 
-The following are examples of phrases, in english, used to trigger the command `Change line`:
+The following are some examples of phrases, in english, used to trigger the command `Change line`:
 
-1. (go) (to) (line) ({numeral})
-2. (go) (line) ({numeral})
-3. (line) ({numeral})
+1. go to line 1
+2. go line 42
+3. line 42
 
 **Português**
 
-O automata seguinte é reponsável por reconhecer o comando `Change line` em português:
+O automata seguinte é reponsável por reconhecer o comando `Trocar linha` em português:
 
 ![Português](phrase_pt-BR.png)
 
-As seguintes frases, em português, podem ser usadas para ativar o comando `Change line`:
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Trocar linha`:
 
-1. (vá, vai) (para) (linha) ({numeral})
-2. (vá, vai) (para) (a) (linha) ({numeral})
-3. (vá, vai) (linha) ({numeral})
-4. (linha) ({numeral})
+1. vá para linha 42
+2. vá para a linha 1
+3. vai linha 42
+4. linha 42
 
 ### Implementation
 
-Full implementation of this command can be found on this repository under the file [impl.ts](impl.ts)
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
 async function goToLine(command: GoToLineParsedArgs, editor: Editor, context: {}) {

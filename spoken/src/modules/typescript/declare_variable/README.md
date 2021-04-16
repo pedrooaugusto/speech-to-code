@@ -12,43 +12,43 @@ The following automata is responsible for recognizing the command `New constant 
 
 ![English](phrase_en-US.png)
 
-The following are examples of phrases, in english, used to trigger the command `New constant or variable`:
+The following are some examples of phrases, in english, used to trigger the command `New constant or variable`:
 
-1. (declare, create) (constant, variable) (called) ({term})
-2. (declare, create) (constant, variable) (called) ({term}) (with, λ) (value) ({term})
-3. (declare, create) (constant, variable) (called) ({term}) (equals) ({term})
-4. (declare, create) (constant, variable) (called) ({term}) (of, λ) (type) ({term}) (with, λ) (value) ({term})
-5. (declare, create) (constant, variable) (called) ({term}) (of, λ) (type) ({term}) (equals) ({term})
-6. (declare, create) (constant, variable) (called) ({term}) (of, λ) (type) ({term})
+1. create variable called number
+2. declare constant called value value temp
+3. declare variable called value equals graph
+4. declare constant called temp type text value text
+5. create variable called value of type text equals text
+6. create variable called temp type number
 
 **Portugês**
 
-O automata seguinte é reponsável por reconhecer o comando `New constant or variable` em português:
+O automata seguinte é reponsável por reconhecer o comando `Nova constante ou variável` em português:
 
 ![Portugês](phrase_pt-BR.png)
 
-As seguintes frases, em português, podem ser usadas para ativar o comando `New constant or variable`:
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Nova constante ou variável`:
 
-1. (declare, crie) (uma) (constante, variável) (chamada) ({term})
-2. (declare, crie) (constante, variável) (chamada) ({term})
-3. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (com) (o) (valor) ({term})
-4. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (com) (valor) ({term})
-5. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (o) (valor) ({term})
-6. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (valor) ({term})
-7. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (com) (o) (valor) ({term})
-8. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (com) (valor) ({term})
-9. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (o) (valor) ({term})
-10. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (valor) ({term})
-11. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (igual) (a) ({term})
-12. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (do) (tipo) ({term}) (igual) ({term})
-13. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (com) (o) (valor) ({term})
-14. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (com) (valor) ({term})
-15. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (o) (valor) ({term})
-16. (declare, crie) (uma) (constante, variável) (chamada) ({term}) (tipo) ({term}) (valor) ({term})
+1. crie uma variável chamada temp
+2. declare constante chamada valor
+3. declare uma constante chamada texto com o valor valor
+4. declare uma variável chamada numero com valor lista
+5. crie uma variável chamada numero o valor numero
+6. crie uma variável chamada valor valor texto
+7. crie uma constante chamada numero do tipo texto com o valor valor
+8. crie uma variável chamada texto do tipo numero com valor valor
+9. crie uma variável chamada numero do tipo numero o valor lista
+10. crie uma variável chamada valor do tipo valor valor lista
+11. declare uma constante chamada valor do tipo valor igual a valor
+12. declare uma constante chamada lista do tipo temp igual texto
+13. declare uma constante chamada numero tipo lista com o valor valor
+14. crie uma variável chamada valor tipo numero com valor valor
+15. crie uma constante chamada lista tipo temp o valor valor
+16. declare uma constante chamada valor tipo valor valor lista
 
 ### Implementation
 
-Full implementation of this command can be found on this repository under the file [impl.ts](impl.ts)
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
 async function DeclareVariable(command: ParsedDeclareVariable, editor: Editor, context: {}) {

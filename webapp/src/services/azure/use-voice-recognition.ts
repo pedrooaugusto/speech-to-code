@@ -26,6 +26,7 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 
         recognizer
             .on('results', (result: SpeechSDK.SpeechRecognitionResult, isFinal: boolean) => {
+                console.log(result)
                 if (!result.text || result.text.trim() === '') return
 
                 const attempt = { text: result.text, isFinal, id: Date.now(), recognized: false }

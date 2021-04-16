@@ -12,33 +12,33 @@ The following automata is responsible for recognizing the command `Move cursor` 
 
 ![English](phrase_en-US.png)
 
-The following are examples of phrases, in english, used to trigger the command `Move cursor`:
+The following are some examples of phrases, in english, used to trigger the command `Move cursor`:
 
-1. (cursor, pointer) (line) ({numeral})
-2. (cursor, pointer) (symbol, letter) ({term})
-3. (cursor, pointer) ({term}) (symbol, letter) ({term})
-4. (cursor, pointer) (begin, end) (line)
-5. (cursor, pointer) (next) (symbol)
-6. (cursor, pointer) (next) ({numeral}) (symbol)
+1. pointer line 1
+2. cursor symbol number
+3. pointer 1ª symbol number
+4. pointer begin line
+5. pointer next symbol
+6. cursor next 42 symbol
 
 **Português**
 
-O automata seguinte é reponsável por reconhecer o comando `Move cursor` em português:
+O automata seguinte é reponsável por reconhecer o comando `Mover o cursor` em português:
 
 ![Português](phrase_pt-BR.png)
 
-As seguintes frases, em português, podem ser usadas para ativar o comando `Move cursor`:
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Mover o cursor`:
 
-1. (cursor, ponteiro) (linha) ({numeral})
-2. (cursor, ponteiro) (símbolo, letra) ({term})
-3. (cursor, ponteiro) ({term}) (símbolo, letra) ({term})
-4. (cursor, ponteiro) (começo, final) (linha)
-5. (cursor, ponteiro) (próximo) (símbolo, letra)
-6. (cursor, ponteiro) (próximo) ({numeral}) (símbolo, letra)
+1. cursor linha 1
+2. ponteiro símbolo valor
+3. cursor último símbolo lista
+4. ponteiro começo linha
+5. cursor próximo símbolo
+6. cursor próximo 42 símbolo
 
 ### Implementation
 
-Full implementation of this command can be found on this repository under the file [impl.ts](impl.ts)
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
 async function cursor(args: CursorParsedArgs, editor: Editor, context: {}) {
