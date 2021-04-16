@@ -23,6 +23,15 @@ declare type ParsedPhrase = {
 
 declare type GraphJsonView = Record<string, unknown>
 
+declare type SpokenModules = {
+	modules: SpokenModule[],
+	normalizers: Record<string, (((lang: string) => Function) | string)>,
+	templates: Record<string, {
+		value: string,
+		examples: Record<string, string[]>
+	}>
+}
+
 declare type SpokenModule = {
 	id: string,
 	desc: string,

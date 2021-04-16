@@ -1,19 +1,28 @@
 import * as graphlib from './graphlib'
 import JaroWinklerDistance from './string-distance/jaro-winlker'
 import LOG from './logger'
-import ModulesInfo from './modules/info'
+
+export type Context = {
+	normalizers: Record<string, (((lang: string) => Function) | string)>,
+    templates: Record<string, {
+		value: string,
+		examples: Record<string, string[]>
+	}>
+}
 
 export default class {
     grammar: GraphJsonView[]
+    context: Context
 
-    constructor(grammar: GraphJsonView[]) {
+    constructor(grammar: GraphJsonView[], context: Context) {
         this.grammar = grammar
+        this.context = context
     }
 
     private phraseBelongsToGrammar(phrase: string, grammar: GraphJsonView): [graphlib.Graph, State] | null {
         const words = phrase.split(' ')
         const graph: graphlib.Graph = graphlib.json.read(grammar)
-        const automata = new Automata(graph)
+        const automata = new Automata(graph, this.context)
 
         for (let i = 0; i < words.length; i++) {
             const w = words[i]
@@ -58,11 +67,14 @@ export type State = { isFinal: boolean; id: string; args: Args }
 export class Automata {
     graph: graphlib.Graph
     currentState: State
-    transitionStringNormalizer = new TransitionStringNormalizer()
+    transitionStringNormalizer: TransitionStringNormalizer
+    context: Context
 
-    constructor(graph: graphlib.Graph) {
+    constructor(graph: graphlib.Graph, context: Context) {
         this.graph = graph
         this.currentState = { isFinal: false, id: "0", args: [] }
+        this.context = context
+        this.transitionStringNormalizer = new TransitionStringNormalizer(context)
     }
 
     private sortSucessors = (current: string) => (a: string, b: string) => {
@@ -116,11 +128,11 @@ export class Automata {
                 if (match != null) {
                     let term = match[1]
 
-                    if (transition.normalize) {
+                    if (transition.normalizer) {
                         const lang = this.graph.graph().lang
-                        // @ts-ignore
-                        const fn = ModulesInfo.normalizers[transition.normalize]![lang]
-                        const t = fn ? fn(term, Automata.compareStrings) : null
+                        const fn = this.context.normalizers[transition.normalizer] as ((str: string) => Function)
+                        const t = fn ? fn(lang)(term, Automata.compareStrings) : null
+
                         if (t == null) return undefined
 
                         term = t
@@ -146,7 +158,13 @@ export class Automata {
 
 }
 
-export class TransitionStringNormalizer {
+class TransitionStringNormalizer {
+    context: Context
+
+    constructor(context: Context) {
+        this.context = context
+    }
+
     sanitizeTransitionString(str: string): string[] {
         return str.trim().replace(/\(/, '').replace(/\)$/, '').split(/, |,/)
     }
@@ -159,7 +177,7 @@ export class TransitionStringNormalizer {
 
     buildTemplates(str: string) {
         if (str.startsWith('{') && str.endsWith('}')) {
-            return new RegExp((ModulesInfo.templates as any)[str.trim()].value)
+            return new RegExp((this.context.templates)[str.trim()].value)
         }
 
         return str

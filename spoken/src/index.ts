@@ -1,25 +1,39 @@
 import * as graphlib from './graphlib'
 import Automata from './automata'
+import removeStopWords from './stop-words'
 import LOG from './logger'
 
 class Spoken {
-    public modules: SpokenModule[] = []
+    private spoken: SpokenModules = { modules: [], normalizers: {}, templates: {} }
 
     async init() {
-        this.modules = await loadModules()
+        this.spoken = await loadModules()
     }
 
     private grammarIsLoaded() {
-        if (this.modules.length == 0) throw new Error('Grammar is not loaded')
+        if (!this.spoken?.modules?.length) throw new Error('Grammar is not loaded')
+    }
+
+    get modules() {
+        return this.spoken.modules
+    }
+
+    get context() {
+        return {
+            templates: this.spoken.templates,
+            normalizers: this.spoken.normalizers
+        }
     }
 
     public recognizePhrase(phrase: string, lang: string): (MatchedCommandWrapper[] | null) {
-        if (this.modules == null) throw new Error('Grammar is not loaded')
+        if (this.spoken == null) throw new Error('Grammar is not loaded')
 
+        const cleanPhrase = this.removeStopWords(phrase, lang)
         LOG.info('Looking for a match for: ', '"' + phrase + '"')
-        for (const mod of this.modules) {
-            const command = new Automata(mod.grammar[lang])
-                .recoginize(phrase)
+        LOG.info('Looking for a match for: ', '"' + cleanPhrase + '"')
+        for (const mod of this.spoken.modules) {
+            const command = new Automata(mod.grammar[lang], this.context)
+                .recoginize(cleanPhrase)
                 .map(([graph, state]) => new MatchedCommandWrapper(graph, state.args))
 
             if (command.length) return command
@@ -29,9 +43,9 @@ class Spoken {
     }
 
     public findById(id: string, lang: string): (MatchedCommandWrapper | null) {
-        if (this.modules.length == 0) throw new Error('Grammar is not loaded')
+        if (this.spoken.modules.length == 0) throw new Error('Grammar is not loaded')
 
-        for (const mod of this.modules) {
+        for (const mod of this.spoken.modules) {
             for (const strCommand of mod.grammar[lang]) {
                 // dont need to do that
                 const graphObj: graphlib.Graph = graphlib.json.read(strCommand)
@@ -41,6 +55,10 @@ class Spoken {
         }
 
         return null
+    }
+
+    public removeStopWords(pharase: string, lang: string) {
+        return removeStopWords(pharase, lang)
     }
 
 }
@@ -79,22 +97,32 @@ class MatchedCommandWrapper {
     }
 }
 
-async function loadModules() {
+async function loadModules(): Promise<SpokenModules> {
+    let json: SpokenModules = { modules: [], normalizers: {}, templates: {} }
+
     if (typeof require === 'function' && require('fs')?.readFileSync !== undefined) {
         const fs = require('fs')
         const path = require('path')
 
-        return JSON.parse(fs.readFileSync(path.resolve(__dirname, 'grammar.json'), 'utf-8'))
+        json = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'grammar.json'), 'utf-8'))
 
     } else if(typeof fetch === 'function') {
         const r = await fetch('grammar.json')
 
-        return await r.json()
+        json = await r.json()
     }
 
-    console.error('Unable to load grammar!')
+    if (!json?.modules?.length) {
+        console.error('Unable to load grammar!')
 
-    return []
+        return { modules: [], normalizers: {}, templates: {} }
+    }
+
+    for (const key in json.normalizers) {
+        json.normalizers[key] = eval(`(() => { return ${json.normalizers[key]} })()`)
+    }
+
+    return json
 }
 
 export default new Spoken()

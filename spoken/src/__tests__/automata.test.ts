@@ -1,14 +1,15 @@
-import Recognizer, { Automata, State } from '../automata'
+import Recognizer, { Automata, State, Context } from '../automata'
 import * as graphlib from '../graphlib'
 const fs = require('fs')
 const path = require('path')
 
-const modules: SpokenModule[] = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'grammar.json'), 'utf-8'))
+const spoken: SpokenModules = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'grammar.json'), 'utf-8'))
+const context: Context = Get('context', '') as Context
 
 test('it can sanitize a transition string', async () => {
     const graph: graphlib.Graph = Get('grammar', 'declare_variable') as graphlib.Graph
 
-    const automata = new Automata(graph)
+    const automata = new Automata(graph, context)
 
     const normalizer = (label: string) => automata.transitionStringNormalizer.normalizeTransition({ label })
 
@@ -25,9 +26,9 @@ test('it can sanitize a transition string', async () => {
 test('it is possible to make transitions', async () => {
     const graph: graphlib.Graph = Get('grammar', 'declare_variable') as graphlib.Graph
 
-    const automata = new Automata(graph)
-    const transitionIsPossible = (w: string, label: string, store?: string, normalize?: string) =>
-        automata.transitionIsPossible(w, { label, store, normalize })
+    const automata = new Automata(graph, context)
+    const transitionIsPossible = (w: string, label: string, store?: string, normalizer?: string) =>
+        automata.transitionIsPossible(w, { label, store, normalizer })
 
     expect(transitionIsPossible('the', '(the)')).toEqual('the')
     expect(transitionIsPossible('quick', '(quick, slow)')).toEqual('quick')
@@ -49,7 +50,7 @@ test('it is possible to go to the next state', async () => {
 
     if (graph == null) throw new Error('graph cannot be null')
 
-    const automata = new Automata(graph)
+    const automata = new Automata(graph, context)
 
     let s = automata.currentState
     expect(s = automata.nextState('declare') as State).toMatchObject({id: '1', args: ['declare']})
@@ -64,7 +65,7 @@ test('it is able to exaust every transition before making the empty one', async(
 
     if (graph == null) throw new Error('graph cannot be null')
 
-    const automata = new Automata(graph)
+    const automata = new Automata(graph, context)
 
     let s = automata.currentState
     expect(s = automata.nextState('write') as State).toMatchObject({ args: ['write'] })
@@ -93,49 +94,49 @@ test('it is able to exaust every transition before making the empty one', async(
 })
 
 test('it can detect if a phrase belongs to a grammar', async () => {
-    const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar['pt-BR'])
+    const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar['pt-BR'], context)
     let r = recoginizer.recoginize('declare uma constante chamada bola')[0]
     expect(r.length).toEqual(2)
     expect(r[1].args).toEqual(["declare", "uma", {"memType": 0}, "chamada", {"name": "bola"}])
 
-    r = recoginizer.recoginize('declare uma variável chamada azul do tipo inteiro')[0]
+    r = recoginizer.recoginize('declare uma variável chamada azul do tipo data')[0]
     expect(r.length).toEqual(2)
     expect(r[1].args).toEqual([
         "declare", "uma", {"memType": 1},
         "chamada", {"name": "azul"}, "do", "tipo",
-        {"type": "inteiro"}
+        {"type": "Date"}
     ])
 
-    r = recoginizer.recoginize('declare variável chamada azul tipo inteiro')[0]
+    r = recoginizer.recoginize('declare variável chamada azul tipo lógic')[0]
     expect(r.length).toEqual(2)
     expect(r[1].args).toEqual([
         "declare", {"memType": 1},
         "chamada", {"name": "azul"},
-        "tipo", {"type": "inteiro"}
+        "tipo", {"type": "boolean"}
     ])
 
-    r = recoginizer.recoginize('declare variável chamada azul tipo inteiro com o valor 50')[0]
+    r = recoginizer.recoginize('declare variável chamada azul tipo texto com o valor 50')[0]
     expect(r.length).toEqual(2)
     expect(r[1].args).toEqual([
         "declare", {"memType": 1},
         "chamada", {"name": "azul"},
-        "tipo", {"type": "inteiro"},
+        "tipo", {"type": "string"},
         "com", "o", "valor",
         {"value": "50"}
     ])
 
-    r = recoginizer.recoginize('declare variável chamada azul do tipo inteiro igual 50')[0]
+    r = recoginizer.recoginize('declare variável chamada azul do tipo númer igual 50')[0]
     expect(r.length).toEqual(2)
     expect(r[1].args).toEqual([
         "declare", {"memType": 1},
         "chamada", {"name": "azul"},
-        "do", "tipo", {"type": "inteiro"},
+        "do", "tipo", {"type": "number"},
         "igual", {"value": "50"}
     ])
 })
 
 test('it can tolerate small speell errors and still find the correct match', async () => {
-    const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar['pt-BR'])
+    const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar['pt-BR'], context)
     let r = recoginizer.recoginize('declarar uma constant chamada bola')[0]
 
     expect(r.length).toEqual(2)
@@ -144,18 +145,19 @@ test('it can tolerate small speell errors and still find the correct match', asy
         "chamada", {"name": "bola"}
     ])
 
-    r = recoginizer.recoginize('declara uma variável chamada azul d tip inteiro')[0]
+    r = recoginizer.recoginize('declara uma variável chamada azul d tip número')[0]
     expect(r.length).toEqual(2)
     expect(r[1].args).toEqual([
         "declara", "uma", {"memType": 1},
         "chamada", {"name": "azul"}, "d", "tip",
-        {"type": "inteiro"}
+        {"type": "number"}
     ])
 })
 
 test('it can normalize ordinal numbers in the sentence', async () => {
     function recogn(phrase: string, lang: string) {
-        const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar[lang])
+        const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar[lang], context)
+
         return recoginizer.recoginize(phrase)[0][1].args
     }
 
@@ -174,10 +176,20 @@ test('it can normalize ordinal numbers in the sentence', async () => {
     expect(recogn('pointer 12º letter j', 'en-US')).toMatchObject(['pointer', {leapSize: '12'}, 'letter', {symbol: 'j'}])
 })
 
-function Get(what: 'grammar' |  'module', id: string, lang: string = 'pt-BR') {
+function Get(what: 'grammar' |  'module' | 'context', id: string, lang: string = 'pt-BR') {
     let graph: graphlib.Graph | null = null
 
-    for (const mod of modules) {
+    if (what === 'context') {
+        for (const key in spoken.normalizers) {
+            if (typeof spoken.normalizers[key] === 'function') continue
+
+            spoken.normalizers[key] = eval(`(() => { return ${spoken.normalizers[key]} })()`)
+        }
+
+        return { normalizers: spoken.normalizers, templates: spoken.templates }
+    }
+
+    for (const mod of spoken.modules) {
         if (what === 'module' && mod.id === id) return mod
         else if (what  === 'grammar') {
             for (let item of mod.grammar[lang]) {

@@ -2,9 +2,8 @@ const path = require('path')
 const fs = require('fs')
 const svg2img = require('svg2img')
 const { graphviz } = require('@hpcc-js/wasm')
-const ModulesInfo = require('./modules/info')
 
-exports.allRecognizablePhrases = function allRecognizablePhrases(graph) {
+exports.allRecognizablePhrases = function allRecognizablePhrases(graph, templates) {
     const finalStates = graph.nodes().filter((a) => graph.node(a).shape === 'doublecircle').map(a => parseInt(a, 10))
     const results = []
     const isVisited = new Array()
@@ -27,7 +26,7 @@ exports.allRecognizablePhrases = function allRecognizablePhrases(graph) {
         }
 
         // @ts-ignore
-        phrases.push(fillTemplates(tmp, graph.graph().lang).join(' '))
+        phrases.push(fillTemplates(tmp, graph.graph().lang, templates).join(' '))
     }
 
     return phrases
@@ -94,7 +93,7 @@ function allPaths(
     isVisited[u] = false
 }
 
-function fillTemplates(choices, lang) {
+function fillTemplates(choices, lang, templates) {
     return choices.map(item => {
         let choice = item
 
@@ -102,7 +101,7 @@ function fillTemplates(choices, lang) {
         else choice = choice[0]
 
         if (choice.startsWith('{') && choice.endsWith('}')) {
-            const k = ModulesInfo.templates[choice].examples[lang]
+            const k = templates[choice].examples[lang]
 
             return k[Math.floor(Math.random() * k.length)]
         } else if (choice === 'λ') {

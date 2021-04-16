@@ -16,9 +16,9 @@ const listFiles = (_path, filter) => listArchives('FILES')(_path, filter)
 const listFolders = (_path, filter) => listArchives('FOLDER')(_path, filter)
 
 async function main() {
-    const spokenModules = listFolders(path.resolve(__dirname, 'modules')).map(name => new SpokenModule(name))
+    const spoken = new SpokenModules()
 
-    for (const moduleA of spokenModules) {
+    for (const moduleA of spoken.modules) {
         for (const command of moduleA.commands) {
             for (const automata of command.automatas) {
                 await automataToImage(automata.path, automata.image)
@@ -26,7 +26,7 @@ async function main() {
                 const graph = dot.read(fs.readFileSync(automata.path, 'utf-8'))
                 const { lang, title, desc, langName } = graph.graph()
 
-                automata.phrases = allRecognizablePhrases(graph).slice(0, 16)
+                automata.phrases = allRecognizablePhrases(graph, spoken.templates).slice(0, 16)
                 automata.title = title
                 automata.desc = desc
                 automata.langName = langName
@@ -41,6 +41,22 @@ async function main() {
         await automataToImage(moduleA.automata, moduleA.image)
 
         fs.writeFileSync(moduleA.readme, moduleA.buildReadme())
+    }
+}
+
+class SpokenModules {
+    constructor() {
+        this.root = path.resolve(__dirname, 'modules')
+        this.modules = listFolders(this.root).map(name => new SpokenModule(name))
+        this.templates = {}
+        this.addTemplates(path.resolve(this.root, 'defaultTemplates.js'))
+    }
+
+    addTemplates(filePath) {
+        const content = fs.readFileSync(filePath, 'utf-8')
+        const templates = eval(`(() => { ${content} })()`)
+
+        this.templates = { ...this.templates, ...templates }
     }
 }
 

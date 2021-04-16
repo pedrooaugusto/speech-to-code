@@ -12,7 +12,7 @@ test('it can load the grammar', async () => {
 
 test('it can generate the power set off all phrases of a given commands', async () => {
     const graph: graphlib.Graph = getGraph('write', 'en-US') as graphlib.Graph
-    const s = allRecognizablePhrases(graph)
+    const s = allRecognizablePhrases(graph, Spoken.context.templates)
 
     expect(s.length).not.toBe(0)
 })
@@ -23,7 +23,7 @@ test('it can search for a command given a id', async () => {
     expect((graph || {}).id).toBe('declare_variable')
 })
 
-test.only('it can search for a command given a phrase', async () => {
+test('it can search for a command given a phrase', async () => {
     let command = Spoken.recognizePhrase('declarar constante chamada bola', 'pt-BR')
     expect(command).toMatchObject([{
         id: 'declare_variable',
@@ -63,8 +63,22 @@ test.only('it can search for a command given a phrase', async () => {
     })
 
     command = Spoken.recognizePhrase('point 41st let there be', 'en-US')
+})
 
-    console.log(command)
+test('it can remove stop words', async () => {
+    expect(
+        Spoken.removeStopWords('Você pode declarar uma variável chamada ana por favor', 'pt-BR')
+    ).toBe('declarar variável chamada ana')
+
+    expect(
+        Spoken.removeStopWords('Você pode declarar uma constante chamada ana com o valor 42 por favor', 'pt-BR')
+    ).toBe('declarar constante chamada ana valor 42')
+
+    expect(
+        Spoken.removeStopWords('Declare a new variable called total with value 32', 'en-US')
+    ).toBe('Declare new variable called total value 32')
+
+    expect(Spoken.removeStopWords('A the letter a is a letter a a symbol o', 'en-US')).toBe('letter a letter a symbol o')
 })
 
 function getGraph(id: string, lang: string = 'pt-BR') {

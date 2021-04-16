@@ -15,7 +15,7 @@ digraph DeclareVariable {
     5 -> 6 [label=" ({term})", store=name];
     6 -> 11 [label=" (do)"];
     {11 6} -> 12 [label=" (tipo)"];
-    12 -> 13 [label=" ({term})", store=type];
+    12 -> 13 [label=" ({term})", store=type, normalizer=jsCommonTypes];
     {6 13} -> 14 [label=" (igual)"];
     14 -> 9 [label=" (a)"];
     {13 6} -> 7 [label=" (com)"];
