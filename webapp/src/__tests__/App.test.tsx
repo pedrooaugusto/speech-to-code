@@ -1,17 +1,20 @@
 import React from 'react'
 import { act, render, screen } from '@testing-library/react'
 import { waitFor } from '@testing-library/dom'
+import Spoken from 'spoken'
 
 import useAzureVoiceRecognition from '../services/azure/use-voice-recognition'
 import { VoiceRecognitionHook } from '../services/use-voice-recognition'
 import MyRecognizer from '../services/azure/voice-recognizer'
+import GlobalContext from '../services/global-context'
 
 declare global {
     namespace NodeJS {
         interface Global {
             ipcRenderer: {
                 send: jest.Mock
-                on: jest.Mock 
+                on: jest.Mock,
+                removeAllListeners: jest.Mock
             }
         }
     }
@@ -32,19 +35,20 @@ test('it does not break', async () => {
             phrase: [phrase],
             command: args == null ? args : expect.objectContaining(args)
         }
-    
-        await waitFor(() => expect(global.ipcRenderer.send).toHaveBeenCalledWith('Spoken:analyze', r), { timeout: 2000 })
+
+        await waitFor(
+            () => expect(global.ipcRenderer.send).toHaveBeenCalledWith('Spoken:executeCommand', r), { timeout: 4000 }
+        )
     }
 
     const result = setup()
-    expect(result.results).toBe('')
-
-    await doRecognition('TEST', null)
+    await waitFor(() => result.analyzeSentence != undefined)
+    expect(result.results).toBe(null)
 
     await doRecognition('declarar constante chamada bola', {
         commandArgs: {
             memType: 0,
-            name: "bola"
+            name: 'bola'
         }
     })
 
@@ -59,7 +63,15 @@ function setup(...args: any) {
       return null
     }
 
-    render(<TestComponent />)
+    function Root() {
+        return (
+            <GlobalContext>
+                <TestComponent/>
+            </GlobalContext>
+        )
+    }
+
+    render(<Root />)
 
     return returnVal as ReturnType<VoiceRecognitionHook>
 }

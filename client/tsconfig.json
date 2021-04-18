@@ -18,6 +18,8 @@
         "resolveJsonModule": true,
         "allowJs": true,
         "baseUrl": "./",
+        "types": [],
+        "skipLibCheck": true,
         "paths": {
             "spoken":["spoken/src"]
         }

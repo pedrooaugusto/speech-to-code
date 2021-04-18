@@ -6,7 +6,8 @@ import '@testing-library/jest-dom';
 
 const fakeIpc = {
     send: jest.fn(),
-    on: jest.fn()
+    on: jest.fn(),
+    removeAllListeners: jest.fn()
 }
 
 // @ts-ignore

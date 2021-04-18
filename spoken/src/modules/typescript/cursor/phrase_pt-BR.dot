@@ -14,7 +14,7 @@ digraph Cursor {
 
     {1 7} -> 5 [label="(símbolo, letra)"];
     1 -> 7 [label="({ordinalNumber})", store=leapSize, normalizer="ordinalNumber"];
-    5 -> 6 [label="({term})", store=symbol];
+    5 -> 6 [label="({char})", store=symbol];
 
     1 -> 8 [label="(começo, final)", store=linePosition];
     8 -> 10 [label="(linha)"];

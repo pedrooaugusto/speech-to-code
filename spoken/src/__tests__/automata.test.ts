@@ -97,13 +97,13 @@ test('it can detect if a phrase belongs to a grammar', async () => {
     const recoginizer = new Recognizer((Get('module', 'typescript') as SpokenModule).grammar['pt-BR'], context)
     let r = recoginizer.recoginize('declare uma constante chamada bola')[0]
     expect(r.length).toEqual(2)
-    expect(r[1].args).toEqual(["declare", "uma", {"memType": 0}, "chamada", {"name": "bola"}])
+    expect(r[1].args).toEqual(['declare', {memType: 0}, 'chamada', {name: 'bola'}])
 
     r = recoginizer.recoginize('declare uma variável chamada azul do tipo data')[0]
     expect(r.length).toEqual(2)
     expect(r[1].args).toEqual([
-        "declare", "uma", {"memType": 1},
-        "chamada", {"name": "azul"}, "do", "tipo",
+        "declare", {"memType": 1},
+        "chamada", {"name": "azul"}, "tipo",
         {"type": "Date"}
     ])
 
@@ -121,8 +121,7 @@ test('it can detect if a phrase belongs to a grammar', async () => {
         "declare", {"memType": 1},
         "chamada", {"name": "azul"},
         "tipo", {"type": "string"},
-        "com", "o", "valor",
-        {"value": "50"}
+        "valor", {"value": "50"}
     ])
 
     r = recoginizer.recoginize('declare variável chamada azul do tipo númer igual 50')[0]
@@ -130,7 +129,7 @@ test('it can detect if a phrase belongs to a grammar', async () => {
     expect(r[1].args).toEqual([
         "declare", {"memType": 1},
         "chamada", {"name": "azul"},
-        "do", "tipo", {"type": "number"},
+        "tipo", {"type": "number"},
         "igual", {"value": "50"}
     ])
 })
@@ -141,15 +140,15 @@ test('it can tolerate small speell errors and still find the correct match', asy
 
     expect(r.length).toEqual(2)
     expect(r[1].args).toEqual([
-        "declarar", "uma", {"memType": 0},
+        "declarar", {"memType": 0},
         "chamada", {"name": "bola"}
     ])
 
-    r = recoginizer.recoginize('declara uma variável chamada azul d tip número')[0]
+    r = recoginizer.recoginize('declara uma variável chamada azul do tip número')[0]
     expect(r.length).toEqual(2)
     expect(r[1].args).toEqual([
-        "declara", "uma", {"memType": 1},
-        "chamada", {"name": "azul"}, "d", "tip",
+        "declara", {"memType": 1},
+        "chamada", {"name": "azul"}, "tip",
         {"type": "number"}
     ])
 })
@@ -186,7 +185,7 @@ function Get(what: 'grammar' |  'module' | 'context', id: string, lang: string =
             spoken.normalizers[key] = eval(`(() => { return ${spoken.normalizers[key]} })()`)
         }
 
-        return { normalizers: spoken.normalizers, templates: spoken.templates }
+        return { ...spoken, modules: undefined }
     }
 
     for (const mod of spoken.modules) {

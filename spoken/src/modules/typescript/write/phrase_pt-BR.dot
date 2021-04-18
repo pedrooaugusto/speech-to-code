@@ -5,6 +5,7 @@ digraph Write {
     langName="Português";
     pad="0.2";
     rankdir=LR;
+    disableStopWords="true";
     node[shape=doublecircle]; 1;
     node[shape=circle];
 

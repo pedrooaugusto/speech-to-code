@@ -24,16 +24,5 @@ type ParsedDeclareVariable = {
     value: string
 } & ParsedPhrase
 
-function sanitizeType(lang: string, type: string): string {
-    const types: [string[], string][] = [
-        [['decimal', 'integer', 'inteiro', 'double', 'float'], 'number'],
-        [['char', 'text', 'character', 'texto'], 'string']
-    ]
-
-    const w = types.find(([f, t]) => f.includes(type))
-
-    return w ? w[1] : type
-}
-
 // @ts-ignore
 return DeclareVariable

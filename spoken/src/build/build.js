@@ -4,7 +4,7 @@ const dot = require('graphlib-dot')
 const {
     listArchives,
     allRecognizablePhrases,
-} = require('./utils.js')
+} = require('./build-utils.js')
 
 const listFiles = (_path, filter) => listArchives('FILES')(_path, filter)
 
@@ -41,19 +41,22 @@ async function main() {
     }
 
     const dict = JSON.stringify(spokenModules.toJson())
-    fs.writeFileSync(path.resolve(__dirname, 'grammar.json'), dict)
+    fs.writeFileSync(path.resolve(__dirname, '..', 'grammar.json'), dict)
+    // Delete non essential files
 }
 
 class SpokenModules {
     constructor() {
-        this.sourceRoot = path.resolve(__dirname, '..', 'src', 'modules')
-        this.distRoot = path.resolve(__dirname, 'modules')
+        this.sourceRoot = path.resolve(__dirname, '..', '..', 'src', 'modules')
+        this.distRoot = path.resolve(__dirname, '..', 'modules')
         this.modules = listArchives('FOLDER')(this.sourceRoot).map(name => new SpokenModule(name, this.distRoot, this.sourceRoot))
         this.normalizers = {}
         this.templates = {}
+        this.stopWords = {}
 
-        this.addNormalizers(path.resolve(this.sourceRoot, 'defaultNormalizers.js'))
-        this.addTemplates(path.resolve(this.sourceRoot, 'defaultTemplates.js'))
+        this.addNormalizers(path.resolve(this.sourceRoot, '__meta', 'default-normalizers.js'))
+        this.addTemplates(path.resolve(this.sourceRoot, '__meta', 'default-templates.json'))
+        this.addStopWords(path.resolve(this.sourceRoot, '__meta', 'stop-words.json'))
     }
 
     addNormalizers(filePath) {
@@ -66,16 +69,22 @@ class SpokenModules {
     }
 
     addTemplates(filePath) {
-        const content = fs.readFileSync(filePath, 'utf-8')
-        const templates = eval(`(() => { ${content} })()`)
+        const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
 
-        this.templates = { ...this.templates, ...templates }
+        this.templates = { ...this.templates, ...content }
+    }
+    
+    addStopWords(filePath) {
+        const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+
+        this.stopWords = { ...this.stopWords, ...content }
     }
 
     toJson() {
         return {
             normalizers: this.normalizers,
             templates : this.templates,
+            stopWords : this.stopWords,
             modules: this.modules.map(a => a.toJson())
         }
     }

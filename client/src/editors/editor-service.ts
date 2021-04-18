@@ -40,6 +40,10 @@ class EditorService {
         this.currentEditor.turnOn()
     }
 
+    stop () {
+        for (const e of this.editors) e.turnOff()
+    }
+
     get currentEditor(): Editor {
         return this.editors.find(a => a.getName() === this.#currentEditorName) ?? this.editors[0]
     }

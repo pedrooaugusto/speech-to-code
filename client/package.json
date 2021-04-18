@@ -21,10 +21,11 @@
     "publish": null
   },
   "scripts": {
-    "test": "tsc && node dist/editors/vscode/index.test.js",
+    "test": "npm run build-spoken && tsc && node dist/__tests__/spoken-interface.test.js",
     "start": "electron .",
     "prestart": "bash ./tools.sh",
-    "pack": "electron-builder -w zip"
+    "pack": "electron-builder -w zip",
+    "build-spoken": "cd ../spoken && npm run build"
   },
   "keywords": [
     "Speech-to-code"
@@ -35,6 +36,7 @@
   "devDependencies": {
     "electron": "11.2.3",
     "@types/node-ipc": "9.1.3",
-    "electron-builder": "22.10.5"
+    "electron-builder": "22.10.5",
+    "spoken": "file:../spoken"
   }
 }

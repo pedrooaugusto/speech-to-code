@@ -1,10 +1,14 @@
 import * as graphlib from './graphlib'
 import Automata from './automata'
-import removeStopWords from './stop-words'
 import LOG from './logger'
 
 class Spoken {
-    private spoken: SpokenModules = { modules: [], normalizers: {}, templates: {} }
+    private spoken: SpokenModules = {
+        modules: [],
+        normalizers: {},
+        templates: {},
+        stopWords: {}
+    }
 
     async init() {
         this.spoken = await loadModules()
@@ -21,19 +25,18 @@ class Spoken {
     get context() {
         return {
             templates: this.spoken.templates,
-            normalizers: this.spoken.normalizers
+            normalizers: this.spoken.normalizers,
+            stopWords: this.spoken.stopWords
         }
     }
 
     public recognizePhrase(phrase: string, lang: string): (MatchedCommandWrapper[] | null) {
         if (this.spoken == null) throw new Error('Grammar is not loaded')
 
-        const cleanPhrase = this.removeStopWords(phrase, lang)
         LOG.info('Looking for a match for: ', '"' + phrase + '"')
-        LOG.info('Looking for a match for: ', '"' + cleanPhrase + '"')
         for (const mod of this.spoken.modules) {
             const command = new Automata(mod.grammar[lang], this.context)
-                .recoginize(cleanPhrase)
+                .recoginize(phrase)
                 .map(([graph, state]) => new MatchedCommandWrapper(graph, state.args))
 
             if (command.length) return command
@@ -55,10 +58,6 @@ class Spoken {
         }
 
         return null
-    }
-
-    public removeStopWords(pharase: string, lang: string) {
-        return removeStopWords(pharase, lang)
     }
 
 }
@@ -98,7 +97,7 @@ class MatchedCommandWrapper {
 }
 
 async function loadModules(): Promise<SpokenModules> {
-    let json: SpokenModules = { modules: [], normalizers: {}, templates: {} }
+    let json: SpokenModules = { modules: [], normalizers: {}, templates: {}, stopWords: {} }
 
     if (typeof require === 'function' && require('fs')?.readFileSync !== undefined) {
         const fs = require('fs')
@@ -115,7 +114,7 @@ async function loadModules(): Promise<SpokenModules> {
     if (!json?.modules?.length) {
         console.error('Unable to load grammar!')
 
-        return { modules: [], normalizers: {}, templates: {} }
+        return { modules: [], normalizers: {}, templates: {}, stopWords: {} }
     }
 
     for (const key in json.normalizers) {

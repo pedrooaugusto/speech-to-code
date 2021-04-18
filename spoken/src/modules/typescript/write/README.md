@@ -14,8 +14,8 @@ The following automata is responsible for recognizing the command `Write text` i
 
 The following are some examples of phrases, in english, used to trigger the command `Write text`:
 
-1. print the universe is cracked
-2. write down the universe is cracked
+1. print who are you
+2. write the universe is cracked
 3. write it down who are you
 
 **Português**

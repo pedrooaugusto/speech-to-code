@@ -10,7 +10,7 @@ const {
     listArchives,
     allRecognizablePhrases,
     automataToImage
-} = require('./utils')
+} = require('./build-utils')
 
 const listFiles = (_path, filter) => listArchives('FILES')(_path, filter)
 const listFolders = (_path, filter) => listArchives('FOLDER')(_path, filter)
@@ -46,24 +46,23 @@ async function main() {
 
 class SpokenModules {
     constructor() {
-        this.root = path.resolve(__dirname, 'modules')
+        this.root = path.resolve(__dirname, '..', 'modules')
         this.modules = listFolders(this.root).map(name => new SpokenModule(name))
         this.templates = {}
-        this.addTemplates(path.resolve(this.root, 'defaultTemplates.js'))
+        this.addTemplates(path.resolve(this.root, '__meta', 'default-templates.json'))
     }
 
     addTemplates(filePath) {
-        const content = fs.readFileSync(filePath, 'utf-8')
-        const templates = eval(`(() => { ${content} })()`)
+        const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
 
-        this.templates = { ...this.templates, ...templates }
+        this.templates = { ...this.templates, ...content }
     }
 }
 
 class SpokenModule {
     constructor(name) {
         this.name = name
-        this.root = path.resolve(__dirname, 'modules', name)
+        this.root = path.resolve(__dirname, '..', 'modules', name)
         this.readme = path.resolve(this.root, 'README.md')
         this.image = path.resolve(this.root, this.name + '.png')
         this.relativeImagePath = this.name + '.png'

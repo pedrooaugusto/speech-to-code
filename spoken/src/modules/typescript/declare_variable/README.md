@@ -14,12 +14,10 @@ The following automata is responsible for recognizing the command `New constant 
 
 The following are some examples of phrases, in english, used to trigger the command `New constant or variable`:
 
-1. create constant called temp
-2. create variable called value with value temp
-3. declare constant called graph equals text
-4. declare variable called temp of type text with value value
-5. declare variable called text type text equals graph
-6. declare constant called temp type text
+1. new variable called temp
+2. create variable called graph equals a
+3. declare constant called text type text equals a
+4. declare constant called text type temp
 
 **Portugês**
 
@@ -29,22 +27,22 @@ O automata seguinte é reponsável por reconhecer o comando `Nova constante ou v
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Nova constante ou variável`:
 
-1. declare uma variável chamada temp
-2. crie variável chamada lista
-3. crie uma variável chamada numero com o valor numero
-4. declare uma variável chamada valor com valor valor
-5. crie uma constante chamada numero o valor lista
-6. crie uma constante chamada valor valor valor
-7. crie uma variável chamada numero do tipo lista com o valor lista
-8. declare uma variável chamada lista do tipo valor com valor valor
-9. declare uma constante chamada valor do tipo texto o valor numero
-10. crie uma constante chamada numero do tipo valor valor temp
-11. crie uma constante chamada temp do tipo lista igual a valor
-12. declare uma variável chamada numero do tipo texto igual temp
-13. declare uma constante chamada texto tipo lista com o valor texto
-14. declare uma constante chamada lista tipo texto com valor valor
-15. crie uma variável chamada numero tipo numero o valor numero
-16. crie uma variável chamada lista tipo texto valor valor
+1. crie uma variável chamada a
+2. declare variável chamada a
+3. declare uma constante chamada valor com o valor lista
+4. declare uma constante chamada texto com valor temp
+5. crie uma variável chamada valor o valor texto
+6. crie uma variável chamada lista valor numero
+7. crie uma constante chamada texto do tipo a com o valor numero
+8. declare uma variável chamada a do tipo a com valor texto
+9. crie uma constante chamada a do tipo texto o valor numero
+10. declare uma variável chamada a do tipo numero valor temp
+11. declare uma variável chamada lista do tipo a igual a lista
+12. crie uma constante chamada temp do tipo valor igual lista
+13. crie uma variável chamada texto tipo lista com o valor lista
+14. crie uma constante chamada texto tipo valor com valor texto
+15. declare uma variável chamada temp tipo a o valor lista
+16. crie uma variável chamada a tipo temp valor lista
 
 ### Implementation
 

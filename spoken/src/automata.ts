@@ -1,12 +1,17 @@
 import * as graphlib from './graphlib'
 import JaroWinklerDistance from './string-distance/jaro-winlker'
 import LOG from './logger'
+import StopWordsEngine from './stop-words-engine'
 
 export type Context = {
 	normalizers: Record<string, (((lang: string) => Function) | string)>,
     templates: Record<string, {
 		value: string,
 		examples: Record<string, string[]>
+	}>,
+    stopWords: Record<string, {
+		words: string[],
+		expressions: string[]
 	}>
 }
 
@@ -20,9 +25,17 @@ export default class {
     }
 
     private phraseBelongsToGrammar(phrase: string, grammar: GraphJsonView): [graphlib.Graph, State] | null {
-        const words = phrase.split(' ')
         const graph: graphlib.Graph = graphlib.json.read(grammar)
+        const { disableStopWords, lang } = graph.graph()
         const automata = new Automata(graph, this.context)
+
+        if (disableStopWords !== 'true') {
+            const { words, expressions } = this.context.stopWords[lang]
+
+            phrase = new StopWordsEngine(words, expressions).removeStopWords(phrase)
+        }
+
+        const words = phrase.split(' ')
 
         for (let i = 0; i < words.length; i++) {
             const w = words[i]
@@ -32,7 +45,9 @@ export default class {
 
             if (state.args[state.args.length - 1] === null) {
                 automata.setState(state, null)
-                i = i - 1 // dont consume it!
+                // Empty transition, dont consume it! pass the input to the next node.
+                // Empty transitions are always the last ones to be attempted.
+                i = i - 1
             } else {
                 automata.setState(state, w)
             }

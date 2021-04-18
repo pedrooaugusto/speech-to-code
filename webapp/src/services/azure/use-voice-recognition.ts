@@ -61,10 +61,19 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 
     const analyzeSentence = async (phrase: string, timeout:number | null = 3000) => {
         const w = { text: phrase }
-        const fn = () => IpcRenderer.send('Spoken:analyze', findComand(w as unknown as SpeechSDK.SpeechRecognitionResult, language))
+        const attempt = { text: phrase, isFinal: true, id: Date.now(), recognized: false }
+        const match = findComand(w as unknown as SpeechSDK.SpeechRecognitionResult, language)
 
-        if (timeout) setTimeout(fn, timeout)
-        else fn()
+        attempt.recognized = !!match.command
+
+        const fn = () => IpcRenderer.send('Spoken:executeCommand', match)
+
+        if (attempt.recognized) {
+            if (timeout) setTimeout(fn, timeout)
+            else fn()
+        }
+
+        setResults(attempt)
     }
 
     return {

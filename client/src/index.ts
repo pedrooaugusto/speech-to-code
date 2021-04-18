@@ -60,6 +60,7 @@ async function createWindow(): Promise<void> {
 app.whenReady().then(createWindow)
 
 app.on('window-all-closed', () => {
+	EditorService.stop()
 	globalShortcut.unregister('CommandOrControl+X')
 	// Unregister all shortcuts.
 	globalShortcut.unregisterAll()

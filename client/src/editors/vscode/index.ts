@@ -124,6 +124,26 @@ class VSCodeEditor extends Editor {
         })
     }
 
+    select(from: number, to: number, line: boolean): Promise<string | Error> {
+        console.log('[client.VSCodeRobot.select]: Sending request to execute select(...)')
+
+        return this.runTask({
+            type: 'select',
+            context: {},
+            extra: { args: [from, to, line] }
+        })
+    }
+
+    findPositionOf(term: RegExp | string, line?: number): Promise<number[][] | Error> {
+        console.log('[client.VSCodeRobot.findPositionOf]: Sending request to execute findPositionOf(...)')
+
+        return this.runTask({
+            type: 'findPositionOf',
+            context: {},
+            extra: { args: [term, line] }
+        })
+    }
+
     indentSelection(p1: [string, string], p2: [string, string]): Promise<void | Error> {
         console.log('[client.VSCodeRobot.indentSelection]: Sending request to execute indentSelection(...)')
         const task = {

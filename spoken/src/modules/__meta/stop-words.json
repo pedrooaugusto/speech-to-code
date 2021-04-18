@@ -1,0 +1,44 @@
+{
+    "en-US": {
+        "words": [
+            "a -> P1 != (letter|symbol|word)",
+            "the",
+            "with",
+            "you",
+            "can",
+            "please",
+            "of",
+            "it",
+            "its",
+            "it's",
+            "is",
+            "are",
+            "was",
+            "were"
+        ],
+        "expressions": []
+    },
+    "pt-BR": {
+        "words": [
+            "a -> P1 != (letra|símbolo|palavra)",
+            "o",
+            "você",
+            "com",
+            "pode",
+            "do",
+            "de",
+            "da",
+            "dos",
+            "das",
+            "para",
+            "é",
+            "era",
+            "estava",
+            "como",
+            "uma",
+            "um",
+            "vá"
+        ],
+        "expressions": ["por favor"]
+    }
+}

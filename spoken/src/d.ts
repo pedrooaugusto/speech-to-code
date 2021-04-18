@@ -29,6 +29,10 @@ declare type SpokenModules = {
 	templates: Record<string, {
 		value: string,
 		examples: Record<string, string[]>
+	}>,
+	stopWords: Record<string, {
+		words: string[],
+		expressions: string[]
 	}>
 }
 
@@ -57,7 +61,8 @@ declare type Editor = {
         symbol?: string | undefined,
         leapSize?: number | undefined,
         goto?: boolean
-    ): Promise<number | Error>
+    ): Promise<number | Error>,
+	select(from: number, to: number, line: boolean): Promise<string | Error>
 } & {
     [value: string]: (...args: any[]) => Promise<unknown | Error>
 }

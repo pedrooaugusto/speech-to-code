@@ -10,7 +10,20 @@ async function main() {
     // await Editor.newLine(1)
     // console.log(await Editor.moveCursorTo('END_LINE'))
     // console.log(await Editor.moveCursorTo(null, undefined, 6))
-    console.log(await Editor.moveCursorTo('SYMBOL', 'o', 4))
+    // console.log(await Editor.moveCursorTo('SYMBOL', 'o', 4))
+    // console.log(await Editor.select(12, 14, !false))
+    // await Editor.moveCursorTo('BEGIN_LINE')
+    // const b = await Editor.moveCursorTo('SYMBOL', 'c', 3, !false)
+    const a = await Editor.findPositionOf('b')
+    const b = await Editor.findPositionOf(']')
+
+    console.log(a)
+    console.log(b)
+    const c = await Editor.select(a[0][0], b[2][1] - 1, false)
+    console.log(c)
+    //const e = await Editor.moveCursorTo('SYMBOL', 'e', undefined, false)
+    //console.log(await Editor.select(b, e, false))
+    // await Editor.write('hello')
     Editor.turnOff()
 }
 

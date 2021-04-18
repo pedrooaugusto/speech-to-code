@@ -1,0 +1,32 @@
+digraph Select {
+    id="select";
+    label="Select";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 3 17 10;
+    node[shape=circle];
+
+    0 -> 1 [label="(select)"];
+    1 -> 2 [label="(letter, symbol)"];
+    2 -> 3 [label="({char})", store=word];
+    1 -> 4 [label="(word)"];
+    4 -> 3 [label="({term})", store=word];
+    1 -> 5 [label="(from)"];
+    5 -> 13 [label="(line)", store=selectLine];
+    13 -> 14 [label="({number})", store=from];
+    14 -> 15 [label="(to)"];
+    15 -> 16 [label="(line, λ)"];
+    16 -> 17 [label="({number})", store=to];
+    5 -> 11 [label="({ordinalNumber})", normalizer="ordinalNumber", store=fromPosition];
+    {5 11} -> 6 [label="(letter, symbol)"];
+    6 -> 7 [label="({char})", store=from];
+    7 -> 8 [label="(to)"];
+    {8 12} -> 9 [label="(letter, symbol, λ)"];
+    8 -> 12 [label="({ordinalNumber})", normalizer="ordinalNumber", store=toPosition];
+    9 -> 10 [label="({char})", store=to];
+
+    title="Select";
+    desc="Select a piece of the text in the current line";
+}

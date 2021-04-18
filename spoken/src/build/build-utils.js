@@ -43,7 +43,9 @@ exports.listArchives = function listArchives(filter) {
 
             // @ts-ignore
             return type ^ isFolder
-        }).filter(aditionalFilter)
+        })
+        .filter(aditionalFilter)
+        .filter(a => !a.startsWith('__'))
     }
 }
 

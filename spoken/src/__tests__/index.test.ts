@@ -1,6 +1,6 @@
 import Spoken from '../index'
 import * as graphlib from '../graphlib'
-import { allRecognizablePhrases } from '../utils'
+// import { allRecognizablePhrases } from '../build/build-utils'
 
 beforeAll(async () => {
     await Spoken.init()
@@ -10,12 +10,12 @@ test('it can load the grammar', async () => {
     expect(Spoken.modules).not.toBeNull()
 })
 
-test('it can generate the power set off all phrases of a given commands', async () => {
+/*test('it can generate the power set off all phrases of a given commands', async () => {
     const graph: graphlib.Graph = getGraph('write', 'en-US') as graphlib.Graph
     const s = allRecognizablePhrases(graph, Spoken.context.templates)
 
     expect(s.length).not.toBe(0)
-})
+})*/
 
 test('it can search for a command given a id', async () => {
     const graph = Spoken.findById('declare_variable', 'pt-BR')
@@ -61,24 +61,48 @@ test('it can search for a command given a phrase', async () => {
         id: 'write',
         path: ['write', 'down', { text: 'hello' }, { text: 'friend' }]
     })
-
-    command = Spoken.recognizePhrase('point 41st let there be', 'en-US')
 })
 
-test('it can remove stop words', async () => {
+test('it can remove some stop words', async () => {
     expect(
-        Spoken.removeStopWords('Você pode declarar uma variável chamada ana por favor', 'pt-BR')
-    ).toBe('declarar variável chamada ana')
+        Spoken.recognizePhrase('write it down hello friend', 'en-US')![0]
+    ).toMatchObject({
+        path: ['write', 'it', 'down', { text: 'hello' }, { text: 'friend' }]
+    })
 
     expect(
-        Spoken.removeStopWords('Você pode declarar uma constante chamada ana com o valor 42 por favor', 'pt-BR')
-    ).toBe('declarar constante chamada ana valor 42')
+        Spoken.recognizePhrase('create a constant called max of the type number with the value 72', 'en-US')![0]
+    ).toMatchObject({
+        path: [
+            'create', { memType: 0 }, 'called', { name: 'max' }, 'type', { type: 'number' }, 'value', { value: '72' }
+        ]
+    })
 
     expect(
-        Spoken.removeStopWords('Declare a new variable called total with value 32', 'en-US')
-    ).toBe('Declare new variable called total value 32')
+        Spoken.recognizePhrase('declare uma variável chamada valor do tipo número', 'pt-BR')![0]
+    ).toMatchObject({
+        path: [
+            'declare', { memType: 1 }, 'chamada', { name: 'valor' }, 'tipo', { type: 'number' }
+        ]
+    })
 
-    expect(Spoken.removeStopWords('A the letter a is a letter a a symbol o', 'en-US')).toBe('letter a letter a symbol o')
+    expect(
+        Spoken.recognizePhrase('por favor declare uma variável chamada valor', 'pt-BR')![0]
+    ).toMatchObject({
+        path: ['declare', { memType: 1 }, 'chamada', { name: 'valor' }]
+    })
+
+    expect(
+        Spoken.recognizePhrase('escreva por favor hello', 'pt-BR')![0]
+    ).toMatchObject({
+        path: ['escreva', { text: 'por' }, { text: 'favor' }, { text: 'hello' }]
+    })
+
+    expect(
+        Spoken.recognizePhrase('ponteiro vá para a letra a por favor', 'pt-BR')![0]
+    ).toMatchObject({
+        path: ['ponteiro', 'letra', { symbol: 'a' }]
+    })
 })
 
 function getGraph(id: string, lang: string = 'pt-BR') {
