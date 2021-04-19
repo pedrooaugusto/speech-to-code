@@ -14,10 +14,10 @@ The following automata is responsible for recognizing the command `New constant 
 
 The following are some examples of phrases, in english, used to trigger the command `New constant or variable`:
 
-1. new variable called temp
-2. create variable called graph equals a
-3. declare constant called text type text equals a
-4. declare constant called text type temp
+1. new constant called graph
+2. create constant named value equals graph
+3. create constant named a type graph equals temp
+4. declare constant called temp type value
 
 **Portugês**
 
@@ -27,22 +27,10 @@ O automata seguinte é reponsável por reconhecer o comando `Nova constante ou v
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Nova constante ou variável`:
 
-1. crie uma variável chamada a
-2. declare variável chamada a
-3. declare uma constante chamada valor com o valor lista
-4. declare uma constante chamada texto com valor temp
-5. crie uma variável chamada valor o valor texto
-6. crie uma variável chamada lista valor numero
-7. crie uma constante chamada texto do tipo a com o valor numero
-8. declare uma variável chamada a do tipo a com valor texto
-9. crie uma constante chamada a do tipo texto o valor numero
-10. declare uma variável chamada a do tipo numero valor temp
-11. declare uma variável chamada lista do tipo a igual a lista
-12. crie uma constante chamada temp do tipo valor igual lista
-13. crie uma variável chamada texto tipo lista com o valor lista
-14. crie uma constante chamada texto tipo valor com valor texto
-15. declare uma variável chamada temp tipo a o valor lista
-16. crie uma variável chamada a tipo temp valor lista
+1. declare variável chamada valor
+2. declare constante chamada valor valor numero
+3. criar constante chamada temp tipo valor valor a
+4. criar constante chamada valor tipo valor
 
 ### Implementation
 

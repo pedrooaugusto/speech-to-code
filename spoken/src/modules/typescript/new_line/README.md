@@ -17,10 +17,10 @@ The following are some examples of phrases, in english, used to trigger the comm
 1. new line
 2. create new line
 3. create line
-4. new line above
-5. line above
-6. create new line below
-7. create line below
+4. new line below
+5. line below
+6. create new line above
+7. create line above
 
 **Português**
 
@@ -35,7 +35,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 3. crie nova linha
 4. crie linha
 5. nova linha abaixo
-6. linha nova acima
+6. linha nova abaixo
 7. linha acima
 8. crie nova linha abaixo
 9. crie linha abaixo

@@ -13,7 +13,11 @@ digraph TypeScript {
     0 -> 2 [label="(declare_variable)"];
     0 -> 3 [label="(go_to_line)"];
     0 -> 4 [label="(new_line)"];
-    0 -> 5 [label="(write)"];
+    0 -> 5 [label="(new_variable)"];
+    0 -> 6 [label="(number)"];
+    0 -> 7 [label="(select)"];
+    0 -> 8 [label="(string)"];
+    0 -> 9 [label="(write)"];
     // END GENERATED
 
     title="Typescript voice commands";
