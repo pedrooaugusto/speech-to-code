@@ -25,7 +25,7 @@ declare type GraphJsonView = Record<string, unknown>
 
 declare type SpokenModules = {
 	modules: SpokenModule[],
-	normalizers: Record<string, (((lang: string) => Function) | string)>,
+	normalizers: Record<string, (((lang: string) => Function))>,
 	templates: Record<string, {
 		value: string,
 		examples: Record<string, string[]>

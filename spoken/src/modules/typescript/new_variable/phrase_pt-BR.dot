@@ -1,0 +1,21 @@
+digraph new_variable {
+    id="new_variable";
+    label="Guarda um valor em uma variável";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 5;
+    node[shape=circle];
+
+    0 -> 1 [label="(ponha, guarde)"];
+    {1 0} -> 2 [label="(resultado, valor)"];
+    2 -> 3 [label="([number], [string])", store=expression];
+    {3 6} -> 4 [label="(variável, constante)"];
+    3 -> 6 [label="(nova)"];
+    {4 7} -> 5 [label="({term})", store=varName];
+    4 -> 7 [label="(chamada)"];
+
+    title="Guarda um valor em uma variável";
+    desc="Guarda um valor, inteiro, texto e etc em uma variável";
+}

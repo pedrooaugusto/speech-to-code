@@ -1,0 +1,21 @@
+digraph new_variable {
+    id="new_variable";
+    label="Stores a value in a variable";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 5;
+    node[shape=circle];
+
+    0 -> 1 [label="(put)"];
+    {1 0} -> 2 [label="(result, value)"];
+    2 -> 3 [label="([number], [string])", store=expression];
+    {3 6} -> 4 [label="(variable, constant)"];
+    3 -> 6 [label="(new)"];
+    {4 7} -> 5 [label="({term})", store=varName];
+    4 -> 7 [label="(called)"];
+
+    title="Stores a value in a variable";
+    desc="Stores a number, string etc in a variable";
+}

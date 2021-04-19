@@ -4,7 +4,7 @@ import LOG from './logger'
 import StopWordsEngine from './stop-words-engine'
 
 export type Context = {
-	normalizers: Record<string, (((lang: string) => Function) | string)>,
+	normalizers: Record<string, (((lang: string) => Function))>,
     templates: Record<string, {
 		value: string,
 		examples: Record<string, string[]>
@@ -145,12 +145,12 @@ export class Automata {
 
                     if (transition.normalizer) {
                         const lang = this.graph.graph().lang
-                        const fn = this.context.normalizers[transition.normalizer] as ((str: string) => Function)
-                        const t = fn ? fn(lang)(term, Automata.compareStrings) : null
+                        const fn = this.context.normalizers[transition.normalizer]
 
-                        if (t == null) return undefined
+                        term = fn ? fn(lang)(term, Automata.compareStrings) : null
 
-                        term = t
+                        if (term == null) return undefined
+
                     }
 
                     return transition.store ? { [transition.store]: term } : term

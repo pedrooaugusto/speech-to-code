@@ -11,7 +11,8 @@ digraph GoToLine {
     0 -> 1 [label="(go)"];
     1 -> 2 [label="(to)"];
     {2 1 0} -> 3 [label="(line)"];
-    3 -> 4 [label="({number})", store=line];
+    3 -> 5 [label="(number)"];
+    {3 5} -> 4 [label="({number})", store=line];
 
     title="Change line";
     desc="Moves the cursor to a different line";

@@ -1,0 +1,16 @@
+digraph Number {
+    id="number";
+    label="Escreve um número";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 3;
+    node[shape=circle];
+
+    0 -> 2 [label="(número)"];
+    2 -> 3 [label="({number})", store=number];
+
+    title="Escreve um número";
+    desc="Escreve um número no editor";
+}

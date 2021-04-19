@@ -1,5 +1,5 @@
 type Clauses = {
-    left: string
+    left: string | string[]
     right: string[]
     op: number
 }
@@ -56,13 +56,15 @@ export default class StopWordsEngine {
 
         for (const c of expression.clauses) {
             if (c.op === 1) {
-                if (c.right.includes(c.left)) continue
+                if (typeof c.left === 'string' && c.right.includes(c.left)) continue
+                if (typeof c.left === 'object' && c.right.find(b => c.left.includes(b))) continue
 
                 return false !== expression.negative
             }
 
             if (c.op === -1) {
-                if (!c.right.includes(c.left)) continue
+                if (typeof c.left === 'string' && !c.right.includes(c.left)) continue
+                if (typeof c.left === 'object' && !c.right.find(b => c.left.includes(b))) continue
 
                 return false !== expression.negative
             }
@@ -78,7 +80,7 @@ export default class StopWordsEngine {
             const [op] = item.match(/[\!=]=/gi) as RegExpMatchArray
 
             return {
-                left: this.parseOperand(left, words, index) as string,
+                left: this.parseOperand(left, words, index),
                 right: this.parseOperand(right, words, index) as string[],
                 op: op === '==' ? 1 : -1,
             }
@@ -97,6 +99,8 @@ export default class StopWordsEngine {
             const step = parseInt(result[2], 10) * (result[1] === 'N' ? 1 : -1)
 
             return words[i + step] || ''
+        } else if (exp.trim() === 'S') {
+            return words
         } else if (/\((.*?)\)/.test(exp)) {
             return exp.match(/\((.*?)\)/)![1].split('|')
         }

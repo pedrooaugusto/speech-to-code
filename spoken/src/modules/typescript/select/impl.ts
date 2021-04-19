@@ -18,8 +18,8 @@ async function Select(command: SelectParsedArgs, editor: Editor, context: {}) {
 
     const from = command.from || ''
     const to = command.to || ''
-    const fromPos = parseInt(command.fromPosition, 10) || 1
-    const toPos = parseInt(command.toPosition, 10) || 1
+    let fromPos = parseInt(command.fromPosition, 10) || 1
+    let toPos = parseInt(command.toPosition, 10) || 1
 
     if (from === '' || to === '') {
         throw new Error('Invalid arguments!')
@@ -27,6 +27,9 @@ async function Select(command: SelectParsedArgs, editor: Editor, context: {}) {
 
     const matchFrom = await editor.findPositionOf(from) as number[][]
     const matchTo = await editor.findPositionOf(to) as number[][]
+
+    if (toPos === -1) toPos = matchTo.length
+    else if (fromPos === -1) fromPos = matchFrom.length
 
     return await editor.select(matchFrom[fromPos - 1][0], matchTo[toPos - 1][0], false)
 }

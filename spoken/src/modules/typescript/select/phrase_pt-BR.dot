@@ -1,21 +1,32 @@
 digraph Select {
     id="select";
-    label="Linha nova";
+    label="Selecionar";
     lang="pt-BR";
     langName="Português";
     pad="0.2";
     rankdir=LR;
-    node[shape=doublecircle]; 2 3;
+    node[shape=doublecircle]; 3 17 10;
     node[shape=circle];
 
-    {0 5} -> 1 [label="(nova)"];
-    {1 5} -> 2 [label="(linha)"];
-    {2 4} -> 3 [label="(acima, abaixo)", store=position];
-    0 -> 4 [label="(linha)"];
-    0 -> 5 [label="(crie)"];
-    5 -> 5 [label="(uma)"];
-    4 -> 2 [label="(nova)"]
+    0 -> 1 [label="(selecione, selecionar)"];
+    1 -> 2 [label="(letra, símbolo)"];
+    2 -> 3 [label="({char})", store=word];
+    1 -> 4 [label="(palavra)"];
+    4 -> 3 [label="({term})", store=word];
+    1 -> 5 [label="(de, da)"];
+    5 -> 13 [label="(linha)", store=selectLine];
+    13 -> 14 [label="({number})", store=from];
+    14 -> 15 [label="(até)"];
+    15 -> 16 [label="(linha, λ)"];
+    16 -> 17 [label="({number})", store=to];
+    5 -> 11 [label="({ordinalNumber})", normalizer="ordinalNumber", store=fromPosition];
+    {5 11} -> 6 [label="(letra, símbolo)"];
+    6 -> 7 [label="({char})", store=from];
+    7 -> 8 [label="(até)"];
+    {8 12} -> 9 [label="(letra, símbolo, λ)"];
+    8 -> 12 [label="({ordinalNumber})", normalizer="ordinalNumber", store=toPosition];
+    9 -> 10 [label="({char})", store=to];
 
-    title="Linha nova";
-    desc="Cria uma linha nova abaixo ou acima da linha atual";
+    title="Selecionar";
+    desc="Seleciona um pedaço de texto na linha atual";
 }

@@ -28,6 +28,13 @@ test('it can detect complex stop words', async () => {
     expect(new StopWordsEngine(list).isStopWord(1, sl('eu e você somos magro'))).toBe(false)
 })
 
+test('it can detect complex stop words whole string', async () => {
+    const list = ['the', 'who', 'please', 'from -> S != (to)']
+
+    expect(new StopWordsEngine(list).isStopWord(2, sl('I come from America'))).toBe(true)
+    expect(new StopWordsEngine(list).isStopWord(2, sl('I come from America to Brazil'))).toBe(false)
+})
+
 test('it can remove complex stop words', async () => {
     const list1 = [
         'a -> P1 != (letra|símbolo)',
