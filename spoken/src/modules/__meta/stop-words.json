@@ -16,7 +16,8 @@
             "is",
             "are",
             "was",
-            "were"
+            "were",
+            "in"
         ],
         "expressions": []
     },
@@ -27,6 +28,7 @@
             "você",
             "com",
             "pode",
+            "na",
             "do -> S != (até)",
             "de -> S != (até)",
             "da -> S != (até)",

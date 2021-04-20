@@ -4,7 +4,8 @@
   "description": "Transforming natural language in code",
   "main": "dist/index.js",
   "scripts": {
-    "test": "tsc && jest dist/__tests__/(.*).js$",
+    "test": "tsc && jest dist/__tests__/(.*).test.js$",
+    "test-only": "tsc && jest",
     "build": "rm -rf dist/* && tsc && node dist/build/build.js && rm -rf dist/build && rm -rf dist/__tests__ && rm -rf dist/modules",
     "build-docs": "node src/build/build-docs.js"
   },

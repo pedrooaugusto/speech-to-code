@@ -1,16 +1,19 @@
-import * as graphlib from 'graphlib'
-import { Transitions } from './transition' 
+import * as graphlib from '../graphlib'
+import Transitions, { TransitionsTypes } from './transition' 
 import { sortSucessors } from './utils'
+import StopWordsEngine from '../stop-words-engine'
+import Modules from '../modules-loader'
 
-
-const Modules: any = {}
-
-type State = {
+export type State = {
     id: string,
     isFinal: boolean,
-    path: (null | string | { [key: string]: unknown })[]
+    path: (TransitionsTypes | { [key: string]: TransitionsTypes })[]
 }
 
+/**
+ * This class represents a automata, it is responsible for telling
+ * if a given automata recognizes or not a given input string.
+ */
 export default class Automata {
     currentState: State = {
         id: '0',
@@ -19,17 +22,40 @@ export default class Automata {
     }
 
     graph: graphlib.Graph
+    stopWordsEngine: StopWordsEngine | null
 
-    constructor(graph: graphlib.Graph, lang: string) {
+    constructor(graph: graphlib.Graph | string, lang?: string) {
         if (typeof graph === 'string') {
-            graph = Modules.getInstance().findAutomataById(graph, lang)
+            if (typeof lang === 'undefined') throw new Error('Language is not defined!')
+
+            const graph2 = Modules.findAutomataById(graph, lang)
+
+            if (graph2 == null) throw new Error('Automata ' + graph + ' not found!')
+
+            graph = graph2
         }
+
+        if (lang == null) lang = graph.graph().lang
+
+        this.stopWordsEngine = graph.graph().disableStopWords !== 'true' 
+            ? new StopWordsEngine(Modules.context.stopWords[lang].words, Modules.context.stopWords[lang].expressions)
+            : null
 
         this.graph = graph
     }
 
-    recognize(inputString: string[], index = 0) {
+    recognize(inputString: string[], index = 0): (null | [graphlib.Graph, State, number]) {
         while(index < inputString.length) {
+
+            if (this.stopWordsEngine != null) {
+                const skip = this.stopWordsEngine.skipStopWords(index, inputString)
+
+                if (skip !== 0) {
+                    index += skip
+                    continue
+                }
+            }
+
             const state = this.nextState(inputString, index)
 
             if (state == null) break
@@ -38,7 +64,7 @@ export default class Automata {
 
             this.setState(state)
         }
-        
+
         if (this.currentState.isFinal) return [this.graph, this.currentState, index]
 
         return null

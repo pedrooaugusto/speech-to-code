@@ -17,7 +17,7 @@ test('it can load the grammar', async () => {
     expect(s.length).not.toBe(0)
 })*/
 
-test('it can search for a command given a id', async () => {
+test('it can search for a command given an id', async () => {
     const graph = Spoken.findById('declare_variable', 'pt-BR')
     expect(graph).not.toBe(null)
     expect((graph || {}).id).toBe('declare_variable')
@@ -104,17 +104,3 @@ test('it can remove some stop words', async () => {
         path: ['ponteiro', 'letra', { symbol: 'a' }]
     })
 })
-
-function getGraph(id: string, lang: string = 'pt-BR') {
-    let graph: graphlib.Graph | null = null
-
-    for (const mod of Spoken.modules) {
-        for (let item of mod.grammar[lang]) {
-            graph = graphlib.json.read(item) as graphlib.Graph
-
-            if (graph.graph().id === id) break
-        }
-    }
-
-    return graph
-}

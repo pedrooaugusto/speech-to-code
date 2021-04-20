@@ -1,32 +1,35 @@
-import JaroWinklerDistance from '../string-distance/jaro-winlker'
+import compareStrings from '../string-distance'
 import { normalizeTransition } from './utils'
-
-const Modules: any = {}
+import Automata from './automata'
+import Modules from '../modules-loader'
 
 export type SerializedTransition = {
     text: string,
     type: 'STRING' | 'REGEX' | 'AUTOMATA'
     options: {
         graph: { id: string, lang: string },
+        choiceIndex: number,
         store?: string,
         normalizer?: string
     }
 }
 
-type TransitionAcceptsResult<T> = { index: number, consumed: ( ({ [key: string]: T }) | T | null)[] } | null
+type TransitionAcceptsResult<T> = { index: number, consumed: (({ [key: string]: T }) | T)[] } | null
 
 /**
  * This class represents a transition between two nodes in a automata.
  * A transition could be a simple string transition, a regex transition
  * or a automata transition.
  */
-export abstract class Transition<T> {
+export abstract class Transition<T > {
     constructor(protected transition: SerializedTransition) { this.transition = transition }
     abstract accepts(inputString: string[], index?: number): TransitionAcceptsResult<T>
 }
 
-export class Transitions {
-    private transitions: Transition<string | AutomataTransitionType>[]
+export type TransitionsTypes = StringTransitionType | RegexTransitionType | AutomataTransitionType
+
+export default class Transitions {
+    private transitions: Transition<TransitionsTypes>[]
     constructor(rawTransition: any) {
         this.transitions = normalizeTransition(rawTransition).map(this.buildTransition)
     }
@@ -52,54 +55,75 @@ export class Transitions {
     }
 }
 
-class StringTransition extends Transition<string> {
+/**
+ * A simple string transition in the format of: (Option, Option, ...)
+ * Where each 'Option' is a valid accepted input transition;
+ * If the strings are equal* the transition is made.
+ */
+type StringTransitionType = string | number | null
+class StringTransition extends Transition<StringTransitionType> {
 
     accepts(inputString: string[], index = 0) {
         const word = inputString[index]
 
-        if (word === 'λ') return { index: index, consumed: [null] }
-
         const { text } = this.transition
 
-        if (StringTransition.compareStrings(word, text)) {
-            const { store } = this.transition.options
-            const path = store ? { [store]: word } : word
+        if (text === 'λ') return { index: index, consumed: [null] }
+
+        if (compareStrings(word, text)) {
+            const { store, choiceIndex } = this.transition.options
+            const path = store ? { [store]: choiceIndex } : word
 
             return { index: index + 1, consumed: [path] }
         }
 
         return null
     }
-
-    static compareStrings(word: string, word2: string) {
-        if (word.toLocaleLowerCase() === word2.toLocaleLowerCase()) return true
-
-        return JaroWinklerDistance(word, word2) > 0.835
-    }
 }
 
-class RegexTransition extends Transition<string> {
+/**
+ * A regex transition in the format of: ({Option}, {Option}, ...)
+ * Where each '{Option}' is a regex, if the regex matches the transition
+ * string the transition is made.
+ */
+type RegexTransitionType = string
+class RegexTransition extends Transition<RegexTransitionType> {
 
     accepts(inputString: string[], index = 0) {
         const word = inputString[index]
 
         const { text } = this.transition
-        const template = Modules.getInstance().context.templates[text.trim()]
+        const template = Modules.templates(text.trim())
         const match = new RegExp(template.value).exec(word)
 
         if (match != null) {
-            const { store } = this.transition.options
-            const path = store ? { [store]: match[1] } : match[1]
+            const { store, normalizer } = this.transition.options
+            const value = this.normalize(match[1], normalizer)
+
+            if (value == null) return null
+
+            const path = store ? { [store]: value } : value
 
             return { index: index + 1, consumed: [path] }
         }
 
         return null
     }
+
+    private normalize(text: string, normalizer?: string) {
+        const lang = this.transition.options.graph.lang
+
+        return Modules.normalizers(normalizer, lang)(text, compareStrings)
+    }
 }
 
-type AutomataTransitionType = {id: string, impl: string, path: any[]}
-
+/**
+ * A automata transition in the format of: ([Option], [Option], ...)
+ * Where each '[Option]' is a different automata that should be used
+ * to test the transition string, if that automata accepts the string
+ * the transition is made.
+ */
+type AutomataTransitionType = { id: string, impl: string, path: any[] }
 class AutomataTransition extends Transition<AutomataTransitionType> {
     private automataId: string
 
@@ -114,7 +138,7 @@ class AutomataTransition extends Transition<AutomataTransitionType> {
         const result = new Automata(this.automataId, graph.lang).recognize(inputString, index)
 
         if (result !== null) {
-            const graph = result[0].graph()
+            const graph = result[0].graph() as unknown as Record<string, string>
             const automata = {
                 id: this.automataId,
                 impl: graph.impl,

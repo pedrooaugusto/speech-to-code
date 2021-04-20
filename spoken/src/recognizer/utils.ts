@@ -11,11 +11,12 @@ type Trt = {
         lang: string
     }
 }
+
 export function normalizeTransition(rawTransition: Trt): SerializedTransition[] {
     const options = parseTransitionLabel(rawTransition.label)
 
-    return options.map(item => ({
-        options: { ...rawTransition },
+    return options.map((item, index) => ({
+        options: { ...rawTransition, choiceIndex: index },
         type: getTransitionType(item),
         text: item
     }))

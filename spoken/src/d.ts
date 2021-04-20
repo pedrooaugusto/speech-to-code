@@ -21,7 +21,12 @@ declare type ParsedPhrase = {
     phrase: string
 }
 
-declare type GraphJsonView = Record<string, unknown>
+declare type GraphJsonView = {
+	edges: unknown,
+	nodes: unknown,
+	options: unknown,
+	value: { id: string, impl: string, lang: string }
+}
 
 declare type SpokenModules = {
 	modules: SpokenModule[],

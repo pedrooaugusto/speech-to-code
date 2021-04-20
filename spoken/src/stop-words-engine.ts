@@ -21,34 +21,56 @@ export default class StopWordsEngine {
     }
 
     public removeStopWords(phrase: string) {
+        const words = phrase.trim().split(' ')
+        const nwords = []
+
+        let i = 0
+        while (i < words.length) {
+            const skip = this.skipStopWords(i, words)
+
+            if (skip !== 0) {
+                i += skip
+                continue
+            }
+
+            nwords.push(words[i])
+
+            i += 1
+        }
+
+        return nwords.join(' ')
+    }
+
+    public sanitizeStopExpressions(phrase: string) {
         for (const exp of this.stopExpressionList) {
             phrase = phrase
-                .replace(new RegExp('\\b' + exp + '\\b', 'gi'), '')
-                .replace(/  +/gi, ' ')
+                .replace(new RegExp('\\b' + exp + '\\b', 'gi'), exp.replace(/ /gi, ''))
         }
 
         return phrase
-            .trim()
-            .split(' ')
-            .filter((item, index, array) => !this.isStopWord(index, array))
-            .join(' ')
     }
 
-    public isStopWord(currentWordIndex: number, words: string[]) {
+    public skipStopWords(currentWordIndex: number, words: string[]) {
         const word = words[currentWordIndex]
 
-        if (this.stopWordList.includes(word)) return true
+        // simple stop word
+        if (this.stopWordList.includes(word)) return 1
 
+        // stop expression (more than one word)
+        for (const expression of this.stopExpressionList) {
+            const slice = words.slice(currentWordIndex, currentWordIndex + expression.split(' ').length)
+
+            if (expression === slice.join(' ')) return slice.length
+        }
+
+        // complex stop word (depends on the context)
         for (const exp of this.stopWordList) {
             if (!exp.match(/ -> | !> /)) continue
 
-            if (!this.cache.has(exp))
-                this.cache.set(exp, this.parse(exp, words, currentWordIndex))
-
-            if(this.test(word, this.parse(exp, words, currentWordIndex) as Expression)) return true
+            if(this.test(word, this.parse(exp, words, currentWordIndex) as Expression)) return 1
         }
 
-        return false
+        return 0
     }
 
     private test(word: string, expression: Expression) {
