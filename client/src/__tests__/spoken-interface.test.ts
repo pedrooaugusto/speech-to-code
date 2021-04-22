@@ -5,15 +5,17 @@
 
 */
 
-import Spoken from 'spoken'
+import Spoken, { SpokenCommand } from 'spoken'
 import { IpcMainEvent } from 'electron'
-import SpokenInterface, { SpokenSearchResponse } from '../spoken-interface'
+import SpokenInterface from '../spoken-interface'
 import EditorService from '../editors/editor-service'
 
 
 function execute(text: string, lang: string = 'en-US') {
     return new Promise((res, rej) => {
         const result = findComand({ text }, lang)
+
+        if (result == null) return
 
         return SpokenInterface.onComand((new FakeIPCEvent(res, rej) as unknown as IpcMainEvent), result)
     })
@@ -25,11 +27,26 @@ async function Main() {
         EditorService.init()
         await Spoken.init()
         await selectTest()
+        await newVariableTest()
     } catch(err) {
         console.log(err.toString())
     } finally {
         EditorService.stop()
     }
+}
+
+async function newVariableTest() {
+    await wait(1000)
+    await execute('go to line 4')
+    await execute('put the result of the string hello doctor who are you string in a new variable called phrase please')
+    await wait(2000)
+    await execute('select from line 4 to line 4')
+    await execute('write it down')
+
+    await execute('ponha o valor do texto olá eu sou o doutor texto na variável bola', 'pt-BR')
+    await wait(2000)
+    await execute('select from line 4 to line 4')
+    await execute('write it down')
 }
 
 async function selectTest() {
@@ -61,30 +78,25 @@ class FakeIPCEvent {
         this.rej = rej
     }
 
-    reply(channel: string, res: any, result: any) {
+    reply(channel: string, result: any) {
         if (result.err) return this.rej(result.err)
 
         return this.res(result.result)
     }
 }
 
-function findComand(voiceToTextResponse: { text: string }, language: string): SpokenSearchResponse {
-    const trsc = voiceToTextResponse.text
-    const sResult = Spoken.recognizePhrase(trsc.toLocaleLowerCase(), language)
-    const wrapper = sResult ? sResult[0] : null
+function findComand(voiceToTextResponse: { text: string }, language: string): SpokenCommand | null {
+    const text = voiceToTextResponse.text
+    const result = Spoken.recognizePhrase(text.toLocaleLowerCase(), language)
 
-    return {
-        _rawVoiceToTextResponse: voiceToTextResponse,
-        phrase: [trsc],
-        command: wrapper ? {
-            id: wrapper.id,
-            desc: wrapper.desc,
-            commandArgs: wrapper.args,
-            impl: wrapper.impl,
-            lang: wrapper.lang,
-            path: wrapper.path
-        } : null
+    if (result != null) {
+        result.extra._rawVoiceToTextResponse = voiceToTextResponse
+        result.extra.phrase = text
+
+        console.log(result.args)
     }
+
+    return result
 }
 
 Main()
