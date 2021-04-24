@@ -55,3 +55,24 @@ jobs:
         npm --prefix webapp run build-only
     - name: Test
       run: npm --prefix webapp run test
+      
+      
+  build-vscode-extension:
+
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Build
+      run: |
+        npm --prefix spoken-vscode-driver ci
+    - name: Test
+      run: npm --prefix spoken-vscode-driver run test
