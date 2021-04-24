@@ -14,7 +14,8 @@ The following automata is responsible for recognizing the command `Writes a expr
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a expression`:
 
-1. [variable_reference]
+1. [string]
+2. expression
 
 **Português**
 
@@ -24,7 +25,8 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma express
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma expressão`:
 
-1. [string]
+1. [number]
+2. expressão
 
 ### Implementation
 
@@ -34,14 +36,11 @@ The full implementation of this command can be found on this directory under the
 async function Expression(command: ExpressionParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "Expression"')
 
-    const { expression, parent } = command
+    const { expression, parent, wildCard } = command
 
-    if (parent) return expression
+    if (parent) {
+        return expression ? expression : { value: wildCard, isWildCard: true }
 
-    return await editor.write(expression)
-}
-
-type ExpressionParsedArg
 
 (...)
 ```

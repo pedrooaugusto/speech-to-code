@@ -14,13 +14,13 @@ The following automata is responsible for recognizing the command `Select` in en
 
 The following are some examples of phrases, in english, used to trigger the command `Select`:
 
-1. select symbol g
-2. select word number
-3. select from symbol M to symbol g
-4. select from letter g to fourth K
-5. select from 1ª letter g to M
-6. select from 1ª symbol g to 1ª letter M
-7. select from line 42 to 42
+1. select symbol M
+2. select word temp
+3. select from symbol g to K
+4. select from symbol g to fourth symbol g
+5. select from last symbol K to M
+6. select from last letter K to last g
+7. select from line 42 to line 42
 
 **Português**
 
@@ -30,13 +30,13 @@ O automata seguinte é reponsável por reconhecer o comando `Selecionar` em port
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Selecionar`:
 
-1. selecione símbolo A
-2. selecionar palavra temp
-3. selecionar da letra a até símbolo a
-4. selecionar de símbolo A até 1ª z
-5. selecionar de 42ª letra a até A
-6. selecionar da primeiro letra A até 42ª A
-7. selecionar de linha 1 até linha 42
+1. selecione símbolo a
+2. selecionar palavra texto
+3. selecione de símbolo a até B
+4. selecionar de letra a até 42ª letra a
+5. selecionar de primeiro letra B até símbolo z
+6. selecione de sétimo símbolo A até 42ª símbolo a
+7. selecionar de linha 1 até 42
 
 ### Implementation
 

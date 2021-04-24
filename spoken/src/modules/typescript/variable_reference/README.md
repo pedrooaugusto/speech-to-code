@@ -14,10 +14,10 @@ The following automata is responsible for recognizing the command `References a 
 
 The following are some examples of phrases, in english, used to trigger the command `References a variable`:
 
-1. reference constant number
+1. reference variable text
 2. constant temp
-3. reference variable called [multi_word_token]
-4. constant called [multi_word_token]
+3. reference constant called [multi_word_token]
+4. variable called [multi_word_token]
 
 **Português**
 
@@ -27,9 +27,9 @@ O automata seguinte é reponsável por reconhecer o comando `Referencia a uma va
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Referencia a uma variável`:
 
-1. refira constante texto
-2. constante texto
-3. refira variável chamada [multi_word_token]
+1. referência variável numero
+2. variável valor
+3. refira constante chamada [multi_word_token]
 4. variável chamada [multi_word_token]
 
 ### Implementation

@@ -10,17 +10,16 @@ digraph TypeScript {
 
     // START GENERATED
     0 -> 1 [label="(cursor)"];
-    0 -> 2 [label="(declare_variable)"];
-    0 -> 3 [label="(expressions)"];
-    0 -> 4 [label="(go_to_line)"];
-    0 -> 5 [label="(multi_word_token)"];
-    0 -> 6 [label="(new_line)"];
-    0 -> 7 [label="(number)"];
-    0 -> 8 [label="(select)"];
-    0 -> 9 [label="(string)"];
-    0 -> 10 [label="(variable_assignment)"];
-    0 -> 11 [label="(variable_reference)"];
-    0 -> 12 [label="(write)"];
+    0 -> 2 [label="(expressions)"];
+    0 -> 3 [label="(go_to_line)"];
+    0 -> 4 [label="(multi_word_token)"];
+    0 -> 5 [label="(new_line)"];
+    0 -> 6 [label="(number)"];
+    0 -> 7 [label="(select)"];
+    0 -> 8 [label="(string)"];
+    0 -> 9 [label="(variable_assignment)"];
+    0 -> 10 [label="(variable_reference)"];
+    0 -> 11 [label="(write)"];
     // END GENERATED
 
     title="Typescript voice commands";

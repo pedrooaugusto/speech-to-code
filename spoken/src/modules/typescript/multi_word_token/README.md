@@ -34,15 +34,9 @@ The full implementation of this command can be found on this directory under the
 async function MultiWordTokens(command: MultiWordTokensParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "MultiWordTokens"')
 
-    return command.words.split(' ')
-}
-
-type MultiWordTokensParsedArgs = {
-    words: string
-} & ParsedPhrase
-
-// @ts-ignore
-return M
+    function camelCase(words: string[]) {
+        return words.map((a, i) => i ? a.charAt(0).toUpperCase() + a.slice(1) : a).join('')
+    
 
 (...)
 ```
