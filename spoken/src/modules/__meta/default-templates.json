@@ -7,7 +7,7 @@
         }
     },
     "{term}": {
-        "value": "(\\S+)",
+        "value": "^(?![\\* ]$).*",
         "examples": {
             "pt-BR": ["valor", "lista", "numero", "texto", "temp", "a"],
             "en-US": ["value", "graph", "number", "text", "temp", "a"]

@@ -34,15 +34,15 @@ The full implementation of this command can be found on this directory under the
 async function WriteNumber(command: WriteNumberParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteNumber"')
 
-    return await editor.write(command.number)
+    const { number, parent } = command
+
+    if (parent) return number
+
+    return await editor.write(number)
 }
 
 type WriteNumberParsedArgs = {
-    number: string
-} & ParsedPhrase
-
-// @ts-ignore
-return WriteN
+ 
 
 (...)
 ```

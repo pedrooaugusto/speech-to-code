@@ -46,4 +46,28 @@ return {
             'tenth',
         ])
     },
+
+    /**
+     * Converts the accepted string to boolean
+     * 
+     * @param {string} lang The input language 
+     * @returns boolean
+     */
+    boolean: function boolean(lang) {
+        return function(word, compareStr) {
+            return word != undefined ? true : false
+        }
+    },
+
+    /**
+     * The identity function it returns the argument
+     * 
+     * @param {*} lang 
+     * @returns 
+     */
+    identity: function identity(lang) {
+        return function(word, compareStr) {
+            return word
+        }
+    }
 }

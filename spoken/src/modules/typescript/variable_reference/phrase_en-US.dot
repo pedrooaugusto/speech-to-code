@@ -1,0 +1,19 @@
+digraph VariableReference {
+    id="variable_reference";
+    label="References a variable";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 3 5;
+    node[shape=circle];
+
+    0 -> 1 [label="(reference)"];
+    {1 0} -> 2 [label="(variable, constant)"];
+    2 -> 4 [label="(called)"];
+    2 -> 3 [label="({term})", store=varName];
+    4 -> 5 [label="([multi_word_token])", store=varName];
+
+    title="References a variable";
+    desc="Writes a variable or constant in the editor";
+}

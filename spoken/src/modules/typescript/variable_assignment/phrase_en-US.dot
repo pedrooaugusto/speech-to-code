@@ -1,0 +1,21 @@
+digraph variable_assignment {
+    id="variable_assignment";
+    label="Stores a value in a variable";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 4 6 7;
+    node[shape=circle];
+
+    0 -> 1 [label="(new, declare, create)", store=isNew, normalizer=boolean];
+    {1 0} -> 2 [label="(variable, constant)", store=memType];
+    2 -> 3 [label="(called, named)"];
+    3 -> 4 [label="([multi_word_token])", store=varName, extraArgs="{\"case\": \"camel\"}"];
+    {2 3} -> 7 [label="({term})", store=varName];
+    {4 7} -> 5 [label="(equals)"];
+    5 -> 6 [label="([expressions])", store=expression];
+
+    title="Stores a value in a variable";
+    desc="Stores a number, string etc in a variable";
+}

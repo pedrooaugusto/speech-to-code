@@ -30,11 +30,11 @@ test('it does not break', async () => {
             result.analyzeSentence(phrase, 1000)
         })
 
-        const r = {
-            _rawVoiceToTextResponse: { text: phrase },
-            phrase: [phrase],
-            command: args == null ? args : expect.objectContaining(args)
-        }
+        const r = expect.objectContaining(args)
+
+        await waitFor(
+            () => expect(global.ipcRenderer.send).toHaveBeenCalledWith('Config:changeEditor', null), { timeout: 4000 }
+        )
 
         await waitFor(
             () => expect(global.ipcRenderer.send).toHaveBeenCalledWith('Spoken:executeCommand', r), { timeout: 4000 }
@@ -46,9 +46,11 @@ test('it does not break', async () => {
     expect(result.results).toBe(null)
 
     await doRecognition('declarar constante chamada bola', {
-        commandArgs: {
-            memType: 0,
-            name: 'bola'
+        id: 'variable_assignment',
+        args: {
+            isNew: true,
+            memType: 1,
+            varName: 'bola'
         }
     })
 

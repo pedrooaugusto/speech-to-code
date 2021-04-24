@@ -10,7 +10,8 @@ export type SerializedTransition = {
         graph: { id: string, lang: string },
         choiceIndex: number,
         store?: string,
-        normalizer?: string
+        normalizer?: string,
+        extraArgs?: string
     }
 }
 
@@ -24,6 +25,12 @@ type TransitionAcceptsResult<T> = { index: number, consumed: (({ [key: string]: 
 export abstract class Transition<T > {
     constructor(protected transition: SerializedTransition) { this.transition = transition }
     abstract accepts(inputString: string[], index?: number): TransitionAcceptsResult<T>
+
+    protected normalize(text: string, normalizer?: string) {
+        const lang = this.transition.options.graph.lang
+
+        return Modules.normalizers(normalizer, lang)(text, compareStrings)
+    }
 }
 
 export type TransitionsTypes = StringTransitionType | RegexTransitionType | AutomataTransitionType
@@ -71,8 +78,9 @@ class StringTransition extends Transition<StringTransitionType> {
         if (text === 'λ') return { index: index, consumed: [null] }
 
         if (compareStrings(word, text)) {
-            const { store, choiceIndex } = this.transition.options
-            const path = store ? { [store]: choiceIndex } : word
+            const { store, choiceIndex, normalizer } = this.transition.options
+            const value = normalizer ? this.normalize(word, normalizer) : choiceIndex
+            const path = store ? { [store]: value } : word
 
             return { index: index + 1, consumed: [path] }
         }
@@ -98,7 +106,7 @@ class RegexTransition extends Transition<RegexTransitionType> {
 
         if (match != null) {
             const { store, normalizer } = this.transition.options
-            const value = this.normalize(match[1], normalizer)
+            const value = this.normalize(word, normalizer)
 
             if (value == null) return null
 
@@ -108,12 +116,6 @@ class RegexTransition extends Transition<RegexTransitionType> {
         }
 
         return null
-    }
-
-    private normalize(text: string, normalizer?: string) {
-        const lang = this.transition.options.graph.lang
-
-        return Modules.normalizers(normalizer, lang)(text, compareStrings)
     }
 }
 
@@ -138,11 +140,13 @@ class AutomataTransition extends Transition<AutomataTransitionType> {
         const result = new Automata(this.automataId, graph.lang).recognize(inputString, index)
 
         if (result !== null) {
-            const graph = result[0].graph() as unknown as Record<string, string>
+            const graphInfo = result[0].graph() as unknown as Record<string, string>
             const automata = {
                 id: this.automataId,
-                impl: graph.impl,
-                path: result[1].path
+                lang: graph.lang,
+                impl: graphInfo.impl,
+                path: result[1].path,
+                extraArgs: this.transition.options.extraArgs
             }
 
             const path = store ? { [store]: automata } : automata

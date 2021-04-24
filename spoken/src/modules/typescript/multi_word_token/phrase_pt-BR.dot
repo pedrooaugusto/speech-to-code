@@ -1,0 +1,18 @@
+digraph multi_word_token {
+    id="multi_word_token";
+    label="Agrupa múltiplas palavras";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    disableStopWords="true";
+    node[shape=doublecircle]; 4;
+    node[shape=circle];
+
+    0 -> 3 [label="(*)"];
+    3 -> 3 [label="({any})", store=words];
+    3 -> 4 [label="(*)"];
+
+    title="Agrupa múltiplas palavras";
+    desc="Agrupa múltiplas palavras juntas, projetado para ser usado dentro de outros automatas";
+}

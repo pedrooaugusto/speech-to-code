@@ -3,6 +3,7 @@
 
 
 
+
 */
 
 import Spoken, { SpokenCommand } from 'spoken'
@@ -38,15 +39,40 @@ async function Main() {
 async function newVariableTest() {
     await wait(1000)
     await execute('go to line 4')
-    await execute('put the result of the string hello doctor who are you string in a new variable called phrase please')
+    await execute('new variable phrase equals string hello doctor who are you string')
     await wait(2000)
     await execute('select from line 4 to line 4')
     await execute('write it down')
 
-    await execute('ponha o valor do texto olá eu sou o doutor texto na variável bola', 'pt-BR')
+    await execute('variável bola igual a texto olá eu sou o doutor texto', 'pt-BR')
     await wait(2000)
     await execute('select from line 4 to line 4')
     await execute('write it down')
+
+    await execute('go to line 4')
+    await execute('variável bola igual a expressão', 'pt-BR')
+    await wait(3000)
+    await execute('string minha bola é quadradade string', 'pt-BR')
+    await wait(3000)
+    await execute('select from line 4 to line 4')
+    await execute('write it down')
+
+    await execute('go to line 4')
+    await execute('nova constante chamada bola igual a número 98', 'pt-BR')
+    await wait(3000)
+    await execute('go to line 5')
+    await execute('variável bola igual a string hello doctor string', 'pt-BR')
+    await wait(3000)
+    await execute('go to line 6')
+    await execute('nova variável chamada * bola gorda * igual a expressão', 'pt-BR')
+    await wait(3000)
+    await execute('string Mrs. Robinson string', 'pt-BR')
+    await wait(3000)
+    await execute('select from line 4 to line 6', 'en-US')
+    await execute('write it down')
+    await execute('new line')
+    await execute('new line')
+
 }
 
 async function selectTest() {

@@ -18,26 +18,26 @@ test('it can load the grammar', async () => {
 })*/
 
 test('it can search for a command given an id', async () => {
-    const graph = Spoken.findById('declare_variable', 'pt-BR')
+    const graph = Spoken.findById('variable_assignment', 'pt-BR')
     expect(graph).not.toBe(null)
-    expect((graph || {}).id).toBe('declare_variable')
+    expect((graph || {}).id).toBe('variable_assignment')
 })
 
 test('it can search for a command given a phrase', async () => {
     let command = Spoken.recognizePhrase('declarar constante chamada bola', 'pt-BR')
-    expect(command).toMatchObject([{
-        id: 'declare_variable',
+    expect(command).toMatchObject({
+        id: 'variable_assignment',
         args: {
-            memType: 0,
-            name: 'bola'
+            memType: 1,
+            varName: 'bola'
         }
-    }])
+    })
 
     command = Spoken.recognizePhrase('THE', 'pt-BR')
     expect(command).toBeNull()
 
     command = Spoken.recognizePhrase('write hello how are you ?', 'en-US')
-    expect(command![0]).toMatchObject({
+    expect(command).toMatchObject({
         id: 'write',
         path: [
             'write',
@@ -51,56 +51,162 @@ test('it can search for a command given a phrase', async () => {
     })
 
     command = Spoken.recognizePhrase('write it hello friend', 'en-US')
-    expect(command![0]).toMatchObject({
+    expect(command).toMatchObject({
         id: 'write',
         path: ['write', 'it', null, { text: 'hello' }, { text: 'friend' }]
     })
     
     command = Spoken.recognizePhrase('write down hello friend', 'en-US')
-    expect(command![0]).toMatchObject({
+    expect(command).toMatchObject({
         id: 'write',
-        path: ['write', 'down', { text: 'hello' }, { text: 'friend' }]
+        path: ['write', 'down', { text: 'hello' }, { text: 'friend' }],
+        args: { text: 'hello friend' }
+    })
+
+    command = Spoken.recognizePhrase('string who are you string', 'en-US')
+    expect(command).toMatchObject({
+        id: 'string',
+        path: ['string', { string: 'who' }, { string: 'are' }, { string: 'you' }, 'string'],
+        args: { string: 'who are you' }
     })
 })
 
 test('it can remove some stop words', async () => {
     expect(
-        Spoken.recognizePhrase('write it down hello friend', 'en-US')![0]
+        Spoken.recognizePhrase('write it down hello friend', 'en-US')
     ).toMatchObject({
         path: ['write', 'it', 'down', { text: 'hello' }, { text: 'friend' }]
     })
 
     expect(
-        Spoken.recognizePhrase('create a constant called max of the type number with the value 72', 'en-US')![0]
+        Spoken.recognizePhrase('create a constant called max equals the number 72', 'en-US')
     ).toMatchObject({
         path: [
-            'create', { memType: 0 }, 'called', { name: 'max' }, 'type', { type: 'number' }, 'value', { value: '72' }
+            { isNew: true },
+            { memType: 1 },
+            'called',
+            { varName: 'max' },
+            'equals',
+            {
+                expression: {
+                    id: 'expressions',
+                    path: [{
+                        expression: {
+                            id: 'number',
+                            path: ['number', { number: '72' }]
+                        }
+                    }]
+                }
+            }
         ]
     })
 
     expect(
-        Spoken.recognizePhrase('declare uma variável chamada valor do tipo número', 'pt-BR')![0]
+        Spoken.recognizePhrase('por favor declare uma variável chamada valor', 'pt-BR')
     ).toMatchObject({
         path: [
-            'declare', { memType: 1 }, 'chamada', { name: 'valor' }, 'tipo', { type: 'number' }
+            { isNew: true },
+            { memType: 0 },
+            'chamada',
+            { varName: 'valor' }
         ]
     })
 
     expect(
-        Spoken.recognizePhrase('por favor declare uma variável chamada valor', 'pt-BR')![0]
-    ).toMatchObject({
-        path: ['declare', { memType: 1 }, 'chamada', { name: 'valor' }]
-    })
-
-    expect(
-        Spoken.recognizePhrase('escreva por favor hello', 'pt-BR')![0]
+        Spoken.recognizePhrase('escreva por favor hello', 'pt-BR')
     ).toMatchObject({
         path: ['escreva', { text: 'por' }, { text: 'favor' }, { text: 'hello' }]
     })
 
     expect(
-        Spoken.recognizePhrase('ponteiro vá para a letra a por favor', 'pt-BR')![0]
+        Spoken.recognizePhrase('ponteiro vá para a letra a por favor', 'pt-BR')
     ).toMatchObject({
         path: ['ponteiro', 'letra', { symbol: 'a' }]
+    })
+})
+
+test('it can organize the command arguments', async () => {
+    expect(
+        Spoken.recognizePhrase('write it down hello friend', 'en-US')
+    ).toMatchObject({
+        args: { text: 'hello friend' }
+    })
+
+    expect(
+        Spoken.recognizePhrase('the variable phrase equals the string hello man string', 'en-US')!.args
+    ).toMatchObject({
+        expression: {
+            id: 'expressions',
+            args: {
+                expression: {
+                    id: 'string',
+                    args: { string: 'hello man' },
+                    path: ['string', { string: 'hello' }, { string: 'man' }, 'string']
+                }
+            }
+        },
+        varName: 'phrase'
+    })
+
+    expect(
+        Spoken.recognizePhrase('nova variável chamada * bola quadrada * igual número 42 por favor', 'pt-BR')!.args
+    ).toMatchObject({
+        expression: {
+            id: 'expressions',
+            args: {
+                expression: {
+                    id: 'number',
+                    args: { number: '42' },
+                    path: [
+                        'número',
+                        { number: '42' }
+                    ]
+                }
+            }
+        },
+        varName: {
+            id: 'multi_word_token',
+            args: {
+                words: 'bola quadrada'
+            }
+        }
+    })
+
+    expect(
+        Spoken.recognizePhrase('nova variável bola igual a string de da você por favor string por favor', 'pt-BR')!.args
+    ).toMatchObject({
+        expression: {
+            id: 'expressions',
+            args: {
+                expression: {
+                    id: 'string',
+                    args: { string: 'de da você por favor' },
+                    path: [
+                        'string',
+                        { string: 'de' },
+                        { string: 'da' },
+                        { string: 'você' },
+                        { string: 'por' },
+                        { string: 'favor' },
+                        'string'
+                    ]
+                }
+            }
+        },
+        isNew: true,
+        varName: 'bola'
+    })
+
+    expect(
+        Spoken.recognizePhrase('nova variável bola igual a expressão por favor', 'pt-BR')!.args
+    ).toMatchObject({
+        expression: {
+            id: 'expressions',
+            args: {
+                wildCard: 'expressão'
+            }
+        },
+        isNew: true,
+        varName: 'bola'
     })
 })

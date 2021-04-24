@@ -12,10 +12,10 @@ export default function GloablContext(props: any) {
     }
 
     const toggleShade = (t?: boolean) => {
-        setState({
-            ...state,
+        setState((sstate) => ({
+            ...sstate,
             shadeIsOpen: t ?? !state.shadeIsOpen
-        })
+        }))
     }
 
     const changeLanguage = (lang: string) => setState((s) => ({...s, language: lang}))
@@ -26,10 +26,10 @@ export default function GloablContext(props: any) {
         })
 
         IpcRenderer.on('Config:onChangeEditorState', (e) => {
-            setState({
-                ...state,
+            setState((sstate) => ({
+                ...sstate,
                 editorState: e
-            })
+            }))
         })
 
         // Request the current editor

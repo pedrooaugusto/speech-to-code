@@ -5,6 +5,7 @@ digraph Number {
     langName="English";
     pad="0.2";
     rankdir=LR;
+    priority="2";
     node[shape=doublecircle]; 3;
     node[shape=circle];
 

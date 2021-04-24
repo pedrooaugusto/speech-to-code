@@ -12,7 +12,7 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
     const recognizer = MyRecognizer.getRecognizer()
 
     useEffect(() => {
-        IpcRenderer.on('Spoken:executeCommandResult', (command: SpokenSearchResponse, result: any) => {
+        IpcRenderer.on('Spoken:executeCommandResult', (result: any) => {
             console.log('[webapp.services.azure-voice-recognition.onResultError]: Execute command result: ' + result)
         })
 
@@ -26,15 +26,14 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 
         recognizer
             .on('results', (result: SpeechSDK.SpeechRecognitionResult, isFinal: boolean) => {
-                console.log(result)
                 if (!result.text || result.text.trim() === '') return
 
-                const attempt = { text: result.text, isFinal, id: Date.now(), recognized: false }
+                const attempt = { text: sanitizePonctuation(result.text), isFinal, id: Date.now(), recognized: false }
 
                 if (isFinal) {
                     const match = findComand(result, language)
 
-                    attempt.recognized = !!match.command
+                    attempt.recognized = !!match
 
                     if (attempt.recognized) IpcRenderer.send('Spoken:executeCommand', match)
                 }
@@ -60,20 +59,21 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
     }
 
     const analyzeSentence = async (phrase: string, timeout:number | null = 3000) => {
-        const w = { text: phrase }
+        const w = { text: sanitizePonctuation(phrase) }
         const attempt = { text: phrase, isFinal: true, id: Date.now(), recognized: false }
         const match = findComand(w as unknown as SpeechSDK.SpeechRecognitionResult, language)
 
-        attempt.recognized = !!match.command
+        attempt.recognized = !!match
 
-        const fn = () => IpcRenderer.send('Spoken:executeCommand', match)
+        const fn = () => {
+            setResults(attempt)
+            IpcRenderer.send('Spoken:executeCommand', match)
+        }
 
         if (attempt.recognized) {
             if (timeout) setTimeout(fn, timeout)
             else fn()
         }
-
-        setResults(attempt)
     }
 
     return {
@@ -85,38 +85,20 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 }
 
 
-function findComand(voiceToTextResponse: SpeechSDK.SpeechRecognitionResult, language: string): SpokenSearchResponse {
-    console.log('[webapp.services.azure-voice-recognition] Warn: Ignoring other matches!')
+function findComand(voiceToTextResponse: SpeechSDK.SpeechRecognitionResult, language: string) {
+    const text = sanitizePonctuation(voiceToTextResponse.text)
+    const result = Spoken.recognizePhrase(text.toLocaleLowerCase(), language)
 
-    const trsc = voiceToTextResponse.text
-    const sResult = Spoken.recognizePhrase(trsc.toLocaleLowerCase(), language)
-    const wrapper = sResult ? sResult[0] : null
-
-    return {
-        _rawVoiceToTextResponse: voiceToTextResponse,
-        phrase: [trsc],
-        command: wrapper ? {
-            id: wrapper.id,
-            desc: wrapper.desc,
-            commandArgs: wrapper.args,
-            impl: wrapper.impl,
-            lang: wrapper.lang,
-            path: wrapper.path
-        } : null
+    if (result != null) {
+        result.extra._rawVoiceToTextResponse = voiceToTextResponse
+        result.extra.phrase = text
     }
+
+    return result
 }
 
-type SpokenSearchResponse = {
-    _rawVoiceToTextResponse: any,
-    phrase: string[],
-    command: {
-        id: string,
-        desc: string,
-        commandArgs: Record<string, string | number>,
-        impl: string,
-        lang: string,
-        path: (string | Record<string, string | number> | null)[]
-    } | null
+function sanitizePonctuation(text: string) {
+    return text.replace(/(?<! )(:|\*|,|\.|\?|\!)/gi, ' $1')
 }
 
 export default useAzureVoiceRecognition

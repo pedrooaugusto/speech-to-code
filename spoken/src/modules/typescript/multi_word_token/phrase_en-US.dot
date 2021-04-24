@@ -1,0 +1,18 @@
+digraph multi_word_token {
+    id="multi_word_token";
+    label="Group multiple words together";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    disableStopWords="true";
+    node[shape=doublecircle]; 4;
+    node[shape=circle];
+
+    0 -> 3 [label="(*)"];
+    3 -> 3 [label="({any})", store=words];
+    3 -> 4 [label="(*)"];
+
+    title="Group multiple words together";
+    desc="Group multiple words together in one variable meant to be used as alias in other commands";
+}

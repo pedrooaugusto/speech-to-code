@@ -18,14 +18,16 @@ declare module 'graphlib-dot' {
 }
 
 declare type ParsedPhrase = {
-    phrase: string
+    phrase: string,
+	parent?: string,
+	extra?: Record<string, string>
 }
 
 declare type GraphJsonView = {
 	edges: unknown,
 	nodes: unknown,
 	options: unknown,
-	value: { id: string, impl: string, lang: string }
+	value: { id: string, impl: string, lang: string, alias?: string, priority?: string }
 }
 
 declare type SpokenModules = {

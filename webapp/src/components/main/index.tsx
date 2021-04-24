@@ -38,11 +38,11 @@ export default function Main() {
                 toggleRecording={toggleRecording}
             />
             <TranscriptionHistory results={results as RecognitionRequest} />
-            {/* <div className="debug">
+            <div className="debug">
                 <label>Debug:</label>
                 <div className="transcription-text input" contentEditable></div>
                 <button onClick={analyze}>Analyze</button>
-            </div> */}
+            </div>
         </main>
     )
 }

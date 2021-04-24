@@ -7,22 +7,22 @@ beforeAll(async () => {
 })
 
 test('it is possible to go to the next state', async () => {
-    let graph: graphlib.Graph | null = Get('grammar', 'declare_variable') as graphlib.Graph
+    let graph: graphlib.Graph | null = Get('grammar', 'variable_assignment') as graphlib.Graph
 
     const phrase = 'declare constante chamada'.split(' ')
     const automata = new Automata(graph)
 
     let s = automata.nextState(phrase, 0) as State
     automata.setState(s)
-    expect(automata.currentState).toMatchObject({id: '1', path: ['declare']})
+    expect(automata.currentState).toMatchObject({id: '1', path: [{ isNew: true }]})
 
     s = automata.nextState(phrase, 1) as State
     automata.setState(s)
-    expect(automata.currentState).toMatchObject({id: '3', path: ['declare', { memType: 0 }]})
+    expect(automata.currentState).toMatchObject({id: '2', path: [{ isNew: true }, { memType: 1 }]})
 
     s = automata.nextState(phrase, 2) as State
     automata.setState(s)
-    expect(automata.currentState).toMatchObject({id: '5', path: ['declare', { memType: 0 }, 'chamada']})
+    expect(automata.currentState).toMatchObject({id: '3', path: [{ isNew: true }, { memType: 1 }, 'chamada']})
 })
 
 test('it is able to exaust every transition before making the empty one', async() => {
@@ -62,52 +62,71 @@ test('it is able to exaust every transition before making the empty one', async(
 })
 
 test('it can tell if a phrase belongs to an automata', async () => {
-    const graph: graphlib.Graph | null = Get('grammar', 'declare_variable') as graphlib.Graph
+    const graph: graphlib.Graph | null = Get('grammar', 'variable_assignment') as graphlib.Graph
 
     const automata = new Automata(graph)
-    const phrase = 'declare uma constante chamada bola'.split(' ')
+    const phrase = 'declare uma constante chamada wtf'.split(' ')
 
-    expect(automata.recognize(phrase)![1].path).toStrictEqual(['declare', {memType: 0}, 'chamada', {name: 'bola'}])
+    expect(automata.recognize(phrase)![1].path).toStrictEqual(
+        [
+            { isNew: true },
+            { memType: 1 },
+            'chamada',
+            { varName: 'wtf' }
+        ]
+    )
 
     expect(new Automata(graph).recognize(['test', 'it'])).toBe(null)
 })
 
 test('it can recognize multiple automatas in one sentence', async () => {
-    const graph: graphlib.Graph | null = Get('grammar', 'new_variable', 'en-US') as graphlib.Graph
+    const graph: graphlib.Graph | null = Get('grammar', 'variable_assignment', 'en-US') as graphlib.Graph
 
     let automata = new Automata(graph)
-    let phrase = 'put the result of the string hello doctor string in a variable called phrase'.split(' ')
+    let phrase = 'variable called * big phrase * equals string hello doctor string'.split(' ')
 
     expect(automata.recognize(phrase)![1].path).toMatchObject([
-        'put',
-        'result',
+        { memType: 0 },
+        'called',
         {
-            expression: {
-                id: 'string',
-                path: ['string', { string: 'hello' }, { string: 'doctor' }, 'string']
+            varName: {
+                id: 'multi_word_token',
+                path: ['*', { words: 'big' }, { words: 'phrase' }, '*']
             }
         },
-        'variable',
-        'called',
-        { varName: 'phrase' }
+        'equals',
+        {
+            expression: {
+                id: 'expressions',
+                path: [{
+                    expression: {
+                        id: 'string',
+                        path: ['string', { string: 'hello' }, { string: 'doctor' }, 'string']
+                    }
+                }]
+            }
+        }
     ])
 
     automata = new Automata(graph)
-    phrase = 'put the result of the number 42 in a new variable called answer'.split(' ')
+    phrase = 'new variable answer equals the number 42'.split(' ')
 
     expect(automata.recognize(phrase)![1].path).toMatchObject([
-        'put',
-        'result',
+        { isNew: true },
+        { memType: 0 },
+        { varName: 'answer' },
+        'equals',
         {
             expression: {
-                id: 'number',
-                path: ['number', { number: '42' }]
+                id: 'expressions',
+                path: [{
+                    expression: {
+                        id: 'number',
+                        path: ['number', { number: '42' }]
+                    }
+                }]
             }
-        },
-        'new',
-        'variable',
-        'called',
-        { varName: 'answer' }
+        }
     ])
 })
 

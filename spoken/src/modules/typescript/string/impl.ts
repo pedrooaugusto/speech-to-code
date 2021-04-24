@@ -1,7 +1,11 @@
 async function WriteString(command: WriteStringParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteString"')
 
-    return await editor.write(command.string)
+    const text = '"' + command.string + '"'
+
+    if (command.parent) return text
+
+    return await editor.write(text)
 }
 
 type WriteStringParsedArgs = {

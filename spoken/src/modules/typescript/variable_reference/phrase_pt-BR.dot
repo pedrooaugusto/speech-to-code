@@ -1,0 +1,19 @@
+digraph VariableReference {
+    id="variable_reference";
+    label="Referencia a uma variável";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 3 5;
+    node[shape=circle];
+
+    0 -> 1 [label="(referência, refira)"];
+    {1 0} -> 2 [label="(variável, constante)"];
+    2 -> 4 [label="(chamada)"];
+    2 -> 3 [label="({term})", store=varName];
+    4 -> 5 [label="([multi_word_token])", store=varName];
+
+    title="Referencia a uma variável";
+    desc="Refere a uma variável ou constante já declarada";
+}

@@ -5,6 +5,8 @@ digraph String {
     langName="English";
     pad="0.2";
     rankdir=LR;
+    disableStopWords="true";
+    priority="2";
     node[shape=doublecircle]; 4;
     node[shape=circle];
 

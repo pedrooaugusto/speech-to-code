@@ -1,0 +1,21 @@
+digraph variable_assignment {
+    id="variable_assignment";
+    label="Guarda um valor em uma variável";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 4 6 7;
+    node[shape=circle];
+
+    0 -> 1 [label="(nova, declare, crie)", store=isNew, normalizer=boolean];
+    {1 0} -> 2 [label="(variável, constante)", store=memType];
+    2 -> 3 [label="(chamada)"];
+    3 -> 4 [label="([multi_word_token])", store=varName, extraArgs="{\"case\": \"camel\"}"];
+    {2 3} -> 7 [label="({term})", store=varName];
+    {4 7} -> 5 [label="(igual)"];
+    5 -> 6 [label="([expressions])", store=expression];
+
+    title="Guarda um valor em uma variável";
+    desc="Guarda um valor, inteiro, texto e etc em uma variável";
+}
