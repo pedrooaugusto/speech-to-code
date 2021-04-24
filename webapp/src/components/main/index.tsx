@@ -29,6 +29,7 @@ export default function Main() {
         return () => {
             IpcRenderer.removeAllListeners('VoiceRecognition:toggleRecording')
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
@@ -64,6 +65,7 @@ function TranscriptionHistory(
 
     useEffect(() => {
         if (props.results?.id && props.results?.text) setHistory((h) => h.concat(props.results))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.results?.id])
 
     return (

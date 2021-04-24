@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import ReactDOM from 'react-dom'
 import Spoken from 'spoken'
 import { GlobalContext } from '../../services/global-context'

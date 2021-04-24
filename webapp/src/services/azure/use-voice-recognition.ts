@@ -48,6 +48,7 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
         return () => {
             recognizer.destroy()
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [language])
 
     const start = async () => {
@@ -98,7 +99,7 @@ function findComand(voiceToTextResponse: SpeechSDK.SpeechRecognitionResult, lang
 }
 
 function sanitizePonctuation(text: string) {
-    return text.replace(/(?<! )(:|\*|,|\.|\?|\!)/gi, ' $1')
+    return text.replace(/(?<! )(:|\*|,|\.|\?|!)/gi, ' $1')
 }
 
 export default useAzureVoiceRecognition
