@@ -2,10 +2,13 @@ import * as ipc from 'node-ipc'
 import * as fs from 'fs'
 import { Socket } from 'net'
 import { Proxy, TaskRequest, Robot } from './index'
+import RobotVscode from './robot-vscode'
 import Log from './logger'
 
+const isJest = !!process.env.JEST_WORKER_ID
 class RobotVSCodeProxy implements Proxy {
-    vscodeRobotInstance: Robot | null = null // new RobotVscode()
+    // @TODO remove that
+    vscodeRobotInstance: Robot | null = isJest ? RobotVscode : null
 
     async proxy(request: TaskRequest, socket: Socket ): Promise<void> {
         try {

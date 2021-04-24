@@ -1,4 +1,4 @@
-import { window } from 'vscode'
+import { window } from './vscode'
 
 const out = window.createOutputChannel('Spoken')
 

@@ -1,4 +1,4 @@
-import * as vscode from 'vscode'
+import * as vscode from './vscode'
 import { Robot } from './index'
 import Log from './logger'
 
@@ -315,7 +315,7 @@ class RobotVscode implements Robot {
 
 }
 
-export default RobotVscode
+export default new RobotVscode()
 
 export function createInstance() {
     return new RobotVscode()
