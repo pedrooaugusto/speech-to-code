@@ -45,11 +45,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Build Dep. Spoken
-    - run: npm --prefix spoken ci
-    - run: npm --prefix spoken run build
+      run: |
+        npm --prefix spoken ci
+        npm --prefix spoken run build
     - name: Build
-    - run: npm --prefix webapp ci
-    - run: ls spoken/dist
-    - run: npm --prefix webapp run build-only
+      run: |
+        npm --prefix webapp ci
+        ls spoken/dist
+        npm --prefix webapp run build-only
     - name: Test
-    - run: npm --prefix webapp run test
+      run: npm --prefix webapp run test
