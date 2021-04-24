@@ -10,14 +10,13 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-spoken:
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v2
@@ -25,6 +24,24 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm --prefix spoken-vscode-driver ci
-    # - run: npm --prefix spoken-vscode-driver run build --if-present
-    - run: npm --prefix spoken-vscode-driver test
+    - run: npm --prefix spoken ci
+    - run: npm --prefix spoken build --if-present
+    - run: npm --prefix spoken test
+    
+  build-webapp:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm --prefix webapp ci
+    - run: npm --prefix webapp build --if-present
+    - run: npm --prefix webapp test
