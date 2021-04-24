@@ -25,6 +25,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm --prefix spoken ci
-    - run: npm --prefix spoken run build --if-present
-    - run: npm --prefix spoken test
+    - run: npm --prefix spoken-vscode-driver ci
+    # - run: npm --prefix spoken-vscode-driver run build --if-present
+    - run: npm --prefix spoken-vscode-driver test
