@@ -1,3 +1,18 @@
+/**
+
+Test it out: https://omrelli.ug/nearley-playground/
+
+MAIN -> ROOT _ DEF _ LEFT _ OP _ RIGHT
+_ -> " "
+ROOT -> [\w]:+
+DEF -> "->" | "!>"
+LEFT -> ("P" | "N") [0-9]:+
+OP -> "!=" | "=="
+RIGHT -> "(" ITEM ")"
+ITEM -> ITEM "|" ITEM | [\w]:+
+
+ */
+
 type Clauses = {
     left: string | string[]
     right: string[]

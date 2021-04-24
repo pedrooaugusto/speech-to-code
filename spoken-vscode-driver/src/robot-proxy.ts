@@ -5,7 +5,7 @@ import { Proxy, TaskRequest, Robot } from './index'
 import Log from './logger'
 
 class RobotVSCodeProxy implements Proxy {
-    vscodeRobotInstance: Robot | null = null
+    vscodeRobotInstance: Robot | null = null // new RobotVscode()
 
     async proxy(request: TaskRequest, socket: Socket ): Promise<void> {
         try {
@@ -16,6 +16,7 @@ class RobotVSCodeProxy implements Proxy {
 
             if (robot == null) {
                 // const { createInstance } = await import('./robot-vscode')
+                // @TODO Fix that! This is just a workaround for live reload
                 const str = fs.readFileSync(__dirname + '/robot-vscode.js', 'utf-8')
                 const createInstance = eval(str)
                 robot = createInstance()
@@ -42,5 +43,5 @@ class RobotVSCodeProxy implements Proxy {
         }
     }
 }
-// hello
+
 export default new RobotVSCodeProxy()

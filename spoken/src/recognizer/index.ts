@@ -20,6 +20,8 @@ class Recognizer {
     }
 
     public graphs(mod: SpokenModule, lang: string) {
+        if (!mod.grammar[lang]) return []
+
         return mod.grammar[lang]
             .filter(item => item.value.alias !== 'true')
             .sort(this.sortGraphs)

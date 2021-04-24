@@ -45,8 +45,8 @@ export function activate(context: vscode.ExtensionContext) {
 	
 	context.subscriptions.push(disposable)
 
-	IpcProxy.on('runCommand', RobotVSCodeProxy)
-	IpcProxy.init()
+	// IpcProxy.on('runCommand', RobotVSCodeProxy)
+	// IpcProxy.init()
 }
 
 export function deactivate() {

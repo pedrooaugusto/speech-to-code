@@ -315,6 +315,8 @@ class RobotVscode implements Robot {
 
 }
 
+export default RobotVscode
+
 export function createInstance() {
     return new RobotVscode()
 }

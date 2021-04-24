@@ -1,27 +1,35 @@
 const Spoken = require('spoken').default
 
 class SpokenInterface {
-    findComand(voiceToTextResponse) {
+    constructor() {
+        Spoken.init()
+    }
+
+    findComand(voiceToTextResponse, lang) {
         console.log('[server.src.Spoken.findCommand] Warn: Ignoring other matches!')
 
-        const trsc = voiceToTextResponse?.results?.[0].alternatives?.[0]?.transcript
-        const sResult = Spoken.recognizePhrase(trsc, 'pt-BR')
-
-        const wrapper = sResult ? sResult[0] : null
-
-        return {
-            _rawVoiceToTextResponse: voiceToTextResponse,
-            phrase: [trsc],
-            command: wrapper ? {
-                id: wrapper.id,
-                desc: wrapper.desc,
-                commandArgs: wrapper.args,
-                impl: wrapper.impl,
-                lang: wrapper.lang,
-                path: wrapper.path
-            } : null
-        }
+        return findComand(voiceToTextResponse, lang)
     }
+
+    list() {
+        return Spoken.modules
+    }
+}
+
+function findComand(voiceToTextResponse, language) {
+    const text = sanitizePonctuation(voiceToTextResponse.text)
+    const result = Spoken.recognizePhrase(text.toLocaleLowerCase(), language)
+
+    if (result != null) {
+        result.extra._rawVoiceToTextResponse = voiceToTextResponse
+        result.extra.phrase = text
+    }
+
+    return result
+}
+
+function sanitizePonctuation(text) {
+    return text.replace(/(?<! )(:|\*|,|\.|\?|\!)/gi, ' $1')
 }
 
 module.exports = new SpokenInterface()
