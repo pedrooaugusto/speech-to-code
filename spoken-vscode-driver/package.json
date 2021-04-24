@@ -33,7 +33,7 @@
 		"compile": "tsc -p ./",
 		"watch": "tsc --watch -p ./",
 		"watch1": "tsc-watch  --onSuccess \"npm run copy-robot\" -p ./",
-		"pretest": "npm run compile && npm run lint",
+		"pretest": "npm run compile",
 		"lint": "eslint src --ext ts",
 		"test": "jest \"out/__tests__/(.*).test.js$\"",
 		"copy-robot": "cp ./out/robot-vscode.js /c/Users/yuram/.vscode/extensions/august.spoken-0.0.1/out/robot-vscode.js",
