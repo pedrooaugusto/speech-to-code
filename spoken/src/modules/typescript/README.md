@@ -22,12 +22,12 @@ The following automata is responsible for recognizing the command `Move cursor` 
 
 The following are some examples of phrases, in english, used to trigger the command `Move cursor`:
 
-1. pointer line 42
-2. cursor letter g
-3. cursor 42ª symbol M
-4. pointer begin line
+1. cursor line 42
+2. pointer symbol M
+3. cursor 1ª symbol K
+4. cursor begin line
 5. pointer next symbol
-6. cursor next 1 symbol
+6. pointer next 1 symbol
 
 **Português**
 
@@ -37,12 +37,12 @@ O automata seguinte é reponsável por reconhecer o comando `Mover o cursor` em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Mover o cursor`:
 
-1. ponteiro linha 1
-2. ponteiro símbolo B
-3. ponteiro 1ª letra a
-4. ponteiro começo linha
+1. ponteiro linha 42
+2. cursor letra B
+3. ponteiro primeiro símbolo z
+4. ponteiro final linha
 5. cursor próximo letra
-6. ponteiro próximo 1 símbolo
+6. cursor próximo 1 símbolo
 
 ### Implementation
 
@@ -54,16 +54,17 @@ async function cursor(args: CursorParsedArgs, editor: Editor, context: {}) {
 
     if (args.linePosition != null) {
         const pos = args.linePosition === LinePostionEnum.BEGIN ? 'BEGIN_LINE' : 'END_LINE'
-        return await editor.moveCursor
+
+        return await editor.moveCurs
 
 (...)
 ```
 
 ---
 
-## Writes a Elementar Math Operation
+## Writes a elementar math operation
 
-Writes Elementar Math Operation (*, -, +, /)
+Writes a elementar math operation (*, -, +, /)
 
 ### Languages
 
@@ -71,13 +72,13 @@ This command is available in the following languages
 
 **English**
 
-The following automata is responsible for recognizing the command `Writes a Elementar Math Operation` in english:
+The following automata is responsible for recognizing the command `Writes a elementar math operation` in english:
 
 ![English](elementar_math_op/phrase_en-US.png)
 
-The following are some examples of phrases, in english, used to trigger the command `Writes a Elementar Math Operation`:
+The following are some examples of phrases, in english, used to trigger the command `Writes a elementar math operation`:
 
-1. [number] minus [number]
+1. expression [expressions] divided [expressions]
 
 **Português**
 
@@ -87,7 +88,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operaç
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operação matemática elementar`:
 
-1. [number] dividido [number]
+1. expressão [expressions] vezes [expressions]
 
 ### Implementation
 
@@ -97,11 +98,8 @@ The full implementation of this command can be found on this directory under the
 async function WriteElementarMathOperation(command: WriteElementarMathOperationParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteElementarMathOperation"')
 
-    const { left, operation, right } = command
-
-    const text = `${left} ${operation} ${right}`
-
-  
+    let operation = toArray(command.operation) as string[]
+    let right = toArray(command.right) as (s
 
 (...)
 ```
@@ -125,7 +123,7 @@ The following automata is responsible for recognizing the command `Writes a expr
 The following are some examples of phrases, in english, used to trigger the command `Writes a expression`:
 
 1. [variable_reference]
-2. expression
+2. anything
 
 **Português**
 
@@ -135,8 +133,8 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma express
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma expressão`:
 
-1. [string]
-2. expressão
+1. [variable_reference]
+2. tudo
 
 ### Implementation
 
@@ -174,10 +172,10 @@ The following automata is responsible for recognizing the command `Change line` 
 The following are some examples of phrases, in english, used to trigger the command `Change line`:
 
 1. go to line 42
-2. go to line number 1
-3. go line 42
+2. go to line number 42
+3. go line 1
 4. go line number 1
-5. line 42
+5. line 1
 6. line number 42
 
 **Português**
@@ -188,13 +186,13 @@ O automata seguinte é reponsável por reconhecer o comando `Trocar linha` em po
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Trocar linha`:
 
-1. vai para linha 1
-2. vai para linha número 1
-3. vá para a linha 1
-4. vá para a linha número 42
-5. vá linha 1
-6. vai linha número 1
-7. linha 1
+1. vá para linha 42
+2. vá para linha número 42
+3. vai para a linha 42
+4. vai para a linha número 42
+5. vai linha 42
+6. vá linha número 1
+7. linha 42
 8. linha número 1
 
 ### Implementation
@@ -257,7 +255,9 @@ async function MultiWordTokens(command: MultiWordTokensParsedArgs, editor: Edito
     console.log('[Spoken]: Executing: "MultiWordTokens"')
 
     function camelCase(words: string[]) {
-        return words.map((a, i) => i ? a.charAt(0).toUpperCase() + a.slice(1) : a).join('')
+        return words.map((a, i) => i ? a.charAt(0).toUpperCase() + a.slice(1) : a)
+    }
+
     
 
 (...)
@@ -284,10 +284,10 @@ The following are some examples of phrases, in english, used to trigger the comm
 1. new line
 2. create new line
 3. create line
-4. new line below
+4. new line above
 5. line below
-6. create new line below
-7. create line above
+6. create new line above
+7. create line below
 
 **Português**
 
@@ -302,8 +302,8 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 3. crie nova linha
 4. crie linha
 5. nova linha abaixo
-6. linha nova abaixo
-7. linha acima
+6. linha nova acima
+7. linha abaixo
 8. crie nova linha abaixo
 9. crie linha abaixo
 
@@ -397,13 +397,13 @@ The following automata is responsible for recognizing the command `Select` in en
 
 The following are some examples of phrases, in english, used to trigger the command `Select`:
 
-1. select letter M
-2. select word number
-3. select from letter g to K
-4. select from symbol K to 1ª letter M
-5. select from last letter M to M
-6. select from 42ª symbol K to 1ª M
-7. select from line 1 to 42
+1. select letter g
+2. select word value
+3. select from symbol g to K
+4. select from symbol M to 1ª letter M
+5. select from first letter K to g
+6. select from 42ª symbol M to fourth symbol K
+7. select from line 1 to line 1
 
 **Português**
 
@@ -413,13 +413,13 @@ O automata seguinte é reponsável por reconhecer o comando `Selecionar` em port
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Selecionar`:
 
-1. selecione letra a
-2. selecione palavra valor
-3. selecionar de letra A até símbolo a
-4. selecione de letra A até sétimo letra B
-5. selecionar da sétimo símbolo A até B
-6. selecionar da primeiro símbolo A até último B
-7. selecionar de linha 1 até linha 42
+1. selecionar letra z
+2. selecionar palavra valor
+3. selecione da símbolo A até símbolo B
+4. selecione de letra z até último letra z
+5. selecione de primeiro símbolo B até símbolo A
+6. selecionar de 1ª símbolo a até 1ª letra A
+7. selecione da linha 1 até linha 42
 
 ### Implementation
 
@@ -466,7 +466,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma string`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma string`:
 
-1. text text
+1. string string
 
 ### Implementation
 
@@ -476,14 +476,14 @@ The full implementation of this command can be found on this directory under the
 async function WriteString(command: WriteStringParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteString"')
 
-    const text = '"' + command.string + '"'
+    const text = '"' + command.string.join(' ') + '"'
 
     if (command.parent) return text
 
     return await editor.write(text)
 }
 
-type WriteStringParsedAr
+type WriteStri
 
 (...)
 ```
@@ -506,18 +506,18 @@ The following automata is responsible for recognizing the command `Stores a valu
 
 The following are some examples of phrases, in english, used to trigger the command `Stores a value in a variable`:
 
-1. declare constant named [multi_word_token]
-2. constant called [multi_word_token]
-3. declare variable called [multi_word_token] equals [expressions]
-4. declare variable named number equals [expressions]
-5. new variable number equals [expressions]
+1. declare variable called [multi_word_token]
+2. variable called [multi_word_token]
+3. declare variable named [multi_word_token] equals [expressions]
+4. new constant called text equals [expressions]
+5. create variable graph equals [expressions]
 6. constant named [multi_word_token] equals [expressions]
-7. variable named text equals [expressions]
-8. variable graph equals [expressions]
-9. declare constant named a
-10. create variable number
-11. constant named temp
-12. variable graph
+7. variable called graph equals [expressions]
+8. constant number equals [expressions]
+9. declare constant called graph
+10. declare constant value
+11. constant named text
+12. constant graph
 
 **Português**
 
@@ -527,18 +527,18 @@ O automata seguinte é reponsável por reconhecer o comando `Guarda um valor em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Guarda um valor em uma variável`:
 
-1. declare variável chamada [multi_word_token]
-2. constante chamada [multi_word_token]
-3. crie variável chamada [multi_word_token] igual [expressions]
-4. crie constante chamada texto igual [expressions]
-5. nova variável valor igual [expressions]
+1. declare constante chamada [multi_word_token]
+2. variável chamada [multi_word_token]
+3. declare constante chamada [multi_word_token] igual [expressions]
+4. crie variável chamada temp igual [expressions]
+5. nova constante temp igual [expressions]
 6. variável chamada [multi_word_token] igual [expressions]
-7. constante chamada a igual [expressions]
-8. variável valor igual [expressions]
-9. nova variável chamada texto
-10. nova variável valor
-11. constante chamada a
-12. constante lista
+7. constante chamada texto igual [expressions]
+8. constante a igual [expressions]
+9. nova variável chamada valor
+10. nova variável lista
+11. constante chamada valor
+12. variável lista
 
 ### Implementation
 
@@ -574,9 +574,9 @@ The following automata is responsible for recognizing the command `References a 
 
 The following are some examples of phrases, in english, used to trigger the command `References a variable`:
 
-1. reference constant value
-2. variable a
-3. reference constant called [multi_word_token]
+1. reference constant text
+2. variable number
+3. reference variable called [multi_word_token]
 4. constant called [multi_word_token]
 
 **Português**
@@ -588,9 +588,9 @@ O automata seguinte é reponsável por reconhecer o comando `Referencia a uma va
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Referencia a uma variável`:
 
 1. refira constante numero
-2. constante lista
-3. refira variável chamada [multi_word_token]
-4. constante chamada [multi_word_token]
+2. constante a
+3. referência constante chamada [multi_word_token]
+4. variável chamada [multi_word_token]
 
 ### Implementation
 
@@ -602,9 +602,9 @@ async function VariableReference(command: VariableReferenceParsedArgs, editor: E
 
     let { varName, parent } = command
 
-    if (Array.isArray(varName)) {
-        varName = varName.map((item, index) => {
-        
+    varName = Array.isArray(varName) ? varName.join('') : varName
+
+    if (parent) return v
 
 (...)
 ```
@@ -627,9 +627,9 @@ The following automata is responsible for recognizing the command `Write text` i
 
 The following are some examples of phrases, in english, used to trigger the command `Write text`:
 
-1. print who are you
+1. print the universe is cracked
 2. write the universe is cracked
-3. write it the universe is cracked
+3. write it down the universe is cracked
 
 **Português**
 
@@ -649,11 +649,11 @@ The full implementation of this command can be found on this directory under the
 async function write(command: WriteParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "write."')
 
-    return await editor.write(command.text)
+    return await editor.write(command.text?.join(' '))
 }
 
 type WriteParsedArgs = {
-    text: string
+    text: string[]
 } & ParsedPhrase
 
 // @ts-ignore

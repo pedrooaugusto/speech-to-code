@@ -14,9 +14,9 @@ The following automata is responsible for recognizing the command `References a 
 
 The following are some examples of phrases, in english, used to trigger the command `References a variable`:
 
-1. reference constant value
-2. variable a
-3. reference constant called [multi_word_token]
+1. reference constant text
+2. variable number
+3. reference variable called [multi_word_token]
 4. constant called [multi_word_token]
 
 **Português**
@@ -28,9 +28,9 @@ O automata seguinte é reponsável por reconhecer o comando `Referencia a uma va
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Referencia a uma variável`:
 
 1. refira constante numero
-2. constante lista
-3. refira variável chamada [multi_word_token]
-4. constante chamada [multi_word_token]
+2. constante a
+3. referência constante chamada [multi_word_token]
+4. variável chamada [multi_word_token]
 
 ### Implementation
 
@@ -42,9 +42,9 @@ async function VariableReference(command: VariableReferenceParsedArgs, editor: E
 
     let { varName, parent } = command
 
-    if (Array.isArray(varName)) {
-        varName = varName.map((item, index) => {
-        
+    varName = Array.isArray(varName) ? varName.join('') : varName
+
+    if (parent) return v
 
 (...)
 ```

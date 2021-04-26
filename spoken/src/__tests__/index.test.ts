@@ -60,14 +60,14 @@ test('it can search for a command given a phrase', async () => {
     expect(command).toMatchObject({
         id: 'write',
         path: ['write', 'down', { text: 'hello' }, { text: 'friend' }],
-        args: { text: 'hello friend' }
+        args: { text: 'hello friend'.split(' ') }
     })
 
     command = Spoken.recognizePhrase('string who are you string', 'en-US')
     expect(command).toMatchObject({
         id: 'string',
         path: ['string', { string: 'who' }, { string: 'are' }, { string: 'you' }, 'string'],
-        args: { string: 'who are you' }
+        args: { string: 'who are you'.split(' ') }
     })
 })
 
@@ -129,7 +129,7 @@ test('it can organize the command arguments', async () => {
     expect(
         Spoken.recognizePhrase('write it down hello friend', 'en-US')
     ).toMatchObject({
-        args: { text: 'hello friend' }
+        args: { text: ['hello', 'friend'] }
     })
 
     expect(
@@ -140,7 +140,7 @@ test('it can organize the command arguments', async () => {
             args: {
                 expression: {
                     id: 'string',
-                    args: { string: 'hello man' },
+                    args: { string: ['hello', 'man'] },
                     path: ['string', { string: 'hello' }, { string: 'man' }, 'string']
                 }
             }
@@ -167,7 +167,7 @@ test('it can organize the command arguments', async () => {
         varName: {
             id: 'multi_word_token',
             args: {
-                words: 'bola quadrada'
+                words: ['bola', 'quadrada']
             }
         }
     })
@@ -180,7 +180,7 @@ test('it can organize the command arguments', async () => {
             args: {
                 expression: {
                     id: 'string',
-                    args: { string: 'de da você por favor' },
+                    args: { string: 'de da você por favor'.split(' ') },
                     path: [
                         'string',
                         { string: 'de' },

@@ -15,7 +15,7 @@ The following automata is responsible for recognizing the command `Writes a expr
 The following are some examples of phrases, in english, used to trigger the command `Writes a expression`:
 
 1. [variable_reference]
-2. expression
+2. anything
 
 **Português**
 
@@ -25,8 +25,8 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma express
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma expressão`:
 
-1. [string]
-2. expressão
+1. [variable_reference]
+2. tudo
 
 ### Implementation
 

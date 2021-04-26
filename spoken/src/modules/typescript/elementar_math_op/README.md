@@ -1,6 +1,6 @@
-## Writes a Elementar Math Operation
+## Writes a elementar math operation
 
-Writes Elementar Math Operation (*, -, +, /)
+Writes a elementar math operation (*, -, +, /)
 
 ### Languages
 
@@ -8,13 +8,13 @@ This command is available in the following languages
 
 **English**
 
-The following automata is responsible for recognizing the command `Writes a Elementar Math Operation` in english:
+The following automata is responsible for recognizing the command `Writes a elementar math operation` in english:
 
 ![English](phrase_en-US.png)
 
-The following are some examples of phrases, in english, used to trigger the command `Writes a Elementar Math Operation`:
+The following are some examples of phrases, in english, used to trigger the command `Writes a elementar math operation`:
 
-1. [number] minus [number]
+1. expression [expressions] divided [expressions]
 
 **Português**
 
@@ -24,7 +24,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operaç
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operação matemática elementar`:
 
-1. [number] dividido [number]
+1. expressão [expressions] vezes [expressions]
 
 ### Implementation
 
@@ -34,11 +34,8 @@ The full implementation of this command can be found on this directory under the
 async function WriteElementarMathOperation(command: WriteElementarMathOperationParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteElementarMathOperation"')
 
-    const { left, operation, right } = command
-
-    const text = `${left} ${operation} ${right}`
-
-  
+    let operation = toArray(command.operation) as string[]
+    let right = toArray(command.right) as (s
 
 (...)
 ```

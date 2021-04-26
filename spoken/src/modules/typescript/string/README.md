@@ -24,7 +24,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma string`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma string`:
 
-1. text text
+1. string string
 
 ### Implementation
 
@@ -34,14 +34,14 @@ The full implementation of this command can be found on this directory under the
 async function WriteString(command: WriteStringParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteString"')
 
-    const text = '"' + command.string + '"'
+    const text = '"' + command.string.join(' ') + '"'
 
     if (command.parent) return text
 
     return await editor.write(text)
 }
 
-type WriteStringParsedAr
+type WriteStri
 
 (...)
 ```
