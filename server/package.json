@@ -17,7 +17,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "socket.io": "^3.1.1",
-    "spoken": "file:../spoken"
+    "spoken": "file:../spoken/dist"
   },
   "author": "Pedro Silva",
   "license": "GPL-3.0-or-later"

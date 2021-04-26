@@ -23,6 +23,8 @@ declare type ParsedPhrase = {
 	extra?: Record<string, string>
 }
 
+declare type WildCard = { value: string, wildCard: boolean }
+
 declare type GraphJsonView = {
 	edges: unknown,
 	nodes: unknown,

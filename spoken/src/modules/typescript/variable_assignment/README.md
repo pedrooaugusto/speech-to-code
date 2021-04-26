@@ -14,18 +14,18 @@ The following automata is responsible for recognizing the command `Stores a valu
 
 The following are some examples of phrases, in english, used to trigger the command `Stores a value in a variable`:
 
-1. declare constant called [multi_word_token]
-2. variable called [multi_word_token]
-3. declare variable named [multi_word_token] equals [expressions]
-4. create constant named number equals [expressions]
+1. declare constant named [multi_word_token]
+2. constant called [multi_word_token]
+3. declare variable called [multi_word_token] equals [expressions]
+4. declare variable named number equals [expressions]
 5. new variable number equals [expressions]
-6. constant called [multi_word_token] equals [expressions]
-7. constant called a equals [expressions]
-8. variable text equals [expressions]
-9. new variable called number
-10. declare variable number
-11. constant called temp
-12. variable number
+6. constant named [multi_word_token] equals [expressions]
+7. variable named text equals [expressions]
+8. variable graph equals [expressions]
+9. declare constant named a
+10. create variable number
+11. constant named temp
+12. variable graph
 
 **Português**
 
@@ -35,18 +35,18 @@ O automata seguinte é reponsável por reconhecer o comando `Guarda um valor em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Guarda um valor em uma variável`:
 
-1. declare constante chamada [multi_word_token]
-2. variável chamada [multi_word_token]
+1. declare variável chamada [multi_word_token]
+2. constante chamada [multi_word_token]
 3. crie variável chamada [multi_word_token] igual [expressions]
-4. declare constante chamada texto igual [expressions]
-5. nova constante texto igual [expressions]
-6. constante chamada [multi_word_token] igual [expressions]
-7. constante chamada lista igual [expressions]
-8. variável a igual [expressions]
-9. crie variável chamada numero
-10. declare constante a
-11. constante chamada temp
-12. constante valor
+4. crie constante chamada texto igual [expressions]
+5. nova variável valor igual [expressions]
+6. variável chamada [multi_word_token] igual [expressions]
+7. constante chamada a igual [expressions]
+8. variável valor igual [expressions]
+9. nova variável chamada texto
+10. nova variável valor
+11. constante chamada a
+12. constante lista
 
 ### Implementation
 

@@ -1,0 +1,20 @@
+digraph elementar_math_op {
+    id="elementar_math_op";
+    label="Operação Matemática Elementar";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    disableStopWords="true";
+    priority="2";
+    node[shape=doublecircle]; 4;
+    node[shape=circle];
+
+    0 -> 1 [label="(expressão)"];
+    1 -> 2 [label="([expressions])", store=left];
+    {2 4} -> 3 [label="(mais, vezes, menos, dividido)", store=operation, normalizer=elementarMathOperation];
+    3 -> 4 [label="([expressions])", store=right];
+
+    title="Escreve uma operação matemática elementar";
+    desc="Escreve uma operação matemática elementar (*, -, +, /)";
+}

@@ -5,6 +5,7 @@ async function NewVariable(command: NewVariableParsedArgs, editor: Editor, conte
 
     const value = typeof expression === 'string' ? expression : expression?.value
     const allocate = memType === 0 ? 'let ' : 'const '
+    varName = Array.isArray(varName) ? varName.join('') : varName
 
     const text = `${isNew ? allocate : ''}${varName}${value ? ` = ${value}` : ''}`
 
@@ -23,7 +24,7 @@ async function NewVariable(command: NewVariableParsedArgs, editor: Editor, conte
 
 type NewVariableParsedArgs = {
     expression: string | { value: string, wildCard: boolean },
-    varName: string,
+    varName: string | string[],
     isNew: string,
     memType: number
 } & ParsedPhrase

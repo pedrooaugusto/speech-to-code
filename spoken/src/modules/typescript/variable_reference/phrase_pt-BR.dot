@@ -12,7 +12,7 @@ digraph VariableReference {
     {1 0} -> 2 [label="(variável, constante)"];
     2 -> 4 [label="(chamada)"];
     2 -> 3 [label="({term})", store=varName];
-    4 -> 5 [label="([multi_word_token])", store=varName];
+    4 -> 5 [label="([multi_word_token])", store=varName, extraArgs="{\"case\": \"camel\"}"];
 
     title="Referencia a uma variável";
     desc="Refere a uma variável ou constante já declarada";

@@ -1,7 +1,7 @@
 async function WriteString(command: WriteStringParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteString"')
 
-    const text = '"' + command.string + '"'
+    const text = '"' + command.string.join(' ') + '"'
 
     if (command.parent) return text
 
@@ -9,7 +9,7 @@ async function WriteString(command: WriteStringParsedArgs, editor: Editor, conte
 }
 
 type WriteStringParsedArgs = {
-    string: string
+    string: string[]
 } & ParsedPhrase
 
 // @ts-ignore

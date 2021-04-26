@@ -49,7 +49,7 @@ export default class SpokenCommand {
 
             if (Array.isArray(acc[key])) {
                 acc[key].push(val)
-            } else if (typeof acc[key] === 'string') {
+            } else if (false && typeof acc[key] === 'string') {
                 acc[key] += ' ' + val
             } else if (acc[key] != undefined) {
                 acc[key] = [acc[key], val]

@@ -1,0 +1,20 @@
+digraph elementar_math_op {
+    id="elementar_math_op";
+    label="Elementar Math Operation";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    disableStopWords="true";
+    priority="2";
+    node[shape=doublecircle]; 4;
+    node[shape=circle];
+
+    0 -> 1 [label="(expression)"];
+    1 -> 2 [label="([expressions])", store=left];
+    {2 4} -> 3 [label="(plus, times, minus, divided)", store=operation, normalizer=elementarMathOperation];
+    3 -> 4 [label="([expressions])", store=right];
+
+    title="Writes a elementar math operation";
+    desc="Writes a elementar math operation (*, -, +, /)";
+}

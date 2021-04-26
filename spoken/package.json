@@ -6,15 +6,13 @@
   "scripts": {
     "test": "tsc && jest \"dist/__tests__/(.*).test.js$\"",
     "test-only": "tsc && jest",
-    "build": "rm -rf dist/* && tsc && node dist/build/build.js && rm -rf dist/build && rm -rf dist/__tests__ && rm -rf dist/modules",
+    "build": "bash ./tools.sh",
     "build-docs": "node src/build/build-docs.js"
   },
   "keywords": [
     "Speech-to-code"
   ],
-  "dependencies": {
-    "@microsoft/recognizers-text-number": "^1.3.0"
-  },
+  "dependencies": {},
   "author": "Pedro Silva",
   "license": "GPL-3.0-or-later",
   "devDependencies": {

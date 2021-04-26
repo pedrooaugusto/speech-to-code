@@ -11,8 +11,8 @@ digraph expressions {
     node[shape=doublecircle]; 1 2;
     node[shape=circle];
 
-    0 -> 1 [label="([number], [string], [variable_reference])", store=expression];
-    0 -> 2 [label="(expression)", store=wildCard, normalizer="identity"];
+    0 -> 1 [label="([number], [string], [variable_reference], [elementar_math_op])", store=expression];
+    0 -> 2 [label="(anything)", store=wildCard, normalizer="identity"];
 
     title="Writes a expression";
     desc="Writes a expression in the editor, this is meant to be used inside another automatas";

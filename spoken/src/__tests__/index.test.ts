@@ -198,12 +198,12 @@ test('it can organize the command arguments', async () => {
     })
 
     expect(
-        Spoken.recognizePhrase('nova variável bola igual a expressão por favor', 'pt-BR')!.args
+        Spoken.recognizePhrase('nova variável bola igual a tudo por favor', 'pt-BR')!.args
     ).toMatchObject({
         expression: {
             id: 'expressions',
             args: {
-                wildCard: 'expressão'
+                wildCard: 'tudo'
             }
         },
         isNew: true,

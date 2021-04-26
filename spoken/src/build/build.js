@@ -42,7 +42,7 @@ async function main() {
 
     const dict = JSON.stringify(spokenModules.toJson())
     fs.writeFileSync(path.resolve(__dirname, '..', 'grammar.json'), dict)
-    // Delete non essential files
+    buildCustomPackageJSON()
 }
 
 class SpokenModules {
@@ -134,6 +134,15 @@ class Command {
 
         return automatas.map(item => ({ path: path.resolve(root, item) }))
     }
+}
+
+// There are nicer ways of doing this -- this is the fastest
+function buildCustomPackageJSON() {
+    const json = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), 'utf-8'))
+    json.main = 'index.js'
+    json.scripts = {}
+    json.devDependencies = {}
+    fs.writeFileSync(path.resolve(__dirname, '..', 'package.json'), JSON.stringify(json, null, 4))
 }
 
 main()

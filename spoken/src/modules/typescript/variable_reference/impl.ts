@@ -3,11 +3,7 @@ async function VariableReference(command: VariableReferenceParsedArgs, editor: E
 
     let { varName, parent } = command
 
-    if (Array.isArray(varName)) {
-        varName = varName.map((item, index) => {
-            return index ? item.charAt(0).toUpperCase() + item.slice(1) : item
-        }).join('')
-    }
+    varName = Array.isArray(varName) ? varName.join('') : varName
 
     if (parent) return varName
 
