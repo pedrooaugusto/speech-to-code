@@ -42,14 +42,30 @@ class SpokenInterface {
         for (const key of Object.keys(args)) {
             const innerCommand = args[key] as any
 
-            console.log(innerCommand)
-            if (!innerCommand.id || !innerCommand.impl || !innerCommand.lang) continue
+            if (Array.isArray(innerCommand)) {
+                const arr = []
+                for (const item of innerCommand) {
+                    if (!item.id || !item.impl || !item.lang) {
+                        arr.push(item)
+                        continue
+                    }
 
-            const [result, err] = await this.execute(innerCommand, parent)
+                    const [ab, err] = await this.execute(item, parent)
+            
+                    if (ab == null || err != null) return [null, err]
 
-            if (err != null) return [null, err]
+                    arr.push(ab)
+                }
+                args[key] = arr
+            } else {                
+                if (!innerCommand.id || !innerCommand.impl || !innerCommand.lang) continue
 
-            args[key] = result
+                const [result, err] = await this.execute(innerCommand, parent)
+
+                if (err != null) return [null, err]
+
+                args[key] = result
+            }
         }
 
         return [args, null]

@@ -29,6 +29,7 @@ async function Main() {
         await Spoken.init()
         await selectTest()
         await newVariableTest()
+        await mathExpressionTest()
     } catch(err) {
         console.log(err.toString())
     } finally {
@@ -50,7 +51,7 @@ async function newVariableTest() {
     await execute('write it down')
 
     await execute('go to line 4')
-    await execute('variável bola igual a expressão', 'pt-BR')
+    await execute('variável bola igual a tudo', 'pt-BR')
     await wait(3000)
     await execute('string minha bola é quadradade string', 'pt-BR')
     await wait(3000)
@@ -64,7 +65,7 @@ async function newVariableTest() {
     await execute('variável bola igual a string hello doctor string', 'pt-BR')
     await wait(3000)
     await execute('go to line 6')
-    await execute('nova variável chamada * bola gorda * igual a expressão', 'pt-BR')
+    await execute('nova variável chamada * bola gorda * igual a tudo', 'pt-BR')
     await wait(3000)
     await execute('string Mrs. Robinson string', 'pt-BR')
     await wait(3000)
@@ -95,6 +96,29 @@ async function selectTest() {
     await execute('go to line 4', 'en-US')
 }
 
+async function mathExpressionTest() {
+    await wait(3000)
+    await execute('go to line 4')
+    await execute('expression number 4 plus string bola string minus variable value')
+    await execute('go to line 5')
+    await execute('new variable value equals anything')
+    await wait(3000)
+    await execute('expression string your age is string plus number 22')
+    await wait(3000)
+    await execute('go to line 6')
+    await execute('new constant age equals expression number 2021 minus number 1998')
+    await wait(3000)
+    await execute('new line')
+    await execute('new variable called * big bob * equals expression anything plus anything times number 4')
+    await wait(4000)
+    await execute('new line')
+    await execute('expression anything plus anything times number 4 plus string hello doctor string')
+    await wait(4000)
+    await execute('select from line 4 to line 8')
+    await execute('write it down')
+    await execute('new line')
+    await execute('new line')
+}
 
 const wait = (t: number) => new Promise((res, rej) => setTimeout(res, t))
 
