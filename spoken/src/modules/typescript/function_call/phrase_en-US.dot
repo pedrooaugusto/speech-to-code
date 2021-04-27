@@ -1,0 +1,27 @@
+digraph function_call {
+    id="function_call";
+    label="Calls a function";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    priority="2";
+    node[shape=doublecircle]; 3 5 7 11;
+    node[shape=circle];
+
+    0 -> 1 [label="(call)"];
+    1 -> 2 [label="(function)"];
+    2 -> 3 [label="({term})", store=functionName];
+    3 -> 4 [label="({number})", store=argsNumber];
+    4 -> 5 [label="(arguments)"];
+    3 -> 6 [label="(arguments)"];
+    6 -> 7 [label="([expressions])", store=args];
+    7 -> 8 [label="(and)"];
+    8 -> 7 [label="([expressions])", store=args];
+    {3 5 7} -> 9 [label="(on)"];
+    9 -> 10 [label="(object)"];
+    10 -> 11 [label="({term})", store=caller];
+
+    title="Calls a function";
+    desc="Calls a function with the specified arguments in the desired caller";
+}

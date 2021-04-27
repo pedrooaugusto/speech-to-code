@@ -1,0 +1,18 @@
+digraph function_call {
+    id="function_call";
+    label="Escreve uma string";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    priority="2";
+    node[shape=doublecircle]; 4;
+    node[shape=circle];
+
+    0 -> 2 [label="(string, text)"];
+    2 -> 2 [label="({any})", store=string];
+    2 -> 4 [label="(string, text)"];
+
+    title="Escreve uma string";
+    desc="Escreve uma string no editor";
+}
