@@ -40,5 +40,12 @@
             "pt-BR": ["a", "B", "A", "z"],
             "en-US": ["g", "K", "M"]
         }
+    },
+    "@anything": {
+        "value": "",
+        "examples": {
+            "pt-BR": ["tudo"],
+            "en-US": ["anything"]
+        }
     }
 }

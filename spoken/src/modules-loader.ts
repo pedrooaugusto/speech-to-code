@@ -1,17 +1,5 @@
 import * as graphlib from './graphlib'
 
-export type Context = {
-	normalizers: Record<string, (((lang: string) => Function))>,
-    templates: Record<string, {
-		value: string,
-		examples: Record<string, string[]>
-	}>,
-    stopWords: Record<string, {
-		words: string[],
-		expressions: string[]
-	}>
-}
-
 class Modules {
     private spoken: SpokenModules = {
         modules: [],

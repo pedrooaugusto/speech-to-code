@@ -45,6 +45,18 @@ declare type SpokenModules = {
 	}>
 }
 
+declare type Context = {
+	normalizers: Record<string, (((lang: string) => Function))>,
+    templates: Record<string, {
+		value: string,
+		examples: Record<string, string[]>
+	}>,
+    stopWords: Record<string, {
+		words: string[],
+		expressions: string[]
+	}>
+}
+
 declare type SpokenModule = {
 	id: string,
 	desc: string,

@@ -16,10 +16,10 @@ The following are some examples of phrases, in english, used to trigger the comm
 
 1. go to line 42
 2. go to line number 42
-3. go line 1
+3. go line 42
 4. go line number 1
 5. line 1
-6. line number 42
+6. line number 1
 
 **Português**
 
@@ -33,7 +33,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 2. vá para linha número 42
 3. vai para a linha 42
 4. vai para a linha número 42
-5. vai linha 42
+5. vai linha 1
 6. vá linha número 1
 7. linha 42
 8. linha número 1

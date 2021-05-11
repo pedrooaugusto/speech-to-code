@@ -16,7 +16,7 @@ export default class SpokenCommand {
     title: string
     desc: string
     path: PathType
-    args: Record<string, string | number>
+    args: Record<string, string | number | any>
     impl: string
     extra: Record<string, any>
 
@@ -30,11 +30,11 @@ export default class SpokenCommand {
         this.impl = command.impl
         this.path = path
         this.args = SpokenCommand.extractArgs(path)
+        this.args.extra = { lang: command.lang }
+        this.extra = {}
 
         if (command.extraArgs)
-            this.args.extra = JSON.parse(command.extraArgs)
-
-        this.extra = {}
+            this.args.extra = {...this.args.extra, ...JSON.parse(command.extraArgs) }
     }
 
     static extractArgs(path: PathType) {

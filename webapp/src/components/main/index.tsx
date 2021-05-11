@@ -32,6 +32,8 @@ export default function Main() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    console.log(results)
+
     return (
         <main className="main">
             <MicrophoneButton

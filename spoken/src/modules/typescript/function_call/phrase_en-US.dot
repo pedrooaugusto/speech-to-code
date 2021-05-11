@@ -9,18 +9,21 @@ digraph function_call {
     node[shape=doublecircle]; 3 5 7 11;
     node[shape=circle];
 
-    0 -> 1 [label="(call)"];
+    0 -> 1 [label="(call, execute)"];
     1 -> 2 [label="(function)"];
-    2 -> 3 [label="({term})", store=functionName];
+    2 -> 13 [label="(called, named)"];
+    13 -> 14 [label="([multi_word_token])", store=functionName, extraArgs="{\"case\": \"camel\"}"];
+    14 -> 3 [label="(λ)"];
+    {2 13} -> 3 [label="({term})", store=functionName];
     3 -> 4 [label="({number})", store=argsNumber];
     4 -> 5 [label="(arguments)"];
     3 -> 6 [label="(arguments)"];
     6 -> 7 [label="([expressions])", store=args];
     7 -> 8 [label="(and)"];
     8 -> 7 [label="([expressions])", store=args];
-    {3 5 7} -> 9 [label="(on)"];
-    9 -> 10 [label="(object)"];
-    10 -> 11 [label="({term})", store=caller];
+    {3 5 7} -> 9 [label="(called, on)"];
+    9 -> 10 [label="(by)"];
+    {9 10} -> 11 [label="([expressions])", store=caller];
 
     title="Calls a function";
     desc="Calls a function with the specified arguments in the desired caller";

@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain, screen, globalShortcut } from 'electron'
+import Spoken from 'spoken'
 import path from 'path'
 import SpokenInterface from './spoken-interface'
 import EditorService from './editors/editor-service'
@@ -31,7 +32,8 @@ async function createWindow(): Promise<void> {
 
 	// window.setMenuBarVisibility(false)
 
-	await window.loadURL('http://localhost:3000/')
+	await Spoken.init()
+	await window.loadURL('http://localhost:5000/')
 
 	const ret = globalShortcut.register('CommandOrControl+X', () => {
 		console.log('[wrapper.createWindow] Toggle Recording!')

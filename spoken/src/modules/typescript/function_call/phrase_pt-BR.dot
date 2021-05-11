@@ -1,18 +1,30 @@
 digraph function_call {
     id="function_call";
-    label="Escreve uma string";
+    label="Chama uma função";
     lang="pt-BR";
     langName="Português";
     pad="0.2";
     rankdir=LR;
     priority="2";
-    node[shape=doublecircle]; 4;
+    node[shape=doublecircle]; 3 5 7 11 14;
     node[shape=circle];
 
-    0 -> 2 [label="(string, text)"];
-    2 -> 2 [label="({any})", store=string];
-    2 -> 4 [label="(string, text)"];
+    0 -> 1 [label="(chame, chamar, execute)"];
+    1 -> 2 [label="(função)"];
+    2 -> 13 [label="(chamada, nomeada)"];
+    13 -> 14 [label="([multi_word_token])", store=functionName, extraArgs="{\"case\": \"camel\"}"];
+    14 -> 3 [label="(λ)"];
+    {2 13} -> 3 [label="({term})", store=functionName];
+    3 -> 4 [label="({number})", store=argsNumber];
+    4 -> 5 [label="(argumentos)"];
+    3 -> 6 [label="(argumentos)"];
+    6 -> 7 [label="([expressions])", store=args];
+    7 -> 8 [label="(e)"];
+    8 -> 7 [label="([expressions])", store=args];
+    {3 5 7} -> 9 [label="(chamada, na, no)"];
+    9 -> 10 [label="(por, pela)"];
+    {9 10} -> 11 [label="([expressions])", store=caller];
 
-    title="Escreve uma string";
-    desc="Escreve uma string no editor";
+    title="Chama uma função";
+    desc="Chama uma função com os determinados argumentos no determinado caller";
 }

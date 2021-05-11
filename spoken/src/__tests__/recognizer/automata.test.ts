@@ -1,10 +1,21 @@
 import Automata, { State } from '../../recognizer/automata'
-import Modules, { Context } from '../../modules-loader'
+import Modules from '../../modules-loader'
 import * as graphlib from '../../graphlib'
 
 beforeAll(async () => {
     await Modules.load()
 })
+
+// test.only('it can sort multiple transitions to the same state', async () => {
+//     let graph: graphlib.Graph | null = Get('grammar', 'function_call') as graphlib.Graph
+
+//     const phrase = 'execute a função chamada * bola string *'.split(' ')
+//     const automata = new Automata(graph)
+//     automata.setState({ id: '13', path: [], isFinal: false })
+
+//     let s = automata.nextState(phrase, 4) as State
+//     console.log(s)
+// })
 
 test('it is possible to go to the next state', async () => {
     let graph: graphlib.Graph | null = Get('grammar', 'variable_assignment') as graphlib.Graph

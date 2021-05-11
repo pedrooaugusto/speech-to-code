@@ -1,7 +1,9 @@
 async function write(command: WriteParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "write."')
 
-    return await editor.write(command.text?.join(' '))
+    const text = Array.isArray(command.text) ? command.text?.join(' ') : command.text
+
+    return await editor.write(text)
 }
 
 type WriteParsedArgs = {

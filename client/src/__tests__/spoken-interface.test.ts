@@ -16,7 +16,7 @@ function execute(text: string, lang: string = 'en-US') {
     return new Promise((res, rej) => {
         const result = findComand({ text }, lang)
 
-        if (result == null) return
+        if (result == null) return rej('Not found 404')
 
         return SpokenInterface.onComand((new FakeIPCEvent(res, rej) as unknown as IpcMainEvent), result)
     })
@@ -30,11 +30,38 @@ async function Main() {
         await selectTest()
         await newVariableTest()
         await mathExpressionTest()
+        await executeFunctionTest()
     } catch(err) {
         console.log(err.toString())
     } finally {
         EditorService.stop()
     }
+}
+
+async function executeFunctionTest()  {
+    await wait(1000)
+    await execute('go to line 4')
+    await execute('execute a função bola com 3 argumentos chamada pela string hello string', 'pt-BR')
+    await execute('go to line 5')
+    await execute('execute a função bola com os argumentos número 4 e número 8', 'pt-BR')
+    await execute('go to line 6')
+    await execute('execute a função thing com os argumentos número 4 e número 8 e string hello string chamada pelo número 10', 'pt-BR')
+    await wait(3000)
+    await execute('select from line 4 to line 6')
+    await execute('write it down')
+    await execute('new line')
+    await execute('new line')
+    await execute('go to line 4')
+    await execute('execute a função chamada * to string * com 2 argumentos chamada pela variável console', 'pt-BR')
+    await execute('go to line 5')
+    await execute('execute a função chamada * to integer * com os argumentos número 2 e número 5 no número 83', 'pt-BR')
+    await execute('go to line 6')
+    await execute('call function log with arguments string hello world string on variable console')
+    await wait(3000)
+    await execute('select from line 4 to line 6')
+    await execute('write it down')
+    await execute('new line')
+    await execute('new line')
 }
 
 async function newVariableTest() {
@@ -136,17 +163,23 @@ class FakeIPCEvent {
 }
 
 function findComand(voiceToTextResponse: { text: string }, language: string): SpokenCommand | null {
-    const text = voiceToTextResponse.text
+    const text = sanitizePonctuation(voiceToTextResponse.text)
     const result = Spoken.recognizePhrase(text.toLocaleLowerCase(), language)
 
     if (result != null) {
         result.extra._rawVoiceToTextResponse = voiceToTextResponse
         result.extra.phrase = text
 
+        console.log('\nArgs:')
         console.log(result.args)
+        console.log('\n')
     }
 
     return result
+}
+
+function sanitizePonctuation(text: string) {
+    return text.replace(/(?<! )(:|\*|,|\.|\?|!)/gi, ' $1')
 }
 
 Main()

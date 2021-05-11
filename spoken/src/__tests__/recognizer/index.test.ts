@@ -1,5 +1,5 @@
 import recognizer from '../../recognizer'
-import Modules, { Context } from '../../modules-loader'
+import Modules from '../../modules-loader'
 
 beforeAll(async () => {
     await Modules.load()
