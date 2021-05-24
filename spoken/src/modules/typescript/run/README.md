@@ -1,0 +1,47 @@
+## Run current file
+
+Run the current file in the terminal using node
+
+### Languages
+
+This command is available in the following languages
+
+**English**
+
+The following automata is responsible for recognizing the command `Run current file` in english:
+
+![English](phrase_en-US.png)
+
+The following are some examples of phrases, in english, used to trigger the command `Run current file`:
+
+1. run current file
+
+**Português**
+
+O automata seguinte é reponsável por reconhecer o comando `Executar arquivo` em português:
+
+![Português](phrase_pt-BR.png)
+
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Executar arquivo`:
+
+1. executar arquivo atual
+2. executar este arquivo
+
+### Implementation
+
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
+
+```typescript
+async function run(command: RunParsedArgs, editor: Editor, context: {}) {
+    console.log('[Spoken]: Executing: "run."')
+
+    const info = await editor.fileInfo() as { fileName: string }
+
+    return await editor.writeOnTerminal('node "' + info.fileName + '"')
+}
+
+type RunParsedArgs = {
+    
+
+(...)
+```

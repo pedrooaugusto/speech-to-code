@@ -11,7 +11,7 @@ digraph expressions {
     node[shape=doublecircle]; 1 2;
     node[shape=circle];
 
-    0 -> 1 [label="([number], [string], [variable_reference], [elementar_math_op])", store=expression];
+    0 -> 1 [label="([number], [string], [variable_reference], [elementar_math_op], [function_call])", store=expression];
     0 -> 2 [label="(tudo)", store=wildCard, normalizer="identity"];
 
     title="Escreve uma expressão";

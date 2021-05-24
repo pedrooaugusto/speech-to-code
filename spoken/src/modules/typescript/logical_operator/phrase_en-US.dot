@@ -1,0 +1,21 @@
+digraph LogicalOperator {
+    id="logical_operator";
+    label="Writes a logical operator";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    alias="true";
+    node[shape=doublecircle]; 1 7;
+    node[shape=circle];
+
+    {0 2} -> 1 [label="(and, or, equals)", store=logicalOperator];
+    0 -> 2 [label="(not, negative)", store=isNegative, normalizer=boolean];
+    {0 2} -> 3 [label="(less, greater)", store=inequalityOperator];
+    3 -> 4 [label="(or, λ)"];
+    4 -> 5 [label="(equals)", store=orEqual, normalizer=boolean];
+    {3 5} -> 7 [label="(than)"];
+
+    title="Writes a logical operator";
+    desc="Writes a logical operator (===, !==, &&, ||, >, <, >=, <=) meant to be used inside expressions";
+}

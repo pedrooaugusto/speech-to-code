@@ -14,7 +14,7 @@ The following automata is responsible for recognizing the command `Writes a elem
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a elementar math operation`:
 
-1. expression [expressions] minus [expressions]
+1. expression [expressions] [math_operator] [expressions]
 
 **Português**
 
@@ -24,7 +24,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operaç
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operação matemática elementar`:
 
-1. expressão [expressions] vezes [expressions]
+1. expressão [expressions] [logical_operator] [expressions]
 
 ### Implementation
 
@@ -34,8 +34,8 @@ The full implementation of this command can be found on this directory under the
 async function WriteElementarMathOperation(command: WriteElementarMathOperationParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteElementarMathOperation"')
 
-    let operation = toArray(command.operation) as string[]
-    let right = toArray(command.right) as (s
+    let operation = toArray(command.operation) as { operator: string, isNegative: boolean }[]
+    let r
 
 (...)
 ```

@@ -272,6 +272,7 @@ class RobotVscode implements Robot {
 
             number = number != null ? number : editor.selection.active.line + 1
 
+            // @todo fix that and keep _.line and ._text fot backward compability 
             return editor.document.lineAt(number)
 
         } catch(err) {
@@ -302,6 +303,9 @@ class RobotVscode implements Robot {
             const sp1 = p1.map(a => parseInt(a, 10))
             const sp2 = p2.map(a => parseInt(a, 10))
 
+            sp1[0] = Math.max(0, sp1[0])
+            sp2[0] = Math.min(editor.document.lineCount, sp2[0])
+
             editor.selection = new vscode.Selection(sp1[0], sp1[1], sp2[0], sp2[1])
 
             vscode.commands.executeCommand('editor.action.reindentselectedlines', {}).then(a => {
@@ -312,6 +316,44 @@ class RobotVscode implements Robot {
             rej(err)
         }
     })
+
+    /**
+     * Writes something in the terminal and press enter.
+     * 
+     * @param text Text to be written in the terminal
+     * @returns void
+     */
+    async writeOnTerminal(text: string): Promise<void | Error> {
+        try {
+            vscode.window.activeTerminal!.show()
+            vscode.window.activeTerminal?.sendText(text)
+
+            return
+        } catch (err) {
+            throw err
+        }
+    }
+
+    /**
+     * Retrieves information about a file
+     * 
+     * @param text Which file we are looking for information about, if undefined current file.
+     * @returns 
+     */
+    async fileInfo(text?: string): Promise<Record<string, any> | Error> {
+        try {
+
+            const [editor, err] = this.getEditor()
+
+            if (err) throw err
+
+            return {
+                fileName: editor?.document.fileName
+            }
+        } catch (err) {
+            throw err
+        }
+    }
 
 }
 

@@ -144,6 +144,36 @@ class VSCodeEditor extends Editor {
         })
     }
 
+    writeOnTerminal(text: string) {
+        console.log('[client.VSCodeRobot.writeOnTerminal]: Sending request to execute writeOnTerminal(...)')
+
+        return this.runTask({
+            type: 'writeOnTerminal',
+            context: {},
+            extra: { args: [text] }
+        })
+    }
+    
+    fileInfo(text?: string) {
+        console.log('[client.VSCodeRobot.fileInfo]: Sending request to execute fileInfo(...)')
+
+        return this.runTask({
+            type: 'fileInfo',
+            context: {},
+            extra: { args: [text] }
+        })
+    }
+
+    getLine(number?: number) {
+        console.log('[client.VSCodeRobot.getLine]: Sending request to execute getLine(...)')
+
+        return this.runTask({
+            type: 'getLine',
+            context: {},
+            extra: { args: [number] }
+        })
+    }
+
     indentSelection(p1: [string, string], p2: [string, string]): Promise<void | Error> {
         console.log('[client.VSCodeRobot.indentSelection]: Sending request to execute indentSelection(...)')
         const task = {

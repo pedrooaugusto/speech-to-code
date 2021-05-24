@@ -14,9 +14,9 @@ The following automata is responsible for recognizing the command `Write text` i
 
 The following are some examples of phrases, in english, used to trigger the command `Write text`:
 
-1. print the universe is cracked
+1. print who are you
 2. write who are you
-3. write it down who are you
+3. write it the universe is cracked
 
 **Português**
 
@@ -36,15 +36,13 @@ The full implementation of this command can be found on this directory under the
 async function write(command: WriteParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "write."')
 
-    return await editor.write(command.text?.join(' '))
+    const text = Array.isArray(command.text) ? command.text?.join(' ') : command.text
+
+    return await editor.write(text)
 }
 
 type WriteParsedArgs = {
-    text: string[]
-} & ParsedPhrase
-
-// @ts-ignore
-return write
+    text: st
 
 (...)
 ```

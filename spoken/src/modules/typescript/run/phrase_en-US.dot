@@ -1,0 +1,17 @@
+digraph Run {
+    id="run";
+    label="Run file";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 3;
+    node[shape=circle];
+
+    0 -> 1 [label="(run)"];
+    1 -> 2 [label="(current, this)"];
+    2 -> 3 [label="(file)"];
+
+    title="Run current file";
+    desc="Run the current file in the terminal using node";
+}

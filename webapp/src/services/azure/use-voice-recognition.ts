@@ -68,13 +68,11 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 
         const fn = () => {
             setResults(attempt)
-            IpcRenderer.send('Spoken:executeCommand', match)
+            if (attempt.recognized) IpcRenderer.send('Spoken:executeCommand', match)
         }
 
-        if (attempt.recognized) {
-            if (timeout) setTimeout(fn, timeout)
-            else fn()
-        }
+        if (timeout) setTimeout(fn, timeout)
+        else fn()
     }
 
     return {

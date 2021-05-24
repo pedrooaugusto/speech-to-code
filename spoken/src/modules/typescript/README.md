@@ -6,6 +6,62 @@ Collection of voice commands of the typescript language
 
 ---
 
+## Creates a if/else statement
+
+Creates a if/else statement with the provided expression as condition
+
+### Languages
+
+This command is available in the following languages
+
+**English**
+
+The following automata is responsible for recognizing the command `Creates a if/else statement` in english:
+
+![English](condition/phrase_en-US.png)
+
+The following are some examples of phrases, in english, used to trigger the command `Creates a if/else statement`:
+
+1. condition if statement
+2. condition if else statement
+3. condition if statement [expressions]
+4. condition if [expressions]
+5. condition if else statement [expressions]
+
+**Português**
+
+O automata seguinte é reponsável por reconhecer o comando `Estrutura condicional` em português:
+
+![Português](condition/phrase_pt-BR.png)
+
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Estrutura condicional`:
+
+1. estrutura condicional
+2. estrutura condicional se
+3. estrutura condicional se sinal
+4. estrutura condicional se se não
+5. estrutura condicional se senão [expressions]
+6. estrutura condicional se se não [expressions]
+7. estrutura condicional se [expressions]
+8. estrutura condicional [expressions]
+
+### Implementation
+
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
+
+```typescript
+async function Condition(command: ConditionParsedArgs, editor: Editor, context: Context) {
+    console.log('[Spoken]: Executing: "Condition."')
+    
+    const anything = context.templates['@anything'].examples[command?.extra?.lang as string][0]
+    
+    let { condition = anything, otherwise = f
+
+(...)
+```
+
+---
+
 ## Move cursor
 
 Moves the cursor to a different line or token
@@ -22,12 +78,12 @@ The following automata is responsible for recognizing the command `Move cursor` 
 
 The following are some examples of phrases, in english, used to trigger the command `Move cursor`:
 
-1. cursor line 42
-2. cursor symbol g
-3. cursor last symbol M
-4. pointer begin line
+1. pointer line 42
+2. cursor letter M
+3. cursor first symbol K
+4. cursor end line
 5. cursor next symbol
-6. cursor next 42 symbol
+6. cursor next 1 symbol
 
 **Português**
 
@@ -38,10 +94,10 @@ O automata seguinte é reponsável por reconhecer o comando `Mover o cursor` em 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Mover o cursor`:
 
 1. ponteiro linha 1
-2. cursor letra a
-3. ponteiro último símbolo B
-4. cursor começo linha
-5. ponteiro próximo símbolo
+2. ponteiro símbolo A
+3. cursor primeiro letra a
+4. ponteiro começo linha
+5. cursor próximo símbolo
 6. ponteiro próximo 42 letra
 
 ### Implementation
@@ -78,7 +134,7 @@ The following automata is responsible for recognizing the command `Writes a elem
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a elementar math operation`:
 
-1. expression [expressions] minus [expressions]
+1. expression [expressions] [math_operator] [expressions]
 
 **Português**
 
@@ -88,7 +144,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operaç
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operação matemática elementar`:
 
-1. expressão [expressions] vezes [expressions]
+1. expressão [expressions] [logical_operator] [expressions]
 
 ### Implementation
 
@@ -98,8 +154,8 @@ The full implementation of this command can be found on this directory under the
 async function WriteElementarMathOperation(command: WriteElementarMathOperationParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteElementarMathOperation"')
 
-    let operation = toArray(command.operation) as string[]
-    let right = toArray(command.right) as (s
+    let operation = toArray(command.operation) as { operator: string, isNegative: boolean }[]
+    let r
 
 (...)
 ```
@@ -122,7 +178,7 @@ The following automata is responsible for recognizing the command `Writes a expr
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a expression`:
 
-1. [number]
+1. [elementar_math_op]
 2. anything
 
 **Português**
@@ -171,18 +227,22 @@ The following automata is responsible for recognizing the command `Calls a funct
 
 The following are some examples of phrases, in english, used to trigger the command `Calls a function`:
 
-1. call function a
-2. call function called value
-3. call function text 42 arguments
-4. call function called temp 42 arguments
-5. call function text arguments [expressions]
-6. call function named number arguments [expressions]
-7. call function graph 1 arguments on caller [expressions]
-8. call function a arguments [expressions] on caller [expressions]
-9. call function value on caller [expressions]
-10. call function named temp 1 arguments on caller [expressions]
-11. call function named temp arguments [expressions] on caller [expressions]
-12. call function named a on caller [expressions]
+1. execute function text
+2. call function named value
+3. execute function called [multi_word_token]
+4. execute function graph 42 arguments
+5. execute function called graph 1 arguments
+6. call function called [multi_word_token] 42 arguments
+7. execute function temp arguments [expressions]
+8. call function named number arguments [expressions]
+9. execute function named [multi_word_token] arguments [expressions]
+10. execute function number 42 arguments on by [expressions]
+11. call function value 42 arguments on [expressions]
+12. execute function a arguments [expressions] called by [expressions]
+13. call function temp arguments [expressions] on [expressions]
+14. execute function number called by [expressions]
+15. execute function value on [expressions]
+16. call function named number 1 arguments called by [expressions]
 
 **Português**
 
@@ -192,39 +252,34 @@ O automata seguinte é reponsável por reconhecer o comando `Chama uma função`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Chama uma função`:
 
-1. chame função a
-2. chame função nomeada temp
-3. chamar função lista 1 argumentos
-4. chamar função nomeada numero 1 argumentos
-5. chamar função a argumentos [expressions]
-6. chame função nomeada valor argumentos [expressions]
-7. chamar função lista 42 argumentos chamada por [expressions]
-8. chamar função a 42 argumentos chamada [expressions]
-9. chamar função lista argumentos [expressions] chamada pela [expressions]
-10. chame função valor argumentos [expressions] chamada [expressions]
-11. execute função valor chamada pela [expressions]
-12. chamar função temp chamada [expressions]
-13. execute função nomeada numero 1 argumentos chamada pela [expressions]
-14. execute função nomeada temp 1 argumentos chamada [expressions]
-15. execute função chamada a argumentos [expressions] chamada por [expressions]
-16. execute função chamada numero argumentos [expressions] chamada [expressions]
+1. chamar função numero
+2. chamar função nomeada a
+3. execute função nomeada [multi_word_token]
+4. chamar função a 42 argumentos
+5. execute função nomeada texto 42 argumentos
+6. chame função nomeada [multi_word_token] 1 argumentos
+7. execute função temp argumentos [expressions]
+8. chamar função chamada texto argumentos [expressions]
+9. chamar função chamada [multi_word_token] argumentos [expressions]
+10. execute função numero 1 argumentos no por [expressions]
+11. chame função texto 42 argumentos chamada [expressions]
+12. chamar função valor argumentos [expressions] no pela [expressions]
+13. chamar função lista argumentos [expressions] na [expressions]
+14. chamar função valor no por [expressions]
+15. execute função lista na [expressions]
+16. execute função chamada numero 1 argumentos no por [expressions]
 
 ### Implementation
 
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
-async function FunctionCall(command: FunctionCallParsedArgs, editor: Editor, context: {}) {
+async function FunctionCall(command: FunctionCallParsedArgs, editor: Editor, context: Context) {
     console.log('[Spoken]: Executing: "FunctionCall"')
 
-    const text = '"' + command.string.join(' ') + '"'
+    const anything = context.templates['@anything'].examples[command?.extra?.lang as string]
 
-    if (command.parent) return text
-
-    return await editor.write(text)
-}
-
-type Functi
+    const functionName = join(command.functionNa
 
 (...)
 ```
@@ -247,12 +302,12 @@ The following automata is responsible for recognizing the command `Change line` 
 
 The following are some examples of phrases, in english, used to trigger the command `Change line`:
 
-1. go to line 42
+1. go to line 1
 2. go to line number 42
 3. go line 42
 4. go line number 1
-5. line 1
-6. line number 1
+5. line 42
+6. line number 42
 
 **Português**
 
@@ -263,13 +318,13 @@ O automata seguinte é reponsável por reconhecer o comando `Trocar linha` em po
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Trocar linha`:
 
 1. vá para linha 42
-2. vá para linha número 42
+2. vá para linha número 1
 3. vai para a linha 42
-4. vai para a linha número 42
-5. vai linha 1
+4. vai para a linha número 1
+5. vá linha 42
 6. vá linha número 1
-7. linha 42
-8. linha número 1
+7. linha 1
+8. linha número 42
 
 ### Implementation
 
@@ -288,6 +343,113 @@ type GoToLineParsedArgs = {
 
 // @ts-ignore
 return
+
+(...)
+```
+
+---
+
+## Writes a logical operator
+
+Writes a logical operator (===, !==, &&, ||, >, <, >=, <=) meant to be used inside expressions
+
+### Languages
+
+This command is available in the following languages
+
+**English**
+
+The following automata is responsible for recognizing the command `Writes a logical operator` in english:
+
+![English](logical_operator/phrase_en-US.png)
+
+The following are some examples of phrases, in english, used to trigger the command `Writes a logical operator`:
+
+1. and
+2. not and
+3. negative greater or equals than
+4. negative less than
+5. less or equals than
+6. greater than
+
+**Português**
+
+O automata seguinte é reponsável por reconhecer o comando `Escreve um operador lógico` em português:
+
+![Português](logical_operator/phrase_pt-BR.png)
+
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve um operador lógico`:
+
+1. e
+2. negativo igual
+3. negativo maior ou igual
+4. menor ou igual
+5. não menor ou igual a
+6. não menor que
+7. maior ou igual a
+8. menor que
+
+### Implementation
+
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
+
+```typescript
+async function LogicalOperator(command: LogicalOperatorParsedArgs, editor: Editor, context: {}) {
+    console.log('[Spoken]: Executing: "LogicalOperator"')
+
+    const { logicalOperator, isNegative = false, inequalityOperator, orEqual = false } = command
+
+    if (logicalOperator !== undefined) {
+
+(...)
+```
+
+---
+
+## Writes a math operator
+
+Writes a math operator (*, -, +, /) meant to be used inside expressions
+
+### Languages
+
+This command is available in the following languages
+
+**English**
+
+The following automata is responsible for recognizing the command `Writes a math operator` in english:
+
+![English](math_operator/phrase_en-US.png)
+
+The following are some examples of phrases, in english, used to trigger the command `Writes a math operator`:
+
+1. plus
+
+**Português**
+
+O automata seguinte é reponsável por reconhecer o comando `Escreve uma operador matemático` em português:
+
+![Português](math_operator/phrase_pt-BR.png)
+
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operador matemático`:
+
+1. menos
+
+### Implementation
+
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
+
+```typescript
+async function MathOperator(command: MathOperatorParsedArgs, editor: Editor, context: {}) {
+    console.log('[Spoken]: Executing: "MathOperator"')
+
+    const { mathOperator } = command
+
+    const operator = ['+', '*', '-', '/'][mathOperator] || 'error'
+
+    return { operator }
+}
+
+type Math
 
 (...)
 ```
@@ -361,9 +523,9 @@ The following are some examples of phrases, in english, used to trigger the comm
 2. create new line
 3. create line
 4. new line below
-5. line above
+5. line below
 6. create new line above
-7. create line below
+7. create line above
 
 **Português**
 
@@ -377,10 +539,10 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 2. linha nova
 3. crie nova linha
 4. crie linha
-5. nova linha abaixo
+5. nova linha acima
 6. linha nova abaixo
-7. linha abaixo
-8. crie nova linha abaixo
+7. linha acima
+8. crie nova linha acima
 9. crie linha abaixo
 
 ### Implementation
@@ -457,6 +619,56 @@ type WriteNumberParsedArgs = {
 
 ---
 
+## Run current file
+
+Run the current file in the terminal using node
+
+### Languages
+
+This command is available in the following languages
+
+**English**
+
+The following automata is responsible for recognizing the command `Run current file` in english:
+
+![English](run/phrase_en-US.png)
+
+The following are some examples of phrases, in english, used to trigger the command `Run current file`:
+
+1. run current file
+
+**Português**
+
+O automata seguinte é reponsável por reconhecer o comando `Executar arquivo` em português:
+
+![Português](run/phrase_pt-BR.png)
+
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Executar arquivo`:
+
+1. executar arquivo atual
+2. executar este arquivo
+
+### Implementation
+
+The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
+
+```typescript
+async function run(command: RunParsedArgs, editor: Editor, context: {}) {
+    console.log('[Spoken]: Executing: "run."')
+
+    const info = await editor.fileInfo() as { fileName: string }
+
+    return await editor.writeOnTerminal('node "' + info.fileName + '"')
+}
+
+type RunParsedArgs = {
+    
+
+(...)
+```
+
+---
+
 ## Select
 
 Select a piece of the text in the current line
@@ -474,12 +686,12 @@ The following automata is responsible for recognizing the command `Select` in en
 The following are some examples of phrases, in english, used to trigger the command `Select`:
 
 1. select letter g
-2. select word number
-3. select from letter M to symbol K
-4. select from letter K to 1ª K
-5. select from last letter M to symbol K
-6. select from 42ª symbol M to 42ª letter g
-7. select from line 1 to 1
+2. select word a
+3. select from letter M to M
+4. select from symbol g to fourth M
+5. select from 1ª letter K to letter K
+6. select from 1ª symbol M to 42ª letter K
+7. select from line 42 to line 42
 
 **Português**
 
@@ -489,13 +701,13 @@ O automata seguinte é reponsável por reconhecer o comando `Selecionar` em port
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Selecionar`:
 
-1. selecionar letra A
-2. selecionar palavra valor
-3. selecione da símbolo a até letra B
-4. selecione de símbolo z até 1ª símbolo z
-5. selecionar da 1ª letra A até letra B
-6. selecionar de último símbolo A até último z
-7. selecione de linha 1 até linha 42
+1. selecionar letra z
+2. selecionar palavra temp
+3. selecione de letra B até símbolo z
+4. selecionar da letra z até 42ª símbolo a
+5. selecione de 1ª símbolo B até símbolo A
+6. selecione da 42ª letra z até sétimo símbolo z
+7. selecione de linha 42 até 1
 
 ### Implementation
 
@@ -532,7 +744,7 @@ The following automata is responsible for recognizing the command `Writes a stri
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a string`:
 
-1. text string
+1. text text
 
 **Português**
 
@@ -542,7 +754,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma string`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma string`:
 
-1. text text
+1. string text
 
 ### Implementation
 
@@ -552,14 +764,11 @@ The full implementation of this command can be found on this directory under the
 async function WriteString(command: WriteStringParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteString"')
 
+    command.string = Array.isArray(command.string) ? command.string : [command.string]
+
     const text = '"' + command.string.join(' ') + '"'
 
-    if (command.parent) return text
-
-    return await editor.write(text)
-}
-
-type WriteStri
+    i
 
 (...)
 ```
@@ -582,18 +791,18 @@ The following automata is responsible for recognizing the command `Stores a valu
 
 The following are some examples of phrases, in english, used to trigger the command `Stores a value in a variable`:
 
-1. declare variable called [multi_word_token]
-2. constant named [multi_word_token]
-3. create constant named [multi_word_token] equals [expressions]
-4. declare variable named a equals [expressions]
-5. declare variable a equals [expressions]
-6. variable called [multi_word_token] equals [expressions]
-7. variable named graph equals [expressions]
-8. variable graph equals [expressions]
-9. create constant named number
-10. create variable text
-11. variable called temp
-12. variable value
+1. new variable named [multi_word_token]
+2. variable named [multi_word_token]
+3. new constant called [multi_word_token] equals [expressions]
+4. create variable named a equals [expressions]
+5. declare variable number equals [expressions]
+6. constant named [multi_word_token] equals [expressions]
+7. variable named value equals [expressions]
+8. constant number equals [expressions]
+9. new constant named graph
+10. new variable a
+11. constant called text
+12. constant graph
 
 **Português**
 
@@ -603,18 +812,18 @@ O automata seguinte é reponsável por reconhecer o comando `Guarda um valor em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Guarda um valor em uma variável`:
 
-1. crie variável chamada [multi_word_token]
-2. variável chamada [multi_word_token]
+1. nova constante chamada [multi_word_token]
+2. constante chamada [multi_word_token]
 3. declare variável chamada [multi_word_token] igual [expressions]
-4. nova constante chamada a igual [expressions]
-5. crie variável temp igual [expressions]
+4. declare variável chamada lista igual [expressions]
+5. crie constante numero igual [expressions]
 6. constante chamada [multi_word_token] igual [expressions]
-7. variável chamada a igual [expressions]
-8. constante valor igual [expressions]
-9. nova constante chamada temp
-10. nova constante valor
-11. variável chamada texto
-12. variável texto
+7. variável chamada lista igual [expressions]
+8. variável numero igual [expressions]
+9. crie constante chamada numero
+10. declare variável temp
+11. variável chamada numero
+12. constante temp
 
 ### Implementation
 
@@ -650,10 +859,10 @@ The following automata is responsible for recognizing the command `References a 
 
 The following are some examples of phrases, in english, used to trigger the command `References a variable`:
 
-1. reference constant a
-2. constant value
-3. reference constant called [multi_word_token]
-4. variable called [multi_word_token]
+1. reference constant value
+2. constant text
+3. reference variable called [multi_word_token]
+4. constant called [multi_word_token]
 
 **Português**
 
@@ -664,7 +873,7 @@ O automata seguinte é reponsável por reconhecer o comando `Referencia a uma va
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Referencia a uma variável`:
 
 1. referência constante texto
-2. variável valor
+2. variável temp
 3. refira constante chamada [multi_word_token]
 4. variável chamada [multi_word_token]
 
@@ -703,9 +912,9 @@ The following automata is responsible for recognizing the command `Write text` i
 
 The following are some examples of phrases, in english, used to trigger the command `Write text`:
 
-1. print the universe is cracked
+1. print who are you
 2. write who are you
-3. write it down who are you
+3. write it the universe is cracked
 
 **Português**
 
@@ -725,15 +934,13 @@ The full implementation of this command can be found on this directory under the
 async function write(command: WriteParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "write."')
 
-    return await editor.write(command.text?.join(' '))
+    const text = Array.isArray(command.text) ? command.text?.join(' ') : command.text
+
+    return await editor.write(text)
 }
 
 type WriteParsedArgs = {
-    text: string[]
-} & ParsedPhrase
-
-// @ts-ignore
-return write
+    text: st
 
 (...)
 ```

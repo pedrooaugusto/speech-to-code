@@ -27,15 +27,21 @@ async function Main() {
         EditorService.onStateChange((s) => console.log(s))
         EditorService.init()
         await Spoken.init()
-        await selectTest()
-        await newVariableTest()
-        await mathExpressionTest()
-        await executeFunctionTest()
+        // await selectTest()
+        // await newVariableTest()
+        // await mathExpressionTest()
+        // await executeFunctionTest()
+        await conditionTest()
     } catch(err) {
         console.log(err.toString())
     } finally {
         EditorService.stop()
     }
+}
+
+async function conditionTest() {
+    await execute('go to line 4', 'en-US')
+    await execute('estrutura condicional se se não expressão número 5 maior que número 6', 'pt-BR')
 }
 
 async function executeFunctionTest()  {
@@ -144,6 +150,14 @@ async function mathExpressionTest() {
     await execute('select from line 4 to line 8')
     await execute('write it down')
     await execute('new line')
+    await execute('new line')
+    await execute('go to line 4')
+    await execute('expression call function called* is full * or variable current greater or equal than anything')
+    await execute('go to line 5')
+    await execute('expressão variável valor maior ou igual a tudo não igual a variável final menos número 5', 'pt-BR')
+    await wait(4000)
+    await execute('select from line 4 to line 5')
+    await execute('write it down')
     await execute('new line')
 }
 

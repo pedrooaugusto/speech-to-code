@@ -11,7 +11,8 @@ export type SerializedTransition = {
         choiceIndex: number,
         store?: string,
         normalizer?: string,
-        extraArgs?: string
+        extraArgs?: string,
+        disableSpellcheck?: string
     }
 }
 
@@ -77,7 +78,7 @@ class StringTransition extends Transition<StringTransitionType> {
 
         if (text === 'λ') return { index: index, consumed: [null] }
 
-        if (compareStrings(word, text)) {
+        if (compareStrings(word, text, this.transition.options.disableSpellcheck)) {
             const { store, choiceIndex, normalizer } = this.transition.options
             const value = normalizer ? this.normalize(word, normalizer) : choiceIndex
             const path = store ? { [store]: value } : word

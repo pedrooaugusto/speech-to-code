@@ -12,7 +12,7 @@ digraph elementar_math_op {
 
     0 -> 1 [label="(expressão)"];
     1 -> 2 [label="([expressions])", store=left];
-    {2 4} -> 3 [label="(mais, vezes, menos, dividido)", store=operation, normalizer=elementarMathOperation];
+    {2 4} -> 3 [label="([math_operator], [logical_operator])", store=operation];
     3 -> 4 [label="([expressions])", store=right];
 
     title="Escreve uma operação matemática elementar";

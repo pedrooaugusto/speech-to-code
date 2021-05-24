@@ -67,6 +67,10 @@ export default class Automata {
 
         if (this.currentState.isFinal) return [this.graph, this.currentState, index]
 
+        // @ts-ignore
+        // console.log(this.currentState.path[2]?.operation)
+        // console.log(inputString[index])
+
         return null
     }
 

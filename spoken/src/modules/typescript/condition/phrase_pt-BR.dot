@@ -1,0 +1,22 @@
+digraph Condition {
+    id="condition";
+    label="Estrutura condicional";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 2 3 4 5 7;
+    node[shape=circle];
+
+    0 -> 1 [label="(estrutura)"];
+    1 -> 2 [label="(condicional)"];
+    2 -> 3 [label="(se)", disableSpellcheck="true"];
+    {2 3} -> 7 [label="([expressions])", store=condition];
+    3 -> 6 [label="(se)", disableSpellcheck="true"];
+    6 -> 4 [label="(não)", store=otherwise, normalizer=boolean, disableSpellcheck="true"]
+    3 -> 4 [label="(senão, sinal)", store=otherwise, normalizer=boolean, disableSpellcheck="true"];
+    4 -> 5 [label="([expressions])", store=condition];
+
+    title="Estrutura condicional";
+    desc="Cria uma estrutura condicional if/else";
+}

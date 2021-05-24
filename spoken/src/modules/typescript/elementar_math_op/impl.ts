@@ -1,13 +1,18 @@
 async function WriteElementarMathOperation(command: WriteElementarMathOperationParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteElementarMathOperation"')
 
-    let operation = toArray(command.operation) as string[]
+    let operation = toArray(command.operation) as { operator: string, isNegative: boolean }[]
     let right = toArray(command.right) as (string | WildCard)[]
 
     let text = toValue(command.left)
 
     for (let i = 0; i < right.length; i++) {
-        text += ' ' + operation[i] + ' ' + toValue(right[i])
+        if (operation[i].isNegative) {
+            if (operation[i].operator === '===') text += ' !== ' + toValue(right[i])
+            else text = '!(' + text + ' ' + operation[i].operator + ' ' + toValue(right[i]) + ')'
+        } else {
+            text += ' ' + operation[i].operator + ' ' + toValue(right[i])
+        }
     }
 
     if (command.parent) return text
@@ -31,7 +36,7 @@ const toArray = (arg: any | any[]) => Array.isArray(arg) ? arg : [arg]
 const toValue = (item: WildCard | string) => typeof item === 'string' ? item : item.value
 
 type WriteElementarMathOperationParsedArgs = {
-    operation: string | string[]
+    operation: { operator: string, isNegative: boolean } | { operator: string, isNegative: boolean }[]
     left: string | WildCard
     right: string | WildCard | (string | WildCard)[]
 } & ParsedPhrase

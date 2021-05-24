@@ -1,0 +1,16 @@
+digraph MathOperator {
+    id="math_operator";
+    label="Escreve um operador matemático";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    alias="true";
+    node[shape=doublecircle]; 1;
+    node[shape=circle];
+
+    0 -> 1 [label="(mais, vezes, menos, dividido)", store=mathOperator, disableSpellcheck=true];
+
+    title="Escreve uma operador matemático";
+    desc="Escreve um operador matemático (*, -, +, /) pensando para ser usado com expressões";
+}

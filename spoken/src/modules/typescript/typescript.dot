@@ -11,19 +11,23 @@ digraph TypeScript {
     node[shape=doublecircle];
 
     // START GENERATED
-    0 -> 1 [label="(cursor)"];
-    0 -> 2 [label="(elementar_math_op)"];
-    0 -> 3 [label="(expressions)"];
-    0 -> 4 [label="(function_call)"];
-    0 -> 5 [label="(go_to_line)"];
-    0 -> 6 [label="(multi_word_token)"];
-    0 -> 7 [label="(new_line)"];
-    0 -> 8 [label="(number)"];
-    0 -> 9 [label="(select)"];
-    0 -> 10 [label="(string)"];
-    0 -> 11 [label="(variable_assignment)"];
-    0 -> 12 [label="(variable_reference)"];
-    0 -> 13 [label="(write)"];
+    0 -> 1 [label="(condition)"];
+    0 -> 2 [label="(cursor)"];
+    0 -> 3 [label="(elementar_math_op)"];
+    0 -> 4 [label="(expressions)"];
+    0 -> 5 [label="(function_call)"];
+    0 -> 6 [label="(go_to_line)"];
+    0 -> 7 [label="(logical_operator)"];
+    0 -> 8 [label="(math_operator)"];
+    0 -> 9 [label="(multi_word_token)"];
+    0 -> 10 [label="(new_line)"];
+    0 -> 11 [label="(number)"];
+    0 -> 12 [label="(run)"];
+    0 -> 13 [label="(select)"];
+    0 -> 14 [label="(string)"];
+    0 -> 15 [label="(variable_assignment)"];
+    0 -> 16 [label="(variable_reference)"];
+    0 -> 17 [label="(write)"];
     // END GENERATED
 
     title="Typescript voice commands";

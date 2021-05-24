@@ -17,6 +17,11 @@ test('it can load the grammar', async () => {
     expect(s.length).not.toBe(0)
 })*/
 
+// test.only('it can search for a command given a phrase 2', async () => {
+//     let command = Spoken.recognizePhrase('expression anything not less or equal than anything', 'en-US')
+//     console.log(command?.args.operation?.args)
+// })
+
 test('it can search for a command given an id', async () => {
     const graph = Spoken.findById('variable_assignment', 'pt-BR')
     expect(graph).not.toBe(null)

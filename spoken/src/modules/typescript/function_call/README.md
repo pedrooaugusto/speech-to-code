@@ -14,18 +14,22 @@ The following automata is responsible for recognizing the command `Calls a funct
 
 The following are some examples of phrases, in english, used to trigger the command `Calls a function`:
 
-1. call function a
-2. call function called value
-3. call function text 42 arguments
-4. call function called temp 42 arguments
-5. call function text arguments [expressions]
-6. call function named number arguments [expressions]
-7. call function graph 1 arguments on caller [expressions]
-8. call function a arguments [expressions] on caller [expressions]
-9. call function value on caller [expressions]
-10. call function named temp 1 arguments on caller [expressions]
-11. call function named temp arguments [expressions] on caller [expressions]
-12. call function named a on caller [expressions]
+1. execute function text
+2. call function named value
+3. execute function called [multi_word_token]
+4. execute function graph 42 arguments
+5. execute function called graph 1 arguments
+6. call function called [multi_word_token] 42 arguments
+7. execute function temp arguments [expressions]
+8. call function named number arguments [expressions]
+9. execute function named [multi_word_token] arguments [expressions]
+10. execute function number 42 arguments on by [expressions]
+11. call function value 42 arguments on [expressions]
+12. execute function a arguments [expressions] called by [expressions]
+13. call function temp arguments [expressions] on [expressions]
+14. execute function number called by [expressions]
+15. execute function value on [expressions]
+16. call function named number 1 arguments called by [expressions]
 
 **Português**
 
@@ -35,39 +39,34 @@ O automata seguinte é reponsável por reconhecer o comando `Chama uma função`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Chama uma função`:
 
-1. chame função a
-2. chame função nomeada temp
-3. chamar função lista 1 argumentos
-4. chamar função nomeada numero 1 argumentos
-5. chamar função a argumentos [expressions]
-6. chame função nomeada valor argumentos [expressions]
-7. chamar função lista 42 argumentos chamada por [expressions]
-8. chamar função a 42 argumentos chamada [expressions]
-9. chamar função lista argumentos [expressions] chamada pela [expressions]
-10. chame função valor argumentos [expressions] chamada [expressions]
-11. execute função valor chamada pela [expressions]
-12. chamar função temp chamada [expressions]
-13. execute função nomeada numero 1 argumentos chamada pela [expressions]
-14. execute função nomeada temp 1 argumentos chamada [expressions]
-15. execute função chamada a argumentos [expressions] chamada por [expressions]
-16. execute função chamada numero argumentos [expressions] chamada [expressions]
+1. chamar função numero
+2. chamar função nomeada a
+3. execute função nomeada [multi_word_token]
+4. chamar função a 42 argumentos
+5. execute função nomeada texto 42 argumentos
+6. chame função nomeada [multi_word_token] 1 argumentos
+7. execute função temp argumentos [expressions]
+8. chamar função chamada texto argumentos [expressions]
+9. chamar função chamada [multi_word_token] argumentos [expressions]
+10. execute função numero 1 argumentos no por [expressions]
+11. chame função texto 42 argumentos chamada [expressions]
+12. chamar função valor argumentos [expressions] no pela [expressions]
+13. chamar função lista argumentos [expressions] na [expressions]
+14. chamar função valor no por [expressions]
+15. execute função lista na [expressions]
+16. execute função chamada numero 1 argumentos no por [expressions]
 
 ### Implementation
 
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
-async function FunctionCall(command: FunctionCallParsedArgs, editor: Editor, context: {}) {
+async function FunctionCall(command: FunctionCallParsedArgs, editor: Editor, context: Context) {
     console.log('[Spoken]: Executing: "FunctionCall"')
 
-    const text = '"' + command.string.join(' ') + '"'
+    const anything = context.templates['@anything'].examples[command?.extra?.lang as string]
 
-    if (command.parent) return text
-
-    return await editor.write(text)
-}
-
-type Functi
+    const functionName = join(command.functionNa
 
 (...)
 ```

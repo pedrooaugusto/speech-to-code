@@ -1,0 +1,19 @@
+digraph Run {
+    id="run";
+    label="Executar arquivo";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 3;
+    node[shape=circle];
+
+    0 -> 1 [label="(execute, executar)"];
+    1 -> 4 [label="(este)"];
+    4 -> 3 [label="(arquivo)"];
+    1 -> 2 [label="(arquivo)"];
+    2 -> 3 [label="(atual)"];
+
+    title="Executar arquivo";
+    desc="Executa o arquivo atual no terminal usando node";
+}
