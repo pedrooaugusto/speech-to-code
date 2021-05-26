@@ -30,7 +30,7 @@ export default function Header() {
                 <div className="about">
                     <div className="title">
                         Speech2Code
-                        <figure>
+                        <figure onClick={() => context.toggleDebug()}>
                             <img src="/logo48x48.png" width="25" height="25" alt="Speech2Code logo"/>
                         </figure>
                     </div>

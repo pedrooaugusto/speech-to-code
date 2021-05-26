@@ -30,10 +30,10 @@ async function createWindow(): Promise<void> {
 		require('electron').shell.openExternal(url)
 	})
 
-	// window.setMenuBarVisibility(false)
+	window.setMenuBarVisibility(false)
 
 	await Spoken.init()
-	await window.loadURL('http://localhost:3000/')
+	await window.loadURL('http://localhost:5000/')
 
 	const ret = globalShortcut.register('CommandOrControl+X', () => {
 		console.log('[wrapper.createWindow] Toggle Recording!')

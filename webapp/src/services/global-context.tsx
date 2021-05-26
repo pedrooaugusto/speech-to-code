@@ -18,6 +18,13 @@ export default function GloablContext(props: any) {
         }))
     }
 
+    const toggleDebug = () => {
+        setState((sstate) => ({
+            ...sstate,
+            __debug: !sstate.__debug
+        }))
+    }
+
     const changeLanguage = (lang: string) => setState((s) => ({...s, language: lang}))
 
     React.useEffect(() => {
@@ -42,7 +49,8 @@ export default function GloablContext(props: any) {
                 ...state,
                 changeEditor,
                 changeLanguage,
-                toggleShade
+                toggleShade,
+                toggleDebug
             }}
         >
             {state.spokenIsLoaded ? props.children : (<div>Loading...</div>)}

@@ -4,11 +4,13 @@ import IpcRenderer from '../../services/electron-ipc'
 import useAzureVoiceRecognition from '../../services/azure/use-voice-recognition'
 import { MicrophoneButton } from './MicrophoneButton'
 import { RecognitionRequest } from '../../services/use-voice-recognition'
+import { GlobalContext } from '../../services/global-context'
 
 export default function Main() {
     const [recording, setRecording] = useState(false)
 
     const { results, start, stop, analyzeSentence } = useAzureVoiceRecognition()
+    const context = React.useContext(GlobalContext)
 
     const toggleRecording = () => {
         recording ? stop() : start()
@@ -16,7 +18,7 @@ export default function Main() {
     }
 
     const analyze = () => {
-        const text = (document.querySelector('.transcription-text.input') as HTMLElement)?.innerText
+        const text = (document.querySelector('.transcription-text.input') as HTMLTextAreaElement)?.value
         setTimeout(() => analyzeSentence(text), 4000)
     }
 
@@ -32,7 +34,7 @@ export default function Main() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    console.log(results)
+    console.log(context)
 
     return (
         <main className="main">
@@ -41,11 +43,11 @@ export default function Main() {
                 toggleRecording={toggleRecording}
             />
             <TranscriptionHistory results={results as RecognitionRequest} />
-            <div className="debug">
+            {context.__debug && (<div className="debug">
                 <label>Debug:</label>
-                <div className="transcription-text input" contentEditable></div>
+                <textarea className="transcription-text input" style={{display: 'block', width: '100%'}}></textarea>
                 <button onClick={analyze}>Analyze</button>
-            </div>
+            </div>)}
         </main>
     )
 }
