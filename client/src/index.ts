@@ -30,10 +30,10 @@ async function createWindow(): Promise<void> {
 		require('electron').shell.openExternal(url)
 	})
 
-	window.setMenuBarVisibility(false)
+	//window.setMenuBarVisibility(false)
 
 	await Spoken.init()
-	await window.loadURL('http://localhost:5000/')
+	await window.loadURL('http://localhost:3000/')
 
 	const ret = globalShortcut.register('CommandOrControl+X', () => {
 		console.log('[wrapper.createWindow] Toggle Recording!')
@@ -56,6 +56,11 @@ async function createWindow(): Promise<void> {
 		if (editor) EditorService.setCurrentEditor(editor)
 
 		event.reply('Config:onChangeEditorState', EditorService.state)
+	})
+
+	ipcMain.on('VoiceRecognition:setRecording', (event, value: boolean) => {
+		window!.webContents.send('VoiceRecognition:toggleRecording', value)
+		window!.recording = value
 	})
 }
 

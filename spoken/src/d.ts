@@ -37,7 +37,8 @@ declare type SpokenModules = {
 	normalizers: Record<string, (((lang: string) => Function))>,
 	templates: Record<string, {
 		value: string,
-		examples: Record<string, string[]>
+		examples: Record<string, string[]>,
+		defaultNormalizer?: string
 	}>,
 	stopWords: Record<string, {
 		words: string[],

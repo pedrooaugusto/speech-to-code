@@ -134,13 +134,13 @@ class VSCodeEditor extends Editor {
         })
     }
 
-    findPositionOf(term: RegExp | string, line?: number): Promise<number[][] | Error> {
+    findPositionOf(term: RegExp | string, line?: number, pad?: number): Promise<number[][] | Error> {
         console.log('[client.VSCodeRobot.findPositionOf]: Sending request to execute findPositionOf(...)')
 
         return this.runTask({
             type: 'findPositionOf',
             context: {},
-            extra: { args: [term, line] }
+            extra: { args: [term, line, pad] }
         })
     }
 

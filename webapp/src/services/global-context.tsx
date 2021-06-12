@@ -1,5 +1,5 @@
 import React from 'react'
-import Spoken from 'spoken'
+import Spoken, { SpokenCommand } from 'spoken'
 import IpcRenderer from './electron-ipc'
 
 export const GlobalContext = React.createContext<any>({})
@@ -27,6 +27,15 @@ export default function GloablContext(props: any) {
 
     const changeLanguage = (lang: string) => setState((s) => ({...s, language: lang}))
 
+    const executeInternalCommand = (command: SpokenCommand) => {
+        if (command.id === '__change_lang') {
+            IpcRenderer.send('VoiceRecognition:setRecording', false)
+            // fix that, should support more languages
+            setTimeout(() => changeLanguage(command.lang === 'pt-BR' ? 'en-US' : 'pt-BR'), 1500)
+            setTimeout(() => IpcRenderer.send('VoiceRecognition:setRecording', true), 3000)
+        }
+    }
+
     React.useEffect(() => {
         Spoken.init().then(() => {
             setState((state) => ({ ...state, spokenIsLoaded: true }))
@@ -50,7 +59,8 @@ export default function GloablContext(props: any) {
                 changeEditor,
                 changeLanguage,
                 toggleShade,
-                toggleDebug
+                toggleDebug,
+                executeInternalCommand
             }}
         >
             {state.spokenIsLoaded ? props.children : (<div>Loading...</div>)}

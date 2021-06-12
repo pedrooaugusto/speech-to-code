@@ -28,11 +28,12 @@
         }
     },
     "{number}": {
-        "value": "(\\d+)",
+        "value": "^(?![\\* ]$).*",
         "examples": {
             "pt-BR": ["1", "42"],
             "en-US": ["1", "42"]
-        }
+        },
+        "defaultNormalizer": "number"
     },
     "{char}": {
         "value": "(.)",
@@ -44,8 +45,8 @@
     "@anything": {
         "value": "",
         "examples": {
-            "pt-BR": ["tudo"],
-            "en-US": ["anything"]
+            "pt-BR": ["gap"],
+            "en-US": ["gap"]
         }
     }
 }

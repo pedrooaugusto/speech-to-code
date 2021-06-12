@@ -4,7 +4,7 @@ async function FunctionCall(command: FunctionCallParsedArgs, editor: Editor, con
     const anything = context.templates['@anything'].examples[command?.extra?.lang as string]
 
     const functionName = join(command.functionName)
-    const argsNumber = command.argsNumber ? parseInt(command.argsNumber, 10) : NaN
+    const argsNumber = command.argsNumber ? parseInt(command.argsNumber, 10) : command.oneArg ? 1 : NaN
     const args = command.args ? toArray1(command.args) as (string | WildCard)[] : []
     const caller = command.caller ? toValue1(command.caller) : null
 
@@ -22,7 +22,11 @@ async function FunctionCall(command: FunctionCallParsedArgs, editor: Editor, con
 
     if (command.parent) return text
 
-    return await editor.write(text)
+    const line = await editor.getLine() as { _line: number, character: number }
+
+    await editor.write(text)
+
+    return await editor.indentSelection([line._line - 1, 0], [line._line - 1, line.character])
 }
 
 // @TODO Make TS Stop complaning about this
@@ -33,6 +37,7 @@ const join = (item: string | string[]) => typeof item === 'string' ? item : item
 type FunctionCallParsedArgs = {
     functionName: string | string[],
     argsNumber?: string,
+    oneArg?: string,
     args?: string | WildCard | (string | WildCard)[],
     caller?: string | WildCard
 } & ParsedPhrase

@@ -1,9 +1,10 @@
 async function VariableReference(command: VariableReferenceParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "VariableReference"')
 
-    let { varName, parent } = command
+    let { varName, parent, isNamespace = false } = command
 
-    varName = Array.isArray(varName) ? varName.join('') : varName
+    varName = Array.isArray(varName) ? varName : [varName]
+    varName = isNamespace ? varName.map(a => a[0].toUpperCase() + a.substr(1)).join('') : varName.join('')
 
     if (parent) return varName
 
@@ -11,7 +12,8 @@ async function VariableReference(command: VariableReferenceParsedArgs, editor: E
 }
 
 type VariableReferenceParsedArgs = {
-    varName: string | string[]
+    varName: string | string[],
+    isNamespace: boolean
 } & ParsedPhrase
 
 // @ts-ignore

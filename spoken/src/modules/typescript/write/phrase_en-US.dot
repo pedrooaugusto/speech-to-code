@@ -6,7 +6,7 @@ digraph Write {
     pad="0.2";
     disableStopWords="true";
     rankdir=LR;
-    node[shape=doublecircle]; 1;
+    node[shape=doublecircle]; 1 4 5;
     node[shape=circle];
 
     0 -> 1 [label="(print)"];
@@ -14,7 +14,9 @@ digraph Write {
     2 -> 1 [label="(down, λ)"];
     2 -> 3 [label="(it)"];
     3 -> 1 [label="(down, λ)"];
-    1 -> 1 [label="({any})", store=text];
+    1 -> 4 [label="(space)", store=isSpace, normalizer=boolean];
+    1 -> 5 [label="({any})", store=text];
+    5 -> 5 [label="({any})", store=text];
 
     title="Write text";
     desc="Write some text in the editor";

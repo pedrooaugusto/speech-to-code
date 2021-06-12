@@ -204,7 +204,7 @@ class RobotVscode implements Robot {
      * @param term {RegExp | string} What we are looking for
      * @param line {number} Which line to look for
      */
-    async findPositionOf(term: RegExp | string, line?: number): Promise<number[][] | Error> {
+    async findPositionOf(term: RegExp | string, line?: number, pad?: number): Promise<number[][] | Error> {
         const [editor, e] = this.getEditor()
 
         if (editor === null) throw e
@@ -219,7 +219,7 @@ class RobotVscode implements Robot {
             term = new RegExp(term, 'gi')
         }
 
-        return this.findAllOccurrences(line, term)
+        return this.findAllOccurrences(line, term, pad)
     }
 
     /**
@@ -263,7 +263,7 @@ class RobotVscode implements Robot {
      * 
      * @param number | undefined line number
      */
-    async getLine(number?: number): Promise<{ lineNumber: number, text: string } | Error> {
+    async getLine(number?: number): Promise<{ lineNumber: number, text: string, _text: string, _line: number, character: number } | Error> {
 
         try {
             const [editor, e] = this.getEditor()
@@ -272,8 +272,14 @@ class RobotVscode implements Robot {
 
             number = number != null ? number : editor.selection.active.line + 1
 
-            // @todo fix that and keep _.line and ._text fot backward compability 
-            return editor.document.lineAt(number)
+            const d = editor.document.lineAt(number)
+            return {
+                _line: d.lineNumber,
+                lineNumber: d.lineNumber,
+                _text: d.text,
+                text: d.text,
+                character: editor.selection.active.character
+            }
 
         } catch(err) {
             Log(err.toString())
@@ -325,6 +331,7 @@ class RobotVscode implements Robot {
      */
     async writeOnTerminal(text: string): Promise<void | Error> {
         try {
+            await vscode.window.activeTextEditor?.document.save()
             vscode.window.activeTerminal!.show()
             vscode.window.activeTerminal?.sendText(text)
 

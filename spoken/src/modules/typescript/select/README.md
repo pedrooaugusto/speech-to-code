@@ -14,13 +14,18 @@ The following automata is responsible for recognizing the command `Select` in en
 
 The following are some examples of phrases, in english, used to trigger the command `Select`:
 
-1. select letter g
-2. select word a
-3. select from letter M to M
-4. select from symbol g to fourth M
-5. select from 1ª letter K to letter K
-6. select from 1ª symbol M to 42ª letter K
-7. select from line 42 to line 42
+1. select symbol g
+2. select word value
+3. select 42ª symbol K
+4. select last word value
+5. select from letter K to M
+6. select from letter M to 42ª M
+7. select from last symbol g to K
+8. select from 42ª symbol K to 42ª letter g
+9. select from line 42 to 1
+10. select from line number 42 to 42
+11. select word [multi_word_token]
+12. select first word [multi_word_token]
 
 **Português**
 
@@ -30,13 +35,18 @@ O automata seguinte é reponsável por reconhecer o comando `Selecionar` em port
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Selecionar`:
 
-1. selecionar letra z
-2. selecionar palavra temp
-3. selecione de letra B até símbolo z
-4. selecionar da letra z até 42ª símbolo a
-5. selecione de 1ª símbolo B até símbolo A
-6. selecione da 42ª letra z até sétimo símbolo z
-7. selecione de linha 42 até 1
+1. selecione símbolo a
+2. selecione palavra texto
+3. selecionar 42ª símbolo A
+4. selecione último palavra temp
+5. selecionar de símbolo B até A
+6. selecionar da símbolo z até sétimo B
+7. selecionar de último letra a até A
+8. selecionar de último símbolo z até primeiro A
+9. selecione da linha 42 até 1
+10. selecionar de linha número 42 até 1
+11. selecione palavra [multi_word_token]
+12. selecione sétimo palavra [multi_word_token]
 
 ### Implementation
 
@@ -46,11 +56,10 @@ The full implementation of this command can be found on this directory under the
 async function Select(command: SelectParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "select"')
 
+    command.word = Array.isArray(command.word) ? command.word.join('') : command.word
+
     if (command.selectLine != undefined) {
-        return await editor.select(
-            parseInt(command.from, 10),
-            parseInt(command.to, 10),
-      
+        return await editor.select
 
 (...)
 ```

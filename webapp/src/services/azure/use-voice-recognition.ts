@@ -8,7 +8,7 @@ import { GlobalContext } from '../global-context'
 
 const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
     const [results, setResults] = useState<RecognitionRequest | null>(null)
-    const { language = 'pt-BR' } = useContext(GlobalContext)
+    const { language = 'pt-BR', executeInternalCommand } = useContext(GlobalContext)
     const recognizer = MyRecognizer.getRecognizer()
 
     useEffect(() => {
@@ -35,7 +35,10 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 
                     attempt.recognized = !!match
 
-                    if (attempt.recognized) IpcRenderer.send('Spoken:executeCommand', match)
+                    if (attempt.recognized) {
+                        if (match?.id?.startsWith('__')) executeInternalCommand(match)
+                        else IpcRenderer.send('Spoken:executeCommand', match)
+                    }
                 }
 
                 setResults(attempt)
@@ -68,7 +71,10 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 
         const fn = () => {
             setResults(attempt)
-            if (attempt.recognized) IpcRenderer.send('Spoken:executeCommand', match)
+            if (attempt.recognized) {
+                if (match?.id?.startsWith('__')) executeInternalCommand(match)
+                else IpcRenderer.send('Spoken:executeCommand', match)
+            }
         }
 
         if (timeout) setTimeout(fn, timeout)

@@ -14,22 +14,22 @@ The following automata is responsible for recognizing the command `Calls a funct
 
 The following are some examples of phrases, in english, used to trigger the command `Calls a function`:
 
-1. execute function text
-2. call function named value
-3. execute function called [multi_word_token]
-4. execute function graph 42 arguments
-5. execute function called graph 1 arguments
-6. call function called [multi_word_token] 42 arguments
-7. execute function temp arguments [expressions]
-8. call function named number arguments [expressions]
-9. execute function named [multi_word_token] arguments [expressions]
-10. execute function number 42 arguments on by [expressions]
-11. call function value 42 arguments on [expressions]
-12. execute function a arguments [expressions] called by [expressions]
-13. call function temp arguments [expressions] on [expressions]
-14. execute function number called by [expressions]
-15. execute function value on [expressions]
-16. call function named number 1 arguments called by [expressions]
+1. execute function [multi_word_token]
+2. call function number
+3. call function [multi_word_token] [expressions]
+4. execute function [multi_word_token] of [expressions]
+5. execute function text [expressions]
+6. call function value at [expressions]
+7. call function [multi_word_token] [expressions] arguments [expressions]
+8. execute function [multi_word_token] arguments [expressions]
+9. call function [multi_word_token] at [expressions] arguments [expressions]
+10. execute function number [expressions] arguments [expressions]
+11. execute function value arguments [expressions]
+12. call function temp at [expressions] arguments [expressions]
+13. execute function [multi_word_token] [expressions] 1 arguments
+14. execute function [multi_word_token] 1 arguments
+15. execute function [multi_word_token] at [expressions] 42 arguments
+16. call function temp [expressions] 1 arguments
 
 **Português**
 
@@ -39,22 +39,22 @@ O automata seguinte é reponsável por reconhecer o comando `Chama uma função`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Chama uma função`:
 
-1. chamar função numero
-2. chamar função nomeada a
-3. execute função nomeada [multi_word_token]
-4. chamar função a 42 argumentos
-5. execute função nomeada texto 42 argumentos
-6. chame função nomeada [multi_word_token] 1 argumentos
-7. execute função temp argumentos [expressions]
-8. chamar função chamada texto argumentos [expressions]
-9. chamar função chamada [multi_word_token] argumentos [expressions]
-10. execute função numero 1 argumentos no por [expressions]
-11. chame função texto 42 argumentos chamada [expressions]
-12. chamar função valor argumentos [expressions] no pela [expressions]
-13. chamar função lista argumentos [expressions] na [expressions]
-14. chamar função valor no por [expressions]
-15. execute função lista na [expressions]
-16. execute função chamada numero 1 argumentos no por [expressions]
+1. chame função [multi_word_token]
+2. execute função numero
+3. chamar função [multi_word_token] [expressions]
+4. chame função [multi_word_token] da [expressions]
+5. chamar função numero [expressions]
+6. chamar função temp na [expressions]
+7. chame função [multi_word_token] [expressions] argumentos [expressions]
+8. chame função [multi_word_token] argumentos [expressions]
+9. chame função [multi_word_token] na [expressions] argumentos [expressions]
+10. chamar função lista [expressions] argumentos [expressions]
+11. execute função temp argumentos [expressions]
+12. execute função texto na [expressions] argumentos [expressions]
+13. chamar função [multi_word_token] [expressions] 1 argumentos
+14. chame função [multi_word_token] 42 argumentos
+15. execute função [multi_word_token] na [expressions] 42 argumentos
+16. execute função valor [expressions] 42 argumentos
 
 ### Implementation
 

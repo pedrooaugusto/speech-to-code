@@ -21,4 +21,4 @@ rm -rf dist/build
 rm -rf dist/__tests__
 
 # Remove docs folder
-rm -rf dist/modules
+# rm -rf dist/modules

@@ -5,17 +5,20 @@ digraph Select {
     langName="Português";
     pad="0.2";
     rankdir=LR;
-    node[shape=doublecircle]; 3 17 10;
+    node[shape=doublecircle]; 3 17 10 20;
     node[shape=circle];
 
     0 -> 1 [label="(selecione, selecionar)"];
-    1 -> 2 [label="(letra, símbolo)"];
+    {1 18} -> 2 [label="(letra, símbolo)"];
     2 -> 3 [label="({char})", store=word];
-    1 -> 4 [label="(palavra)"];
+    {1 18} -> 4 [label="(palavra)"];
+    4 -> 20 [label="([multi_word_token])", store=word, extraArgs="{\"case\": \"camel\"}"];
     4 -> 3 [label="({term})", store=word];
     1 -> 5 [label="(de, da)"];
+    1 -> 18 [label="({ordinalNumber})", normalizer="ordinalNumber", store=wordPosition];
     5 -> 13 [label="(linha)", store=selectLine];
-    13 -> 14 [label="({number})", store=from];
+    13 -> 19 [label="(número)"];
+    {13 19} -> 14 [label="({number})", store=from];
     14 -> 15 [label="(até)"];
     15 -> 16 [label="(linha, λ)"];
     16 -> 17 [label="({number})", store=to];

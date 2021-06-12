@@ -203,15 +203,29 @@ test('it can organize the command arguments', async () => {
     })
 
     expect(
-        Spoken.recognizePhrase('nova variável bola igual a tudo por favor', 'pt-BR')!.args
+        Spoken.recognizePhrase('nova variável bola igual a gap por favor', 'pt-BR')!.args
     ).toMatchObject({
         expression: {
             id: 'expressions',
             args: {
-                wildCard: 'tudo'
+                wildCard: 'gap'
             }
         },
         isNew: true,
         varName: 'bola'
     })
+
+    expect(
+        Spoken.recognizePhrase('execute a função bola com um argumentos', 'pt-BR')!.args
+    ).toMatchObject({
+        functionName: 'bola',
+        argsNumber: '1',
+        extra: { lang: 'pt-BR' }
+    })
+
+    expect(Spoken.recognizePhrase('execute a função bola com três argumentos', 'pt-BR')!.args).toMatchObject({ argsNumber: '3'})
+
+    expect(Spoken.recognizePhrase('call function log with one argument', 'en-US')!.args).toMatchObject({ argsNumber: '1'})
+
+    expect(Spoken.recognizePhrase('go to line one', 'en-US')!.args).toMatchObject({ line: '1' })
 })

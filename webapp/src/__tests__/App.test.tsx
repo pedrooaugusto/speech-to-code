@@ -50,7 +50,10 @@ test('it does not break', async () => {
         args: {
             isNew: true,
             memType: 1,
-            varName: 'bola'
+            varName: 'bola',
+            extra: {
+                lang: 'pt-BR'
+            }
         }
     })
 

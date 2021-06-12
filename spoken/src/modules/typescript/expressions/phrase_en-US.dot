@@ -12,7 +12,7 @@ digraph expressions {
     node[shape=circle];
 
     0 -> 1 [label="([number], [string], [variable_reference], [elementar_math_op], [function_call])", store=expression];
-    0 -> 2 [label="(anything)", store=wildCard, normalizer="identity"];
+    0 -> 2 [label="(gap)", store=wildCard, normalizer="identity"];
 
     title="Writes a expression";
     desc="Writes a expression in the editor, this is meant to be used inside another automatas";

@@ -10,6 +10,8 @@ digraph VariableReference {
 
     0 -> 1 [label="(referência, refira)"];
     {1 0} -> 2 [label="(variável, constante)"];
+    {1 0} -> 6 [label="(namespace)", store=isNamespace, normalizer=boolean];
+    6 -> 2 [label="(λ)"];
     2 -> 4 [label="(chamada)"];
     2 -> 3 [label="({term})", store=varName];
     4 -> 5 [label="([multi_word_token])", store=varName, extraArgs="{\"case\": \"camel\"}"];

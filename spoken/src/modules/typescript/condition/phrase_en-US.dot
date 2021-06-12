@@ -5,14 +5,14 @@ digraph Condition {
     langName="English";
     pad="0.2";
     rankdir=LR;
-    node[shape=doublecircle]; 3 4;
+    node[shape=doublecircle]; 2 4 5;
     node[shape=circle];
 
-    0 -> 1 [label="(condition)"];
-    1 -> 2 [label="(if)"];
-    2 -> 5 [label="(else)", store=otherwise, normalizer=boolean];
-    {2 5} -> 3 [label="(statement)"];
-    {2 3} -> 4 [label="([expressions])", store=condition];
+    0 -> 1 [label="(conditional)"];
+    1 -> 2 [label="(statement)"];
+    2 -> 3 [label="(if)"];
+    3 -> 4 [label="(else)", store=otherwise, normalizer=boolean];
+    {2 3 4} -> 5 [label="([expressions])", store=condition];
 
     title="Creates a if/else statement";
     desc="Creates a if/else statement with the provided expression as condition";

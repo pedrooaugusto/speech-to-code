@@ -1,0 +1,17 @@
+digraph change_lang {
+    id="__change_lang";
+    label="Mudar linguagem de entrada";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 4;
+    node[shape=circle];
+
+    0 -> 1 [label="(troque, trocar, mude, mudar)"];
+    1 -> 2 [label="(linguagem)"];
+    2 -> 4 [label="(inglês)"];
+
+    title="Mudar linguagem de entrada";
+    desc="Mudar linguagem de entrada para inglês";
+}

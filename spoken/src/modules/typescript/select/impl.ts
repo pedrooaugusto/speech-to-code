@@ -1,6 +1,8 @@
 async function Select(command: SelectParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "select"')
 
+    command.word = Array.isArray(command.word) ? command.word.join('') : command.word
+
     if (command.selectLine != undefined) {
         return await editor.select(
             parseInt(command.from, 10),
@@ -8,9 +10,13 @@ async function Select(command: SelectParsedArgs, editor: Editor, context: {}) {
             true
         )
     } else if (command.word != undefined) {
-        const pos = await editor.findPositionOf(command.word) as number[][]
-        if (pos.length) {
-            return await editor.select(pos[0][0], pos[0][1] - 1, false)
+        const occurences = await editor.findPositionOf(command.word) as number[][]
+        let wordPosition = parseInt(command.wordPosition, 10) || 1
+
+        if (wordPosition === -1) wordPosition = occurences.length
+
+        if (occurences.length) {
+            return await editor.select(occurences[wordPosition - 1][0], occurences[wordPosition - 1][1] - 1, false)
         }
 
         throw new Error('Nothing found for string: ' + command.word)
@@ -26,21 +32,24 @@ async function Select(command: SelectParsedArgs, editor: Editor, context: {}) {
     }
 
     const matchFrom = await editor.findPositionOf(from) as number[][]
-    const matchTo = await editor.findPositionOf(to) as number[][]
+    if (fromPos === -1) fromPos = matchFrom.length
 
+    const pad = matchFrom[fromPos - 1][1] || 0
+
+    const matchTo = await editor.findPositionOf(to, undefined, pad) as number[][]
     if (toPos === -1) toPos = matchTo.length
-    else if (fromPos === -1) fromPos = matchFrom.length
 
-    return await editor.select(matchFrom[fromPos - 1][0], matchTo[toPos - 1][0], false)
+    return await editor.select(matchFrom[fromPos - 1][0], pad + matchTo[toPos - 1][0], false)
 }
 
 type SelectParsedArgs = {
-    word: string
+    word: string | string[]
     from: string
     to: string
     fromPosition: string
     toPosition: string
-    selectLine: string
+    selectLine: string,
+    wordPosition: string
 } & ParsedPhrase
 
 // @ts-ignore

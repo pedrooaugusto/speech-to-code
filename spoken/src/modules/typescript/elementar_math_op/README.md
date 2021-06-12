@@ -14,7 +14,7 @@ The following automata is responsible for recognizing the command `Writes a elem
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a elementar math operation`:
 
-1. expression [expressions] [math_operator] [expressions]
+1. expression [expressions] [logical_operator] [expressions]
 
 **Português**
 

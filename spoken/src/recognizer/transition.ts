@@ -81,6 +81,10 @@ class StringTransition extends Transition<StringTransitionType> {
         if (compareStrings(word, text, this.transition.options.disableSpellcheck)) {
             const { store, choiceIndex, normalizer } = this.transition.options
             const value = normalizer ? this.normalize(word, normalizer) : choiceIndex
+
+            // Normalizer has total control over this ?
+            if (value == null) return null
+
             const path = store ? { [store]: value } : word
 
             return { index: index + 1, consumed: [path] }
@@ -106,9 +110,10 @@ class RegexTransition extends Transition<RegexTransitionType> {
         const match = new RegExp(template.value).exec(word)
 
         if (match != null) {
-            const { store, normalizer } = this.transition.options
+            const { store, normalizer = template.defaultNormalizer } = this.transition.options
             const value = this.normalize(word, normalizer)
 
+            // Normalizer has total control over this ?
             if (value == null) return null
 
             const path = store ? { [store]: value } : value

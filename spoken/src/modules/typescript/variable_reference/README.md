@@ -14,10 +14,14 @@ The following automata is responsible for recognizing the command `References a 
 
 The following are some examples of phrases, in english, used to trigger the command `References a variable`:
 
-1. reference constant value
-2. constant text
-3. reference variable called [multi_word_token]
-4. constant called [multi_word_token]
+1. reference constant text
+2. reference namespace number
+3. constant a
+4. namespace number
+5. reference constant called [multi_word_token]
+6. reference namespace called [multi_word_token]
+7. constant called [multi_word_token]
+8. namespace called [multi_word_token]
 
 **Português**
 
@@ -27,10 +31,14 @@ O automata seguinte é reponsável por reconhecer o comando `Referencia a uma va
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Referencia a uma variável`:
 
-1. referência constante texto
-2. variável temp
-3. refira constante chamada [multi_word_token]
-4. variável chamada [multi_word_token]
+1. referência constante lista
+2. refira namespace temp
+3. variável texto
+4. namespace valor
+5. refira constante chamada [multi_word_token]
+6. refira namespace chamada [multi_word_token]
+7. variável chamada [multi_word_token]
+8. namespace chamada [multi_word_token]
 
 ### Implementation
 
@@ -40,11 +48,10 @@ The full implementation of this command can be found on this directory under the
 async function VariableReference(command: VariableReferenceParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "VariableReference"')
 
-    let { varName, parent } = command
+    let { varName, parent, isNamespace = false } = command
 
-    varName = Array.isArray(varName) ? varName.join('') : varName
-
-    if (parent) return v
+    varName = Array.isArray(varName) ? varName : [varName]
+    varName 
 
 (...)
 ```

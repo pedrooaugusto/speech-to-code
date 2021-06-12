@@ -6,12 +6,13 @@ digraph Write {
     pad="0.2";
     rankdir=LR;
     disableStopWords="true";
-    node[shape=doublecircle]; 1;
+    node[shape=doublecircle]; 1 2 3;
     node[shape=circle];
 
     0 -> 1 [label="(escreva)"];
-    1 -> 1 [label="({any})", store=text];
-
+    1 -> 3 [label="({any})", store=text];
+    1 -> 2 [label="(espaço)", store=isSpace, normalizer=boolean];
+    3 -> 3 [label="({any})", store=text];
     title="Escrever texto";
     desc="Escreve um pedaço de texto no editor de texto";
 }

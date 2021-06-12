@@ -36,7 +36,7 @@
 		"pretest": "npm run compile",
 		"lint": "eslint src --ext ts",
 		"test": "jest \"out/__tests__/(.*).test.js$\"",
-		"copy-robot": "cp ./out/robot-vscode.js /c/Users/yuram/.vscode/extensions/august.spoken-0.0.1/out/robot-vscode.js",
+		"copy-robot": "cp ./out/robot-vscode.js /c/Users/yuram/.vscode/extensions/august.spoken-0.0.2/out/robot-vscode.js",
 		"vscode-install": "bash ./tools.sh"
 	},
 	"devDependencies": {

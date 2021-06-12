@@ -69,5 +69,35 @@ return {
         return function(word, compareStr) {
             return word
         }
+    },
+
+    /**
+     * **THIS SHOULD BECOME AN AUTOMATO ITSELF**
+     * **FOR THIS TO SUPPORT RATIONAL NUMBERS IT SHOULD BE AN AUTOMATO**
+     * **PLEASE TRANSFORM THIS IN AUTOMATO**
+     * 
+     * This function takes a number in the form of
+     * 'one', 'two' or 'five' and transforms in
+     * '1', '2', ou '5'.
+     * 
+     * Transforms english/portuguese written numbers to
+     * arabic/indian numbers.
+     * 
+     * @param {*} lang
+     * @returns
+     */
+    number: function number(lang) {
+        return function(word, compareStr) {
+            const numbers = {
+                'pt-BR': ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez'],
+                'en-US': ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+            }
+
+            if (!isNaN(parseInt(word))) return parseInt(word).toString()
+
+            const val = numbers[lang].indexOf(word)
+
+            return val === -1 ? undefined : val.toString()
+        }
     }
 }

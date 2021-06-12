@@ -1,13 +1,14 @@
 async function write(command: WriteParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "write."')
 
-    const text = Array.isArray(command.text) ? command.text?.join(' ') : command.text
+    const text = command.isSpace ? ' ' : Array.isArray(command.text) ? command.text?.join(' ') : command.text
 
     return await editor.write(text)
 }
 
 type WriteParsedArgs = {
-    text: string[]
+    text: string[],
+    isSpace: boolean
 } & ParsedPhrase
 
 // @ts-ignore
