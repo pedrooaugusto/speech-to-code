@@ -5,8 +5,8 @@ async function FunctionCall(command: FunctionCallParsedArgs, editor: Editor, con
 
     const functionName = join(command.functionName)
     const argsNumber = command.argsNumber ? parseInt(command.argsNumber, 10) : command.oneArg ? 1 : NaN
-    const args = command.args ? toArray1(command.args) as (string | WildCard)[] : []
-    const caller = command.caller ? toValue1(command.caller) : null
+    const args = command.args ? toArray(command.args) as (string | WildCard)[] : []
+    const caller = command.caller ? toValue(command.caller) : null
 
     let text = functionName + '('
 
@@ -30,8 +30,8 @@ async function FunctionCall(command: FunctionCallParsedArgs, editor: Editor, con
 }
 
 // @TODO Make TS Stop complaning about this
-const toArray1 = (arg: any | any[]) => Array.isArray(arg) ? arg : [arg]
-const toValue1 = (item: WildCard | string) => typeof item === 'string' ? item : item.value
+const toArray = (arg: any | any[]) => Array.isArray(arg) ? arg : [arg]
+const toValue = (item: WildCard | string) => typeof item === 'string' ? item : item.value
 const join = (item: string | string[]) => typeof item === 'string' ? item : item.join('')
 
 type FunctionCallParsedArgs = {
@@ -42,5 +42,4 @@ type FunctionCallParsedArgs = {
     caller?: string | WildCard
 } & ParsedPhrase
 
-// @ts-ignore
-return FunctionCall
+export default FunctionCall

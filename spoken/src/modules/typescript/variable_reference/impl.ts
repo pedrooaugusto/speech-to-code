@@ -16,5 +16,4 @@ type VariableReferenceParsedArgs = {
     isNamespace: boolean
 } & ParsedPhrase
 
-// @ts-ignore
-return VariableReference
+export default VariableReference

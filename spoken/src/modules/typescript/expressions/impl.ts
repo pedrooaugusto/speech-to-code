@@ -15,5 +15,4 @@ type ExpressionParsedArgs = {
     wildCard: string
 } & ParsedPhrase
 
-// @ts-ignore
-return Expression
+export default Expression

@@ -24,8 +24,7 @@ class SpokenInterface {
 
     private async execute(command: SpokenCommand, parent?: string): Promise<[object | null, Error | null]> {
         try {
-            const fn = eval(`(() => { ${command.impl} })()`)
-            // const fn = eval(`var exports = {};\n` + command.impl)
+            const fn = eval(`var exports = {};\n` + command.impl)
             const [args, err] = await this.parseArgs(command.args, command.id)
             
             if (args == null || err != null) return [null, err]

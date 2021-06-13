@@ -8,8 +8,7 @@ Enables you to code using just your voice, this the bridge between the main Spok
 
 You do need the main spoken App to use this extension properly!
 
-<img src="https://raw
-.githubusercontent.com/pedrooaugusto/speech-to-code/main/spoken-vscode-driver/image.png" alt="Working Application" width="400"/>
+<img src="https://raw.githubusercontent.com/pedrooaugusto/speech-to-code/main/spoken-vscode-driver/image.png" alt="Working Application" width="400"/>
 
 ## Requirements
 

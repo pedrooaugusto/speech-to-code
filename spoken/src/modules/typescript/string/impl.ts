@@ -14,5 +14,4 @@ type WriteStringParsedArgs = {
     string: string | string[]
 } & ParsedPhrase
 
-// @ts-ignore
-return WriteString
+export default WriteString

@@ -11,5 +11,4 @@ type WriteParsedArgs = {
     isSpace: boolean
 } & ParsedPhrase
 
-// @ts-ignore
-return write
+export default write

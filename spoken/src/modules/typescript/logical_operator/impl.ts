@@ -24,5 +24,4 @@ type LogicalOperatorParsedArgs = {
     inequalityOperator: number
 } & ParsedPhrase
 
-// @ts-ignore
-return LogicalOperator
+export default LogicalOperator

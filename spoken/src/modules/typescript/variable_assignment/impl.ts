@@ -29,5 +29,4 @@ type NewVariableParsedArgs = {
     memType: number
 } & ParsedPhrase
 
-// @ts-ignore
-return NewVariable
+export default NewVariable

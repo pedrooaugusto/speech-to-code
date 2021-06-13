@@ -16,5 +16,4 @@ type MultiWordTokensParsedArgs = {
     words: string[]
 } & ParsedPhrase
 
-// @ts-ignore
-return MultiWordTokens
+export default MultiWordTokens

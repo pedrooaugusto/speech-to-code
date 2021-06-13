@@ -34,5 +34,4 @@ type CursorParsedArgs = {
     linePosition: LinePostionEnum
 } & ParsedPhrase
 
-// @ts-ignore
-return cursor
+export default cursor

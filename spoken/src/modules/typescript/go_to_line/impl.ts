@@ -8,5 +8,4 @@ type GoToLineParsedArgs = {
     line: number | string
 } & ParsedPhrase
 
-// @ts-ignore
-return goToLine
+export default goToLine

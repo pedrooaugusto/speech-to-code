@@ -1,6 +1,6 @@
 /**
 
-Test it out: https://omrelli.ug/nearley-playground/
+Test it out and use the grammar above: https://omrelli.ug/nearley-playground/
 
 MAIN -> ROOT _ DEF _ LEFT _ OP _ RIGHT
 _ -> " "

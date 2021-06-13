@@ -52,5 +52,4 @@ type SelectParsedArgs = {
     wordPosition: string
 } & ParsedPhrase
 
-// @ts-ignore
-return Select
+export default Select

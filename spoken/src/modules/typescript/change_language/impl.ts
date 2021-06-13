@@ -5,5 +5,4 @@ async function changeLang(command: ParsedPhrase, editor: Editor, context: {}) {
     return null
 }
 
-// @ts-ignore
-return changeLang
+export default changeLang

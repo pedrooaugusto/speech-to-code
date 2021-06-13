@@ -8,5 +8,4 @@ type NewLineParsedArgs = {
     position: PositionEnum
 } & ParsedPhrase
 
-// @ts-ignore
-return newLine
+export default newLine

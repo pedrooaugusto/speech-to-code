@@ -41,5 +41,5 @@ type WriteElementarMathOperationParsedArgs = {
     right: string | WildCard | (string | WildCard)[]
 } & ParsedPhrase
 
-// @ts-ignore
-return WriteElementarMathOperation
+
+export default WriteElementarMathOperation

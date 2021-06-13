@@ -23,5 +23,4 @@ type ConditionParsedArgs = {
     otherwise: boolean
 } & ParsedPhrase
 
-// @ts-ignore
-return Condition
+export default Condition

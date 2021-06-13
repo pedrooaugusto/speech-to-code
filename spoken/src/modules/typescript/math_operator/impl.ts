@@ -13,4 +13,4 @@ type MathOperatorParsedArgs = {
 } & ParsedPhrase
 
 // @ts-ignore
-return MathOperator
+export default MathOperator

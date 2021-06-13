@@ -10,5 +10,4 @@ type RunParsedArgs = {
     
 } & ParsedPhrase
 
-// @ts-ignore
-return run
+export default run

@@ -12,5 +12,4 @@ type WriteNumberParsedArgs = {
     number: string
 } & ParsedPhrase
 
-// @ts-ignore
-return WriteNumber
+export default WriteNumber
