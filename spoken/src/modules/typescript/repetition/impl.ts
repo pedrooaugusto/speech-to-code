@@ -1,35 +1,34 @@
 async function Repetition(command: RepetitionParsedArgs, editor: Editor, context: Context) {
     console.log('[Spoken]: Executing: "Repetition."')
     
-    const anything = context.templates['@anything'].examples[command?.extra?.lang as string][0]
+    const gap = context.templates['@anything'].examples[command?.extra?.lang as string][0]
 
-    let text = null
+    let text = `for(${gap}; ${gap}; ${gap}) {\n\n}`
 
     if (command.from == undefined && command.item == undefined) {
-        text = `for(${anything}; ${anything}; ${anything})\n{\n}`
-    } else if (command.from !== null && command.to !== null) {
-        const from = typeof command.from === 'string' ? command.from : command.from.value
-        const to = typeof command.to === 'string' ? command.to : command.to.value
+        text = `for(${gap}; ${gap}; ${gap}) {\n\n}`
+    } else if (command.from != null && command.to != null) {
+        const from = toValue(command.from)
+        const to = toValue(command.to)
+        const step = command.step ? toValue(command.step) : 'i + 1'
 
-        text = `for(${anything}; ${anything}; ${anything})\n{\n}`
+        text = `for(let i = ${from}; i < ${to}; i = ${step}) {\n\n}`
+    } else if (command.item != null && command.collection != null) {
+        const item = command.item
+        const collection = toValue(command.collection)
+
+        text = `for(const ${item} of ${collection}) {\n\n}`
     }
 
-    // let { condition = anything, otherwise = false } = command
+    const line = await editor.getLine() as { _line: number }
 
-    // condition = typeof condition === 'string' ? condition : condition?.value
+    await editor.write(text)
+    await editor.indentSelection([line._line - 3, 0], [line._line + 3, 0])
 
-    // let text2 = `if(${condition}) {\n\n}${otherwise ? ' else {\n\n}' : ''}`
-
-    // const line = await editor.getLine() as { _line: number }
-
-    // await editor.write(text2)
-    // await editor.indentSelection([line._line - 3, 0], [line._line + (otherwise ? 8 : 3), 0])
-    // await editor.goToLine(line._line as any)
-
-    return null
+    return await editor.goToLine(line._line as any)
 }
 
-const toArray = () => {}
+const toValue = (item: WildCard | string) => typeof item === 'string' ? item : item.value
 
 type RepetitionParsedArgs = {
     from: string | WildCard,

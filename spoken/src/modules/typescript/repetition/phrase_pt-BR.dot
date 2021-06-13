@@ -9,13 +9,14 @@ digraph Condition {
     node[shape=circle];
 
     0 -> 1 [label="(estrutura)"];
+    1 -> 1 [label="(de)"];
     1 -> 2 [label="(repetição)"];
     2 -> 9 [label="(para)"];
     9 -> 10 [label="(todo)"];
     10 -> 11 [label="({term})", store=item];
-    11 -> 12 [label="(de, da, em, λ)"];
+    11 -> 12 [label="(de, da, do, em, λ)"];
     12 -> 13 [label="([expressions])", store=collection];
-    2 -> 3 [label="(de)"];
+    2 -> 3 [label="(de, da, do, λ)"];
     3 -> 4 [label="([expressions])", store=from];
     4 -> 5 [label="(até)"];
     5 -> 6 [label="([expressions])", store=to];

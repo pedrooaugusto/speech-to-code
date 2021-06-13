@@ -29,7 +29,6 @@ async function FunctionCall(command: FunctionCallParsedArgs, editor: Editor, con
     return await editor.indentSelection([line._line - 1, 0], [line._line - 1, line.character])
 }
 
-// @TODO Make TS Stop complaning about this
 const toArray = (arg: any | any[]) => Array.isArray(arg) ? arg : [arg]
 const toValue = (item: WildCard | string) => typeof item === 'string' ? item : item.value
 const join = (item: string | string[]) => typeof item === 'string' ? item : item.join('')

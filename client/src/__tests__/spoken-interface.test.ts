@@ -32,11 +32,26 @@ async function Main() {
         await mathExpressionTest()
         await executeFunctionTest()
         await conditionTest()
+        await repetitionTest()
     } catch(err) {
         console.log(err.toString())
     } finally {
         EditorService.stop()
     }
+}
+
+async function repetitionTest() {
+    await execute('go to line 4', 'en-US')
+    await execute('estrutura de repetição', 'pt-BR')
+    await execute('go to line 5')
+    await execute('repetition statement for every item of variable list')
+    await execute('go to line 6')
+    await execute('estrutura de repetição do número 4 até o número 24', 'pt-BR')
+    await execute('go to line 7')
+    await execute('estrutura condicional expressão variável valor igual a número 42', 'pt-BR')
+    await wait(4000)
+    await execute('select from line 4 to line 12')
+    await execute('write it down')
 }
 
 async function conditionTest() {

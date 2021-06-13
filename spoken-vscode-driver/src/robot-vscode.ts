@@ -95,9 +95,17 @@ class RobotVscode implements Robot {
 
             vscode.commands.executeCommand('cursorMove', { to, value, by: 'line' }).then(() => {
                 vscode.commands.executeCommand('revealLine', { lineNumber: destLine, at: 'center' }).then(() => {
-                    const t = `wrappedLine${cursorPosition === 'BEGIN' ? 'First' : 'Last'}NonWhitespaceCharacter`
-                    vscode.commands.executeCommand('cursorMove', { to: t }).then(() => {
-                        res(editor.document.lineAt(destLine - 1).text)
+                    // const t = `wrappedLine${cursorPosition === 'BEGIN' ? 'First' : 'Last'}NonWhitespaceCharacter`
+                    const text = editor.document.lineAt(destLine - 1).text
+                    const index = text.length - text.trimLeft().length
+                    vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineStart'}).then(() => {
+                        if (index <= 0) {
+                            res(text)
+                        } else {
+                            vscode.commands.executeCommand('cursorMove', { to: 'right', value: index, by: 'character' }).then(() => {
+                                res(text)
+                            })
+                        }
                     })
                 })
             })
