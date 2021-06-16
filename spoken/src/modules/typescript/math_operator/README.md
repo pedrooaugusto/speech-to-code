@@ -14,7 +14,7 @@ The following automata is responsible for recognizing the command `Writes a math
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a math operator`:
 
-1. divided
+1. plus
 
 **Português**
 

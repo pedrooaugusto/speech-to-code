@@ -14,18 +14,18 @@ The following automata is responsible for recognizing the command `Select` in en
 
 The following are some examples of phrases, in english, used to trigger the command `Select`:
 
-1. select symbol g
-2. select word value
-3. select 42ª symbol K
-4. select last word value
-5. select from letter K to M
-6. select from letter M to 42ª M
-7. select from last symbol g to K
-8. select from 42ª symbol K to 42ª letter g
-9. select from line 42 to 1
-10. select from line number 42 to 42
+1. select letter g
+2. select word a
+3. select 1ª symbol K
+4. select 1ª word temp
+5. select from letter K to K
+6. select from letter g to first letter g
+7. select from last letter M to symbol M
+8. select from 42ª letter M to last symbol M
+9. select from line 42 to line 42
+10. select from line number 42 to 1
 11. select word [multi_word_token]
-12. select first word [multi_word_token]
+12. select 1ª word [multi_word_token]
 
 **Português**
 
@@ -35,18 +35,18 @@ O automata seguinte é reponsável por reconhecer o comando `Selecionar` em port
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Selecionar`:
 
-1. selecione símbolo a
-2. selecione palavra texto
-3. selecionar 42ª símbolo A
-4. selecione último palavra temp
-5. selecionar de símbolo B até A
-6. selecionar da símbolo z até sétimo B
-7. selecionar de último letra a até A
-8. selecionar de último símbolo z até primeiro A
-9. selecione da linha 42 até 1
-10. selecionar de linha número 42 até 1
-11. selecione palavra [multi_word_token]
-12. selecione sétimo palavra [multi_word_token]
+1. selecionar símbolo A
+2. selecionar palavra texto
+3. selecione último letra A
+4. selecione último palavra lista
+5. selecione de símbolo A até z
+6. selecionar da letra A até sétimo A
+7. selecionar de 1ª letra a até letra z
+8. selecione de primeiro letra A até último z
+9. selecionar de linha 42 até linha 1
+10. selecione da linha número 42 até linha 1
+11. selecionar palavra [multi_word_token]
+12. selecione último palavra [multi_word_token]
 
 ### Implementation
 

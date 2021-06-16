@@ -33,11 +33,25 @@ async function Main() {
         await executeFunctionTest()
         await conditionTest()
         await repetitionTest()
+        await newFunctionTest()
     } catch(err) {
         console.log(err.toString())
     } finally {
         EditorService.stop()
     }
+}
+
+async function newFunctionTest() {
+    await execute('go to line 4', 'en-US')
+    await execute('nova função bola com 3 argumentos retornando número 5', 'pt-BR')
+    await execute('go to line 5')
+    await wait(3000)
+    await execute('go to line 7')
+    await execute('new function ball with one arguments returning gap')
+    await wait(4000)
+    await execute('select from line 4 to line 9')
+    await execute('write it down')
+    await execute('new line')
 }
 
 async function repetitionTest() {
@@ -46,7 +60,7 @@ async function repetitionTest() {
     await execute('go to line 5')
     await execute('repetition statement for every item of variable list')
     await execute('go to line 6')
-    await execute('estrutura de repetição do número 4 até o número 24', 'pt-BR')
+    await execute('estrutura de repetição do número 4 até o número 24 etapa expressão variável i mais número 4', 'pt-BR')
     await execute('go to line 7')
     await execute('estrutura condicional expressão variável valor igual a número 42', 'pt-BR')
     await wait(4000)

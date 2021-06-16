@@ -18,9 +18,9 @@ The following are some examples of phrases, in english, used to trigger the comm
 2. create new line
 3. create line
 4. new line above
-5. line above
+5. line below
 6. create new line above
-7. create line below
+7. create line above
 
 **Português**
 
@@ -34,10 +34,10 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 2. linha nova
 3. crie nova linha
 4. crie linha
-5. nova linha abaixo
-6. linha nova acima
-7. linha abaixo
-8. crie nova linha abaixo
+5. nova linha acima
+6. linha nova abaixo
+7. linha acima
+8. crie nova linha acima
 9. crie linha acima
 
 ### Implementation
@@ -55,8 +55,7 @@ type NewLineParsedArgs = {
     position: PositionEnum
 } & ParsedPhrase
 
-// @ts-ignore
-return newLine
+export default newLine
 
 (...)
 ```

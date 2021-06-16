@@ -25,7 +25,7 @@ O automata seguinte é reponsável por reconhecer o comando `Mudar linguagem de 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Mudar linguagem de entrada`:
 
-1. mude linguagem inglês
+1. trocar linguagem inglês
 
 ### Implementation
 
@@ -39,8 +39,7 @@ async function changeLang(command: ParsedPhrase, editor: Editor, context: {}) {
     return null
 }
 
-// @ts-ignore
-return changeLang
+export default changeLang
 
 (...)
 ```
