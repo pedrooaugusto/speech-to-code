@@ -20,14 +20,12 @@ Using Speech2Code instead of using the mouse and keyboard to navigate to line 42
 
 * _select the word gap_
     * ```javascript
-        Math.max(answer, |gap|)
-        // look for the word 'gap' and select it!
+        Math.max(answer, |gap|) // look for the word 'gap' and select it!
         ```
 
 * _expression number 41 plus number one_
     * ```javascript
-        Math.max(answer, 41 + 1)
-        // the selection, word 'gap', was replaced
+        Math.max(answer, 41 + 1) // the selection, word 'gap', was replaced
         ```
 
 ### Voice Commands
