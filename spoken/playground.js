@@ -37,3 +37,8 @@ Math.max(5)
 // 8. Add copy/paste
 
 // 9. Add Switch language (v)
+
+/**
+ * escreva letras
+escreva: . [ ] ( ) ? : ,
+ */
