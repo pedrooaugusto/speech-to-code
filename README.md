@@ -13,19 +13,9 @@ Using Speech2Code instead of using the mouse and keyboard to navigate to line 42
         let answer = "john was the eggman"
         ```
 
-* _call function max with arguments variable answer and gap on namespace Math_
+* _call function max with arguments variable answer and expression gap plus number 42 on namespace Math_
     * ```javascript
-        Math.max(answer, gap)
-        ```
-
-* _select the word gap_
-    * ```javascript
-        Math.max(answer, |gap|) // look for the word 'gap' and select it!
-        ```
-
-* _expression number 41 plus number one_
-    * ```javascript
-        Math.max(answer, 41 + 1) // the selection, word 'gap', was replaced
+        Math.max(answer, gap + 42) // 'gap' can later be replaced by an actual value
         ```
 
 ### Voice Commands
