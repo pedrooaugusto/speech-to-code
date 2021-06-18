@@ -18,7 +18,11 @@
       "buildResources": "icons",
       "output": "bin"
     },
-    "publish": null
+    "publish": null,
+    "extraResources": [{
+      "from": "./src/resources/",
+      "to": "."
+    }]
   },
   "scripts": {
     "test": "npm run build-spoken && tsc && node dist/__tests__/spoken-interface.test.js",
@@ -31,12 +35,14 @@
     "Speech-to-code"
   ],
   "dependencies": {
+    "cross-spawn": "^7.0.3",
     "node-ipc": "9.1.4",
     "spoken": "file:../spoken/dist"
   },
   "devDependencies": {
-    "electron": "11.2.3",
+    "@types/cross-spawn": "^6.0.2",
     "@types/node-ipc": "9.1.3",
+    "electron": "11.2.3",
     "electron-builder": "22.10.5"
   }
 }

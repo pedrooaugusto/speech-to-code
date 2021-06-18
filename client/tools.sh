@@ -15,4 +15,8 @@ tsc
 cp ./src/editors/default/*.py ./dist/editors/default
 cp -r icons ./dist/
 
+# copy vscode extension
+mkdir dist/resources
+cp -r ./src/resources/** ./dist/resources
+
 echo "Ready to built."

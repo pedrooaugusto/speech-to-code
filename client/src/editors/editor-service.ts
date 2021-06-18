@@ -17,7 +17,11 @@ class EditorService {
         for (const editor of this.editors) {
             editor.onStatusChange(() => {
                 this.state = this.getState()
-                this.#stateChangeCallback?.(this.state)
+                try {                    
+                    this.#stateChangeCallback?.(this.state)
+                } catch (e) {
+                    // dont know
+                }
             })
         }
     }

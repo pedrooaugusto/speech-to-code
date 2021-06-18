@@ -1,8 +1,16 @@
-import { app, BrowserWindow, ipcMain, screen, globalShortcut } from 'electron'
+import { app, BrowserWindow, ipcMain, screen, globalShortcut, dialog } from 'electron'
 import Spoken from 'spoken'
 import path from 'path'
 import SpokenInterface from './spoken-interface'
 import EditorService from './editors/editor-service'
+
+declare global {
+	namespace NodeJS {
+		interface Global { appRoot: string }
+	}
+}
+
+global.appRoot = path.resolve(__dirname, 'resources')
 
 interface MyBrowserWindow extends BrowserWindow {
 	recording?: boolean
@@ -11,6 +19,26 @@ interface MyBrowserWindow extends BrowserWindow {
 let window: MyBrowserWindow | null = null
 
 async function createWindow(): Promise<void> {
+
+	const requisities = await EditorService.editors[0].checkPrerequisities()
+
+	if (requisities != null) {
+		if (requisities.error) {
+			dialog.showErrorBox('Error Locating Visual Studio Code', requisities.message)
+
+			return app.quit()
+		}
+
+		if (requisities.message != null && requisities.message != '') {
+			// @ts-ignore
+			dialog.showMessageBoxSync(null, {
+				type: 'info',
+				title: 'Required Visual Studio Code extension not found!',
+				message: requisities.message
+			})
+		}
+	}
+
 	window = new BrowserWindow({
 		width: 320,
 		height: 685,
@@ -30,7 +58,7 @@ async function createWindow(): Promise<void> {
 		require('electron').shell.openExternal(url)
 	})
 
-	//window.setMenuBarVisibility(false)
+	window.setMenuBarVisibility(false)
 
 	await Spoken.init()
 	await window.loadURL('http://localhost:3000/')
@@ -67,9 +95,11 @@ async function createWindow(): Promise<void> {
 app.whenReady().then(createWindow)
 
 app.on('window-all-closed', () => {
-	EditorService.stop()
-	globalShortcut.unregister('CommandOrControl+X')
-	// Unregister all shortcuts.
-	globalShortcut.unregisterAll()
-	app.quit()
+	setTimeout(() => {
+		EditorService.stop()
+		globalShortcut.unregister('CommandOrControl+X')
+		// Unregister all shortcuts.
+		globalShortcut.unregisterAll()
+		app.quit()
+	}, 1000)
 })

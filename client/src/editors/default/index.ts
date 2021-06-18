@@ -8,6 +8,11 @@ export abstract class Editor {
 	public getName(): string { return this.editorName }
 
 	/**
+	 * Check if this editor has everything it needs to function properly
+	 */
+	abstract checkPrerequisities(): Promise<{ message: string, error: boolean } | null>
+
+	/**
 	 * Writes something in the current text input
 	 * @param text The text to be written
 	 */
@@ -34,6 +39,17 @@ class MSNotepadEditor extends Editor {
         this.spawn = require("child_process").spawn
 		this.status = 'ON'
     }
+
+	/**
+	 * This should check if python is avaiable, since
+	 * this editor depends on python.
+	 * 
+	 */
+	async checkPrerequisities(): Promise<{ message: string, error: boolean } | null> {
+		// No error! Lets just always asume python is present!
+
+		return null
+	}
 
     private run(method: string, ...args: any[]): Promise<string | Error | undefined> {
         return new Promise((res, rej) => {

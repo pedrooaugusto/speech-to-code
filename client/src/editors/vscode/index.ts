@@ -1,5 +1,11 @@
 import { Editor } from '../default'
+import crossSpawn from  'cross-spawn'
 import * as ipc from 'node-ipc'
+import path from 'path'
+import fs from 'fs'
+
+const APP_NAME = 'speech2code'
+const VSCODE_EXT_ID = 'august.speech2code'
 
 ipc.config.id = 'speechtocodechannel-client'
 ipc.config.retry = 1500
@@ -17,6 +23,72 @@ class VSCodeEditor extends Editor {
     onStatusChange(cb: (editor: Editor) => void) { this.callback = cb }
     turnOff() { ipc.disconnect('speechtocodechannel') }
     turnOn() { this.init() }
+
+    /**
+	 * This should check if vscode is available, hence
+	 * this depends on vscode.
+	 * 
+	 */
+	async checkPrerequisities(): Promise<{ message: string, error: boolean } | null> {
+        let r = crossSpawn.sync('code', ['--version'])
+
+        if (r.error || r.stderr.toString() !== '') {
+            return {
+                message: 'VSCode does not seem to be installed. ' +
+                'Tried to run "code --version" and it failed with:\n\n' + r.stderr.toString() +
+                '\nPossible fix include installing Visual Studio Code and make sure that when ' +
+                'you open the terminal/cmd and type "code --version" everything goes well.',
+                error: true
+            }
+        }
+
+        r = crossSpawn.sync('code', ['--list-extensions'])
+
+        if (r.error || r.stderr.toString() !== '') {
+            return {
+                message: 'VSCode does not seem to be working well. ' +
+                'Tried to run "code --list-extensions" and it failed with:\n\n' + r.stderr.toString() +
+                '\nPossible fix include installing Visual Studio Code and make sure that when ' +
+                'you open the terminal/cmd and type "code --list-extensions" it lists all installed extensions.',
+                error: true
+            }
+        }
+
+        const extensions = r.stdout.toString().split('\n')
+
+        if (!extensions.find(a => a === VSCODE_EXT_ID)) {
+            const extensionPath = getExtensionPath()
+
+            if (extensionPath == null) {
+                return {
+                    message: 'Spoken, a required Visual Studio Code extension was not found and we failed to install it.\n\n' +
+                    'Extension file not found! Something is wrong with this build...',
+                    error: true
+                }
+            }
+
+            r = crossSpawn.sync('code', ['--install-extension', extensionPath])
+
+            // bruh!
+            if (r.error || !r.stderr.toString().includes('warning')) {
+                const c = 'code --install-extension ' + extensionPath
+
+                return {
+                    message: 'Failed to install Spoken, a required VSCode extension for the use of Speech2Code.\n\n' +
+                    'Tried to run "'+ c + '" and it failed with:\n\n' + r.stderr.toString() +
+                    '\nPossible fix include to manually install this extension.',
+                    error: true
+                }
+            }
+
+            return {
+                message: 'Spoken, a required Visual Studio Code extension was not found!\n\nInstalling it now!',
+                error: false
+            }
+        }
+
+		return null
+	}
 
     private init() {
         ipc.connectTo('speechtocodechannel', () => {
@@ -201,6 +273,23 @@ class VSCodeEditor extends Editor {
         })
     }
     
+}
+
+function getExtensionPath() {
+    const root = isDev() ? global.appRoot : process.resourcesPath
+    const files = fs.readdirSync(path.resolve(root))
+
+    if (!Array.isArray(files) || files?.length === 0) return null
+
+    const extensionPath = files.find(item => item.includes(APP_NAME) && item.endsWith('.vsix'))
+
+    if (extensionPath == null || extensionPath == '') return null
+
+    return path.resolve(root, extensionPath)
+}
+
+function isDev() {
+    return process?.mainModule?.filename?.indexOf?.('app.asar') === -1;
 }
 
 export default new VSCodeEditor()

@@ -1,8 +1,12 @@
 {
-	"name": "speech2code.editors.vscode",
+	"name": "speech2code",
 	"displayName": "Spoken",
 	"description": "Code With Voice - The default VSCode driver for Spoken",
 	"publisher": "august",
+	"author": {
+		"name": "Pedro Augusto Silva",
+		"email": "pedro42augusto@gmail.com"
+	},
 	"version": "0.0.2",
 	"icon": "icon.png",
 	"license": "MIT",
@@ -36,7 +40,7 @@
 		"pretest": "npm run compile",
 		"lint": "eslint src --ext ts",
 		"test": "jest \"out/__tests__/(.*).test.js$\"",
-		"copy-robot": "cp ./out/robot-vscode.js /c/Users/yuram/.vscode/extensions/august.spoken-0.0.2/out/robot-vscode.js",
+		"copy-robot": "cp ./out/robot-vscode.js /c/Users/yuram/.vscode/extensions/august.speech2code-0.0.2/out/robot-vscode.js",
 		"vscode-install": "bash ./tools.sh"
 	},
 	"devDependencies": {

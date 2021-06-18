@@ -4,7 +4,7 @@
 npm run compile
 
 # VS CODE EXTENSIONS PATH
-ext_path=/c/Users/yuram/.vscode/extensions/august.spoken-0.0.2
+ext_path=/c/Users/yuram/.vscode/extensions/august.speech2code-0.0.2
 
 # DELETE OLD FOLDER
 find $ext_path/* -maxdepth 0 -type d -not -path $ext_path"/node_modules" -exec rm -rf "{}" ";"
