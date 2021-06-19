@@ -16,8 +16,9 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
-    "typescript": "^4.2.3",
-    "spoken": "file:../spoken/dist"
+    "react-tooltip": "^4.2.21",
+    "spoken": "file:../spoken/dist",
+    "typescript": "^4.2.3"
   },
   "scripts": {
     "start": "SET PORT=5000 && react-scripts start",

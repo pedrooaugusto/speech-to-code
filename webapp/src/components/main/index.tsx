@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import IpcRenderer from '../../services/electron-ipc'
-// import { useVoiceRecognition as useGoogleVoiceRecognition } from '../../services/google/use-voice-recognition'
+import ReactTooltip from 'react-tooltip'
+import LostConnectionError  from './LostConnectionError'
 import useAzureVoiceRecognition from '../../services/azure/use-voice-recognition'
 import { MicrophoneButton } from './MicrophoneButton'
 import { RecognitionRequest } from '../../services/use-voice-recognition'
@@ -38,11 +39,17 @@ export default function Main() {
 
     return (
         <main className="main">
+            <LostConnectionError />
             <MicrophoneButton
                 recording={recording}
                 toggleRecording={toggleRecording}
+                connectedToVSCode={context.connectedToVSCode}
             />
-            <TranscriptionHistory results={results as RecognitionRequest} />
+            <TranscriptionHistory
+                results={results as RecognitionRequest}
+                language={context.language}
+                recording={recording}
+            />
             {context.__debug && (<div className="debug">
                 <label>Debug:</label>
                 <textarea className="transcription-text input" style={{display: 'block', width: '100%'}}></textarea>
@@ -54,7 +61,9 @@ export default function Main() {
 
 function TranscriptionHistory(
     props: {
-        results: RecognitionRequest
+        results: RecognitionRequest,
+        language: string,
+        recording: boolean
     }
 ) {
     const [history, setHistory] = React.useState<RecognitionRequest[]>([])
@@ -74,7 +83,25 @@ function TranscriptionHistory(
 
     return (
         <div className="transcription-history">
+            <label>
+                Dialog history:
+                <span
+                    data-tip="List of all voice commands said"
+                >
+                    <i className="fa fa-question-circle" />
+                </span>
+            </label>
             <div className="content phrases">
+                {history.length === 0 && !props.recording && (
+                    <div className="phrase final help">
+                        {i18n(props.language)('empty-command-list')()}
+                    </div>
+                )}
+                {history.length === 0 && props.recording && (
+                    <div className="phrase final help">
+                        {i18n(props.language)('say-some')()}
+                    </div>
+                )}
                 {history.map(item => {
                     return (
                         <div key={item.id} className={`phrase ${item.isFinal ? 'final' : ''} ${item.recognized ? 'recognized' : ''}`}>
@@ -84,8 +111,34 @@ function TranscriptionHistory(
                     )
                 })}
             </div>
-            {/* <label>Transcription:</label>
-            <div className="transcription-text">{props.results}</div> */}
+            <ReactTooltip multiline effect="solid" className="custom-tooltip" />
         </div>
     )
 }
+
+const texts: Record<string, Record<string, any>> = {
+    'en-US': {
+        'empty-command-list': () => (
+            <React.Fragment>
+                The microphone above is a button, click on it to start recording.<br/><br/>
+                After that, you can say a voice command and it will appear on this list.<br/><br/>
+                Experiment saying: "new constant answer equals number 42".<br/><br/>
+                The complete list of voice commands can be found on <i>Menu {'>>'} Modules</i>.
+            </React.Fragment>
+        ),
+        'say-some': () => 'Experiment saying: "new constant answer equals number 42".'
+    },
+    'pt-BR': {
+        'empty-command-list': () => (
+            <React.Fragment>
+                O microfone acima é um botão, clique nele para começar a gravação.<br/><br/>
+                Depois disso, você pode dizer um comando de voz e ele irá aparecer nessa lista.<br/><br/>
+                Experimente dizer: "nova constante valor igual a número 42".<br/><br/>
+                A lista completa de comandos de voz pode ser encontrada em <i>Menu {'>>'} Modules</i>.
+            </React.Fragment>
+        ),
+        'say-some': () => 'Experimente dizer: "nova constante valor igual a número 42".'
+    }
+}
+
+const i18n = (lang: string) => (textId: string) => texts[lang][textId]

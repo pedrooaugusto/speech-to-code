@@ -55,10 +55,12 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
     }, [language])
 
     const start = async () => {
+        console.log('start')
         recognizer.start()
     }
 
     const stop = async () => {
+        console.log('stop')
         recognizer.stop()
     }
 

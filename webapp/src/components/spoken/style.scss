@@ -102,8 +102,8 @@ main.spoken {
     }
 }
 
-#modal .command__details {
-    position: absolute;
+#modal .modal-content {
+    position: fixed;
     z-index: 5;
     left: 5%;
     width: 90%;
@@ -150,23 +150,23 @@ main.spoken {
             .label {
                 font-size: 14px;
             }
-            ul, li {
+            ul.highlight, ul.highlight li {
                 margin: 0px;
                 padding: 0px;
                 list-style: none;
             }
-            ul{
+            ul.highlight {
                 margin-top: 10px;
-            }
-            li {
-                font-size: 12px;
-                margin-bottom: 10px;
-                background: #F4F4F4;
-                min-height: 30px;
-                border-radius: 4px;
-                padding: 5px 5px;
-                display: flex;
-                align-items: center;
+                li {
+                    font-size: 12px;
+                    margin-bottom: 10px;
+                    background: #F4F4F4;
+                    min-height: 30px;
+                    border-radius: 4px;
+                    padding: 5px 5px;
+                    display: flex;
+                    align-items: center;
+                }
             }
         }
     }

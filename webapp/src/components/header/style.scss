@@ -107,12 +107,25 @@ header .menu-items .settings {
         label {
             font-size: 14px;
             margin-bottom: 10px;
+            span {
+                margin-left: 5px;
+            }
+            i {
+                font-size: 16px;
+            }
         }
 
         .input {
             font-family: 'Roboto';
             color: #1E3D58;
         }
+
+        input[type="checkbox"] {
+            margin: 0px;
+            transform: scale(1.25);
+            transform-origin: left;
+        }
+
         select.input {
             width: 125px;
             font-size: 14px;
@@ -146,5 +159,17 @@ header .brand .title {
         font-size: 24px;
         font-weight: bolder;
         font-style: normal;
+    }
+}
+
+.custom-tooltip {
+    max-width: 190px;
+    padding: 8px 12px !important;
+    opacity: 0.95 !important;
+    font-family: 'Roboto';
+
+    span, span.multi-line {
+        text-align: left;
+        font-size: 12px;
     }
 }

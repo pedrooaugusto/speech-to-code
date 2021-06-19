@@ -2,10 +2,35 @@ import React from 'react'
 import Spoken, { SpokenCommand } from 'spoken'
 import IpcRenderer from './electron-ipc'
 
-export const GlobalContext = React.createContext<any>({})
+export type MyContextType = {
+    changeEditor: (name: string) => void
+    changeLanguage: (lang: string) => any,
+    toggleShade: (value?: boolean) => void,
+    toggleDebug: () => void,
+    executeInternalCommand: (command: SpokenCommand) => void
+} & State
 
-export default function GloablContext(props: any) {
-    const [state, setState] = React.useState<Record<string, any>>({ language: 'pt-BR' })
+type State = {
+    language: string
+    shadeIsOpen: boolean
+    editorState: Record<string, any>[]
+    spokenIsLoaded: boolean
+    connectedToVSCode: boolean
+    __debug: boolean
+}
+
+// @ts-ignore
+export const GlobalContext = React.createContext<MyContextType>({})
+
+export default function GloablContext(props: { children: any }) {
+    const [state, setState] = React.useState<State>({
+        language: 'pt-BR',
+        shadeIsOpen: false,
+        __debug: false,
+        spokenIsLoaded: false,
+        connectedToVSCode: false,
+        editorState: []
+    })
 
     const changeEditor = (t: string) => {
         IpcRenderer.send('Config:changeEditor', t)
@@ -41,10 +66,15 @@ export default function GloablContext(props: any) {
             setState((state) => ({ ...state, spokenIsLoaded: true }))
         })
 
-        IpcRenderer.on('Config:onChangeEditorState', (e) => {
+        IpcRenderer.on('Config:onChangeEditorState', (editorState) => {
+            const connected = editorState?.find(({ name }: { name: string }) => name.toLowerCase() === 'vscode')?.status === 'ON'
+
+            if (!connected) IpcRenderer.send('VoiceRecognition:setRecording', false)
+
             setState((sstate) => ({
                 ...sstate,
-                editorState: e
+                editorState: editorState,
+                connectedToVSCode: connected
             }))
         })
 

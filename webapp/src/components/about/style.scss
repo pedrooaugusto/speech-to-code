@@ -1,0 +1,24 @@
+main.about {
+    font-family: 'Roboto';
+    color: #1E3D58;
+    display: flex;
+    justify-content: center;
+    .title {
+        margin-bottom: 35px;
+        margin-top: 25px;
+        h2 {
+            margin: 0px;
+            margin-bottom: 5px;
+        }
+        .sub {
+            font-size: 12px;
+        }
+    }
+    & .wrapper {
+        flex: 0.95;
+    }
+    .body {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+}

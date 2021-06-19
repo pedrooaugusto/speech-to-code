@@ -1,6 +1,7 @@
 @import "./components/header/style";
 @import "./components/main/style";
 @import "./components/spoken/style";
+@import "./components/about/style";
 
 body {
     margin: 0px;
@@ -12,7 +13,7 @@ body {
 }
 
 #modal .shade {
-    position: absolute;
+    position: fixed;
     background: #00000091;
     display: none;
     top: 0px;

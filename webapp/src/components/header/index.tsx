@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Spoken from 'spoken'
+import ReactTooltip from 'react-tooltip';
 import { GlobalContext } from '../../services/global-context'
 
 export default function Header() {
@@ -45,7 +46,14 @@ export default function Header() {
                     <div className="title">Settings</div>
                     <div className="settings-list">
                         <div className="setting">
-                            <label>Current editor:</label>
+                            <label>
+                                Current editor:
+                                <span
+                                    data-tip="Which code editor is Speech2Code controlling ? <br/><br/>Preferred option is Visual Studio Code."
+                                >
+                                    <i className="fa fa-question-circle" />
+                                </span>
+                            </label>
                             <select
                                 className="input"
                                 value={selectedEditor?.name || ''}
@@ -66,7 +74,14 @@ export default function Header() {
                             </select>
                         </div>
                         <div className="setting">
-                            <label>Input language:</label>
+                            <label>
+                                Input language:
+                                <span
+                                    data-tip="In what language are the voice commands be said ?"
+                                >
+                                    <i className="fa fa-question-circle" />
+                                </span>
+                            </label>
                             <select
                                 className="input"
                                 value={context.language || ''}
@@ -82,6 +97,22 @@ export default function Header() {
                                 )}
                             </select>
                         </div>
+                        <div className="setting">
+                            <label>
+                                Enable Debug:
+                                <span
+                                    data-tip="Displays a text box where you can write commands instead of saying it"
+                                >
+                                    <i className="fa fa-question-circle" />
+                                </span>
+                            </label>
+                            <input
+                                type="checkbox"
+                                checked={context.__debug}
+                                name="debug"
+                                onChange={() => context.toggleDebug()}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,6 +120,7 @@ export default function Header() {
             <div className="brand">
                 <div className="title"><i className="fa fa-angle-right"></i> ./speech-to-code</div>
             </div>
+            <ReactTooltip multiline effect="solid" className="custom-tooltip" />
         </header>
     )
 }

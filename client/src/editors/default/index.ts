@@ -10,7 +10,7 @@ export abstract class Editor {
 	/**
 	 * Check if this editor has everything it needs to function properly
 	 */
-	abstract checkPrerequisities(): Promise<{ message: string, error: boolean } | null>
+	abstract checkPrerequisites(): Promise<void>
 
 	/**
 	 * Writes something in the current text input
@@ -45,10 +45,8 @@ class MSNotepadEditor extends Editor {
 	 * this editor depends on python.
 	 * 
 	 */
-	async checkPrerequisities(): Promise<{ message: string, error: boolean } | null> {
+	async checkPrerequisites(): Promise<void> {
 		// No error! Lets just always asume python is present!
-
-		return null
 	}
 
     private run(method: string, ...args: any[]): Promise<string | Error | undefined> {

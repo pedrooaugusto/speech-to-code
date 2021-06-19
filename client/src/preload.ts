@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
+const appVersion = require('../package.json').version
 
 contextBridge.exposeInMainWorld(
     'ipcRenderer',
@@ -14,3 +15,7 @@ contextBridge.exposeInMainWorld(
         }
     }
 )
+
+contextBridge.exposeInMainWorld('electronShellInfo', {
+    appVersion: appVersion
+})

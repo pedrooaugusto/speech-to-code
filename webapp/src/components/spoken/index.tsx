@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import ReactDOM from 'react-dom'
+import Modal from '../Modal'
 import Spoken from 'spoken'
 import { GlobalContext } from '../../services/global-context'
 
@@ -83,8 +83,8 @@ export default function SpokenModules() {
                     })}
                 </div>
             </div>
-            {(modalInfo != null) && (<DetailsModal isOpen={context.shadeIsOpen}>
-                <div className="command__details">
+            {(modalInfo != null) && (<Modal isOpen={context.shadeIsOpen}>
+                <div className="modal-content command__details">
                     <div className="wrapper">
                         <div className="main-header">
                             <h2>{modalInfo!.command.label}</h2>
@@ -101,7 +101,7 @@ export default function SpokenModules() {
                         <div className="divider"></div>
                         <div className="body">
                             <div className="label">Phrases:</div>
-                            <ul>
+                            <ul className="highlight">
                                 {modalInfo.command.phrases.map(item => {
                                     return (
                                         <li key={item}>{item}</li>
@@ -111,17 +111,7 @@ export default function SpokenModules() {
                         </div>
                     </div>
                 </div>
-            </DetailsModal>)}
+            </Modal>)}
         </main>
     )
-}
-
-const DetailsModal = ({ isOpen, children }: { isOpen: boolean, children: React.ReactNode }) => {
-    if (!isOpen) return null
-
-    const el = document.querySelector('#modal .content')
-
-    if (!el) return null
-
-    return ReactDOM.createPortal(isOpen ? children : null, el)
 }

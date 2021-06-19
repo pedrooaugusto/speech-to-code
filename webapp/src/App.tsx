@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from './components/header'
 import Main from './components/main'
 import Modules from './components/spoken'
+import About from './components/about'
 import GloablContext, { GlobalContext as GC } from './services/global-context'
 
 export default function App(props: any) {
@@ -12,7 +13,8 @@ export default function App(props: any) {
                 <Router
                     pages={[
                         { hash: '', component: Main },
-                        { hash: '#/spoken', component: Modules }
+                        { hash: '#/spoken', component: Modules },
+                        { hash: '#/about', component: About }
                     ]}
                 />
             </div>
@@ -23,6 +25,10 @@ export default function App(props: any) {
 
 const ModalSection = () => {
     const { toggleShade, shadeIsOpen } = React.useContext(GC)
+
+    React.useEffect(() => {
+        document.body.style.overflow = shadeIsOpen ? 'hidden' : ''
+    }, [shadeIsOpen])
 
     return (
         <div id="modal">

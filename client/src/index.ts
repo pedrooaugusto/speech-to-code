@@ -20,23 +20,12 @@ let window: MyBrowserWindow | null = null
 
 async function createWindow(): Promise<void> {
 
-	const requisities = await EditorService.editors[0].checkPrerequisities()
+	try {
+		await EditorService.editors[0].checkPrerequisites()
+	} catch (error) {
+		dialog.showErrorBox('Error Locating Visual Studio Code', error.message)
 
-	if (requisities != null) {
-		if (requisities.error) {
-			dialog.showErrorBox('Error Locating Visual Studio Code', requisities.message)
-
-			return app.quit()
-		}
-
-		if (requisities.message != null && requisities.message != '') {
-			// @ts-ignore
-			dialog.showMessageBoxSync(null, {
-				type: 'info',
-				title: 'Required Visual Studio Code extension not found!',
-				message: requisities.message
-			})
-		}
+		// return app.quit()		
 	}
 
 	window = new BrowserWindow({
@@ -58,10 +47,20 @@ async function createWindow(): Promise<void> {
 		require('electron').shell.openExternal(url)
 	})
 
-	window.setMenuBarVisibility(false)
+	window.setMenuBarVisibility(isDev())
 
 	await Spoken.init()
-	await window.loadURL('http://localhost:3000/')
+
+	try {
+		await window.loadURL('http://localhost:3000/')
+	} catch(err) {
+		const errPath = path.resolve(__dirname, 'error.html')
+		console.log(err)
+		console.log('Loadin instead: ' + errPath)
+		await window.loadFile(errPath)
+
+		return
+	}
 
 	const ret = globalShortcut.register('CommandOrControl+X', () => {
 		console.log('[wrapper.createWindow] Toggle Recording!')
@@ -80,6 +79,7 @@ async function createWindow(): Promise<void> {
 	EditorService.init()
 
 	ipcMain.on('Spoken:executeCommand', SpokenInterface.onComand)
+
 	ipcMain.on('Config:changeEditor', (event, editor) => {
 		if (editor) EditorService.setCurrentEditor(editor)
 
@@ -103,3 +103,7 @@ app.on('window-all-closed', () => {
 		app.quit()
 	}, 1000)
 })
+
+function isDev() {
+    return process?.mainModule?.filename?.indexOf?.('app.asar') === -1;
+}

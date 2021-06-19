@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 export function MicrophoneButton(
     props: {
         recording: boolean
+        connectedToVSCode: boolean
         toggleRecording: () => void
     }
 ) {
@@ -62,9 +63,22 @@ export function MicrophoneButton(
         }
     }, [])
 
+    // @ts-ignore Yeah I know, I know...
+    window.recording = props.recording
+
+    const disabled = !props.connectedToVSCode
+
     return (
-        <div className={`record ${props.recording ? 'on' : 'off'}`}>
-            <div className="btn" onClick={props.toggleRecording}>
+        <div className={`record ${props.recording ? 'on' : 'off'} ${disabled ? 'error' : ''}`}>
+            <div
+                className={`btn ${disabled ? 'disabled' : ''}`}
+                onClick={disabled ? () => {} : props.toggleRecording}
+                title={
+                    disabled
+                        ? `We could not connect to Visual Studio Code!`
+                        : `Click on it to ${props.recording ? 'stop' : 'start'} recording!`
+                }
+            >
                 <i className="fa fa-microphone" />
                 <canvas id="micCanvas" width="122" height="122"></canvas>
             </div>
@@ -73,8 +87,11 @@ export function MicrophoneButton(
 }
 
 function drawCircle(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
-    ctx.fillStyle = '#3da2de'
-    ctx.strokeStyle = '#3da2de'
+    // @ts-ignore Yeah, I know...
+    const rec = window.recording
+
+    ctx.fillStyle = rec ? '#ef5350' : '#3da2de'
+    ctx.strokeStyle = rec ? '#ef5350' : '#3da2de'
     ctx.lineWidth = 2
     ctx.beginPath()
     ctx.arc(canvas.width / 2, canvas.height / 2, 60, 0, 2 * Math.PI)

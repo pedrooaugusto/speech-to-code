@@ -28,7 +28,7 @@
     "test": "npm run build-spoken && tsc && node dist/__tests__/spoken-interface.test.js",
     "start": "electron .",
     "prestart": "bash ./tools.sh",
-    "pack": "electron-builder -w zip",
+    "pack": "bash ./tools.sh && electron-builder -w zip",
     "build-spoken": "cd ../spoken && npm run build"
   },
   "keywords": [

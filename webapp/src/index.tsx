@@ -9,3 +9,10 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 )
+
+/**
+ * 1. ingles
+ * 2. help x
+ * 3. disconnect x
+ * 4. debug x
+ */

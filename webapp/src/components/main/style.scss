@@ -4,6 +4,25 @@ main.main .record {
     flex-flow: column;
     align-items: center;
     justify-content: center;
+    &.error {
+        height: 190px;
+    }
+}
+
+main.main .panel.error {
+    padding: 10px;
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: #1E3D58;
+    cursor: pointer;
+    text-align: center;
+    div {
+        padding: 10px;
+        box-shadow: 1px 1px 7px 1px #c4c4c4;
+        border-radius: 2px;
+        background: #f44336;
+        color: white;
+    }
 }
 
 main.main .record .btn {
@@ -21,6 +40,10 @@ main.main .record .btn {
         display: inline;
         position: absolute;
     }
+    &.disabled {
+        cursor: not-allowed;
+        filter: grayscale(1);
+    }
 }
 
 main.main .record .label {
@@ -28,8 +51,8 @@ main.main .record .label {
     font-size: 16px;
 }
 
-main.main .record.on .btn {
-    background: #d72121;
+main.main .record.on .btn i {
+    color: #ef5350;
 }
 
 main.main .transcription-history .content {
@@ -64,6 +87,9 @@ main.main .transcription-history .content {
                 font-size: 18px;
             }
         }
+        &.help {
+            display: block;
+        }
     }
 }
 
@@ -71,6 +97,20 @@ main.main .debug, main.main .transcription-history {
     padding-left: 10px;
     padding-right: 10px;
     margin-bottom: 15px;
+    label {
+        font-family: 'Roboto';
+        color: #1E3D58;
+        display: block;
+        font-size: 14px;
+        padding-left: 1px;
+        margin-bottom: 8px;
+        span {
+            margin-left: 5px;
+        }
+        i {
+            font-size: 16px;
+        }
+    }
 }
 
 main.main .debug label {
@@ -91,3 +131,14 @@ main.main .debug {
     }
 }
 
+#modal .modal-content.lost-connection {
+    max-height: 470px;
+    .wrapper .body ul {
+        margin-top: 10px;
+        li {
+            font-size: 14px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+    }
+}
