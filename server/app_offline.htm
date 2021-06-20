@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech2Code - Error</title>
+</head>
+<body>
+    <h1>Error 503 - Service Unavailable</h1>
+    <h2>Could not reach the servers! Maybe it is down...</h2>
+    <h4>Your Client Version is: <span id="version"></span></h4>
+    <h4>Maybe there is a new version at:<br/><br/>
+        <a href="https://github.com/pedrooaugusto/speech-to-code/releases" target="_blank">
+            https://github.com/pedrooaugusto/speech-to-code/releases
+        </a>
+    </h4>
+    <h4>More information at:
+        <a href="https://github.com/pedrooaugusto/speech-to-code/issues" target="_blank">
+            https://github.com/pedrooaugusto/speech-to-code/issues
+        </a>
+    </h4>
+</body>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+</style>
+<script type="text/javascript">
+    onload = function() {
+        document.getElementById('version').innerText = window?.electronShellInfo?.appVersion || 'error ??'
+    }
+</script>
+</html>

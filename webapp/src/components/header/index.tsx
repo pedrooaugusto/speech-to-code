@@ -113,6 +113,11 @@ export default function Header() {
                                 onChange={() => context.toggleDebug()}
                             />
                         </div>
+                        <div className="setting">
+                            <label>
+                                Client version: <b>{window.electronShellInfo?.appVersion || 'error ??'}</b>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>

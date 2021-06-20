@@ -3,16 +3,13 @@ import ReactDOM from 'react-dom'
 import './index.scss'
 import App from './App'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+declare global {
+	interface Window { electronShellInfo: any }
+}
 
-/**
- * 1. ingles
- * 2. help x
- * 3. disconnect x
- * 4. debug x
- */
+ReactDOM.render(
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>,
+	document.getElementById('root')
+)

@@ -3,14 +3,13 @@
 # BUILD FINAL ARCHIVE THAT WILL BE SEND TO AZURE
 # HERE WILL BE COMBINED: SPOKEN, WEBAPP AND SERVER
 
-# BUILD AND COPY WEBAPP TO SERVER/PUBLIC
-
 if [ -z $1 ]; then 
     mode='default'
 else
     mode=$1
 fi
 
+# BUILD FRONTEND
 if [ $mode != "fskip" ]; then
     echo "BUILDING FRONTED"
     rm -rf public/*
@@ -61,3 +60,12 @@ fs.writeFileSync(path.resolve(__dirname, "package.json"), JSON.stringify(json, n
 node cooltemp.js
 
 rm cooltemp.js
+
+# CONFIG ENVIRONMENT
+echo "CONFIG ENVIRONMENT"
+rm -rf .env.local
+
+if test -f .env.prod; then
+    rm -rf .env
+    mv .env.prod .env
+fi

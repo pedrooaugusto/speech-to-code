@@ -97,7 +97,12 @@ return {
 
             const val = numbers[lang].indexOf(word)
 
-            return val === -1 ? undefined : val.toString()
+            if (val !== -1) return val.toString()
+
+            // for some reason this is valid #42
+            if (/^(#\d+)$/.test(word)) return word.substr(1)
+
+            return undefined
         }
     }
 }

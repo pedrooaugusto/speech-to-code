@@ -11,6 +11,7 @@ digraph Number {
 
     0 -> 2 [label="(number)"];
     2 -> 3 [label="({number})", store=number];
+    0 -> 3 [label="({number})", store=number];
 
     title="Writes a number";
     desc="Writes a number in the editor";

@@ -2,7 +2,8 @@ node_modules
 dist
 .vscode-test
 bin
-.env
+.env.prod
+.env.local
 *.deploy
 server/public
 server/key.json

@@ -228,4 +228,8 @@ test('it can organize the command arguments', async () => {
     expect(Spoken.recognizePhrase('call function log with one argument', 'en-US')!.args).toMatchObject({ argsNumber: '1'})
 
     expect(Spoken.recognizePhrase('go to line one', 'en-US')!.args).toMatchObject({ line: '1' })
+
+    expect(Spoken.recognizePhrase('#45', 'en-US')!.args).toMatchObject({ number: '45' })
+    expect(Spoken.recognizePhrase('number 45', 'en-US')!.args).toMatchObject({ number: '45' })
+    expect(Spoken.recognizePhrase('number #45', 'en-US')!.args).toMatchObject({ number: '45' })
 })

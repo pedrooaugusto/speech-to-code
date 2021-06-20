@@ -1,21 +1,15 @@
-require('dotenv').config()
+configEnv()
 
 const path = require('path')
 const axios = require('axios')
 const express = require('express')
-const cors = require('cors')
 const app = express()
 const http = require('http').createServer(app)
-const SpokenRouter = require('./src/spoken/route')
+const SpokenRouter = require('./spoken/route')
 
-// IF NOT PROD:
-app.use(cors())
+require('./headers')(app)
 
-http.listen(process.env.PORT || 3000, () => {
-	console.log('[server.app] Listening on *:3000')
-})
-
-app.use(express.static(path.resolve(__dirname, 'public')))
+app.use(express.static(path.resolve(__dirname, '..', 'public')))
 
 app.use('/spoken', SpokenRouter)
 
@@ -27,7 +21,7 @@ app.get('/api/azure/token', async (req, res) => {
 	const speechRegion = process.env.REGION
 
 	if (speechKey == '' || speechKey == null) {
-		return res.status(401).send({ message: 'You do not have a valid speech key' })
+		return res.status(401).send({ message: 'ENV variables not configured!' })
 	}
 
 	const headers = { 
@@ -45,8 +39,21 @@ app.get('/api/azure/token', async (req, res) => {
 	} catch (err) {
 		console.error(err)
 
-		res.status(401).send({ message: 'There was an error authorizing your speech key.' })
+		res.status(401).send({ message: 'There was an error authorizing your azure speech to text key.' })
 	}
 
 })
+
+http.listen(process.env.PORT || 3000, () => {
+	console.log('[server.app] Listening on *:3000')
+})
+
+function configEnv() {
+	const local = require('path').resolve(__dirname, '..', '.env.local')
+	const dev = require('path').resolve(__dirname, '..', '.env')
+
+	const hasLocal = require('fs').existsSync(local)
+
+	require('dotenv').config({ path: hasLocal ? local : dev })
+}
 
