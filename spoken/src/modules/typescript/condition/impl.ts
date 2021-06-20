@@ -4,9 +4,9 @@ async function Condition(command: ConditionParsedArgs, editor: Editor, context: 
     const anything = context.templates['@anything'].examples[command?.extra?.lang as string][0]
     
     let { condition = anything, otherwise = false } = command
-
+    
     condition = typeof condition === 'string' ? condition : condition?.value
-
+    
     let text = `if(${condition}) {\n\n}${otherwise ? ' else {\n\n}' : ''}`
 
     const line = await editor.getLine() as { _line: number }

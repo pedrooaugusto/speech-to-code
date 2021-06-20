@@ -25,7 +25,7 @@ O automata seguinte é reponsável por reconhecer o comando `Executar arquivo` e
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Executar arquivo`:
 
 1. executar arquivo atual
-2. execute este arquivo
+2. executar este arquivo
 
 ### Implementation
 

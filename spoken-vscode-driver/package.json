@@ -1,11 +1,12 @@
 {
 	"name": "speech2code",
 	"displayName": "Spoken",
-	"description": "Code With Voice - The default VSCode driver for Spoken",
-	"publisher": "august",
+	"description": "Code With Voice - The default VSCode extension for Speech2Code",
+	"publisher": "pedroaugusto",
 	"author": {
 		"name": "Pedro Augusto Silva",
-		"email": "pedro42augusto@gmail.com"
+		"email": "pedro42augusto@gmail.com",
+		"url": "https://github.com/pedrooaugusto"
 	},
 	"version": "0.0.2",
 	"icon": "icon.png",
@@ -35,13 +36,13 @@
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
-		"watch": "tsc --watch -p ./",
-		"watch1": "tsc-watch  --onSuccess \"npm run copy-robot\" -p ./",
+		"watch": "tsc-watch  --onSuccess \"npm run copy-robot\" -p ./",
 		"pretest": "npm run compile",
 		"lint": "eslint src --ext ts",
 		"test": "jest \"out/__tests__/(.*).test.js$\"",
-		"copy-robot": "cp ./out/robot-vscode.js /c/Users/yuram/.vscode/extensions/august.speech2code-0.0.2/out/robot-vscode.js",
-		"vscode-install": "bash ./tools.sh"
+		"copy-robot": "cp ./out/robot-vscode.js /c/Users/yuram/.vscode/extensions/pedroaugusto.speech2code-0.0.2/out/robot-vscode.js",
+		"vscode-install": "code --install-extension speech2code-0.0.2.vsix --force",
+		"build": "vsce package"
 	},
 	"devDependencies": {
 		"@types/node": "^12.11.7",

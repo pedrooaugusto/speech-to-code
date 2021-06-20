@@ -17,28 +17,10 @@ if(media >= 7) {
 Math.max(5)
 
 // IMPORTANT TODO:
-
-// 1. Review select (v)
-// 1.1 Add multiword token (v)
-// 1.2 Add 'um' (v)
-// 1.3 Add positional word (v)
-// 1.4 Change pivot when selecting (v)
-
-// 2. Change wildcard word to 'gap' (they have in pt and en) (v)
-
-// 3. wildcard wolrd should always select last occurence!
-// 5. Run file should save it first
-
-// 6. Find away to include spaces (v)
-
-// 7. Review function call (v)
-// 7.1 Call funciton with 'one/a/um' argument (v)
-
-// 8. Add copy/paste
-
-// 9. Add Switch language (v)
-
-/**
- * escreva letras
-escreva: . [ ] ( ) ? : ,
- */
+//
+// 1. More info on extension (v)
+// 2. More info on client (v)
+// 3. Add help section
+// 4. Add button above mic informing lang and recording
+// 5. escreva: letras
+// 5. escreva: . [ ] ( ) ? : ,

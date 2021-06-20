@@ -5,8 +5,8 @@ import PhraseRecognizer from './recognizer'
 import LOG from './logger'
 
 class Spoken {
-    async init() {
-        await Modules.load()
+    async init(val?: any) {
+        await Modules.load(val)
     }
 
     get modules() {

@@ -8,8 +8,8 @@ class Modules {
         stopWords: {}
     }
 
-    async load() {
-        this.spoken = await loadModules()
+    async load(val?: SpokenModules) {
+        this.spoken = await loadModules(val)
     }
 
     findAutomataById(id: string, lang: string): (null | graphlib.Graph) {
@@ -62,10 +62,12 @@ class Modules {
     }
 }
 
-async function loadModules(): Promise<SpokenModules> {
+async function loadModules(val?: SpokenModules): Promise<SpokenModules> {
     let json: SpokenModules = { modules: [], normalizers: {}, templates: {}, stopWords: {} }
 
-    if (typeof require === 'function' && require('fs')?.readFileSync !== undefined) {
+    if (val != null) {
+        json = val // should not be allowing that!
+    } else if (typeof require === 'function' && require('fs')?.readFileSync !== undefined) {
         const fs = require('fs')
         const path = require('path')
 

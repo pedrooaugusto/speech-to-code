@@ -1,9 +1,9 @@
 {
   "name": "speech2code.client",
-  "displayName": "Speech to Code",
+  "displayName": "Speech2Code",
   "productName": "speech2code",
   "version": "0.0.1",
-  "description": "Speech to Code electron client implmentation",
+  "description": "Speech2Code main app - Enables you to code using just your voice",
   "author": {
     "email": "pedro42augusto@gmail.com",
     "name": "Pedro Augusto Silva",

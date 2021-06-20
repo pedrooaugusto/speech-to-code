@@ -1,14 +1,26 @@
 # VSCode Spoken Driver
 
-Spoken is a VSCode extension that allows you to code using just your voice.
+Spoken is a VSCode extension that together with [Speech2Code](https://github.com/pedrooaugusto/speech-to-code) allows you to code using just your voice.
 
 ## Features
 
-Enables you to code using just your voice, this the bridge between the main Spoken app and VSCode.
+Enables you to code using just your voice, this the bridge between the main Speech2Code app and VSCode.
 
-You do need the main spoken App to use this extension properly!
+You do need the main Speech2Code App to use this extension properly!
 
 <img src="https://raw.githubusercontent.com/pedrooaugusto/speech-to-code/main/spoken-vscode-driver/image.png" alt="Working Application" width="600"/>
+
+This extension is constantly listening for commands to be executed inside VSCode. This communication happens through InterProcessCommunication and the one sending requests (client) is the main Speech2Code app.
+
+
+It is possible to send requests for this extension to:
+
+1. read contents of a line
+2. change line
+3. save file
+4. write line
+
+And many many more...
 
 ## Requirements
 

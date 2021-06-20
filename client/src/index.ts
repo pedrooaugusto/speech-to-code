@@ -3,7 +3,7 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '.env') })
 import { app, BrowserWindow, ipcMain, screen, globalShortcut, dialog, session } from 'electron'
 import Spoken from 'spoken'
 import path from 'path'
-import { isDev, appVersion } from './utils'
+import { isDev, appVersion, tryAndGetGrammarFromNetwork } from './utils'
 import SpokenInterface from './spoken-interface'
 import EditorService from './editors/editor-service'
 
@@ -50,8 +50,6 @@ async function createWindow(): Promise<void> {
 		require('electron').shell.openExternal(url)
 	})
 
-	await Spoken.init()
-
 	try {
 		// Enforcing some headers required to access the api...
 		const filter = { urls: [process.env.URL_FILTER as string] }
@@ -65,6 +63,8 @@ async function createWindow(): Promise<void> {
 
 			callback({ requestHeaders: details.requestHeaders })
 		})
+
+		await Spoken.init(await tryAndGetGrammarFromNetwork(process.env.SERVICE_URL as string))
 
 		await window.loadURL(process.env.SERVICE_URL as string)
 	} catch(err) {

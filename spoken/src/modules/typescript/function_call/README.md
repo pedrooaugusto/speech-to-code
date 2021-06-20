@@ -15,21 +15,21 @@ The following automata is responsible for recognizing the command `Calls a funct
 The following are some examples of phrases, in english, used to trigger the command `Calls a function`:
 
 1. execute function [multi_word_token]
-2. execute function temp
-3. call function [multi_word_token] [expressions]
-4. call function [multi_word_token] on [expressions]
-5. execute function temp [expressions]
-6. call function a on [expressions]
-7. execute function [multi_word_token] [expressions] arguments [expressions]
-8. execute function [multi_word_token] arguments [expressions]
-9. execute function [multi_word_token] of [expressions] arguments [expressions]
+2. execute function graph
+3. execute function [multi_word_token] [expressions]
+4. execute function [multi_word_token] of [expressions]
+5. call function number [expressions]
+6. execute function number of [expressions]
+7. call function [multi_word_token] [expressions] arguments [expressions]
+8. call function [multi_word_token] arguments [expressions]
+9. call function [multi_word_token] of [expressions] arguments [expressions]
 10. call function graph [expressions] arguments [expressions]
-11. execute function graph arguments [expressions]
-12. execute function value on [expressions] arguments [expressions]
+11. call function value arguments [expressions]
+12. call function number of [expressions] arguments [expressions]
 13. call function [multi_word_token] [expressions] 1 arguments
-14. call function [multi_word_token] 42 arguments
-15. call function [multi_word_token] of [expressions] 42 arguments
-16. execute function graph [expressions] 1 arguments
+14. execute function [multi_word_token] 42 arguments
+15. call function [multi_word_token] at [expressions] 1 arguments
+16. execute function value [expressions] 42 arguments
 
 **Português**
 
@@ -39,22 +39,22 @@ O automata seguinte é reponsável por reconhecer o comando `Chama uma função`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Chama uma função`:
 
-1. execute função [multi_word_token]
-2. chamar função temp
+1. chamar função [multi_word_token]
+2. chame função a
 3. chamar função [multi_word_token] [expressions]
 4. execute função [multi_word_token] na [expressions]
-5. execute função lista [expressions]
-6. chamar função numero na [expressions]
+5. chame função numero [expressions]
+6. chamar função lista da [expressions]
 7. chamar função [multi_word_token] [expressions] argumentos [expressions]
-8. chamar função [multi_word_token] argumentos [expressions]
-9. execute função [multi_word_token] da [expressions] argumentos [expressions]
-10. execute função lista [expressions] argumentos [expressions]
-11. chame função valor argumentos [expressions]
-12. chamar função temp na [expressions] argumentos [expressions]
-13. chamar função [multi_word_token] [expressions] 42 argumentos
-14. chamar função [multi_word_token] 42 argumentos
-15. chame função [multi_word_token] da [expressions] 1 argumentos
-16. chamar função lista [expressions] 1 argumentos
+8. chame função [multi_word_token] argumentos [expressions]
+9. chame função [multi_word_token] na [expressions] argumentos [expressions]
+10. execute função temp [expressions] argumentos [expressions]
+11. chame função a argumentos [expressions]
+12. execute função texto da [expressions] argumentos [expressions]
+13. chamar função [multi_word_token] [expressions] 1 argumentos
+14. chame função [multi_word_token] 42 argumentos
+15. execute função [multi_word_token] na [expressions] 42 argumentos
+16. chamar função texto [expressions] 1 argumentos
 
 ### Implementation
 

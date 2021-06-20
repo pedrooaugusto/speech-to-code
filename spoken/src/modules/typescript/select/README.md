@@ -14,18 +14,18 @@ The following automata is responsible for recognizing the command `Select` in en
 
 The following are some examples of phrases, in english, used to trigger the command `Select`:
 
-1. select letter K
+1. select letter M
 2. select word temp
-3. select fourth letter K
-4. select fourth word graph
-5. select from symbol g to symbol g
-6. select from symbol g to 42ª letter g
-7. select from 42ª letter K to M
-8. select from 1ª symbol g to fourth symbol M
-9. select from line 42 to line 42
-10. select from line number 1 to line 1
+3. select fourth letter M
+4. select 42ª word a
+5. select from letter M to g
+6. select from symbol g to last symbol K
+7. select from fourth letter M to letter M
+8. select from last letter g to first letter g
+9. select from line 1 to line 42
+10. select from line number 42 to line 42
 11. select word [multi_word_token]
-12. select last word [multi_word_token]
+12. select first word [multi_word_token]
 
 **Português**
 
@@ -35,18 +35,18 @@ O automata seguinte é reponsável por reconhecer o comando `Selecionar` em port
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Selecionar`:
 
-1. selecione símbolo a
-2. selecionar palavra a
-3. selecionar último letra B
-4. selecionar primeiro palavra lista
-5. selecione da letra B até letra a
-6. selecionar da símbolo B até 42ª letra z
-7. selecionar de último letra B até letra A
-8. selecione de 1ª letra a até 42ª símbolo z
-9. selecione de linha 42 até 1
-10. selecionar da linha número 42 até linha 1
+1. selecionar símbolo A
+2. selecionar palavra numero
+3. selecione 42ª símbolo a
+4. selecione sétimo palavra a
+5. selecione de letra a até a
+6. selecione de símbolo B até sétimo letra a
+7. selecione de sétimo letra a até símbolo z
+8. selecionar da 1ª letra z até sétimo símbolo B
+9. selecionar da linha 42 até linha 42
+10. selecionar de linha número 1 até 1
 11. selecionar palavra [multi_word_token]
-12. selecione primeiro palavra [multi_word_token]
+12. selecione 42ª palavra [multi_word_token]
 
 ### Implementation
 

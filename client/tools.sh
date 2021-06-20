@@ -26,6 +26,9 @@ cp -r ./src/resources/** ./dist/resources
 # copy html
 cp ./src/*.html ./dist
 
+# build spoken
+cd ../spoken && npm run build && cd ../client
+
 # fixing environment
 
 if [ -z $1 ]; then 
