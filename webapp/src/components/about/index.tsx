@@ -33,7 +33,7 @@ export default function About() {
 const ThesisLink = (props: { children: any }) => (
     <a
         rel="noreferrer"
-        href="https://github.com/pedrooaugusto/speech-to-code/blob/main/README.md"
+        href="https://pedrooaugusto.github.io/Programming With Voice - Assistive Technology Tool For Programming In JavaScript Using Voice - Pedro Silva.pdf"
         target="_blank"
     >
         {props.children}
