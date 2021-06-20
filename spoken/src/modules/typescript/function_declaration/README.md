@@ -14,10 +14,10 @@ The following automata is responsible for recognizing the command `Creates a fun
 
 The following are some examples of phrases, in english, used to trigger the command `Creates a function`:
 
-1. declare function number
-2. declare function a 42 arguments
-3. new function a 1 arguments return [expressions]
-4. declare function graph return [expressions]
+1. declare function value
+2. new function temp 1 arguments
+3. declare function graph 1 arguments return [expressions]
+4. new function value returning [expressions]
 
 **Português**
 
@@ -27,10 +27,10 @@ O automata seguinte é reponsável por reconhecer o comando `Cria uma função` 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Cria uma função`:
 
-1. nova função temp
-2. nova função a 1 argumentos
-3. crie função valor 42 argumentos retornando [expressions]
-4. crie função a retornando [expressions]
+1. declare função numero
+2. nova função texto 42 argumentos
+3. crie função a 42 argumentos retornando [expressions]
+4. declare função numero retorna [expressions]
 
 ### Implementation
 

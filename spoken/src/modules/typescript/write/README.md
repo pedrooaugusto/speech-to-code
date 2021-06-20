@@ -15,14 +15,14 @@ The following automata is responsible for recognizing the command `Write text` i
 The following are some examples of phrases, in english, used to trigger the command `Write text`:
 
 1. print
-2. write down
-3. write it down
+2. write
+3. write it
 4. print space
 5. write down space
-6. write it space
+6. write it down space
 7. print who are you who are you
 8. write down the universe is cracked who are you
-9. write it the universe is cracked who are you
+9. write it who are you who are you
 
 **Português**
 

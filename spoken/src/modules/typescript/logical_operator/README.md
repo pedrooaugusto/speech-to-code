@@ -15,11 +15,11 @@ The following automata is responsible for recognizing the command `Writes a logi
 The following are some examples of phrases, in english, used to trigger the command `Writes a logical operator`:
 
 1. and
-2. not or
-3. negative greater equals than
-4. negative greater than
-5. less or equals than
-6. greater than
+2. not and
+3. negative less equals than
+4. negative less than
+5. greater or equals than
+6. less than
 
 **Português**
 
@@ -29,11 +29,11 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve um operador
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve um operador lógico`:
 
-1. e
-2. negativo igual
+1. ou
+2. negativo e
 3. negativo maior ou igual
-4. maior ou igual
-5. não menor ou igual a
+4. menor ou igual
+5. negativo maior ou igual a
 6. negativo maior que
 7. maior ou igual a
 8. menor que

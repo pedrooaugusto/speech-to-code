@@ -14,18 +14,18 @@ The following automata is responsible for recognizing the command `Select` in en
 
 The following are some examples of phrases, in english, used to trigger the command `Select`:
 
-1. select letter g
-2. select word a
-3. select 1ª symbol K
-4. select 1ª word temp
-5. select from letter K to K
-6. select from letter g to first letter g
-7. select from last letter M to symbol M
-8. select from 42ª letter M to last symbol M
+1. select letter K
+2. select word temp
+3. select fourth letter K
+4. select fourth word graph
+5. select from symbol g to symbol g
+6. select from symbol g to 42ª letter g
+7. select from 42ª letter K to M
+8. select from 1ª symbol g to fourth symbol M
 9. select from line 42 to line 42
-10. select from line number 42 to 1
+10. select from line number 1 to line 1
 11. select word [multi_word_token]
-12. select 1ª word [multi_word_token]
+12. select last word [multi_word_token]
 
 **Português**
 
@@ -35,18 +35,18 @@ O automata seguinte é reponsável por reconhecer o comando `Selecionar` em port
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Selecionar`:
 
-1. selecionar símbolo A
-2. selecionar palavra texto
-3. selecione último letra A
-4. selecione último palavra lista
-5. selecione de símbolo A até z
-6. selecionar da letra A até sétimo A
-7. selecionar de 1ª letra a até letra z
-8. selecione de primeiro letra A até último z
-9. selecionar de linha 42 até linha 1
-10. selecione da linha número 42 até linha 1
+1. selecione símbolo a
+2. selecionar palavra a
+3. selecionar último letra B
+4. selecionar primeiro palavra lista
+5. selecione da letra B até letra a
+6. selecionar da símbolo B até 42ª letra z
+7. selecionar de último letra B até letra A
+8. selecione de 1ª letra a até 42ª símbolo z
+9. selecione de linha 42 até 1
+10. selecionar da linha número 42 até linha 1
 11. selecionar palavra [multi_word_token]
-12. selecione último palavra [multi_word_token]
+12. selecione primeiro palavra [multi_word_token]
 
 ### Implementation
 

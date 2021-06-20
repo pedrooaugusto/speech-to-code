@@ -16,14 +16,14 @@ export default class MyRecognizer {
     }
 
     async init(lang: string) {
-        // THIS IS BAD!
-        // https://github.com/Azure-Samples/AzureSpeechReactSample
-        // https://github.com/Azure-Samples/cognitive-services-speech-sdk/blob/master/quickstart/javascript/browser/from-microphone/index.html
+        const authConfig = await getAuthToken()
 
-        const res = await fetch('/azure/token')
-        const { key } = await res.json()
+        if (authConfig == null) {
+            // @ts-ignore
+            return this.handlers.has('error') && this.handlers.get('error')()
+        }
 
-        this.speechConfig = SpeechSDK.SpeechConfig.fromSubscription(key, 'brazilsouth')
+        this.speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(authConfig.token, authConfig.region)
         this.speechConfig.speechRecognitionLanguage = lang
         this.speechConfig.setServiceProperty('punctuation', 'explicit', SpeechSDK.ServicePropertyChannel.UriQueryParameter)
         this.audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput()
@@ -79,6 +79,16 @@ export default class MyRecognizer {
 
         return this
     }
+}
+
+async function getAuthToken() {
+    try {
+        const res = await fetch('/api/azure/token')
+
+        return await res.json()
+    } catch(e) {
+        return null
+    } 
 }
 
 function throttle<T extends CallableFunction>(fn: T, time: number) {

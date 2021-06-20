@@ -52,7 +52,7 @@ async function createWindow(): Promise<void> {
 	await Spoken.init()
 
 	try {
-		await window.loadURL('http://localhost:3000/')
+		await window.loadURL('https://speech2code.azurewebsites.net')
 	} catch(err) {
 		const errPath = path.resolve(__dirname, 'error.html')
 		console.log(err)

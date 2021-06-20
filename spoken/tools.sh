@@ -12,7 +12,12 @@ rm -rf dist/*
 tsc
 
 # Run actual build script
-node dist/build/build.js
+if [ $1 = "build-docs" ]
+then
+    node src/build/build-docs.js
+else
+    node dist/build/build.js
+fi
 
 # Remove build script from final bundle
 rm -rf dist/build
@@ -21,4 +26,4 @@ rm -rf dist/build
 rm -rf dist/__tests__
 
 # Remove docs folder
-# rm -rf dist/modules
+rm -rf dist/modules

@@ -17,7 +17,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 1. repetition statement
 2. repetition statement from [expressions] to [expressions]
 3. repetition statement from [expressions] to [expressions] step [expressions]
-4. repetition statement for every graph of [expressions]
+4. repetition statement for every number [expressions]
 
 **Português**
 
@@ -29,8 +29,8 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 
 1. estrutura repetição
 2. estrutura repetição de [expressions] até [expressions]
-3. estrutura repetição [expressions] até [expressions] etapa [expressions]
-4. estrutura repetição para todo lista de [expressions]
+3. estrutura repetição do [expressions] até [expressions] etapa [expressions]
+4. estrutura repetição para todo lista da [expressions]
 
 ### Implementation
 

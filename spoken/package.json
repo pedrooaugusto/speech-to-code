@@ -6,8 +6,8 @@
   "scripts": {
     "test": "tsc && jest \"dist/__tests__/(.*).test.js$\"",
     "test-only": "tsc && jest",
-    "build": "bash ./tools.sh",
-    "build-docs": "node src/build/build-docs.js"
+    "build": "bash ./tools.sh build",
+    "build-docs": "bash ./tools.sh build-docs"
   },
   "keywords": [
     "Speech-to-code"
