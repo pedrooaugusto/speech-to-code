@@ -1,6 +1,9 @@
-import { app, BrowserWindow, ipcMain, screen, globalShortcut, dialog } from 'electron'
+require('dotenv').config({ path: require('path').resolve(__dirname, '.env') })
+
+import { app, BrowserWindow, ipcMain, screen, globalShortcut, dialog, session } from 'electron'
 import Spoken from 'spoken'
 import path from 'path'
+import { isDev, appVersion } from './utils'
 import SpokenInterface from './spoken-interface'
 import EditorService from './editors/editor-service'
 
@@ -10,11 +13,11 @@ declare global {
 	}
 }
 
-global.appRoot = path.resolve(__dirname, 'resources')
-
-interface MyBrowserWindow extends BrowserWindow {
+declare interface MyBrowserWindow extends BrowserWindow {
 	recording?: boolean
 }
+
+global.appRoot = path.resolve(__dirname, 'resources')
 
 let window: MyBrowserWindow | null = null
 
@@ -24,8 +27,6 @@ async function createWindow(): Promise<void> {
 		await EditorService.editors[0].checkPrerequisites()
 	} catch (error) {
 		dialog.showErrorBox('Error Locating Visual Studio Code', error.message)
-
-		// return app.quit()		
 	}
 
 	window = new BrowserWindow({
@@ -42,21 +43,36 @@ async function createWindow(): Promise<void> {
 		icon: path.resolve(__dirname, 'icons', 'icon36x36.ico')
 	})
 
+	window.setMenuBarVisibility(isDev())
+
 	window.webContents.on('new-window', function(e, url) {
 		e.preventDefault()
 		require('electron').shell.openExternal(url)
 	})
 
-	window.setMenuBarVisibility(isDev())
-
 	await Spoken.init()
 
 	try {
-		await window.loadURL('https://speech2code.azurewebsites.net')
+		// Enforcing some headers required to access the api...
+		const filter = { urls: [process.env.URL_FILTER as string] }
+
+		session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
+			const headerName = process.env.SPEECH2CODE_HEADER_NAME as string
+			const headerValue = process.env.SPEECH2CODE_HEADER_VALUE as string
+
+			details.requestHeaders[headerName] = headerValue
+			details.requestHeaders['Speech2Code-Electron-Client-Version'] = appVersion
+
+			callback({ requestHeaders: details.requestHeaders })
+		})
+
+		await window.loadURL(process.env.SERVICE_URL as string)
 	} catch(err) {
 		const errPath = path.resolve(__dirname, 'error.html')
+
 		console.log(err)
-		console.log('Loadin instead: ' + errPath)
+		console.log('Loading instead: ' + errPath)
+
 		await window.loadFile(errPath)
 
 		return
@@ -104,6 +120,3 @@ app.on('window-all-closed', () => {
 	}, 1000)
 })
 
-function isDev() {
-    return process?.mainModule?.filename?.indexOf?.('app.asar') === -1;
-}

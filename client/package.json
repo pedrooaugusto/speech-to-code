@@ -4,7 +4,12 @@
   "productName": "speech2code",
   "version": "0.0.1",
   "description": "Speech to Code electron client implmentation",
-  "author": "Pedro Silva",
+  "author": {
+    "email": "pedro42augusto@gmail.com",
+    "name": "Pedro Augusto Silva",
+    "url": "https://github.com/pedrooaugusto"
+  },
+  "homepage": "https://github.com/pedrooaugusto/speech-to-code",
   "license": "GPL-3.0-or-later",
   "main": "dist/index.js",
   "build": {
@@ -19,16 +24,19 @@
       "output": "bin"
     },
     "publish": null,
-    "extraResources": [{
-      "from": "./src/resources/",
-      "to": "."
-    }]
+    "extraResources": [
+      {
+        "from": "./src/resources/",
+        "to": "."
+      }
+    ]
   },
   "scripts": {
     "test": "npm run build-spoken && tsc && node dist/__tests__/spoken-interface.test.js",
     "start": "electron .",
-    "prestart": "bash ./tools.sh",
-    "pack": "bash ./tools.sh && electron-builder -w zip",
+    "prestart": "bash ./tools.sh dev",
+    "pack": "bash ./tools.sh prod && electron-builder -w zip",
+    "pack-linux": "bash ./tools.sh prod && electron-builder -l deb",
     "build-spoken": "cd ../spoken && npm run build"
   },
   "keywords": [
@@ -36,6 +44,7 @@
   ],
   "dependencies": {
     "cross-spawn": "^7.0.3",
+    "dotenv": "^10.0.0",
     "node-ipc": "9.1.4",
     "spoken": "file:../spoken/dist"
   },

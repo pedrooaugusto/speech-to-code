@@ -2,6 +2,7 @@ import { dialog } from 'electron'
 import crossSpawn from  'cross-spawn'
 import path from 'path'
 import fs from 'fs'
+import { isDev } from '../../utils'
 
 const APP_NAME = 'speech2code'
 const VSCODE_EXT_ID = 'august.speech2code'
@@ -23,9 +24,7 @@ export function check() {
     dialog.showMessageBoxSync(null, {
         type: 'info',
         title: 'Required Visual Studio Code extension not found!',
-        message: 'Spoken, a required Visual Studio Code extension was not found!\n\n' +
-                'Installing it now!\n\n'
-                // 'IF VSCODE IS OPEN, CLOSE IT AND OPEN IT AGAIN (RELOAD VSCODE)'
+        message: 'Spoken, a required Visual Studio Code extension was not found!\n\n Installing it now!\n\n'
     })
 
     return null
@@ -110,8 +109,4 @@ function getExtensionPath() {
     if (extensionPath == null || extensionPath == '') throw ExtensionFileNotFound
 
     return path.resolve(root, extensionPath)
-}
-
-function isDev() {
-    return process?.mainModule?.filename?.indexOf?.('app.asar') === -1;
 }

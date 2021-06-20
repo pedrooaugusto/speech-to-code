@@ -26,4 +26,21 @@ cp -r ./src/resources/** ./dist/resources
 # copy html
 cp ./src/*.html ./dist
 
+# fixing environment
+
+if [ -z $1 ]; then 
+    ENV='dev'
+else
+    ENV=$1
+fi
+
+cp -r ./src/.env* ./dist
+
+if [ $ENV = "prod" ]; then
+    if test -f dist/.env.prod; then # check if the file .env.prod exists
+        rm -rf dist/.env
+        mv dist/.env.prod dist/.env
+    fi
+fi
+
 echo "Ready to built."
