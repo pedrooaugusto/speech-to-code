@@ -1,25 +1,25 @@
 {
-  "name": "speech2code.server",
-  "version": "0.0.1",
-  "description": "Speech to Code NodeJS server",
-  "main": "src/app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.js",
-    "build": "npm run build-webapp",
-    "build-webapp": "rm -rf public/* && cd ../webapp && npm run build && cp -R build/* ../server/public"
-  },
-  "keywords": [
-    "Speech-to-code"
-  ],
-  "dependencies": {
-    "axios": "^0.21.1",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "socket.io": "^3.1.1",
-    "spoken": "file:../spoken/dist"
-  },
-  "author": "Pedro Silva",
-  "license": "GPL-3.0-or-later"
+	"name": "speech2code.server",
+	"version": "0.0.1-alpha.2",
+	"description": "Speech to Code NodeJS server",
+	"main": "src/app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node src/app.js",
+		"build": "npm run build-webapp",
+		"build-webapp": "rm -rf public/* && cd ../webapp && npm run build && cp -R build/* ../server/public"
+	},
+	"keywords": [
+		"Speech-to-code"
+	],
+	"dependencies": {
+		"axios": "^0.21.1",
+		"cors": "^2.8.5",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"socket.io": "^3.1.1",
+		"spoken": "file:../spoken/dist"
+	},
+	"author": "Pedro Silva",
+	"license": "GPL-3.0-or-later"
 }

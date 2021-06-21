@@ -1,57 +1,57 @@
 {
-  "name": "speech2code.client",
-  "displayName": "Speech2Code",
-  "productName": "speech2code",
-  "version": "0.0.1",
-  "description": "Speech2Code main app - Enables you to code using just your voice",
-  "author": {
-    "email": "pedro42augusto@gmail.com",
-    "name": "Pedro Augusto Silva",
-    "url": "https://github.com/pedrooaugusto"
-  },
-  "homepage": "https://github.com/pedrooaugusto/speech-to-code",
-  "license": "GPL-3.0-or-later",
-  "main": "dist/index.js",
-  "build": {
-    "appId": "com.august.speech2code.client",
-    "files": [
-      "dist/**/*",
-      "node_modules/**/*",
-      "package.json"
-    ],
-    "directories": {
-      "buildResources": "icons",
-      "output": "bin"
-    },
-    "publish": null,
-    "extraResources": [
-      {
-        "from": "./src/resources/",
-        "to": "."
-      }
-    ]
-  },
-  "scripts": {
-    "test": "npm run build-spoken && tsc && node dist/__tests__/spoken-interface.test.js",
-    "start": "electron .",
-    "prestart": "bash ./tools.sh dev",
-    "pack": "bash ./tools.sh prod && electron-builder -w zip",
-    "pack-linux": "bash ./tools.sh prod && electron-builder -l deb",
-    "build-spoken": "cd ../spoken && npm run build"
-  },
-  "keywords": [
-    "Speech-to-code"
-  ],
-  "dependencies": {
-    "cross-spawn": "^7.0.3",
-    "dotenv": "^10.0.0",
-    "node-ipc": "9.1.4",
-    "spoken": "file:../spoken/dist"
-  },
-  "devDependencies": {
-    "@types/cross-spawn": "^6.0.2",
-    "@types/node-ipc": "9.1.3",
-    "electron": "11.2.3",
-    "electron-builder": "22.10.5"
-  }
+	"name": "speech2code.client",
+	"displayName": "Speech2Code",
+	"productName": "speech2code",
+	"version": "0.0.1-alpha.2",
+	"description": "Speech2Code main app - Enables you to code using just your voice",
+	"author": {
+		"email": "pedro42augusto@gmail.com",
+		"name": "Pedro Augusto Silva",
+		"url": "https://github.com/pedrooaugusto"
+	},
+	"homepage": "https://github.com/pedrooaugusto/speech-to-code",
+	"license": "GPL-3.0-or-later",
+	"main": "dist/index.js",
+	"build": {
+		"appId": "com.august.speech2code.client",
+		"files": [
+			"dist/**/*",
+			"node_modules/**/*",
+			"package.json"
+		],
+		"directories": {
+			"buildResources": "icons",
+			"output": "bin"
+		},
+		"publish": null,
+		"extraResources": [
+			{
+				"from": "./src/resources/",
+				"to": "."
+			}
+		]
+	},
+	"scripts": {
+		"test": "npm run build-spoken && tsc && node dist/__tests__/spoken-interface.test.js",
+		"start": "electron .",
+		"prestart": "bash ./tools.sh dev",
+		"pack": "bash ./tools.sh prod && electron-builder -w zip",
+		"pack-linux": "bash ./tools.sh prod && electron-builder -l deb",
+		"build-spoken": "cd ../spoken && npm run build"
+	},
+	"keywords": [
+		"Speech-to-code"
+	],
+	"dependencies": {
+		"cross-spawn": "^7.0.3",
+		"dotenv": "^10.0.0",
+		"node-ipc": "9.1.4",
+		"spoken": "file:../spoken/dist"
+	},
+	"devDependencies": {
+		"@types/cross-spawn": "^6.0.2",
+		"@types/node-ipc": "9.1.3",
+		"electron": "11.2.3",
+		"electron-builder": "22.10.5"
+	}
 }
