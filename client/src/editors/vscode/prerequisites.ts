@@ -5,7 +5,7 @@ import fs from 'fs'
 import { isDev } from '../../utils'
 
 const APP_NAME = 'speech2code'
-const VSCODE_EXT_ID = 'august.speech2code'
+const VSCODE_EXT_ID = 'pedroaugusto.speech2code'
 
 export function check() {
     // Does this machine has Visual Studio Code installed ?
