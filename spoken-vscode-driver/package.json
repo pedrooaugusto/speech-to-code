@@ -36,12 +36,11 @@
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
-		"watch": "tsc-watch  --onSuccess \"npm run copy-robot\" -p ./",
+		"watch": "tsc-watch  --onSuccess \"bash ./tools.sh reload\" -p ./",
 		"pretest": "npm run compile",
 		"lint": "eslint src --ext ts",
 		"test": "jest \"out/__tests__/(.*).test.js$\"",
-		"copy-robot": "cp ./out/robot-vscode.js /c/Users/yuram/.vscode/extensions/pedroaugusto.speech2code-0.0.2/out/robot-vscode.js",
-		"vscode-install": "code --install-extension speech2code-0.0.2.vsix --force",
+		"vscode-install": "bash ./tools.sh install",
 		"build": "vsce package"
 	},
 	"devDependencies": {

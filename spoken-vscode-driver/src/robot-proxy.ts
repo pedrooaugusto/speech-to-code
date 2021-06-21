@@ -5,28 +5,22 @@ import { Proxy, TaskRequest, Robot } from './index'
 import RobotVscode from './robot-vscode'
 import Log from './logger'
 
-const isJest = !!process.env.JEST_WORKER_ID
-class RobotVSCodeProxy implements Proxy {
-    // @TODO remove that
-    vscodeRobotInstance: Robot | null = isJest ? RobotVscode : null
+const DEBUG_LIVE_RELOAD: any = false
 
+class RobotVSCodeProxy implements Proxy {
     async proxy(request: TaskRequest, socket: Socket ): Promise<void> {
         try {
             Log('[vscode-driver.robot-vscode.proxy]: Received request to process:\n\t' + JSON.stringify(request))
 
             let response = null
-            let robot = this.vscodeRobotInstance
 
-            if (robot == null) {
-                // const { createInstance } = await import('./robot-vscode')
-                // @TODO Fix that! This is just a workaround for live reload
-                const str = fs.readFileSync(__dirname + '/robot-vscode.js', 'utf-8')
-                const createInstance = eval(str)
-                robot = createInstance()
+            if (DEBUG_LIVE_RELOAD) {
+                response = this.liveRelodingTestingOnly(request)
+            } else {
+                // @ts-ignore
+                // TODO: Use reflection instead!
+                response = await RobotVscode[request.type](...request.extra.args)
             }
-
-            // @ts-ignore
-            response = await robot[request.type](...request.extra.args)
 
             Log('[vscode-driver.robot-vscode.proxy]: Emiting response for ' + request.id)
 
@@ -44,6 +38,20 @@ class RobotVSCodeProxy implements Proxy {
                 response: null
             })
         }
+    }
+
+    private async liveRelodingTestingOnly(request: TaskRequest) {
+        // @ts-ignore
+        if (this.vscodeRobotInstance == null) {
+            const str = fs.readFileSync(__dirname + '/robot-vscode.js', 'utf-8')
+            const createInstance = eval(str)
+
+            // @ts-ignore
+            this.vscodeRobotInstance = createInstance()
+        }
+
+        // @ts-ignore
+        return await this.vscodeRobotInstance[request.type](...request.extra.args)
     }
 }
 
