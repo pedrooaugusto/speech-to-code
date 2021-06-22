@@ -6,7 +6,7 @@ Writes a string in the editor
 
 This command is available in the following languages
 
-####English
+#### English
 
 The following automata is responsible for recognizing the command `Writes a string` in english:
 
@@ -16,7 +16,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 
 1. string text
 
-####Português
+#### Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve uma string` em português:
 
@@ -24,7 +24,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma string`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma string`:
 
-1. text string
+1. string string
 
 ### Implementation
 

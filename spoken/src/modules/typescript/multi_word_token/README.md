@@ -6,7 +6,7 @@ Group multiple words together in one variable meant to be used as alias in other
 
 This command is available in the following languages
 
-####English
+#### English
 
 The following automata is responsible for recognizing the command `Group multiple words together` in english:
 
@@ -16,7 +16,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 
 1. * *
 
-####Português
+#### Português
 
 O automata seguinte é reponsável por reconhecer o comando `Agrupa múltiplas palavras` em português:
 

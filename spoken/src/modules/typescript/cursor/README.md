@@ -6,7 +6,7 @@ Moves the cursor to a different line or token
 
 This command is available in the following languages
 
-####English
+#### English
 
 The following automata is responsible for recognizing the command `Move cursor` in english:
 
@@ -14,14 +14,14 @@ The following automata is responsible for recognizing the command `Move cursor` 
 
 The following are some examples of phrases, in english, used to trigger the command `Move cursor`:
 
-1. cursor line 42
-2. cursor letter M
-3. pointer last symbol g
-4. cursor begin line
+1. pointer line 1
+2. cursor letter K
+3. pointer first letter M
+4. pointer end line
 5. pointer next symbol
 6. pointer next 42 symbol
 
-####Português
+#### Português
 
 O automata seguinte é reponsável por reconhecer o comando `Mover o cursor` em português:
 
@@ -29,11 +29,11 @@ O automata seguinte é reponsável por reconhecer o comando `Mover o cursor` em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Mover o cursor`:
 
-1. cursor linha 42
-2. ponteiro letra A
-3. ponteiro 42ª letra B
-4. ponteiro final linha
-5. cursor próximo letra
+1. ponteiro linha 1
+2. cursor letra a
+3. cursor primeiro letra z
+4. cursor começo linha
+5. cursor próximo símbolo
 6. ponteiro próximo 1 símbolo
 
 ### Implementation

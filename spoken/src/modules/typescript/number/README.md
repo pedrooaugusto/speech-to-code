@@ -6,7 +6,7 @@ Writes a number in the editor
 
 This command is available in the following languages
 
-####English
+#### English
 
 The following automata is responsible for recognizing the command `Writes a number` in english:
 
@@ -15,9 +15,9 @@ The following automata is responsible for recognizing the command `Writes a numb
 The following are some examples of phrases, in english, used to trigger the command `Writes a number`:
 
 1. number 42
-2. 42
+2. 1
 
-####Português
+#### Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve um número` em português:
 

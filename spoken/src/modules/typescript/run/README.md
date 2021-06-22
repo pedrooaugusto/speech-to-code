@@ -6,7 +6,7 @@ Run the current file in the terminal using node
 
 This command is available in the following languages
 
-####English
+#### English
 
 The following automata is responsible for recognizing the command `Run current file` in english:
 
@@ -14,9 +14,9 @@ The following automata is responsible for recognizing the command `Run current f
 
 The following are some examples of phrases, in english, used to trigger the command `Run current file`:
 
-1. run this file
+1. run current file
 
-####Português
+#### Português
 
 O automata seguinte é reponsável por reconhecer o comando `Executar arquivo` em português:
 
@@ -25,7 +25,7 @@ O automata seguinte é reponsável por reconhecer o comando `Executar arquivo` e
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Executar arquivo`:
 
 1. execute arquivo atual
-2. execute este arquivo
+2. executar este arquivo
 
 ### Implementation
 

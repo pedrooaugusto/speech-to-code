@@ -156,7 +156,7 @@ class Command {
         let text = []
     
         for (const automata of this.automatas) { 
-            text.push('####' + automata.langName)
+            text.push('#### ' + automata.langName)
             text.push(i18n[automata.lang].automata(automata.title))
             text.push(`![${automata.langName}](${automata.relativeImagePath})`)
             text.push(i18n[automata.lang].phrases(automata.title))
