@@ -44,6 +44,7 @@ export default function Main() {
                 recording={recording}
                 toggleRecording={toggleRecording}
                 connectedToVSCode={context.connectedToVSCode}
+                language={context.language}
             />
             <TranscriptionHistory
                 results={results as RecognitionRequest}
@@ -84,9 +85,9 @@ function TranscriptionHistory(
     return (
         <div className="transcription-history">
             <label>
-                Dialog history:
+                {i18n(props.language)('Dialog history')()}:
                 <span
-                    data-tip="List of all voice commands said"
+                    data-tip={i18n(props.language)('List of all voice commands said')()}
                 >
                     <i className="fa fa-question-circle" />
                 </span>
@@ -137,8 +138,10 @@ const texts: Record<string, Record<string, any>> = {
                 A lista completa de comandos de voz pode ser encontrada em <i>Menu {'>>'} Modules</i>.
             </React.Fragment>
         ),
-        'say-some': () => 'Experimente dizer: "nova constante valor igual a número 42".'
+        'say-some': () => 'Experimente dizer: "nova constante valor igual a número 42".',
+        'Dialog history': () => 'Histórico da conversa',
+        'List of all voice commands said': () => 'Lista de todos os comandos ditos'
     }
 }
 
-const i18n = (lang: string) => (textId: string) => texts[lang][textId]
+const i18n = (lang: string) => (textId: string) => texts[lang][textId] || (() => textId)

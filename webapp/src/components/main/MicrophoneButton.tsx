@@ -5,6 +5,7 @@ export function MicrophoneButton(
         recording: boolean
         connectedToVSCode: boolean
         toggleRecording: () => void
+        language: string
     }
 ) {
 
@@ -82,6 +83,9 @@ export function MicrophoneButton(
                 <i className="fa fa-microphone" />
                 <canvas id="micCanvas" width="122" height="122"></canvas>
             </div>
+            <span className="info">
+                {i18n(props.language)(props.recording ? 'rec' : 'not-rec')()}
+            </span>
         </div>
     )
 }
@@ -118,3 +122,16 @@ function drawWaveform(width: number, height: number, context: CanvasRenderingCon
     }
 }
 
+
+const texts: Record<string, Record<string, any>> = {
+    'en-US': {
+        'not-rec': () => <>Click on the mic to <b>start</b> recording.</>,
+        'rec': () => <>Click on the mic to <b>stop</b> recording.</>
+    },
+    'pt-BR': {
+        'not-rec': () => <>Clique no microfone para <b>começar</b> a gravação.</>,
+        'rec': () => <>Clique no microfone para <b>parar</b> a gravação.</>
+    }
+}
+
+const i18n = (lang: string) => (textId: string) => texts[lang][textId]

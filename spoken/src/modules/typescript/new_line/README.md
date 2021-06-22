@@ -6,7 +6,7 @@ Creates a new line above or below the current line
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `New line` in english:
 
@@ -19,10 +19,10 @@ The following are some examples of phrases, in english, used to trigger the comm
 3. create line
 4. new line below
 5. line below
-6. create new line above
+6. create new line below
 7. create line below
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Linha nova` em português:
 

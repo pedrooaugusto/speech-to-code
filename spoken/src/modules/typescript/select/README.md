@@ -6,7 +6,7 @@ Select a piece of the text in the current line
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Select` in english:
 
@@ -14,20 +14,20 @@ The following automata is responsible for recognizing the command `Select` in en
 
 The following are some examples of phrases, in english, used to trigger the command `Select`:
 
-1. select letter M
-2. select word temp
-3. select fourth letter M
-4. select 42ª word a
-5. select from letter M to g
-6. select from symbol g to last symbol K
-7. select from fourth letter M to letter M
-8. select from last letter g to first letter g
-9. select from line 1 to line 42
-10. select from line number 42 to line 42
+1. select symbol K
+2. select word text
+3. select first letter M
+4. select first word temp
+5. select from letter K to K
+6. select from letter g to fourth letter M
+7. select from first letter M to letter M
+8. select from 42ª symbol K to fourth symbol g
+9. select from line 1 to 1
+10. select from line number 1 to 42
 11. select word [multi_word_token]
-12. select first word [multi_word_token]
+12. select fourth word [multi_word_token]
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Selecionar` em português:
 
@@ -35,18 +35,18 @@ O automata seguinte é reponsável por reconhecer o comando `Selecionar` em port
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Selecionar`:
 
-1. selecionar símbolo A
-2. selecionar palavra numero
-3. selecione 42ª símbolo a
-4. selecione sétimo palavra a
-5. selecione de letra a até a
-6. selecione de símbolo B até sétimo letra a
-7. selecione de sétimo letra a até símbolo z
-8. selecionar da 1ª letra z até sétimo símbolo B
-9. selecionar da linha 42 até linha 42
-10. selecionar de linha número 1 até 1
+1. selecione símbolo B
+2. selecione palavra numero
+3. selecione sétimo letra a
+4. selecione 1ª palavra numero
+5. selecione da símbolo a até a
+6. selecionar de símbolo z até sétimo letra B
+7. selecione da sétimo letra B até letra z
+8. selecione de 1ª símbolo B até 42ª z
+9. selecionar da linha 42 até 1
+10. selecione de linha número 1 até 1
 11. selecionar palavra [multi_word_token]
-12. selecione 42ª palavra [multi_word_token]
+12. selecionar 42ª palavra [multi_word_token]
 
 ### Implementation
 

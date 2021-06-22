@@ -38,7 +38,8 @@ export default function Header() {
                 </div>
                 <ul>
                     <li><a href="/#" onClick={() => setOpen(!open)}>Home</a></li>
-                    <li><a href="/#/spoken" onClick={() => setOpen(!open)}>Modules</a></li>
+                    <li><a href="/#/spoken" onClick={() => setOpen(!open)}>{i18n(context.language)('Modules')()}</a></li>
+                    <li><a href="/#/help" onClick={() => setOpen(!open)}>{i18n(context.language)('Help')()}</a></li>
                     <li><a href="/#/about" onClick={() => setOpen(!open)}>About</a></li>
                 </ul>
                 <div className="divider"></div>
@@ -129,3 +130,15 @@ export default function Header() {
         </header>
     )
 }
+
+const texts: Record<string, Record<string, any>> = {
+    'en-US': {
+
+    },
+    'pt-BR': {
+        'Help': () => 'Ajuda',
+        'Modules': () => 'Módulos'
+    }
+}
+
+const i18n = (lang: string) => (textId: string) => texts[lang][textId] || (() => textId)

@@ -1,0 +1,66 @@
+main.help {
+    font-family: 'Roboto';
+    color: #1E3D58;
+    display: flex;
+    justify-content: center;
+    .title {
+        margin-bottom: 35px;
+        margin-top: 25px;
+        h2 {
+            margin: 0px;
+            margin-bottom: 5px;
+        }
+        .sub {
+            font-size: 12px;
+        }
+    }
+    & .wrapper {
+        flex: 0.95;
+    }
+    .body {
+        font-size: 14px;
+        line-height: 1.5;
+
+        .useful-commands {
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+            .c-title {
+                text-decoration: underline;
+                margin-bottom: 10px;
+            }
+            li:not(:first-child) {
+                margin-top: 10px;
+            }
+            .c-info {
+                & > div:not(:last-child) { margin-bottom: 5px; }
+                .pattern, .phrases, .desc {
+                    div:first-child {
+                        font-size: 14px;
+                    }
+                    div:not(:first-child) {
+                        font-size: 14px;
+                        padding-left: 5px;
+                    }
+                    &.pattern {
+                        div:not(:first-child) {
+                            font-size: 12px;
+                            margin-bottom: 2px;
+                            padding-left: 10px;
+                            position: relative;
+                            &:before {
+                                font-size: 18px;
+                                font-weight: bold;
+                                content: '•';
+                                position: absolute;
+                                left: 0px;
+                                top: -4px;
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

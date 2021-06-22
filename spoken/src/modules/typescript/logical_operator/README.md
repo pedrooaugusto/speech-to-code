@@ -6,7 +6,7 @@ Writes a logical operator (===, !==, &&, ||, >, <, >=, <=) meant to be used insi
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Writes a logical operator` in english:
 
@@ -14,14 +14,14 @@ The following automata is responsible for recognizing the command `Writes a logi
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a logical operator`:
 
-1. or
-2. not and
-3. not less or equals than
-4. not greater than
-5. greater equals than
+1. equals
+2. negative and
+3. negative greater equals than
+4. negative less than
+5. less or equals than
 6. less than
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve um operador lógico` em português:
 
@@ -36,7 +36,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 5. negativo maior ou igual a
 6. não menor que
 7. maior ou igual a
-8. menor que
+8. maior que
 
 ### Implementation
 

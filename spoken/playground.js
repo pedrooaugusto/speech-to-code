@@ -20,7 +20,8 @@ Math.max(5)
 //
 // 1. More info on extension (v)
 // 2. More info on client (v)
-// 3. Add help section
-// 4. Add button above mic informing lang and recording
+// 3. Add help section (v)
+// 3. write on blank file
+// 4. Add button above mic informing lang and recording (v)
 // 5. escreva: letras
 // 5. escreva: . [ ] ( ) ? : ,

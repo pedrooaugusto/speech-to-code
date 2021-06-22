@@ -41,7 +41,7 @@
 		"lint": "eslint src --ext ts",
 		"test": "jest \"out/__tests__/(.*).test.js$\"",
 		"vscode-install": "bash ./tools.sh install",
-		"build": "vsce package"
+		"build": "rm -rf *.vsix && vsce package"
 	},
 	"devDependencies": {
 		"@types/node": "^12.11.7",

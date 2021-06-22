@@ -6,7 +6,7 @@ Writes a expression in the editor, this is meant to be used inside another autom
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Writes a expression` in english:
 
@@ -14,10 +14,10 @@ The following automata is responsible for recognizing the command `Writes a expr
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a expression`:
 
-1. [elementar_math_op]
+1. [variable_reference]
 2. gap
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve uma expressão` em português:
 
@@ -25,7 +25,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma express
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma expressão`:
 
-1. [number]
+1. [elementar_math_op]
 2. gap
 
 ### Implementation

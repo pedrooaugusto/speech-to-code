@@ -6,7 +6,7 @@ Creates a function with the desired number of args and return value
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Creates a function` in english:
 
@@ -14,12 +14,12 @@ The following automata is responsible for recognizing the command `Creates a fun
 
 The following are some examples of phrases, in english, used to trigger the command `Creates a function`:
 
-1. new function text
-2. new function temp 42 arguments
-3. create function number 1 arguments return [expressions]
-4. new function text return [expressions]
+1. declare function text
+2. create function temp 1 arguments
+3. declare function graph 42 arguments return [expressions]
+4. new function temp returning [expressions]
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Cria uma função` em português:
 
@@ -27,10 +27,10 @@ O automata seguinte é reponsável por reconhecer o comando `Cria uma função` 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Cria uma função`:
 
-1. crie função numero
-2. declare função texto 42 argumentos
-3. crie função lista 1 argumentos retornando [expressions]
-4. nova função texto retornando [expressions]
+1. nova função valor
+2. declare função valor 42 argumentos
+3. declare função texto 1 argumentos retornando [expressions]
+4. declare função numero retorna [expressions]
 
 ### Implementation
 

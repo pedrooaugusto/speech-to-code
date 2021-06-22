@@ -6,7 +6,7 @@ Creates a for loop statement with the provided expressions as parameters
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Creates a for loop statement` in english:
 
@@ -17,9 +17,9 @@ The following are some examples of phrases, in english, used to trigger the comm
 1. repetition statement
 2. repetition statement from [expressions] to [expressions]
 3. repetition statement from [expressions] to [expressions] step [expressions]
-4. repetition statement for every number of [expressions]
+4. repetition statement for every a [expressions]
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Estrutura de repetição` em português:
 
@@ -28,9 +28,9 @@ O automata seguinte é reponsável por reconhecer o comando `Estrutura de repeti
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Estrutura de repetição`:
 
 1. estrutura repetição
-2. estrutura repetição do [expressions] até [expressions]
-3. estrutura repetição da [expressions] até [expressions] etapa [expressions]
-4. estrutura repetição para todo temp da [expressions]
+2. estrutura repetição de [expressions] até [expressions]
+3. estrutura repetição [expressions] até [expressions] etapa [expressions]
+4. estrutura repetição para todo a do [expressions]
 
 ### Implementation
 

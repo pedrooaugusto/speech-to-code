@@ -4,8 +4,14 @@ main.main .record {
     flex-flow: column;
     align-items: center;
     justify-content: center;
+    font-family: 'Roboto';
     &.error {
         height: 190px;
+    }
+    .info {
+        font-size: 12px;
+        margin-top: 5px;
+        color: #1E3D58;
     }
 }
 

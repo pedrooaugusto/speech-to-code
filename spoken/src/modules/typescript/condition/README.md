@@ -6,7 +6,7 @@ Creates a if/else statement with the provided expression as condition
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Creates a if/else statement` in english:
 
@@ -20,7 +20,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 4. conditional statement if [expressions]
 5. conditional statement [expressions]
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Estrutura condicional` em português:
 
@@ -32,7 +32,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 2. estrutura condicional se
 3. estrutura condicional se senão
 4. estrutura condicional se se não
-5. estrutura condicional se sinal [expressions]
+5. estrutura condicional se senão [expressions]
 6. estrutura condicional se se não [expressions]
 7. estrutura condicional se [expressions]
 8. estrutura condicional [expressions]

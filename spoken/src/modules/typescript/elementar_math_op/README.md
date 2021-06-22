@@ -6,7 +6,7 @@ Writes a elementar math operation (*, -, +, /)
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Writes a elementar math operation` in english:
 
@@ -14,9 +14,9 @@ The following automata is responsible for recognizing the command `Writes a elem
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a elementar math operation`:
 
-1. expression [expressions] [math_operator] [expressions]
+1. expression [expressions] [logical_operator] [expressions]
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve uma operação matemática elementar` em português:
 
@@ -24,7 +24,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operaç
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operação matemática elementar`:
 
-1. expressão [expressions] [math_operator] [expressions]
+1. expressão [expressions] [logical_operator] [expressions]
 
 ### Implementation
 

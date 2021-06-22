@@ -6,7 +6,7 @@ Writes a math operator (*, -, +, /) meant to be used inside expressions
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Writes a math operator` in english:
 
@@ -16,7 +16,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 
 1. plus
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve uma operador matemático` em português:
 
@@ -24,7 +24,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operado
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operador matemático`:
 
-1. dividido
+1. mais
 
 ### Implementation
 

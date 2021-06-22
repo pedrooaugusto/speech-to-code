@@ -6,54 +6,6 @@ Collection of voice commands of the typescript language
 
 ---
 
-## Change input language
-
-Changes input language to portuguese
-
-### Languages
-
-This command is available in the following languages
-
-**English**
-
-The following automata is responsible for recognizing the command `Change input language` in english:
-
-![English](change_language/phrase_en-US.png)
-
-The following are some examples of phrases, in english, used to trigger the command `Change input language`:
-
-1. switch language back portuguese
-2. change language portuguese
-
-**Português**
-
-O automata seguinte é reponsável por reconhecer o comando `Mudar linguagem de entrada` em português:
-
-![Português](change_language/phrase_pt-BR.png)
-
-Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Mudar linguagem de entrada`:
-
-1. mudar linguagem inglês
-
-### Implementation
-
-The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
-
-```typescript
-async function changeLang(command: ParsedPhrase, editor: Editor, context: {}) {
-    console.log('[Spoken]: Executing: "changeLang."')
-    console.log('This is an internal command this file should never run!')
-
-    return null
-}
-
-export default changeLang
-
-(...)
-```
-
----
-
 ## Creates a if/else statement
 
 Creates a if/else statement with the provided expression as condition
@@ -62,7 +14,7 @@ Creates a if/else statement with the provided expression as condition
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Creates a if/else statement` in english:
 
@@ -76,7 +28,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 4. conditional statement if [expressions]
 5. conditional statement [expressions]
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Estrutura condicional` em português:
 
@@ -88,7 +40,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 2. estrutura condicional se
 3. estrutura condicional se senão
 4. estrutura condicional se se não
-5. estrutura condicional se sinal [expressions]
+5. estrutura condicional se senão [expressions]
 6. estrutura condicional se se não [expressions]
 7. estrutura condicional se [expressions]
 8. estrutura condicional [expressions]
@@ -118,7 +70,7 @@ Moves the cursor to a different line or token
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Move cursor` in english:
 
@@ -126,14 +78,14 @@ The following automata is responsible for recognizing the command `Move cursor` 
 
 The following are some examples of phrases, in english, used to trigger the command `Move cursor`:
 
-1. cursor line 1
-2. pointer symbol M
-3. cursor 42ª letter M
-4. pointer end line
+1. cursor line 42
+2. cursor letter M
+3. pointer last symbol g
+4. cursor begin line
 5. pointer next symbol
-6. cursor next 1 symbol
+6. pointer next 42 symbol
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Mover o cursor` em português:
 
@@ -141,12 +93,12 @@ O automata seguinte é reponsável por reconhecer o comando `Mover o cursor` em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Mover o cursor`:
 
-1. cursor linha 1
-2. cursor símbolo B
-3. cursor último letra A
-4. cursor começo linha
+1. cursor linha 42
+2. ponteiro letra A
+3. ponteiro 42ª letra B
+4. ponteiro final linha
 5. cursor próximo letra
-6. cursor próximo 1 letra
+6. ponteiro próximo 1 símbolo
 
 ### Implementation
 
@@ -174,7 +126,7 @@ Writes a elementar math operation (*, -, +, /)
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Writes a elementar math operation` in english:
 
@@ -182,9 +134,9 @@ The following automata is responsible for recognizing the command `Writes a elem
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a elementar math operation`:
 
-1. expression [expressions] [math_operator] [expressions]
+1. expression [expressions] [logical_operator] [expressions]
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve uma operação matemática elementar` em português:
 
@@ -192,7 +144,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operaç
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operação matemática elementar`:
 
-1. expressão [expressions] [math_operator] [expressions]
+1. expressão [expressions] [logical_operator] [expressions]
 
 ### Implementation
 
@@ -218,7 +170,7 @@ Writes a expression in the editor, this is meant to be used inside another autom
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Writes a expression` in english:
 
@@ -226,10 +178,10 @@ The following automata is responsible for recognizing the command `Writes a expr
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a expression`:
 
-1. [elementar_math_op]
+1. [variable_reference]
 2. gap
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve uma expressão` em português:
 
@@ -237,7 +189,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma express
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma expressão`:
 
-1. [number]
+1. [elementar_math_op]
 2. gap
 
 ### Implementation
@@ -267,7 +219,7 @@ Calls a function with the specified arguments in the desired caller
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Calls a function` in english:
 
@@ -275,24 +227,24 @@ The following automata is responsible for recognizing the command `Calls a funct
 
 The following are some examples of phrases, in english, used to trigger the command `Calls a function`:
 
-1. execute function [multi_word_token]
-2. execute function graph
-3. execute function [multi_word_token] [expressions]
-4. execute function [multi_word_token] of [expressions]
-5. call function number [expressions]
-6. execute function number of [expressions]
-7. call function [multi_word_token] [expressions] arguments [expressions]
+1. call function [multi_word_token]
+2. call function graph
+3. call function [multi_word_token] [expressions]
+4. call function [multi_word_token] of [expressions]
+5. execute function text [expressions]
+6. call function number on [expressions]
+7. execute function [multi_word_token] [expressions] arguments [expressions]
 8. call function [multi_word_token] arguments [expressions]
-9. call function [multi_word_token] of [expressions] arguments [expressions]
+9. call function [multi_word_token] on [expressions] arguments [expressions]
 10. call function graph [expressions] arguments [expressions]
-11. call function value arguments [expressions]
-12. call function number of [expressions] arguments [expressions]
+11. call function temp arguments [expressions]
+12. call function value of [expressions] arguments [expressions]
 13. call function [multi_word_token] [expressions] 1 arguments
-14. execute function [multi_word_token] 42 arguments
-15. call function [multi_word_token] at [expressions] 1 arguments
-16. execute function value [expressions] 42 arguments
+14. call function [multi_word_token] 42 arguments
+15. execute function [multi_word_token] at [expressions] 1 arguments
+16. execute function number [expressions] 1 arguments
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Chama uma função` em português:
 
@@ -300,22 +252,22 @@ O automata seguinte é reponsável por reconhecer o comando `Chama uma função`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Chama uma função`:
 
-1. chamar função [multi_word_token]
-2. chame função a
-3. chamar função [multi_word_token] [expressions]
-4. execute função [multi_word_token] na [expressions]
-5. chame função numero [expressions]
-6. chamar função lista da [expressions]
+1. chame função [multi_word_token]
+2. chamar função texto
+3. chame função [multi_word_token] [expressions]
+4. chamar função [multi_word_token] na [expressions]
+5. chamar função texto [expressions]
+6. chame função temp da [expressions]
 7. chamar função [multi_word_token] [expressions] argumentos [expressions]
-8. chame função [multi_word_token] argumentos [expressions]
-9. chame função [multi_word_token] na [expressions] argumentos [expressions]
-10. execute função temp [expressions] argumentos [expressions]
+8. chamar função [multi_word_token] argumentos [expressions]
+9. chamar função [multi_word_token] da [expressions] argumentos [expressions]
+10. chamar função lista [expressions] argumentos [expressions]
 11. chame função a argumentos [expressions]
-12. execute função texto da [expressions] argumentos [expressions]
+12. chame função numero na [expressions] argumentos [expressions]
 13. chamar função [multi_word_token] [expressions] 1 argumentos
-14. chame função [multi_word_token] 42 argumentos
-15. execute função [multi_word_token] na [expressions] 42 argumentos
-16. chamar função texto [expressions] 1 argumentos
+14. execute função [multi_word_token] 42 argumentos
+15. chamar função [multi_word_token] na [expressions] 1 argumentos
+16. chamar função lista [expressions] 42 argumentos
 
 ### Implementation
 
@@ -342,7 +294,7 @@ Creates a function with the desired number of args and return value
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Creates a function` in english:
 
@@ -350,12 +302,12 @@ The following automata is responsible for recognizing the command `Creates a fun
 
 The following are some examples of phrases, in english, used to trigger the command `Creates a function`:
 
-1. new function text
-2. new function temp 42 arguments
-3. create function number 1 arguments return [expressions]
-4. new function text return [expressions]
+1. declare function text
+2. create function temp 1 arguments
+3. declare function graph 42 arguments return [expressions]
+4. new function temp returning [expressions]
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Cria uma função` em português:
 
@@ -363,10 +315,10 @@ O automata seguinte é reponsável por reconhecer o comando `Cria uma função` 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Cria uma função`:
 
-1. crie função numero
-2. declare função texto 42 argumentos
-3. crie função lista 1 argumentos retornando [expressions]
-4. nova função texto retornando [expressions]
+1. nova função valor
+2. declare função valor 42 argumentos
+3. declare função texto 1 argumentos retornando [expressions]
+4. declare função numero retorna [expressions]
 
 ### Implementation
 
@@ -393,7 +345,7 @@ Moves the cursor to a different line
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Change line` in english:
 
@@ -402,13 +354,13 @@ The following automata is responsible for recognizing the command `Change line` 
 The following are some examples of phrases, in english, used to trigger the command `Change line`:
 
 1. go to line 1
-2. go to line number 1
-3. go line 1
+2. go to line number 42
+3. go line 42
 4. go line number 42
 5. line 1
 6. line number 42
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Trocar linha` em português:
 
@@ -418,12 +370,12 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 
 1. vá para linha 1
 2. vai para linha número 1
-3. vá para a linha 42
-4. vá para a linha número 1
+3. vá para a linha 1
+4. vá para a linha número 42
 5. vá linha 42
-6. vai linha número 42
+6. vá linha número 1
 7. linha 1
-8. linha número 42
+8. linha número 1
 
 ### Implementation
 
@@ -455,7 +407,7 @@ Writes a logical operator (===, !==, &&, ||, >, <, >=, <=) meant to be used insi
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Writes a logical operator` in english:
 
@@ -463,14 +415,14 @@ The following automata is responsible for recognizing the command `Writes a logi
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a logical operator`:
 
-1. or
-2. not and
-3. not less or equals than
-4. not greater than
-5. greater equals than
+1. equals
+2. negative and
+3. negative greater equals than
+4. negative less than
+5. less or equals than
 6. less than
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve um operador lógico` em português:
 
@@ -485,7 +437,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 5. negativo maior ou igual a
 6. não menor que
 7. maior ou igual a
-8. menor que
+8. maior que
 
 ### Implementation
 
@@ -512,7 +464,7 @@ Writes a math operator (*, -, +, /) meant to be used inside expressions
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Writes a math operator` in english:
 
@@ -522,7 +474,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 
 1. plus
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve uma operador matemático` em português:
 
@@ -530,7 +482,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operado
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operador matemático`:
 
-1. dividido
+1. mais
 
 ### Implementation
 
@@ -562,7 +514,7 @@ Group multiple words together in one variable meant to be used as alias in other
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Group multiple words together` in english:
 
@@ -572,7 +524,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 
 1. * *
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Agrupa múltiplas palavras` em português:
 
@@ -609,7 +561,7 @@ Creates a new line above or below the current line
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `New line` in english:
 
@@ -622,10 +574,10 @@ The following are some examples of phrases, in english, used to trigger the comm
 3. create line
 4. new line below
 5. line below
-6. create new line above
+6. create new line below
 7. create line below
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Linha nova` em português:
 
@@ -673,7 +625,7 @@ Writes a number in the editor
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Writes a number` in english:
 
@@ -684,7 +636,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 1. number 42
 2. 42
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve um número` em português:
 
@@ -725,7 +677,7 @@ Creates a for loop statement with the provided expressions as parameters
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Creates a for loop statement` in english:
 
@@ -736,9 +688,9 @@ The following are some examples of phrases, in english, used to trigger the comm
 1. repetition statement
 2. repetition statement from [expressions] to [expressions]
 3. repetition statement from [expressions] to [expressions] step [expressions]
-4. repetition statement for every number of [expressions]
+4. repetition statement for every a [expressions]
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Estrutura de repetição` em português:
 
@@ -747,9 +699,9 @@ O automata seguinte é reponsável por reconhecer o comando `Estrutura de repeti
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Estrutura de repetição`:
 
 1. estrutura repetição
-2. estrutura repetição do [expressions] até [expressions]
-3. estrutura repetição da [expressions] até [expressions] etapa [expressions]
-4. estrutura repetição para todo temp da [expressions]
+2. estrutura repetição de [expressions] até [expressions]
+3. estrutura repetição [expressions] até [expressions] etapa [expressions]
+4. estrutura repetição para todo a do [expressions]
 
 ### Implementation
 
@@ -776,7 +728,7 @@ Run the current file in the terminal using node
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Run current file` in english:
 
@@ -786,7 +738,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 
 1. run this file
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Executar arquivo` em português:
 
@@ -794,8 +746,8 @@ O automata seguinte é reponsável por reconhecer o comando `Executar arquivo` e
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Executar arquivo`:
 
-1. executar arquivo atual
-2. executar este arquivo
+1. execute arquivo atual
+2. execute este arquivo
 
 ### Implementation
 
@@ -826,7 +778,7 @@ Select a piece of the text in the current line
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Select` in english:
 
@@ -834,20 +786,20 @@ The following automata is responsible for recognizing the command `Select` in en
 
 The following are some examples of phrases, in english, used to trigger the command `Select`:
 
-1. select letter M
-2. select word temp
-3. select fourth letter M
-4. select 42ª word a
-5. select from letter M to g
-6. select from symbol g to last symbol K
-7. select from fourth letter M to letter M
-8. select from last letter g to first letter g
-9. select from line 1 to line 42
-10. select from line number 42 to line 42
+1. select symbol K
+2. select word text
+3. select first letter M
+4. select first word temp
+5. select from letter K to K
+6. select from letter g to fourth letter M
+7. select from first letter M to letter M
+8. select from 42ª symbol K to fourth symbol g
+9. select from line 1 to 1
+10. select from line number 1 to 42
 11. select word [multi_word_token]
-12. select first word [multi_word_token]
+12. select fourth word [multi_word_token]
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Selecionar` em português:
 
@@ -855,18 +807,18 @@ O automata seguinte é reponsável por reconhecer o comando `Selecionar` em port
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Selecionar`:
 
-1. selecionar símbolo A
-2. selecionar palavra numero
-3. selecione 42ª símbolo a
-4. selecione sétimo palavra a
-5. selecione de letra a até a
-6. selecione de símbolo B até sétimo letra a
-7. selecione de sétimo letra a até símbolo z
-8. selecionar da 1ª letra z até sétimo símbolo B
-9. selecionar da linha 42 até linha 42
-10. selecionar de linha número 1 até 1
+1. selecione símbolo B
+2. selecione palavra numero
+3. selecione sétimo letra a
+4. selecione 1ª palavra numero
+5. selecione da símbolo a até a
+6. selecionar de símbolo z até sétimo letra B
+7. selecione da sétimo letra B até letra z
+8. selecione de 1ª símbolo B até 42ª z
+9. selecionar da linha 42 até 1
+10. selecione de linha número 1 até 1
 11. selecionar palavra [multi_word_token]
-12. selecione 42ª palavra [multi_word_token]
+12. selecionar 42ª palavra [multi_word_token]
 
 ### Implementation
 
@@ -894,7 +846,7 @@ Writes a string in the editor
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Writes a string` in english:
 
@@ -902,9 +854,9 @@ The following automata is responsible for recognizing the command `Writes a stri
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a string`:
 
-1. string string
+1. string text
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escreve uma string` em português:
 
@@ -941,7 +893,7 @@ Stores a number, string etc in a variable
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Stores a value in a variable` in english:
 
@@ -949,20 +901,20 @@ The following automata is responsible for recognizing the command `Stores a valu
 
 The following are some examples of phrases, in english, used to trigger the command `Stores a value in a variable`:
 
-1. declare constant called [multi_word_token]
-2. variable named [multi_word_token]
-3. create variable named [multi_word_token] equals [expressions]
-4. create constant called text equals [expressions]
-5. declare variable value equals [expressions]
-6. constant named [multi_word_token] equals [expressions]
-7. constant called value equals [expressions]
-8. constant number equals [expressions]
-9. create variable called a
-10. new variable text
-11. constant called value
-12. constant number
+1. create variable called [multi_word_token]
+2. constant named [multi_word_token]
+3. declare variable named [multi_word_token] equals [expressions]
+4. declare variable named text equals [expressions]
+5. create variable value equals [expressions]
+6. variable called [multi_word_token] equals [expressions]
+7. constant called temp equals [expressions]
+8. constant a equals [expressions]
+9. declare constant called value
+10. create variable a
+11. constant named a
+12. constant temp
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Guarda um valor em uma variável` em português:
 
@@ -970,18 +922,18 @@ O automata seguinte é reponsável por reconhecer o comando `Guarda um valor em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Guarda um valor em uma variável`:
 
-1. nova variável chamada [multi_word_token]
+1. nova constante chamada [multi_word_token]
 2. variável chamada [multi_word_token]
-3. nova constante chamada [multi_word_token] igual [expressions]
-4. declare variável chamada valor igual [expressions]
-5. crie variável a igual [expressions]
-6. variável chamada [multi_word_token] igual [expressions]
+3. nova variável chamada [multi_word_token] igual [expressions]
+4. crie constante chamada lista igual [expressions]
+5. nova variável texto igual [expressions]
+6. constante chamada [multi_word_token] igual [expressions]
 7. variável chamada valor igual [expressions]
-8. variável a igual [expressions]
-9. nova variável chamada a
-10. nova constante lista
-11. variável chamada valor
-12. constante a
+8. variável valor igual [expressions]
+9. nova constante chamada lista
+10. crie constante valor
+11. variável chamada lista
+12. variável temp
 
 ### Implementation
 
@@ -1009,7 +961,7 @@ Writes a variable or constant in the editor
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `References a variable` in english:
 
@@ -1019,14 +971,14 @@ The following are some examples of phrases, in english, used to trigger the comm
 
 1. reference variable text
 2. reference namespace number
-3. constant text
+3. constant value
 4. namespace a
-5. reference variable called [multi_word_token]
+5. reference constant called [multi_word_token]
 6. reference namespace called [multi_word_token]
 7. variable called [multi_word_token]
 8. namespace called [multi_word_token]
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Referencia a uma variável` em português:
 
@@ -1034,12 +986,12 @@ O automata seguinte é reponsável por reconhecer o comando `Referencia a uma va
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Referencia a uma variável`:
 
-1. referência constante valor
-2. referência namespace valor
-3. variável valor
-4. namespace numero
-5. refira variável chamada [multi_word_token]
-6. refira namespace chamada [multi_word_token]
+1. refira constante lista
+2. refira namespace texto
+3. constante a
+4. namespace valor
+5. referência variável chamada [multi_word_token]
+6. referência namespace chamada [multi_word_token]
 7. variável chamada [multi_word_token]
 8. namespace chamada [multi_word_token]
 
@@ -1069,7 +1021,7 @@ Write some text in the editor
 
 This command is available in the following languages
 
-**English**
+####English
 
 The following automata is responsible for recognizing the command `Write text` in english:
 
@@ -1079,15 +1031,15 @@ The following are some examples of phrases, in english, used to trigger the comm
 
 1. print
 2. write down
-3. write it down
+3. write it
 4. print space
-5. write space
-6. write it down space
-7. print the universe is cracked the universe is cracked
+5. write down space
+6. write it space
+7. print who are you who are you
 8. write who are you who are you
-9. write it down the universe is cracked who are you
+9. write it the universe is cracked the universe is cracked
 
-**Português**
+####Português
 
 O automata seguinte é reponsável por reconhecer o comando `Escrever texto` em português:
 
@@ -1097,7 +1049,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 
 1. escreva
 2. escreva espaço
-3. escreva quem é você quem é você
+3. escreva isto é um teste quem é você
 
 ### Implementation
 

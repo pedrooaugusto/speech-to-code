@@ -3,6 +3,7 @@ import Header from './components/header'
 import Main from './components/main'
 import Modules from './components/spoken'
 import About from './components/about'
+import Help from './components/help'
 import GloablContext, { GlobalContext as GC } from './services/global-context'
 
 export default function App(props: any) {
@@ -14,6 +15,7 @@ export default function App(props: any) {
                     pages={[
                         { hash: '', component: Main },
                         { hash: '#/spoken', component: Modules },
+                        { hash: '#/help', component: Help },
                         { hash: '#/about', component: About }
                     ]}
                 />

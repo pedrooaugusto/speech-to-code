@@ -25,7 +25,8 @@ type CommandDefinition = {
     label: string,
     phrases: string[],
     impl: string,
-    desc: string
+    desc: string,
+    langName: string
 }
 
 const DOC_LINK = 'https://github.com/pedrooaugusto/speech-to-code/tree/main/spoken/src/modules'
@@ -35,13 +36,16 @@ export default function SpokenModules() {
     const [modalInfo, setModalInfo] = useState<null | ModalInfo>(null)
     const [open, setOpen] = useState(false)
     const context = useContext(GlobalContext)
+    const lang = context.language
+
+    console.log(modalInfo)
 
     return (
         <main className="spoken">
             <div className="wrapper">
                 <div className="title">
-                    <h2>Modules</h2>
-                    <div className="sub">Each module represents a set of commands that can be said out loud.</div>
+                    <h2>{i18n(lang)('Modules')()}</h2>
+                    <div className="sub">{i18n(lang)('Each module represents a set of commands that can be said out loud')()}.</div>
                 </div>
                 <div className="modules">
                     {Spoken.modules.map(mod => {
@@ -91,7 +95,7 @@ export default function SpokenModules() {
                             <a
                                 target="_blank"
                                 rel="noreferrer"
-                                href={`${DOC_LINK}/${modalInfo.module.id}/${modalInfo.command.id}#${modalInfo.command.label.replaceAll(' ', '-')}`}
+                                href={`${DOC_LINK}/${modalInfo.module.id}/${modalInfo.command.id}#${modalInfo.command.langName}`}
                                 title="More information about this command"
                             >
                                 <i className="fa fa-info-circle info" />
@@ -100,7 +104,7 @@ export default function SpokenModules() {
                         </div>
                         <div className="divider"></div>
                         <div className="body">
-                            <div className="label">Phrases:</div>
+                            <div className="label">{i18n(lang)('Accepted phrases')()}:</div>
                             <ul className="highlight">
                                 {modalInfo.command.phrases.map(item => {
                                     return (
@@ -115,3 +119,18 @@ export default function SpokenModules() {
         </main>
     )
 }
+
+const texts: Record<string, Record<string, any>> = {
+    'en-US': {
+
+    },
+    'pt-BR': {
+        'Help': () => 'Ajuda',
+        'Modules': () => 'Módulos',
+        'Each module represents a set of commands that can be said out loud': () =>
+            'Cada módulo representa um conjunto de comandos que podem ser ditos em voz alta',
+        'Accepted phrases': () => 'Frases reconhecidas'
+    }
+}
+
+const i18n = (lang: string) => (textId: string) => texts[lang][textId] || (() => textId)
