@@ -15,14 +15,14 @@ The following automata is responsible for recognizing the command `Write text` i
 The following are some examples of phrases, in english, used to trigger the command `Write text`:
 
 1. print
-2. write down
+2. write
 3. write it
 4. print space
 5. write space
 6. write it down space
-7. print the universe is cracked the universe is cracked
+7. print the universe is cracked who are you
 8. write down who are you the universe is cracked
-9. write it down the universe is cracked who are you
+9. write it who are you the universe is cracked
 
 #### Português
 
@@ -34,7 +34,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 
 1. escreva
 2. escreva espaço
-3. escreva isto é um teste isto é um teste
+3. escreva isto é um teste quem é você
 
 ### Implementation
 

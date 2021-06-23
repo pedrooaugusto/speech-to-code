@@ -14,7 +14,7 @@ The following automata is responsible for recognizing the command `Run current f
 
 The following are some examples of phrases, in english, used to trigger the command `Run current file`:
 
-1. run current file
+1. run this file
 
 #### Português
 
@@ -25,7 +25,7 @@ O automata seguinte é reponsável por reconhecer o comando `Executar arquivo` e
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Executar arquivo`:
 
 1. execute arquivo atual
-2. executar este arquivo
+2. execute este arquivo
 
 ### Implementation
 

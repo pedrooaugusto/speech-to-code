@@ -14,17 +14,17 @@ The following automata is responsible for recognizing the command `Stores a valu
 
 The following are some examples of phrases, in english, used to trigger the command `Stores a value in a variable`:
 
-1. declare constant called [multi_word_token]
+1. new variable named [multi_word_token]
 2. constant called [multi_word_token]
-3. create variable named [multi_word_token] equals [expressions]
-4. declare variable named text equals [expressions]
-5. new variable value equals [expressions]
-6. constant named [multi_word_token] equals [expressions]
-7. constant called graph equals [expressions]
-8. constant number equals [expressions]
-9. new constant called value
-10. declare constant value
-11. variable named text
+3. declare variable called [multi_word_token] equals [expressions]
+4. declare variable called temp equals [expressions]
+5. new constant value equals [expressions]
+6. variable named [multi_word_token] equals [expressions]
+7. constant called a equals [expressions]
+8. variable a equals [expressions]
+9. declare variable called graph
+10. create constant a
+11. variable called text
 12. variable a
 
 #### Português
@@ -35,18 +35,18 @@ O automata seguinte é reponsável por reconhecer o comando `Guarda um valor em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Guarda um valor em uma variável`:
 
-1. nova variável chamada [multi_word_token]
-2. variável chamada [multi_word_token]
+1. nova constante chamada [multi_word_token]
+2. constante chamada [multi_word_token]
 3. crie variável chamada [multi_word_token] igual [expressions]
-4. crie constante chamada numero igual [expressions]
-5. crie constante temp igual [expressions]
+4. declare variável chamada a igual [expressions]
+5. declare variável valor igual [expressions]
 6. variável chamada [multi_word_token] igual [expressions]
-7. constante chamada texto igual [expressions]
-8. constante valor igual [expressions]
-9. nova variável chamada lista
-10. crie variável a
-11. constante chamada lista
-12. constante texto
+7. variável chamada numero igual [expressions]
+8. constante temp igual [expressions]
+9. declare variável chamada lista
+10. declare constante valor
+11. variável chamada numero
+12. constante numero
 
 ### Implementation
 
