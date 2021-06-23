@@ -4,7 +4,9 @@ import Main from './components/main'
 import Modules from './components/spoken'
 import About from './components/about'
 import Help from './components/help'
-import GloablContext, { GlobalContext as GC } from './services/global-context'
+import { ModalSection } from './components/Modal'
+import GloablContext from './services/global-context'
+import './app.scss'
 
 export default function App(props: any) {
     return (
@@ -14,29 +16,14 @@ export default function App(props: any) {
                 <Router
                     pages={[
                         { hash: '', component: Main },
-                        { hash: '#/spoken', component: Modules },
-                        { hash: '#/help', component: Help },
-                        { hash: '#/about', component: About }
+                        { hash: 'spoken', component: Modules },
+                        { hash: 'help', component: Help },
+                        { hash: 'about', component: About }
                     ]}
                 />
             </div>
             <ModalSection />
         </GloablContext>
-    )
-}
-
-const ModalSection = () => {
-    const { toggleShade, shadeIsOpen } = React.useContext(GC)
-
-    React.useEffect(() => {
-        document.body.style.overflow = shadeIsOpen ? 'hidden' : ''
-    }, [shadeIsOpen])
-
-    return (
-        <div id="modal">
-            <div className={`shade ${shadeIsOpen ? 'open' : ''}`} onClick={() => toggleShade()}></div>
-            <div className="content"></div>
-        </div>
     )
 }
 
@@ -56,7 +43,7 @@ function Router(props: { pages: { hash: string, component: React.FC }[] }) {
 
     }, [])
 
-    const page = props.pages.find((page) => page.hash === hash)
+    const page = props.pages.find((page) => new RegExp('^(#|#/|)' + page.hash + '(/|)$').test(hash))
 
     return page ? <page.component /> : null
 }

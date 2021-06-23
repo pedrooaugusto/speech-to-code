@@ -37,10 +37,10 @@ export default function Header() {
                     </div>
                 </div>
                 <ul>
-                    <li><a href="/#" onClick={() => setOpen(!open)}>Home</a></li>
-                    <li><a href="/#/spoken" onClick={() => setOpen(!open)}>{i18n(context.language)('Modules')()}</a></li>
-                    <li><a href="/#/help" onClick={() => setOpen(!open)}>{i18n(context.language)('Help')()}</a></li>
-                    <li><a href="/#/about" onClick={() => setOpen(!open)}>About</a></li>
+                    <li><a href="#/" onClick={() => setOpen(!open)}>Home</a></li>
+                    <li><a href="#/spoken/" onClick={() => setOpen(!open)}>{i18n(context.language)('Modules')()}</a></li>
+                    <li><a href="#/help/" onClick={() => setOpen(!open)}>{i18n(context.language)('Help')()}</a></li>
+                    <li><a href="#/about/" onClick={() => setOpen(!open)}>About</a></li>
                 </ul>
                 <div className="divider"></div>
                 <div className="settings">

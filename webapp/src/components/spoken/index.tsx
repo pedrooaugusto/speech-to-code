@@ -95,7 +95,7 @@ export default function SpokenModules() {
                             <a
                                 target="_blank"
                                 rel="noreferrer"
-                                href={`${DOC_LINK}/${modalInfo.module.id}/${modalInfo.command.id}#${modalInfo.command.langName}`}
+                                href={`${DOC_LINK}/${modalInfo.module.id}/${modalInfo.command.id}#${capitalize(modalInfo.command.langName)}`}
                                 title="More information about this command"
                             >
                                 <i className="fa fa-info-circle info" />
@@ -118,6 +118,10 @@ export default function SpokenModules() {
             </Modal>)}
         </main>
     )
+}
+
+const capitalize = (s: string) => {
+    return s.charAt(0).toLowerCase() + s.slice(1)
 }
 
 const texts: Record<string, Record<string, any>> = {

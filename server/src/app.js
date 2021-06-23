@@ -9,8 +9,6 @@ const SpokenRouter = require('./spoken/route')
 
 require('./headers')(app)
 
-app.use(express.static(path.resolve(__dirname, '..', 'public')))
-
 app.use('/spoken', SpokenRouter)
 
 app.get('/api/azure/token', async (req, res) => {
@@ -20,9 +18,7 @@ app.get('/api/azure/token', async (req, res) => {
     const speechEndpoint = process.env.ENDPOINT
 	const speechRegion = process.env.REGION
 
-	if (speechKey == '' || speechKey == null) {
-		return res.status(401).send({ message: 'ENV variables not configured!' })
-	}
+	if (speechKey == '' || speechKey == null) res.status(401).send({ message: 'ENV variables not configured!' })
 
 	const headers = { 
 		headers: {
@@ -43,6 +39,9 @@ app.get('/api/azure/token', async (req, res) => {
 	}
 
 })
+
+app.use(express.static(path.resolve(__dirname, '..', 'public')))
+app.use('*', (req, res) => res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html')))
 
 http.listen(process.env.PORT || 3000, () => {
 	console.log('[server.app] Listening on *:3000')

@@ -17,10 +17,13 @@ export default function Help() {
                     Visual Studio Code. A comunicação entre o VSCode e esta
                     aplicação é feita através de uma extenção chamada Spoken que é
                     automaticamente instalada no VSCode, por isso é necessário que o
-                    VSCode seja iniciado antes desta aplicação.<br/><br/>
+                    VSCode seja iniciado antes desta aplicação.<br/>
+                    É necessário ainda que o editor de código contenha um arquivo em edição e o foco do mouse
+                    esteja neste em uma das linhas deste arquivo.
+                    <br/><br/>
 
                     <b>Lista de Comandos</b><br/>
-                    Aqui serão listados os comandos mais comuns e possíveis frases para ativá-los, a lista completa
+                    Aqui serão listados os comandos mais comuns e possíveis frases de ativação, a lista completa
                     encontra-se em <i>/Módulos</i>.<br/><br/>
 
                     <ul className="useful-commands">
@@ -150,6 +153,87 @@ export default function Help() {
                                 <div className="desc">
                                     <div>Função:</div>
                                     <div>Escreve uma string na linguagem JS. Pode ser usado como argumento para outros comandos</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="c-title"><Link h="fn_call">Chamada de função</Link></div>
+                            <div className="c-info">
+                                <div className="pattern">
+                                    <div>Padrão:</div>
+                                    <div>execute a função {'<palavra>'}</div>
+                                    <div>execute a função {'<palavra>'} com {'<número>'} argumentos</div>
+                                    <div>execute a função {'<palavra>'} na {'[values]'} com os argumentos {'[values]'} e {'[values]'}</div>
+                                </div>
+                                <div className="phrases">
+                                    <div>Frases:</div>
+                                    <div>execute a função soma</div>
+                                    <div>execute a função stop com 3 argumentos</div>
+                                    <div>execute a função soma na variável calculadora com os argumentos número 1 e string tudo bem string</div>
+                                </div>
+                                <div className="desc">
+                                    <div>Função:</div>
+                                    <div>Usada para chamar um função no objeto X com os argumentos Y</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="c-title"><Link h="variable_assignment">Atribuição de variável</Link></div>
+                            <div className="c-info">
+                                <div className="pattern">
+                                    <div>Padrão:</div>
+                                    <div>nova (constante | variável) {'<palavra>'} igual a {'[values]'}</div>
+                                    <div>(constante | variável) {'<palavra>'} igual a {'[values]'}</div>
+                                </div>
+                                <div className="phrases">
+                                    <div>Frases:</div>
+                                    <div>nova variável bola igual a string ola que é você string</div>
+                                    <div>constante valor igual a execute a função soma</div>
+                                    <div>nova constante valor igual a número 92</div>
+                                </div>
+                                <div className="desc">
+                                    <div>Função:</div>
+                                    <div>Usada para declarar ou atribuir um valor a uma variável</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="c-title"><Link h="elementar_math_op">Operadores aritméticos</Link></div>
+                            <div className="c-info">
+                                <div className="pattern">
+                                    <div>Padrão:</div>
+                                    <div>expressão {'[values]'} (mais | menos | vezes | dividido) {'[values]'} (mais | menos | vezes | dividido) ...</div>
+                                </div>
+                                <div className="phrases">
+                                    <div>Frases:</div>
+                                    <div>expressão número 3 mais número 42 menos string ola pedro string</div>
+                                    <div>expressão execute a função soma mais a variável bola</div>
+                                    <div>expressão número 3 mais execute a função soma com os argumentos número 2 e número 3</div>
+                                </div>
+                                <div className="desc">
+                                    <div>Função:</div>
+                                    <div>Usada para usar os operadores aritméticos (+, -, *, /) em JS</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="c-title"><Link h="elementar_math_op">Operadores lógicos</Link></div>
+                            <div className="c-info">
+                                <div className="pattern">
+                                    <div>Padrão:</div>
+                                    <div>expressão {'[values]'} (e | ou | igual) {'[values]'} (e | ou | igual) ...</div>
+                                    <div>expressão {'[values]'} (maior | menor) que {'[values]'} (maior | menor) que ...</div>
+                                </div>
+                                <div className="phrases">
+                                    <div>Frases:</div>
+                                    <div>expressão número 3 e número 42 menos string ola pedro string</div>
+                                    <div>expressão execute a função soma ou a variável bola</div>
+                                    <div>expressão número 3 igual a execute a função soma</div>
+                                    <div>expressão número 0 maior ou igual a variável valor</div>
+                                </div>
+                                <div className="desc">
+                                    <div>Função:</div>
+                                    <div>Usada para usar os operadores lógicos (||, &&, ===, !) em JS</div>
                                 </div>
                             </div>
                         </li>
