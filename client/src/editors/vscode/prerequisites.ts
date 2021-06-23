@@ -2,10 +2,10 @@ import { dialog } from 'electron'
 import crossSpawn from  'cross-spawn'
 import path from 'path'
 import fs from 'fs'
-import { isDev } from '../../utils'
+import { isDev, appVersion } from '../../utils'
 
 const APP_NAME = 'speech2code'
-const VSCODE_EXT_ID = 'pedroaugusto.speech2code'
+const VSCODE_EXT_ID = 'pedroaugusto.speech2code@' + appVersion
 
 export function check() {
     // Does this machine has Visual Studio Code installed ?
@@ -46,7 +46,7 @@ function checkVSCodeIsInstalled() {
 }
 
 function checkIfVSCodeExtensionIsAlreadyInstalled() {
-    const response = crossSpawn.sync('code', ['--list-extensions'])
+    const response = crossSpawn.sync('code', ['--list-extensions', '--show-versions'])
 
     if (response.error || response.stderr.toString() !== '') {
         const err = response.stderr.toString()

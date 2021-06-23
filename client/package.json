@@ -2,7 +2,7 @@
 	"name": "speech2code.client",
 	"displayName": "Speech2Code",
 	"productName": "speech2code",
-	"version": "0.0.1-alpha.2",
+	"version": "0.0.1-alpha.3",
 	"description": "Speech2Code main app - Enables you to code using just your voice",
 	"author": {
 		"email": "pedro42augusto@gmail.com",
