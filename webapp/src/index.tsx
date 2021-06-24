@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom'
 const App = React.lazy(() => import('./App'))
 
 declare global {
-	interface Window { electronShellInfo: any }
+	interface Window {
+		electronShellInfo: any
+	}
 }
 
 const OuterRouter = (props: any) => {
@@ -20,18 +22,15 @@ const OuterRouter = (props: any) => {
 	)
 }
 
-const lazy = (comp: ComponentType) => React.lazy(() => Promise.resolve({ default: comp }))
+const lazy = (comp: ComponentType) =>
+	React.lazy(() => Promise.resolve({ default: comp }))
 
 const NotFound: ComponentType<any> = () => {
-	return (
-		<h3>Error 404 - Cannot get {window.location.pathname}</h3>
-	)
+	return <h3>Error 404 - Cannot get {window.location.pathname}</h3>
 }
 
 const UnderConstruction: ComponentType<any> = () => {
-	return (
-		<h3>🚧 Under construction 🚧 - Later!</h3>
-	)
+	return <h3>🚧 Under construction 🚧 - Later!</h3>
 }
 
 ReactDOM.render(
@@ -44,5 +43,5 @@ ReactDOM.render(
 function isRoute(guess: string) {
 	const { pathname } = window.location
 
-	return new RegExp('^/'+ guess +'(/|)$').test(pathname)
+	return new RegExp('^/' + guess + '(/|)$').test(pathname)
 }

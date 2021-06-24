@@ -7,9 +7,13 @@ async function main() {
     
     Editor.turnOn()
     await wait(2000)
+
     const info = await Editor.fileInfo()
 
-    await Editor.writeOnTerminal('node "' + info.fileName + '"')
+    await Editor.write('hello doc')
+    await Editor.indentSelection()
+
+    // await Editor.writeOnTerminal('node "' + info.fileName + '"')
     // await Editor.newLine(1)
     // console.log(await Editor.moveCursorTo('END_LINE'))
     // console.log(await Editor.moveCursorTo(null, undefined, 6))

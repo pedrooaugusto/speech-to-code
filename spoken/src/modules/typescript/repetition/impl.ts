@@ -23,7 +23,7 @@ async function Repetition(command: RepetitionParsedArgs, editor: Editor, context
     const line = await editor.getLine() as { _line: number }
 
     await editor.write(text)
-    await editor.indentSelection([line._line - 3, 0], [line._line + 3, 0])
+    await editor.indentSelection()
 
     return await editor.goToLine(line._line as any)
 }

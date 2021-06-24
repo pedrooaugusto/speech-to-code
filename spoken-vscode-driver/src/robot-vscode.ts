@@ -169,7 +169,7 @@ class RobotVscode implements Robot {
 
         if (editor == null) return rej(e)
 
-        function MoveCursor(options: any) {
+        function moveCursor(options: any) {
             if (options.value === 0) return res()
 
             return vscode.commands.executeCommand('cursorMove', options).then(() => res())
@@ -180,12 +180,12 @@ class RobotVscode implements Robot {
         if (to === 'BEGIN_LINE' || to === 'END_LINE') {
             const { relative } = this.lineBoundaries(currentLine)
 
-            return MoveCursor({ to: relative[ to === 'BEGIN_LINE' ? 0 : 1 ] })
+            return moveCursor({ to: relative[ to === 'BEGIN_LINE' ? 0 : 1 ] })
         }
 
         // Move the cursor {leapSize} units to the right
         if (to === null) {
-            return MoveCursor({ to: 'right', value: leapSize, by: 'character' })
+            return moveCursor({ to: 'right', value: leapSize, by: 'character' })
         }
 
         if (to === 'SYMBOL' && symbol != undefined) {
@@ -200,7 +200,7 @@ class RobotVscode implements Robot {
 
             if (range == null) return rej('Match not found for symbol: ' + symbol)
 
-            return MoveCursor({ to: 'right', value: range[0], by: 'character' })
+            return moveCursor({ to: 'right', value: range[0], by: 'character' })
         }
 
         return rej(new Error('Unknown operation!'))
@@ -303,13 +303,19 @@ class RobotVscode implements Robot {
      * @param p2 Finish string[] (line, cursor)
      */
     indentSelection = (
-        p1: [string, string],
-        p2: [string, string]
+        p1?: [string, string],
+        p2?: [string, string]
     ) => new Promise<void | Error>((res, rej) => {
         try {
             const editor = vscode.window.activeTextEditor
 
             if (editor == null) return rej(new Error('No active text editor'))
+
+            if (p1 == null || p2 == null) {
+                return vscode.commands.executeCommand('editor.action.formatDocument', {}).then(a => {
+                    res()
+                })
+            }
 
             p1[0] = p1[0] ?? editor.selection.active.line
             p2[0] = p2[0] ?? editor.selection.active.line

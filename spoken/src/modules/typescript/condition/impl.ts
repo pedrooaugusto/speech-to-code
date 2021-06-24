@@ -12,7 +12,7 @@ async function Condition(command: ConditionParsedArgs, editor: Editor, context: 
     const line = await editor.getLine() as { _line: number }
 
     await editor.write(text)
-    await editor.indentSelection([line._line - 3, 0], [line._line + (otherwise ? 8 : 3), 0])
+    await editor.indentSelection()
     await editor.goToLine(line._line as any)
 
     return null

@@ -27,7 +27,7 @@ async function FunctionDeclaration(command: FunctionDeclarationParsedArgs, edito
 
     await editor.write(text)
 
-    await editor.indentSelection([line._line - 3, 0], [line._line + 3, 0])
+    await editor.indentSelection()
 
     return await editor.goToLine(line._line as any)
 }

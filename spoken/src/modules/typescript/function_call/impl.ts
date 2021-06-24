@@ -26,7 +26,7 @@ async function FunctionCall(command: FunctionCallParsedArgs, editor: Editor, con
 
     await editor.write(text)
 
-    return await editor.indentSelection([line._line - 1, 0], [line._line - 1, line.character])
+    return await editor.indentSelection()
 }
 
 const toArray = (arg: any | any[]) => Array.isArray(arg) ? arg : [arg]
