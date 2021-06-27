@@ -1,5 +1,5 @@
 import React from 'react'
-import { GlobalContext } from '../../services/global-context'
+import { GlobalContext } from '../../../services/global-context'
 
 export default function Help() {
     const { language: lang } = React.useContext(GlobalContext)

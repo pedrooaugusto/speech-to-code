@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Spoken from 'spoken'
 import ReactTooltip from 'react-tooltip';
-import { GlobalContext } from '../../services/global-context'
+import { GlobalContext } from '../../../services/global-context'
 
 export default function Header() {
     const [open, setOpen] = useState(false)

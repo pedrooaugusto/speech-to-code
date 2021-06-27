@@ -10,8 +10,7 @@ async function main() {
 
     const info = await Editor.fileInfo()
 
-    await Editor.write('hello doc')
-    await Editor.indentSelection()
+    await Editor.remove(4)
 
     // await Editor.writeOnTerminal('node "' + info.fileName + '"')
     // await Editor.newLine(1)

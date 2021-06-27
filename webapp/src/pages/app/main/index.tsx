@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import IpcRenderer from '../../services/electron-ipc'
+import IpcRenderer from '../../../services/electron-ipc'
 import ReactTooltip from 'react-tooltip'
 import LostConnectionError  from './LostConnectionError'
-import useAzureVoiceRecognition from '../../services/azure/use-voice-recognition'
+import useAzureVoiceRecognition from '../../../services/azure/use-voice-recognition'
 import { MicrophoneButton } from './MicrophoneButton'
-import { RecognitionRequest } from '../../services/use-voice-recognition'
-import { GlobalContext } from '../../services/global-context'
+import { RecognitionRequest } from '../../../services/use-voice-recognition'
+import { GlobalContext } from '../../../services/global-context'
 
 export default function Main() {
     const [recording, setRecording] = useState(false)

@@ -23,7 +23,8 @@ Math.max(5)
 // 3. Add help section (v)
 // 3. write on blank file (v)
 // 3. Indent whole file (v)
-// 3. remover linha
 // 4. Add button above mic informing lang and recording (v)
-// 5. escreva: letras
+// 3. remover linha
+// 3. remover seleção
+// 5. escreva: letras (v)
 // 5. escreva: . [ ] ( ) ? : ,

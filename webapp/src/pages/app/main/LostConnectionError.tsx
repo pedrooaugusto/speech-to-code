@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from '../Modal'
-import { GlobalContext } from '../../services/global-context'
+import { GlobalContext } from '../../../services/global-context'
 
 export default function LostConnectionError() {
 	const context = React.useContext(GlobalContext)

@@ -27,9 +27,9 @@ async function FunctionDeclaration(command: FunctionDeclarationParsedArgs, edito
 
     await editor.write(text)
 
-    await editor.indentSelection()
+    return await editor.indentSelection()
 
-    return await editor.goToLine(line._line as any)
+    // return await editor.goToLine(line._line as any)
 }
 
 const toValue = (item: WildCard | string) => typeof item === 'string' ? item : item.value

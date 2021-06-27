@@ -1,6 +1,7 @@
 import React, { ComponentType } from 'react'
 import ReactDOM from 'react-dom'
-const App = React.lazy(() => import('./App'))
+const App = React.lazy(() => import('./pages/app'))
+const WebApp = React.lazy(() => import('./pages/webapp'))
 
 declare global {
 	interface Window {
@@ -12,7 +13,8 @@ const OuterRouter = (props: any) => {
 	let Page = null
 
 	if (isRoute('app')) Page = App
-	else if (isRoute('') || isRoute('webapp')) Page = lazy(UnderConstruction)
+	else if (isRoute('webapp')) Page = WebApp
+	else if (isRoute('')) Page = lazy(UnderConstruction)
 	else Page = lazy(NotFound)
 
 	return (

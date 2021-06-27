@@ -97,7 +97,7 @@ class SpokenModule {
         this.root = path.resolve(dir, name)
         this.sourceRoot = path.resolve(sourceDir, name)
         this.automata = path.resolve(this.sourceRoot, this.name + '.dot')
-        this.commands = listArchives('FOLDER')(this.root).map(name1 => new Command(name1, this.root, this.sourceRoot))
+        this.commands = listArchives('FOLDER', true)(this.root).map(name1 => new Command(name1, this.root, this.sourceRoot))
     }
 
     addInfo(info) {

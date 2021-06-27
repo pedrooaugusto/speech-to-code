@@ -1,0 +1,17 @@
+digraph remove_ln_sec {
+    id="remove_ln_sec";
+    label="Remover";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 2 3;
+    node[shape=circle];
+
+    0 -> 1 [label="(remover, remova, remove)"];
+    1 -> 2 [label="(linha)", store=isLine, normalizer=boolean];
+    1 -> 3 [label="(seleção)", store=isSelection, normalizer=boolean];
+
+    title="Remover";
+    desc="Remove a linha atual ou a seleção";
+}

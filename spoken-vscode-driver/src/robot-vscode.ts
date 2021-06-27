@@ -2,7 +2,6 @@ import * as vscode from './vscode'
 import { Robot } from './index'
 import Log from './logger'
 
-// @TODO: Replace everything 'robot' for editor
 class RobotVscode implements Robot {
 
     private getEditor(): [vscode.TextEditor | null, Error | null] {
@@ -33,12 +32,23 @@ class RobotVscode implements Robot {
         })
     })
 
-    removeSelection(): Promise<string | Error> {
-        throw new Error('Method not implemented.')
-    }
+    /**
+	 * Removes the provided selection/line
+     * 
+	 * @param The line to be removed
+	 */
+     remove = (selection: number | [[number, number], [number, number]]) => new Promise<void | Error>((res, rej) => {
+        Log('[vscode-driver.robot-vscode.write]: Executing remove(' + selection + ')')
+
+        const [editor, e] = this.getEditor()
+
+        if (editor == null) return rej(e)
+
+        vscode.commands.executeCommand('editor.action.deleteLines').then(() => res())
+    })
 
     /**
-     * Creates a new line above the current line.
+     * Creates a new line above or below the current line.
      * 
      * @returns undefined if evrything went well, error otherwise
      */
@@ -61,17 +71,11 @@ class RobotVscode implements Robot {
         })
     })
 
-    removeLine(): Promise<string | Error> {
-        throw new Error('Method not implemented.')
-    }
-
-    selectLines(from: number | undefined, to: number | undefined): Promise<string | Error> {
-        throw new Error('Method not implemented.')
-    }
-
     /**
      * Moves the cursor to a different line
+     * 
      * @param number Line number
+     * @param string Line position (END, BEGIN)
      */
     goToLine = (
         number: string,
@@ -95,25 +99,21 @@ class RobotVscode implements Robot {
 
             vscode.commands.executeCommand('cursorMove', { to, value, by: 'line' }).then(() => {
                 vscode.commands.executeCommand('revealLine', { lineNumber: destLine, at: 'center' }).then(() => {
-                    // const t = `wrappedLine${cursorPosition === 'BEGIN' ? 'First' : 'Last'}NonWhitespaceCharacter`
                     const text = editor.document.lineAt(destLine - 1).text
+
+                    if (cursorPosition === 'END') {
+                        return vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineEnd'}).then(() => res(text))
+                    }
+
                     const index = text.length - text.trimLeft().length
+
                     vscode.commands.executeCommand('cursorMove', { to: 'wrappedLineStart'}).then(() => {
-                        if (index <= 0) {
-                            res(text)
-                        } else {
-                            vscode.commands.executeCommand('cursorMove', { to: 'right', value: index, by: 'character' }).then(() => {
-                                res(text)
-                            })
-                        }
+                        if (index <= 0) return res(text)
+
+                        vscode.commands.executeCommand('cursorMove', { to: 'right', value: index, by: 'character' }).then(() => res(text))
                     })
                 })
             })
-
-            // const { range, text } = editor.document.lineAt(parseInt(number) - 1)
-            // editor.selection = new vscode.Selection(range.start, range.end)
-
-            // editor.revealRange(range)
         } catch(err) {
             rej(err)
         }
@@ -262,10 +262,6 @@ class RobotVscode implements Robot {
         }
     })
 
-    hotKey(...keys: string[]): Promise<void | Error> {
-        throw new Error('Method not implemented.')
-    }
-
     /**
      * Retrieves the content of the provided line
      * 
@@ -278,7 +274,7 @@ class RobotVscode implements Robot {
 
             if (editor == null) throw e
 
-            number = number != null ? number : editor.selection.active.line + 1
+            number = number != null ? number : editor.selection.active.line
 
             const d = editor.document.lineAt(number)
             return {

@@ -9,8 +9,8 @@ digraph MathOperator {
     node[shape=doublecircle]; 1;
     node[shape=circle];
 
-    0 -> 1 [label="(plus, times, minus, divided)", store=mathOperator];
+    0 -> 1 [label="(plus, times, minus, divided, mod)", store=mathOperator];
 
     title="Writes a math operator";
-    desc="Writes a math operator (*, -, +, /) meant to be used inside expressions";
+    desc="Writes a math operator (*, -, +, /, %) meant to be used inside expressions";
 }

@@ -32,7 +32,7 @@ exports.allRecognizablePhrases = function allRecognizablePhrases(graph, template
     return phrases
 }
 
-exports.listArchives = function listArchives(filter) {
+exports.listArchives = function listArchives(filter, all = false) {
     const type = filter === 'FOLDER' ? 0 : 1
 
     return (folder, aditionalFilter = () => true) => {
@@ -45,7 +45,7 @@ exports.listArchives = function listArchives(filter) {
             return type ^ isFolder
         })
         .filter(aditionalFilter)
-        .filter(a => !a.startsWith('__'))
+        .filter(a => all || !a.startsWith('__'))
     }
 }
 

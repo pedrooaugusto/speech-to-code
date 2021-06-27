@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import Header from './components/header'
-import Main from './components/main'
-import Modules from './components/spoken'
-import About from './components/about'
-import Help from './components/help'
-import { ModalSection } from './components/Modal'
-import GloablContext from './services/global-context'
-import './app.scss'
+import Header from './header'
+import Main from './main'
+import Modules from './spoken'
+import About from './about'
+import Help from './help'
+import { ModalSection } from './Modal'
+import GloablContext from '../../services/global-context'
+import './index.scss'
 
 export default function App(props: any) {
     return (

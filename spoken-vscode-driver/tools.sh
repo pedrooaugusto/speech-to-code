@@ -15,7 +15,7 @@ if [ $1 = "reload" ]; then
 
     MY_EXT_PATH=$(find $VSCODE_EXT_HOME -name "pedroaugusto.speech2code*")
 
-    cp ./out/robot-vscode.js "${MY_EXT_PATH}/out/robot-vscode2.js"
+    cp ./out/robot-vscode.js "${MY_EXT_PATH}/out/robot-vscode.js"
 fi
 
 # INSTALL EXTENSION

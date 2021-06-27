@@ -3,7 +3,7 @@ async function MathOperator(command: MathOperatorParsedArgs, editor: Editor, con
 
     const { mathOperator } = command
 
-    const operator = ['+', '*', '-', '/'][mathOperator] || 'error'
+    const operator = ['+', '*', '-', '/', '%'][mathOperator] || 'error'
 
     return { operator }
 }

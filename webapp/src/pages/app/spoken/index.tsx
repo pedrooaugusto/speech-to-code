@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import Modal from '../Modal'
 import Spoken from 'spoken'
-import { GlobalContext } from '../../services/global-context'
+import { GlobalContext } from '../../../services/global-context'
 
 type GraphJsonView = {
     [key: string]: unknown,

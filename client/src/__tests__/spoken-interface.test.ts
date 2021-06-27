@@ -1,10 +1,9 @@
-/* PLAYGROUND REGION - THIS REGION OF THE FILE WILL
-BE ALTERED BY THE THIS TEST.
 
 
 
 
-*/
+
+
 
 import Spoken, { SpokenCommand } from 'spoken'
 import { IpcMainEvent } from 'electron'
@@ -34,7 +33,7 @@ async function Main() {
         await conditionTest()
         await repetitionTest()
         await newFunctionTest()
-    } catch(err) {
+    } catch (err) {
         console.log(err.toString())
     } finally {
         EditorService.stop()
@@ -82,7 +81,7 @@ async function conditionTest() {
     await execute('new line')
 }
 
-async function executeFunctionTest()  {
+async function executeFunctionTest() {
     await wait(1000)
     await execute('go to line 4')
     await execute('execute a função bola da string hello string com 3 argumentos', 'pt-BR')

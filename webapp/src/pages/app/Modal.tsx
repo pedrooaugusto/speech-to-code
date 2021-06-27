@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { GlobalContext as GC } from '../services/global-context'
+import { GlobalContext as GC } from '../../services/global-context'
 
 export default function Modal({
     isOpen,

@@ -190,6 +190,16 @@ class VSCodeEditor extends Editor {
         })
     }
 
+    remove(selection: number | [[number, number], [number, number]]) {
+        console.log('[client.VSCodeRobot.getLine]: Sending request to execute remove(...)')
+
+        return this.runTask({
+            type: 'remove',
+            context: {},
+            extra: { args: [selection] }
+        })
+    }
+
     indentSelection(p1: [string, string], p2: [string, string]): Promise<void | Error> {
         console.log('[client.VSCodeRobot.indentSelection]: Sending request to execute indentSelection(...)')
         const task = {

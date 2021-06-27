@@ -13,7 +13,7 @@ async function Condition(command: ConditionParsedArgs, editor: Editor, context: 
 
     await editor.write(text)
     await editor.indentSelection()
-    await editor.goToLine(line._line as any)
+    // await editor.goToLine(line._line as any)
 
     return null
 }
