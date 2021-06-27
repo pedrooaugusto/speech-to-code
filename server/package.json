@@ -1,6 +1,6 @@
 {
 	"name": "speech2code.server",
-	"version": "0.0.1-alpha.3",
+	"version": "0.0.1-beta.1",
 	"description": "Speech to Code NodeJS server",
 	"main": "src/app.js",
 	"scripts": {

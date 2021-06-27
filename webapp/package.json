@@ -1,7 +1,7 @@
 {
 	"name": "speech2code.webapp",
 	"description": "The webapp react implementation of the speech2code frontend",
-	"version": "0.0.1-alpha.3",
+	"version": "0.0.1-beta.1",
 	"private": true,
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.11.9",
