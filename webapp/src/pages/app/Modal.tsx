@@ -20,13 +20,19 @@ export default function Modal({
 
 export const ModalSection = () => {
     const { toggleShade, shadeIsOpen } = React.useContext(GC)
+    const ref = React.useRef<HTMLDivElement>(null)
 
     React.useEffect(() => {
-        document.body.style.overflow = shadeIsOpen ? 'hidden' : ''
+        let parent = ref.current?.parentElement
+
+        if (!parent || !parent.classList.contains('window-content')) parent = window.document.body
+
+        parent.style.overflow = shadeIsOpen ? 'hidden' : ''
+
     }, [shadeIsOpen])
 
     return (
-        <div id="modal">
+        <div id="modal" ref={ref}>
             <div className={`shade ${shadeIsOpen ? 'open' : ''}`} onClick={() => toggleShade()}></div>
             <div className="content"></div>
         </div>

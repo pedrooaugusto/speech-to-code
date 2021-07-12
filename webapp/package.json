@@ -11,10 +11,12 @@
 		"@types/node": "^12.20.6",
 		"@types/react": "^17.0.3",
 		"@types/react-dom": "^17.0.2",
+		"codemirror": "^5.62.0",
 		"microsoft-cognitiveservices-speech-sdk": "^1.16.0",
 		"node-sass": "^5.0.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
+		"react-draggable": "^4.4.3",
 		"react-scripts": "4.0.3",
 		"react-tooltip": "^4.2.21",
 		"spoken": "file:../spoken/dist",
@@ -47,5 +49,8 @@
 			"last 1 safari version"
 		]
 	},
-	"proxy": "http://localhost:3000"
+	"proxy": "http://localhost:3000",
+	"devDependencies": {
+		"@types/codemirror": "^5.60.1"
+	}
 }

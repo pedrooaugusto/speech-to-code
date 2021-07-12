@@ -11,3 +11,7 @@ export type RecognitionRequest = {
     id: number,
     recognized: boolean
 }
+
+class UseVoiceRecognitionService {
+    
+}

@@ -1,5 +1,6 @@
 import React, { ComponentType } from 'react'
 import ReactDOM from 'react-dom'
+import { isRoute } from './pages/@components/utils'
 const App = React.lazy(() => import('./pages/app'))
 const WebApp = React.lazy(() => import('./pages/webapp'))
 
@@ -41,9 +42,3 @@ ReactDOM.render(
 	</React.StrictMode>,
 	document.getElementById('root')
 )
-
-function isRoute(guess: string) {
-	const { pathname } = window.location
-
-	return new RegExp('^/' + guess + '(/|)$').test(pathname)
-}

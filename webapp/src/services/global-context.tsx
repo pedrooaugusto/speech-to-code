@@ -26,7 +26,7 @@ export default function GloablContext(props: { children: any }) {
     const [state, setState] = React.useState<State>({
         language: 'pt-BR',
         shadeIsOpen: false,
-        __debug: false,
+        __debug: !false,
         spokenIsLoaded: false,
         connectedToVSCode: false,
         editorState: []
@@ -67,7 +67,11 @@ export default function GloablContext(props: { children: any }) {
         })
 
         IpcRenderer.on('Config:onChangeEditorState', (editorState) => {
-            const connected = editorState?.find(({ name }: { name: string }) => name.toLowerCase() === 'vscode')?.status === 'ON'
+            const connected = editorState?.find(({ name }: { name: string }) => {
+                const d = name.toLowerCase()
+                
+                return d === 'vscode' || d === 'codemirror'
+            })?.status === 'ON'
 
             if (!connected) IpcRenderer.send('VoiceRecognition:setRecording', false)
 

@@ -1,0 +1,32 @@
+#top-nav {
+    height: 65px;
+    background-color: #7e57c2;
+    padding: 0 35px;
+    display: flex;
+    font-family: 'Roboto';
+    figure {
+        margin: 0px;
+        margin-right: 25px;
+        padding: 0px;
+        display: flex;
+        align-items: center; 
+    }
+    a {
+        display: flex;
+        font-size: 18px;
+        font-weight: 400;
+        //background-color: red;
+        text-decoration: none;
+        height: 100%;
+        padding: 0px 10px;
+        color: white;
+        align-items: center;
+        &:not(:last-child) {
+            margin-right: 15px;
+        }
+
+        &.selected {
+            background-color: #704dac
+        }
+    }
+}

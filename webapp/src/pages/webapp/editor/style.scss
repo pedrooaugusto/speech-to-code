@@ -1,0 +1,28 @@
+main.webapp .code-editor-wrapper {
+
+    .filename {
+        border: solid 1px lightgray;
+        border-bottom: none;
+        display: inline-block;
+        min-width: 115px;
+        padding: 5px 10px;
+        font-size: 14px;
+        font-family: Roboto;
+        font-weight: 400;
+        color: #343434;
+        cursor: default;
+        background: #f7f7f7;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+
+    #code-editor {
+        .CodeMirror {
+            font-size: 14px;
+            line-height: 21px;
+            border: solid 1px lightgray;
+            border-radius: 5px;
+            border-top-left-radius: 0px;
+        }
+    }
+}

@@ -1,5 +1,8 @@
 import React from 'react'
 import Nav from '../@components/header'
+import Editor from './editor'
+import Speech2Code from './speech2code'
+import './style.scss'
 
 export default function Webapp(props: any) {
 
@@ -8,10 +11,10 @@ export default function Webapp(props: any) {
             <Nav />
             <main className="webapp">
                 <div className="code-editor">
-                    CODE HERE!
+                    <Editor />
                 </div>
                 <div className="speech2code">
-                    TOOL HERE!
+                    <Speech2Code />
                 </div>
             </main>
         </React.Fragment>

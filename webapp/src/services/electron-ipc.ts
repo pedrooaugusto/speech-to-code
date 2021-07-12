@@ -1,7 +1,11 @@
-interface ElectronIpc {
+export interface ElectronIpc {
     send: (channel: string, ...args: any) => void,
     on: (channel: string, cb: (...args: any) => void) => void,
     removeAllListeners: (channel: string) => void
+}
+
+declare global {
+    interface Window { ipcRenderer: ElectronIpc }
 }
 
 class FakeIpc implements ElectronIpc {
@@ -45,8 +49,7 @@ class FakeIpc implements ElectronIpc {
     }
 }
 
-// @ts-ignore
-const _ipcRenderer: ElectronIpc = window?.ipcRenderer || new FakeIpc()
+const _ipcRenderer: ElectronIpc = window.ipcRenderer || new FakeIpc()
 
 export default _ipcRenderer
 export { _ipcRenderer as ipcRenderer }

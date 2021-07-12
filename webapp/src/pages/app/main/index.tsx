@@ -1,63 +1,65 @@
 import React, { useState, useEffect } from 'react'
-import IpcRenderer from '../../../services/electron-ipc'
 import ReactTooltip from 'react-tooltip'
 import LostConnectionError  from './LostConnectionError'
-import useAzureVoiceRecognition from '../../../services/azure/use-voice-recognition'
 import { MicrophoneButton } from './MicrophoneButton'
-import { RecognitionRequest } from '../../../services/use-voice-recognition'
+import IpcRenderer from '../../../services/electron-ipc'
+import useAzureVoiceRecognition from '../../../services/azure/use-voice-recognition'
+import { RecognitionRequest, VoiceRecognitionHook } from '../../../services/use-voice-recognition'
 import { GlobalContext } from '../../../services/global-context'
 
-export default function Main() {
-    const [recording, setRecording] = useState(false)
+export default function factory(useVoiceRecognition: VoiceRecognitionHook = useAzureVoiceRecognition) {
+    return function Main() {
+        const [recording, setRecording] = useState(false)
 
-    const { results, start, stop, analyzeSentence } = useAzureVoiceRecognition()
-    const context = React.useContext(GlobalContext)
+        const { results, start, stop, analyzeSentence } = useVoiceRecognition()
+        const context = React.useContext(GlobalContext)
 
-    const toggleRecording = () => {
-        recording ? stop() : start()
-        setRecording(!recording)
-    }
-
-    const analyze = () => {
-        const text = (document.querySelector('.transcription-text.input') as HTMLTextAreaElement)?.value
-        setTimeout(() => analyzeSentence(text), 4000)
-    }
-
-    useEffect(() => {
-        IpcRenderer.on('VoiceRecognition:toggleRecording', (r) => {
-            r ? start() : stop()
-            setRecording(r)
-        })
-
-        return () => {
-            IpcRenderer.removeAllListeners('VoiceRecognition:toggleRecording')
+        const toggleRecording = () => {
+            recording ? stop() : start()
+            setRecording(!recording)
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
-    console.log(context)
+        const analyze = () => {
+            const text = (document.querySelector('.transcription-text.input') as HTMLTextAreaElement)?.value
+            setTimeout(() => analyzeSentence(text), 4000)
+        }
 
-    return (
-        <main className="main">
-            <LostConnectionError />
-            <MicrophoneButton
-                recording={recording}
-                toggleRecording={toggleRecording}
-                connectedToVSCode={context.connectedToVSCode}
-                language={context.language}
-            />
-            <TranscriptionHistory
-                results={results as RecognitionRequest}
-                language={context.language}
-                recording={recording}
-            />
-            {context.__debug && (<div className="debug">
-                <label>Debug:</label>
-                <textarea className="transcription-text input" style={{display: 'block', width: '100%'}}></textarea>
-                <button onClick={analyze}>Analyze</button>
-            </div>)}
-        </main>
-    )
+        useEffect(() => {
+            IpcRenderer.on('VoiceRecognition:toggleRecording', (r) => {
+                r ? start() : stop()
+                setRecording(r)
+            })
+ 
+            return () => {
+                IpcRenderer.removeAllListeners('VoiceRecognition:toggleRecording')
+            }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [])
+
+        console.log(context)
+
+        return (
+            <main className="main">
+                <LostConnectionError />
+                <MicrophoneButton
+                    recording={recording}
+                    toggleRecording={toggleRecording}
+                    connectedToVSCode={context.connectedToVSCode}
+                    language={context.language}
+                />
+                <TranscriptionHistory
+                    results={results as RecognitionRequest}
+                    language={context.language}
+                    recording={recording}
+                />
+                {context.__debug && (<div className="debug">
+                    <label>Debug:</label>
+                    <textarea className="transcription-text input" style={{display: 'block', width: '100%'}}></textarea>
+                    <button onClick={analyze}>Analyze</button>
+                </div>)}
+            </main>
+        )
+    }
 }
 
 function TranscriptionHistory(

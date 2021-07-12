@@ -1,0 +1,72 @@
+main.webapp .speech2code-wrapper {
+    z-index: 1512;
+    position: relative;
+    --window-size-width: 321px;
+    --window-size-height: 685px;
+
+    .window {
+        // border: solid 1px #cacaca;
+        box-shadow: 0px 2px 5px 0px #757575;
+        width: var(--window-size-width);
+        height: var(--window-size-height);
+        background: white;
+        position: relative;
+        overflow-x: hidden;
+
+        .top-bar {
+            background: #f9f9f9;
+            padding: 5px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            cursor: move;
+
+            .window-title {
+                font-family: 'Roboto';
+                color: #000000;
+                font-size: 13px;
+                display: flex;
+                align-items: center;
+            }
+
+            .controls {
+                display: flex;
+                justify-content: flex-end;
+                div {
+                    color: #4a4a4a;
+                    cursor: not-allowed;
+                    width: 20px;
+                    height: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+
+        .window-content {
+            overflow-x: hidden;
+            overflow-y: auto;
+            max-height: calc(var(--window-size-height) - 32px);
+            position: relative;
+            height: 100%;
+        }
+    }
+
+    .window-content #modal .shade {
+        height: 100%;
+        width: var(--window-size-width);
+    }
+
+    .window-content #modal .modal-content {
+        width: calc(var(--window-size-width) * 0.9);
+        left: calc(var(--window-size-width) * 0.05);
+    }
+
+    .window-content header {
+        .menu-items-shade.open,
+        .menu-items {
+            height: 100%;
+        }
+    }
+}

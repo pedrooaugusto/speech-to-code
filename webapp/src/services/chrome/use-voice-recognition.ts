@@ -1,0 +1,122 @@
+import { useState, useEffect, useContext } from 'react'
+import Spoken from 'spoken'
+import './ipc-service-emulator'
+import IpcRenderer from '../electron-ipc'
+import { VoiceRecognitionHook, RecognitionRequest } from '../use-voice-recognition'
+import MyRecognizer from './voice-recognizer'
+import { GlobalContext } from '../global-context'
+
+const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
+    const [results, setResults] = useState<RecognitionRequest | null>(null)
+    const { language = 'pt-BR', executeInternalCommand } = useContext(GlobalContext)
+    const recognizer = MyRecognizer.getRecognizer()
+
+    useEffect(() => {
+        IpcRenderer.on('Spoken:executeCommandResult', (result: any) => {
+            console.log('[webapp.services.chrome-voice-recognition.onResultError]: Execute command result: ' + result)
+        })
+
+        return () => {
+            IpcRenderer.removeAllListeners('Spoken:executeCommandResult')
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log('[webapp.services.chrome-voice-recognition]: Initializing')
+
+        recognizer
+            .on('results', (results: SpeechRecognitionResultList, isFinal: boolean) => {
+                const result = results[results.length - 1][0] as SpeechRecognitionAlternative & { text: string }
+
+                if (!result.transcript || result.transcript.trim() === '') return
+
+                result.text = result.transcript.trim()
+
+                const attempt = {
+                    text: sanitizePonctuation(result.text),
+                    isFinal,
+                    id: Date.now(),
+                    recognized: false
+                }
+
+                if (isFinal) {
+                    const match = findComand(result, language)
+
+                    attempt.recognized = !!match
+
+                    if (attempt.recognized) {
+                        if (match?.id?.startsWith('__')) executeInternalCommand(match)
+                        else IpcRenderer.send('Spoken:executeCommand', match)
+                    }
+                }
+
+                setResults(attempt)
+            })
+            .on('error', (err) => {
+                console.error('[webapp.services.chrome-voice-recognition.onResultError]: Error', err.toString())
+            })
+            .init(language)
+
+        return () => {
+            recognizer.destroy()
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [language])
+
+    const start = async () => {
+        console.log('start')
+        recognizer.start()
+    }
+
+    const stop = async () => {
+        console.log('stop')
+        recognizer.stop()
+    }
+
+    const analyzeSentence = async (phrase: string, timeout:number | null = 3000) => {        
+        const match = findComand({ text: sanitizePonctuation(phrase) }, language)
+
+        const attempt = {
+            text: phrase,
+            isFinal: true,
+            id: Date.now(),
+            recognized: !!match
+        }
+
+        const fn = () => {
+            setResults(attempt)
+            if (attempt.recognized) {
+                if (match?.id?.startsWith('__')) executeInternalCommand(match)
+                else IpcRenderer.send('Spoken:executeCommand', match)
+            }
+        }
+
+        if (timeout) setTimeout(fn, timeout)
+        else fn()
+    }
+
+    return {
+        results,
+        start,
+        stop,
+        analyzeSentence
+    }
+}
+
+function findComand(voiceToTextResponse: { text: string }, language: string) {
+    const text = sanitizePonctuation(voiceToTextResponse.text)
+    const result = Spoken.recognizePhrase(text.toLocaleLowerCase(), language)
+
+    if (result != null) {
+        result.extra._rawVoiceToTextResponse = voiceToTextResponse
+        result.extra.phrase = text
+    }
+
+    return result
+}
+
+function sanitizePonctuation(text: string) {
+    return text.replace(/(?<! )(:|\*|,|\.|\?|!)/gi, ' $1')
+}
+
+export default useChromeVoiceRecognition

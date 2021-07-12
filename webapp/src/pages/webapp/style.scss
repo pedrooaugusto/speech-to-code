@@ -1,0 +1,35 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.webapp {
+    display: flex;
+    & > div {
+        padding: 15px;
+    }
+    .code-editor {
+        flex: 0.6;
+    }
+    .speech2code {
+        flex: 0.4;
+    }
+}
+
+#modal .shade {
+    position: fixed;
+    background: #00000091;
+    display: none;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+
+#modal .shade.open {
+    display: block;
+}

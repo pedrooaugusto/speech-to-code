@@ -6,26 +6,31 @@ import About from './about'
 import Help from './help'
 import { ModalSection } from './Modal'
 import GloablContext from '../../services/global-context'
+import { VoiceRecognitionHook } from '../../services/use-voice-recognition'
 import './index.scss'
 
-export default function App(props: any) {
-    return (
-        <GloablContext>
-            <div>
-                <Header />
-                <Router
-                    pages={[
-                        { hash: '', component: Main },
-                        { hash: 'spoken', component: Modules },
-                        { hash: 'help', component: Help },
-                        { hash: 'about', component: About }
-                    ]}
-                />
-            </div>
-            <ModalSection />
-        </GloablContext>
-    )
+export function factory(useVoiceRecognition?: VoiceRecognitionHook) {
+    return function App(props: any) {
+        return (
+            <GloablContext>
+                <div>
+                    <Header />
+                    <Router
+                        pages={[
+                            { hash: '', component: Main(useVoiceRecognition) },
+                            { hash: 'spoken', component: Modules },
+                            { hash: 'help', component: Help },
+                            { hash: 'about', component: About }
+                        ]}
+                    />
+                </div>
+                <ModalSection />
+            </GloablContext>
+        )
+    }
 }
+
+export default factory()
 
 function Router(props: { pages: { hash: string, component: React.FC }[] }) {
     const [hash, setHash] = useState(window.location.hash)
