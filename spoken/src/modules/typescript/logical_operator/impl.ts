@@ -1,3 +1,6 @@
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function LogicalOperator(command: LogicalOperatorParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "LogicalOperator"')
 

@@ -1,5 +1,45 @@
 import * as graphlib from './graphlib'
 
+export type GraphJsonView = {
+	edges: unknown,
+	nodes: unknown,
+	options: unknown,
+	value: { id: string, impl: string, lang: string, alias?: string, priority?: string }
+}
+
+export type SpokenModule = {
+	id: string,
+	desc: string,
+	label: string,
+	grammar: Record<string, GraphJsonView[]>
+}
+
+export type SpokenModules = {
+	modules: SpokenModule[],
+	normalizers: Record<string, (((lang: string) => Function))>,
+	templates: Record<string, {
+		value: string,
+		examples: Record<string, string[]>,
+		defaultNormalizer?: string
+	}>,
+	stopWords: Record<string, {
+		words: string[],
+		expressions: string[]
+	}>
+}
+
+export type Context = {
+	normalizers: Record<string, (((lang: string) => Function))>,
+    templates: Record<string, {
+		value: string,
+		examples: Record<string, string[]>
+	}>,
+    stopWords: Record<string, {
+		words: string[],
+		expressions: string[]
+	}>
+}
+
 class Modules {
     private spoken: SpokenModules = {
         modules: [],

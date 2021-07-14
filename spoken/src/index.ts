@@ -48,3 +48,5 @@ class Spoken {
 export default new Spoken()
 
 export { SpokenCommand }
+
+export { Editor } from './modules/d'

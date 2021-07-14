@@ -1,3 +1,5 @@
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function Expression(command: ExpressionParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "Expression"')
 

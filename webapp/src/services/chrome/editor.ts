@@ -1,10 +1,13 @@
-// @ts-ignore
+import CodeMirror from 'codemirror'
+import { Editor } from 'spoken'
 
-import CodeMirror from "codemirror"
-
-const vscode: any = {}
-
-class CodeMirrorEditor {
+/**
+ * CodeMirror implementation of https://github.com/pedrooaugusto/speech-to-code/blob/main/spoken-vscode-driver/src/robot-vscode.ts
+ * 
+ * This is just a port from VSCode editor to CodeMirror editor and is meant
+ * to be used in the web.
+ */
+class CodeMirrorEditor extends Editor {
     private editor: CodeMirror.Editor | null = null
 
     public getEditor(): [CodeMirror.Editor | null, Error | null] {
@@ -104,15 +107,12 @@ class CodeMirrorEditor {
         return text
     }
 
-    private lineBoundaries(line: any, withWhiteSpace = false) {
-        const rStart = withWhiteSpace ? 'wrappedLineStart' : 'wrappedLineFirstNonWhitespaceCharacter'
-        const rEnd = withWhiteSpace ? 'wrappedLineEnd' : 'wrappedLineLastNonWhitespaceCharacter'
-        const aStart = withWhiteSpace ? 0 : line.firstNonWhitespaceCharacterIndex
-        const aEnd = line.text.length
+    private lineBoundaries(line: string, withWhiteSpace = false) {
+        const rStart = withWhiteSpace ? 0 : Math.max(line.length - line.trimLeft().length, 0)
+        const rEnd = (withWhiteSpace ? line.length : line.trimRight().length)
 
         return {
-            relative: [rStart, rEnd],
-            absolute: [aStart, aEnd]
+            relative: [rStart, rEnd]
         }
     }
 
@@ -128,12 +128,12 @@ class CodeMirrorEditor {
     }
 
     private findAllOccurrences(lineNumber: number, regex: RegExp, pad: number = 0) {
-        const [editor, e] = this.getEditor() as any
+        const [editor, e] = this.getEditor()
 
         if (editor == null) return []
-        
-        const line = editor.document.lineAt(lineNumber)
-        const text = line.text.substr(pad)
+
+        const line = editor.getLine(lineNumber)
+        const text = line.substr(pad)
 
         return this.stringMatchAll(text, regex)
     }
@@ -145,51 +145,41 @@ class CodeMirrorEditor {
      * @param symbol {string} If `to` is SYMBOL, which symbol are we looking for
      * @param leapSize {number} How many matches should be skiped
      */
-    moveCursorTo = (
-        to: 'END_LINE' | 'BEGIN_LINE' | 'SYMBOL' | null,
-        symbol: string | undefined,
-        leapSize: number | undefined
-    ) => new Promise<void | Error>(async (res, rej) => {
-        const [editor, e] = this.getEditor() as any
+    async moveCursorTo(to: 'END_LINE' | 'BEGIN_LINE' | 'SYMBOL' | null, symbol: string | undefined, leapSize: number | undefined) {
+        const [editor, e] = this.getEditor()
 
-        if (editor == null) return rej(e)
+        if (editor == null) throw e
 
-        function moveCursor(options: any) {
-            if (options.value === 0) return res()
-
-            return vscode.commands.executeCommand('cursorMove', options).then(() => res())
-        }
-
-        const currentLine = editor.document.lineAt(editor.selection.active.line)
+        const cursor = editor.getCursor()
 
         if (to === 'BEGIN_LINE' || to === 'END_LINE') {
-            const { relative } = this.lineBoundaries(currentLine)
+            const { relative } = this.lineBoundaries(editor.getLine(cursor.line))
 
-            return moveCursor({ to: relative[ to === 'BEGIN_LINE' ? 0 : 1 ] })
+            console.log(relative)
+
+            return editor.setCursor({ line: cursor.line, ch: relative[ to === 'BEGIN_LINE' ? 0 : 1 ] })
         }
 
         // Move the cursor {leapSize} units to the right
         if (to === null) {
-            return moveCursor({ to: 'right', value: leapSize, by: 'character' })
+            return editor.setCursor({ line: cursor.line, ch: cursor.ch + leapSize! })
         }
 
         if (to === 'SYMBOL' && symbol != undefined) {
-            const { line, character } = editor.selection.active
-
-            const indices = this.findAllOccurrences(line, new RegExp(symbol, 'gi'), character)
+            const indices = this.findAllOccurrences(cursor.line, new RegExp(symbol, 'gi'), cursor.ch)
 
             if (leapSize === -1) leapSize = indices.length
             else if (leapSize == null) leapSize = 1
 
             const range = indices[leapSize - 1]
 
-            if (range == null) return rej('Match not found for symbol: ' + symbol)
+            if (range == null) throw new Error('Match not found for symbol: ' + symbol)
 
-            return moveCursor({ to: 'right', value: range[0], by: 'character' })
+            return editor.setCursor({ line: cursor.line, ch: cursor.ch + range[0] })
         }
 
-        return rej(new Error('Unknown operation!'))
-    })
+        throw new Error('Unknown operation!')
+    }
 
     /**
      * Finds the range of a term in a given line
@@ -198,21 +188,21 @@ class CodeMirrorEditor {
      * @param line {number} Which line to look for
      */
     async findPositionOf(term: RegExp | string, line?: number, pad?: number): Promise<number[][] | Error> {
-        const [editor, e] = this.getEditor() as any
+        const [editor, e] = this.getEditor()
 
         if (editor === null) throw e
 
-        line = line ?? editor.selection.active.line
+        line = line ?? editor.getCursor().line
 
         if (typeof term === 'string') {
             if (term === 'LINE_BOUNDARIES' || term === '') {
-                return [this.lineBoundaries(editor.document.lineAt(line), true).absolute]
+                return [this.lineBoundaries(editor.getLine(line), true).relative]
             }
 
             term = new RegExp(term, 'gi')
         }
 
-        return this.findAllOccurrences(line as any, term, pad)
+        return this.findAllOccurrences(line, term, pad)
     }
 
     /**
@@ -223,29 +213,25 @@ class CodeMirrorEditor {
      * @param line If its a line selection or a word selection
      * @returns The text selection
      */
-    select = (from: number, to: number, line: boolean) => new Promise<string | Error>((res, rej) => {
-        const editor = vscode.window.activeTextEditor
+    async select(from: number, to: number, line: boolean) {
+        const [editor, e] = this.getEditor()
 
-        if (editor == null) return rej(new Error('No active text editor'))
+        if (editor == null) throw e
 
-        try {
-            if (line) {
-                const lastCharacter = editor.document.lineAt(to - 1).text.length
-                editor.selection = new vscode.Selection(from - 1, 0, to - 1, lastCharacter)
+        if (line) {
+            const lastCharacter = editor.getLine(to - 1).length
 
-                return res(editor.document.getText(editor.selection))
-            }
+            editor.setSelection({ line: from - 1, ch: 0 }, { line: to - 1, ch: lastCharacter })
 
-            const currentLine = editor.selection.start.line
-
-            editor.selection = new vscode.Selection(currentLine, from, currentLine, to + 1)
-
-            return res(editor.document.getText(editor.selection))
-        } catch(err) {
-            Log(err.toString())
-            rej(err)
+            return editor.getSelection()
         }
-    })
+
+        const currentLine = editor.getCursor().line
+
+        editor.setSelection({ line: currentLine, ch: from }, { line: currentLine, ch: to + 1 })
+
+        return editor.getSelection()
+    }
 
     /**
      * Retrieves the content of the provided line
@@ -253,27 +239,20 @@ class CodeMirrorEditor {
      * @param number | undefined line number
      */
     async getLine(number?: number): Promise<{ lineNumber: number, text: string, _text: string, _line: number, character: number } | Error> {
+        const [editor, e] = this.getEditor()
 
-        try {
-            const [editor, e] = this.getEditor() as any
+        if (editor == null) throw e
 
-            if (editor == null) throw e
+        number = number != null ? number : editor.getCursor().line
 
-            number = number != null ? number : editor.selection.active.line
+        const text = editor.getLine(number)
 
-            const d = editor.document.lineAt(number)
-            return {
-                _line: d.lineNumber,
-                lineNumber: d.lineNumber,
-                _text: d.text,
-                text: d.text,
-                character: editor.selection.active.character
-            }
-
-        } catch(err) {
-            Log(err.toString())
-
-            throw err
+        return {
+            _line: number,
+            lineNumber: number,
+            _text: text,
+            text: text,
+            character: editor.getCursor().ch
         }
     }
 
@@ -283,40 +262,38 @@ class CodeMirrorEditor {
      * @param p1 Start string[] (line, cursor)
      * @param p2 Finish string[] (line, cursor)
      */
-    indentSelection = (
-        p1?: [string, string],
-        p2?: [string, string]
-    ) => new Promise<void | Error>((res, rej) => {
-        try {
-            const editor = vscode.window.activeTextEditor
+    async indentSelection(p1?: [string, string], p2?: [string, string]) {
+        const [editor, e] = this.getEditor()
 
-            if (editor == null) return rej(new Error('No active text editor'))
+        if (editor == null) throw e
 
-            if (p1 == null || p2 == null) {
-                return vscode.commands.executeCommand('editor.action.formatDocument', {}).then(() => {
-                    res()
-                })
-            }
+        const cursor = editor.getCursor()
 
-            p1[0] = p1[0] ?? editor.selection.active.line
-            p2[0] = p2[0] ?? editor.selection.active.line
+        if (p1 == null || p2 == null) {
+            const lines = editor.lastLine()
 
-            const sp1 = p1.map(a => parseInt(a, 10))
-            const sp2 = p2.map(a => parseInt(a, 10))
+            editor.setSelection({ line: 0, ch: 0 }, { line: lines, ch: editor.getLine(lines).length })
 
-            sp1[0] = Math.max(0, sp1[0])
-            sp2[0] = Math.min(editor.document.lineCount, sp2[0])
+            editor.execCommand('indentAuto')
 
-            editor.selection = new vscode.Selection(sp1[0], sp1[1], sp2[0], sp2[1])
-
-            vscode.commands.executeCommand('editor.action.reindentselectedlines', {}).then(() => {
-                editor.selection = new vscode.Selection(editor.selection.end, editor.selection.end)
-                res()
-            })
-        } catch(err) {
-            rej(err)
+            return editor.setCursor(cursor)
         }
-    })
+
+        p1[0] = p1[0] ?? cursor.line
+        p2[0] = p2[0] ?? cursor.line
+
+        const sp1 = p1.map(a => parseInt(a, 10))
+        const sp2 = p2.map(a => parseInt(a, 10))
+
+        sp1[0] = Math.max(0, sp1[0])
+        sp2[0] = Math.min(editor.lineCount(), sp2[0])
+
+        editor.setSelection({ line: sp1[0], ch: sp1[1] }, { line: sp2[0], ch: sp2[1] })
+
+        editor.execCommand('indentAuto')
+
+        return editor.setCursor(cursor)
+    }
 
     /**
      * Writes something in the terminal and press enter.
@@ -325,15 +302,10 @@ class CodeMirrorEditor {
      * @returns void
      */
     async writeOnTerminal(text: string): Promise<void | Error> {
-        try {
-            await vscode.window.activeTextEditor?.document.save()
-            vscode.window.activeTerminal!.show()
-            vscode.window.activeTerminal?.sendText(text)
 
-            return
-        } catch (err) {
-            throw err
-        }
+        Log('NOT IMPLEMENTED!!!')
+
+        return
     }
 
     /**
@@ -343,17 +315,8 @@ class CodeMirrorEditor {
      * @returns 
      */
     async fileInfo(text?: string): Promise<Record<string, any> | Error> {
-        try {
-
-            const [editor, err] = this.getEditor() as any
-
-            if (err) throw err
-
-            return {
-                fileName: editor?.document.fileName
-            }
-        } catch (err) {
-            throw err
+        return {
+            fileName: 'MyLittleDarkAge.js'
         }
     }
 

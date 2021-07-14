@@ -1,3 +1,6 @@
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function NewVariable(command: NewVariableParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "NewVariable"')
 

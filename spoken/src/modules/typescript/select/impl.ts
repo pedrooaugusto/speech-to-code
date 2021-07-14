@@ -1,3 +1,6 @@
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function Select(command: SelectParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "select"')
 

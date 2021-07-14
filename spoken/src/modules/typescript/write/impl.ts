@@ -1,4 +1,7 @@
-async function write(command: WriteParsedArgs, editor: Editor, context: {}) {
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor } from '../../d'
+
+async function write(command: WriteParsedArgs, editor: Editor, context: Context) {
     console.log('[Spoken]: Executing: "write."')
 
     let text = null

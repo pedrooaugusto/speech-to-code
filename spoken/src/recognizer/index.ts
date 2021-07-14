@@ -1,4 +1,4 @@
-import Modules from '../modules-loader'
+import Modules, { SpokenModule, GraphJsonView } from '../modules-loader'
 import Automata from './automata'
 import * as graphlib from '../graphlib'
 

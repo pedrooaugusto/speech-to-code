@@ -1,3 +1,5 @@
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function cursor(args: CursorParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "cursor."')
 

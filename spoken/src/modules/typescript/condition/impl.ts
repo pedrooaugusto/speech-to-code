@@ -1,3 +1,6 @@
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+import { Context } from '../../../modules-loader'
+
 async function Condition(command: ConditionParsedArgs, editor: Editor, context: Context) {
     console.log('[Spoken]: Executing: "Condition."')
     

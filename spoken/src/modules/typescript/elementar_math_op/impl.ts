@@ -1,3 +1,5 @@
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function WriteElementarMathOperation(command: WriteElementarMathOperationParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteElementarMathOperation"')
 
