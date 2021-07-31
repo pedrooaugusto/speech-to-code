@@ -34,7 +34,7 @@ export default class MyRecognizer {
         this.recognizer.maxAlternatives = 1
 
         this.recognizer.onresult = (event) => {
-            console.log('Results', event.results)
+            // console.log('Results', event.results)
 
             const fn = this.handlers.get('results')
 
@@ -63,7 +63,7 @@ export default class MyRecognizer {
 
         this.recognizing = true
 
-        console.log('[webapp.services.azure-voice-recognition]: Started')
+        console.info('[webapp.services.chrome-voice-recognition]: Started')
     }
 
     stop() {
@@ -77,7 +77,7 @@ export default class MyRecognizer {
     }
 
     destroy() {
-        console.log('destroyed')
+        console.info('[webapp.services.chrome-voice-recognition]: Destroyed')
         this.recognizer?.stop()
         this.recognizer?.abort()
 

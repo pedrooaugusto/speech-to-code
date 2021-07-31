@@ -13,7 +13,7 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
 
     useEffect(() => {
         IpcRenderer.on('Spoken:executeCommandResult', (result: any) => {
-            console.log('[webapp.services.chrome-voice-recognition.onResultError]: Execute command result: ' + result)
+            // console.log('[webapp.services.chrome-voice-recognition.onResultError]: Execute command result: ', result)
         })
 
         return () => {
@@ -53,7 +53,7 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
                 setResults(attempt)
             })
             .on('error', (err) => {
-                console.error('[webapp.services.chrome-voice-recognition.onResultError]: Error', err.toString())
+                console.error('[webapp.services.chrome-voice-recognition.onResultError]: Error', err)
             })
             .init(language)
 
@@ -64,12 +64,10 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
     }, [language])
 
     const start = async () => {
-        console.log('start')
         recognizer.start()
     }
 
     const stop = async () => {
-        console.log('stop')
         recognizer.stop()
     }
 

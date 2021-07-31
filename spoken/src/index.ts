@@ -1,5 +1,5 @@
 import * as graphlib from './graphlib'
-import Modules from './modules-loader'
+import Modules, { SpokenModule } from './modules-loader'
 import SpokenCommand from './spoken-command'
 import PhraseRecognizer from './recognizer'
 import LOG from './logger'
@@ -48,5 +48,5 @@ class Spoken {
 export default new Spoken()
 
 export { SpokenCommand }
-
+export { SpokenModule }
 export { Editor } from './modules/d'

@@ -1,0 +1,54 @@
+.tutorial-problem {
+    font-family: Roboto;
+    font-size: 14px;
+    border: solid 1px #E0E0E0;
+
+    .title {
+        background: #EAEAEA;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: #323232;
+    }
+
+    .placeholder, .statement, .solution, .footer {
+        padding: 10px 5px;
+        color: #323232;
+        div:first-child {
+            margin-bottom: 10px;
+        }
+    }
+
+    .placeholder {
+        font-size: 12px;
+        color: #3b3b3b;
+    }
+
+    .solution {
+        ul {
+            list-style: decimal;
+            margin-block-start: 0em;
+            padding-inline-start: 20px;
+            li:not(:last-child) {
+                padding-bottom: 10px;
+            }
+        }
+    }
+
+    .footer {
+        display: flex;
+        justify-content: space-between;
+        div.prev {margin-bottom: 0px;}
+        button {
+            background: none;
+            border: none;
+            outline: none;
+            font-weight: bold;
+            color: #036DCF;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+}

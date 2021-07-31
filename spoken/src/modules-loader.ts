@@ -4,7 +4,14 @@ export type GraphJsonView = {
 	edges: unknown,
 	nodes: unknown,
 	options: unknown,
-	value: { id: string, impl: string, lang: string, alias?: string, priority?: string }
+	value: {
+        id: string,
+        impl: string,
+        lang: string, 
+        alias?: string,
+        priority?: string,
+        [key: string]: unknown
+    }
 }
 
 export type SpokenModule = {

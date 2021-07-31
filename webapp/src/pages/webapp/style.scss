@@ -12,11 +12,15 @@ body {
     & > div {
         padding: 15px;
     }
+    .tutorial {
+        flex: 0.25;
+    }
     .code-editor {
         flex: 0.6;
     }
     .speech2code {
-        flex: 0.4;
+        flex: 0.15;
+        padding: 0px;
     }
 }
 

@@ -1,19 +1,7 @@
 import React, { useState, useContext } from 'react'
 import Modal from '../Modal'
-import Spoken from 'spoken'
+import Spoken, { SpokenModule } from 'spoken'
 import { GlobalContext } from '../../../services/global-context'
-
-type GraphJsonView = {
-    [key: string]: unknown,
-    value: CommandDefinition
-}
-
-type SpokenModule = {
-    id: string,
-    desc: string,
-    label: string,
-    grammar: Record<string, GraphJsonView[]>
-}
 
 type ModalInfo = {
     module: SpokenModule,
@@ -32,13 +20,10 @@ type CommandDefinition = {
 const DOC_LINK = 'https://github.com/pedrooaugusto/speech-to-code/tree/main/spoken/src/modules'
 
 export default function SpokenModules() {
-    // const [modules, setModules] = useState<SpokenModule[]>([])
     const [modalInfo, setModalInfo] = useState<null | ModalInfo>(null)
     const [open, setOpen] = useState(false)
     const context = useContext(GlobalContext)
     const lang = context.language
-
-    console.log(modalInfo)
 
     return (
         <main className="spoken">

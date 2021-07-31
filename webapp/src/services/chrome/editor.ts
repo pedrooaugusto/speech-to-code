@@ -7,7 +7,8 @@ import { Editor } from 'spoken'
  * This is just a port from VSCode editor to CodeMirror editor and is meant
  * to be used in the web.
  */
-class CodeMirrorEditor extends Editor {
+
+class CodeMirrorEditor implements Editor {
     private editor: CodeMirror.Editor | null = null
 
     public getEditor(): [CodeMirror.Editor | null, Error | null] {
@@ -26,7 +27,7 @@ class CodeMirrorEditor extends Editor {
 	 * Writes something in the current text input
 	 * @param text The text to be written
 	 */
-    async write(text: string) {
+    async write(text: string = '') {
         Log('[vscode-driver.robot-vscode.write]: Executing write(' + text + ')')
 
         const [editor, e] = this.getEditor()

@@ -14,7 +14,7 @@ async function NewVariable(command: NewVariableParsedArgs, editor: Editor, conte
 
     await editor.write(text)
 
-    if (typeof expression !== 'string') {
+    if (typeof expression !== 'string' && expression?.value != null) {
         const pos = await editor.findPositionOf(expression.value) as number[][]
 
         if (pos.length) {
@@ -26,7 +26,7 @@ async function NewVariable(command: NewVariableParsedArgs, editor: Editor, conte
 }
 
 type NewVariableParsedArgs = {
-    expression: string | { value: string, wildCard: boolean },
+    expression?: string | { value: string, wildCard: boolean },
     varName: string | string[],
     isNew: string,
     memType: number

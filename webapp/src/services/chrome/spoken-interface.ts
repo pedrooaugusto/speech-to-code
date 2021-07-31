@@ -15,12 +15,10 @@ class SpokenInterface {
         const [result, err] = await this.execute(command)
 
         if (err) {
-            console.error('[wrapper.SpokenInterface.onCommand]\n\t' + err)
-
             return event.reply('Spoken:executeCommandResult', { error: err.toString() || true })
         }
  
-        console.log('[wrapper.SpokenInterface.onCommand]: Result: ' + JSON.stringify(result || null))
+        console.info('[Spoken]: Result: ' + JSON.stringify(result || null))
 
         return event.reply('Spoken:executeCommandResult', { result })
     }
@@ -36,7 +34,7 @@ class SpokenInterface {
 
             return [result, null]
         } catch (err) {
-            console.error('[wrapper.SpokenInterface.onCommand] Error executing command: ' + err.toString())
+            console.error('[wrapper.SpokenInterface.onCommand] Failed to execute command "' + command.id + '" with:\n', err)
             return [null, err]
         }
     }

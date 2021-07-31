@@ -4,13 +4,6 @@
 	"version": "0.0.1-beta.1",
 	"private": true,
 	"dependencies": {
-		"@testing-library/jest-dom": "^5.11.9",
-		"@testing-library/react": "^11.2.5",
-		"@testing-library/user-event": "^12.8.3",
-		"@types/jest": "^26.0.21",
-		"@types/node": "^12.20.6",
-		"@types/react": "^17.0.3",
-		"@types/react-dom": "^17.0.2",
 		"codemirror": "^5.62.0",
 		"microsoft-cognitiveservices-speech-sdk": "^1.16.0",
 		"node-sass": "^5.0.0",
@@ -51,6 +44,13 @@
 	},
 	"proxy": "http://localhost:3000",
 	"devDependencies": {
-		"@types/codemirror": "^5.60.1"
+		"@types/codemirror": "^5.60.1",
+		"@testing-library/jest-dom": "^5.11.9",
+		"@testing-library/react": "^11.2.5",
+		"@testing-library/user-event": "^12.8.3",
+		"@types/jest": "^26.0.21",
+		"@types/node": "^12.20.6",
+		"@types/react": "^17.0.3",
+		"@types/react-dom": "^17.0.2"
 	}
 }

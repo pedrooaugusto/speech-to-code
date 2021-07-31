@@ -29,14 +29,15 @@ export default function factory(useVoiceRecognition: VoiceRecognitionHook = useA
                 r ? start() : stop()
                 setRecording(r)
             })
+            
+            // @ts-ignore
+            window.appcontext = context
  
             return () => {
                 IpcRenderer.removeAllListeners('VoiceRecognition:toggleRecording')
             }
         // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [])
-
-        console.log(context)
 
         return (
             <main className="main">

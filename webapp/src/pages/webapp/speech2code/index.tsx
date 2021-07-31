@@ -16,7 +16,7 @@ export default React.memo(function Editor() {
             axis="both"
             handle=".handle"
             cancel=".control"
-            defaultPosition={{x: 0, y: -50}}
+            defaultPosition={{x: -50, y: -50}}
         >
             <div className="speech2code-wrapper">
                 <div className="window">

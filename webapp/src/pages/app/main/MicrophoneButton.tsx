@@ -22,6 +22,8 @@ export function MicrophoneButton(
         drawCircle(ctx, canvas)
 
         function draw(data: AudioProcessingEvent) {
+            if (document.hidden) return
+
             window.requestAnimationFrame(() => {
                 if (ctx == null)
                     return

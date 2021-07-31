@@ -3,6 +3,7 @@ main.webapp .speech2code-wrapper {
     position: relative;
     --window-size-width: 321px;
     --window-size-height: 685px;
+    width: var(--window-size-width);
 
     .window {
         // border: solid 1px #cacaca;
