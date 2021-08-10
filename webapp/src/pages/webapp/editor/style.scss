@@ -1,29 +1,79 @@
-main.webapp .code-editor-wrapper {
+main.webapp {
 
-    .filename {
-        border: solid 1px lightgray;
-        border-bottom: none;
-        display: inline-block;
-        min-width: 115px;
-        padding: 5px 10px;
-        font-size: 14px;
-        font-family: Roboto;
-        font-weight: 400;
-        color: #343434;
-        cursor: default;
-        background: #f7f7f7;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
+    .code-editor-wrapper {
+        .filename {
+            border: solid 1px lightgray;
+            border-bottom: none;
+            display: inline-block;
+            min-width: 155px;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-family: Roboto;
+            font-weight: 400;
+            color: #343434;
+            cursor: default;
+            background: #f7f7f7;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            position: relative;
+
+            span {
+                right: 5px;
+                top: 2px;
+                position: absolute;
+                i {
+                    cursor: pointer;
+                    font-size: 26px;
+                    color: #7cb342;
+                }
+                &.loading {
+                    top: 6px;
+                    i {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+
+        #code-editor {
+            .CodeMirror {
+                font-size: 14px;
+                line-height: 21px;
+                border: solid 1px lightgray;
+                border-radius: 5px;
+                border-top-left-radius: 0px;
+                height: 400px;
+            }
+        }
     }
 
-    #code-editor {
-        .CodeMirror {
-            font-size: 14px;
-            line-height: 21px;
-            border: solid 1px lightgray;
-            border-radius: 5px;
-            border-top-left-radius: 0px;
-            height: 400px;
+    .output {
+        height: 75px;
+        margin-top: 10px;
+        border: solid 1px lightgray;
+        border-radius: 5px;
+        padding: 10px;
+        display: flex;
+        div {
+            position: relative;
+        }
+        div i {
+            position: absolute;
+            font-weight: bolder;
+            font-size: 21px;
+            color: royalblue;
+        }
+        pre {
+            margin: 0px;
+            display: inline-block;
+            margin-left: 20px;
+        }
+        &.loading {
+            span i {
+                font-size: 16px;
+                left: 18px;
+                top: 2px;
+            }
         }
     }
 }

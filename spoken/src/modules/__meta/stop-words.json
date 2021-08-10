@@ -25,6 +25,7 @@
         "words": [
             "a -> P1 != (letra|símbolo|palavra)",
             "o -> P1 != (letra|símbolo|palavra)",
+            "ao",
             "você",
             "com",
             "pode",

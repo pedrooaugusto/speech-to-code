@@ -30,9 +30,19 @@ async function FunctionDeclaration(command: FunctionDeclarationParsedArgs, edito
 
     await editor.write(text)
 
-    return await editor.indentSelection()
+    await editor.indentSelection()
 
-    // return await editor.goToLine(line._line as any)
+    const r = await editor.goToLine(line._line + 1 as any)
+
+    if (argsNumber > 0) {
+        const pos = await editor.findPositionOf(anything[0]) as number[][]
+
+        if (pos.length) {
+            return await editor.select(pos[0][0], pos[0][1] - 1, false)
+        }
+    }
+
+    return r
 }
 
 const toValue = (item: WildCard | string) => typeof item === 'string' ? item : item.value

@@ -2,6 +2,9 @@
     font-family: Roboto;
     font-size: 14px;
     border: solid 1px #E0E0E0;
+    display: flex;
+    flex-flow: column;
+    height: 635px;
 
     .title {
         background: #EAEAEA;
@@ -27,6 +30,8 @@
     }
 
     .solution {
+        flex: 1;
+        overflow: auto;
         ul {
             list-style: decimal;
             margin-block-start: 0em;

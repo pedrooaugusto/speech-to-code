@@ -16,7 +16,16 @@ async function Condition(command: ConditionParsedArgs, editor: Editor, context: 
 
     await editor.write(text)
     await editor.indentSelection()
-    // await editor.goToLine(line._line as any)
+
+    await editor.goToLine(line._line + 1 as any)
+
+    if (condition === anything) {
+        const pos = await editor.findPositionOf(anything) as number[][]
+
+        if (pos.length) {
+            return await editor.select(pos[0][0], pos[0][1] - 1, false)
+        }
+    }
 
     return null
 }

@@ -2,10 +2,26 @@ import React from 'react'
 import Problems from './problems'
 import './style.scss'
 
-export default function Tutorial() {
-    const [problemIndex, setProblemIndex] = React.useState(0)
-    const lang = true ? 'en-US' : 'pt-BR'
-    const problem = makeProblem(Problems[problemIndex], lang)
+interface Props {
+    setProblemIndex: (fn: (index: number) => number) => void
+    problemIndex: number
+    problem: {
+        title: string,
+        statement: string,
+        code: string,
+        placeholder: string,
+        solution: string[]
+    }
+    lang: string
+}
+console.error('ARRUMAR preposição ao ---> igual "ao"')
+console.error('ARRUMAR preposição por --> dividido "por"')
+console.error('ARRUMAR ao dizer igual vira "="')
+console.error('ARRUMAR ao dizer if/else for deve continuar na mesma linha')
+
+export default function Tutorial(props: Props) {
+
+    const { problemIndex, problem, lang, setProblemIndex } = props
 
     return (
         <div className="tutorial-problem">
@@ -18,7 +34,7 @@ export default function Tutorial() {
                 <div>
                     <b>{lang === 'pt-BR' ? 'Problema' : 'Problem'}</b>
                 </div>
-                <div>{problem.statement}</div>
+                <div dangerouslySetInnerHTML={{__html: problem.statement}}></div>
             </div>
             <div className="solution">
                 <div>
@@ -35,19 +51,12 @@ export default function Tutorial() {
                     {problemIndex > 0 ? <button onClick={() => setProblemIndex((d) => d - 1)}>{'<<'} Prev</button> : null}
                 </div>
                 <div className="next">
-                    <button onClick={() => setProblemIndex((d) => d + 1)}>Next {'>>'}</button>
+                    {problemIndex < Problems.length - 1 ? <button onClick={() => setProblemIndex((d) => d + 1)}>Next {'>>'}</button> : null}
                 </div>
             </div>
         </div>
     )
 }
-
-const makeProblem = (problem: { id?: string; title: any; placeholder: any; statement: any; solution: any }, lang: string) => ({
-    get title() { return problem.title[lang] },
-    get placeholder() { return problem.placeholder[lang] },
-    get statement() { return problem.statement[lang] },
-    get solution() { return problem.solution[lang] },
-})
 
 const fmt = (str: string) => {
     return str.replace(/"(.*)"/gi, '<b>$1</b>')

@@ -14,7 +14,7 @@ digraph function_call {
     2 -> 3 [label="([multi_word_token])", store=functionName, extraArgs="{\"case\": \"camel\"}"];
     3 -> 4 [label="(λ)"];
     2 -> 4 [label="({term})", store=functionName];
-    4 -> 11 [label="(da, na)"];
+    4 -> 11 [label="(da, na, do, no)"];
     {4 11} -> 5 [label="([expressions])", store=caller];
     {4 5} -> 6 [label="(argumentos)"];
     6 -> 7 [label="([expressions])", store=args];

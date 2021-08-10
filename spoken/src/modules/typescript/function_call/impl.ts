@@ -29,7 +29,17 @@ async function FunctionCall(command: FunctionCallParsedArgs, editor: Editor, con
 
     await editor.write(text)
 
-    return await editor.indentSelection()
+    await editor.indentSelection()
+
+    if (argsNumber > 0) {
+        const pos = await editor.findPositionOf(anything[0]) as number[][]
+
+        if (pos.length) {
+            return await editor.select(pos[0][0], pos[0][1] - 1, false)
+        }
+    }
+
+    return undefined
 }
 
 const toArray = (arg: any | any[]) => Array.isArray(arg) ? arg : [arg]

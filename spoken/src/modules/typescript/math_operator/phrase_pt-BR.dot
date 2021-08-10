@@ -12,5 +12,5 @@ digraph MathOperator {
     0 -> 1 [label="(mais, vezes, menos, dividido, módulo)", store=mathOperator, disableSpellcheck=true];
 
     title="Escreve uma operador matemático";
-    desc="Escreve um operador matemático (*, -, +, /) pensando para ser usado com expressões";
+    desc="Escreve um operador matemático (*, -, +, /, '%') pensando para ser usado com expressões";
 }
