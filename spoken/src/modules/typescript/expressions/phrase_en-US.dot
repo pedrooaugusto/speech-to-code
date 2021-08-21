@@ -8,11 +8,12 @@ digraph expressions {
     ranksep="2";
     rankdir=LR;
     alias="true";
-    node[shape=doublecircle]; 1 2;
+    node[shape=doublecircle]; 1 2 3;
     node[shape=circle];
 
     0 -> 1 [label="([number], [string], [variable_reference], [elementar_math_op], [function_call])", store=expression];
     0 -> 2 [label="(gap)", store=wildCard, normalizer="identity"];
+    0 -> 3 [label="(false, true)", store=booleanConstants];
 
     title="Writes a expression";
     desc="Writes a expression in the editor, this is meant to be used inside another automatas";

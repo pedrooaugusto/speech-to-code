@@ -25,25 +25,21 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve um número`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve um número`:
 
-1. número 42
+1. número 1
 
 ### Implementation
 
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function WriteNumber(command: WriteNumberParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteNumber"')
 
     const { number, parent } = command
 
-    if (parent) return number
-
-    return await editor.write(number)
-}
-
-type WriteNumberParsedArgs = {
- 
 
 (...)
 ```

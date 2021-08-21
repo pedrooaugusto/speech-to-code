@@ -30,7 +30,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 
 1. estrutura condicional
 2. estrutura condicional se
-3. estrutura condicional se senão
+3. estrutura condicional se sinal
 4. estrutura condicional se se não
 5. estrutura condicional se sinal [expressions]
 6. estrutura condicional se se não [expressions]
@@ -42,12 +42,13 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+import { Context } from '../../../modules-loader'
+
 async function Condition(command: ConditionParsedArgs, editor: Editor, context: Context) {
     console.log('[Spoken]: Executing: "Condition."')
     
-    const anything = context.templates['@anything'].examples[command?.extra?.lang as string][0]
-    
-    let { condition = anything, otherwise = f
+    const anything = context.template
 
 (...)
 ```

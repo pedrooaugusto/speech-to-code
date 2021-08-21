@@ -56,4 +56,17 @@
             text-decoration: underline;
         }
     }
+
+    @media only screen and (max-width: 900px) {
+        height: 250px;
+        overflow: auto;
+        display: block;
+        .solution {
+            overflow: unset;
+        }
+
+        .title {
+            height: 35px;
+        }
+    }
 }

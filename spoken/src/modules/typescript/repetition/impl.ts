@@ -26,9 +26,17 @@ async function Repetition(command: RepetitionParsedArgs, editor: Editor, context
     const line = await editor.getLine() as { _line: number }
 
     await editor.write(text)
-    return await editor.indentSelection()
+    await editor.indentSelection()
 
-    // return await editor.goToLine(line._line as any)
+    if (command.collection && toValue(command.collection).includes(gap)) {
+        const pos = await editor.findPositionOf(gap) as number[][]
+
+        if (pos.length) {
+            return await editor.select(pos[0][0], pos[0][1] - 1, false)
+        }
+    }
+
+    return null
 }
 
 const toValue = (item: WildCard | string) => typeof item === 'string' ? item : item.value

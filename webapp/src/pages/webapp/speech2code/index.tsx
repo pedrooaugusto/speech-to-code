@@ -1,15 +1,15 @@
 import React from 'react'
 import Draggable from 'react-draggable'
+import '../services/ipc-service-emulator'
+import useVoiceRecognition from '../../../services/chrome/use-voice-recognition'
+import { GlobalContext } from '../services/global-context'
+import { factory as AppFactory } from '../../app'
 import './style.scss'
 
-const useVoiceRecognition = require('../../../services/chrome/use-voice-recognition').default
-const App = require('../../app').factory(useVoiceRecognition)
+const App = AppFactory(useVoiceRecognition)
 
 export default React.memo(function Editor() {
-
-    React.useEffect(() => {
-
-    }, [])
+    const { language } = React.useContext(GlobalContext)
 
     return (
         <Draggable
@@ -27,7 +27,7 @@ export default React.memo(function Editor() {
                         </div>
                     </div>
                     <div className="window-content">
-                        <App />
+                        {/* <App initialLang={language} /> */}
                     </div>
                 </div>
             </div>

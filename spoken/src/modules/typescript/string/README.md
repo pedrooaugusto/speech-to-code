@@ -14,7 +14,7 @@ The following automata is responsible for recognizing the command `Writes a stri
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a string`:
 
-1. text text
+1. text string
 
 #### Português
 
@@ -31,14 +31,13 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function WriteString(command: WriteStringParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteString"')
 
-    command.string = Array.isArray(command.string) ? command.string : [command.string]
-
-    const text = '"' + command.string.join(' ') + '"'
-
-    i
+    command.string = Array.isArray(comman
 
 (...)
 ```

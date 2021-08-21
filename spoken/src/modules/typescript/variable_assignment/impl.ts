@@ -14,6 +14,8 @@ async function NewVariable(command: NewVariableParsedArgs, editor: Editor, conte
 
     await editor.write(text)
 
+    await editor.indentSelection()
+
     if (typeof expression !== 'string' && expression?.value != null) {
         const pos = await editor.findPositionOf(expression.value) as number[][]
 

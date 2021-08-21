@@ -1,6 +1,7 @@
 import React from 'react'
 import CodeMirror from 'codemirror'
-import EditorService from '../../../services/chrome/editor'
+import EditorService from '../services/editor'
+import { GlobalContext } from '../services/global-context'
 
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/idea.css'
@@ -8,74 +9,42 @@ import 'codemirror/addon/selection/active-line.js'
 import 'codemirror/mode/javascript/javascript.js'
 import './style.scss'
 
+interface Props {}
+
 let myCodeMirror: CodeMirror.Editor | null = null
 
-export default React.memo(function Editor(props: { code: string; problemIndex: number }) {
+export default React.memo(function Editor(props: Props) {
     const [result, setResult] = React.useState('')
     const [loading, setLoading] = React.useState(false)
 
+    const { problem } = React.useContext(GlobalContext)
+
     React.useEffect(() => {
-        if (myCodeMirror == null) {
-            myCodeMirror = CodeMirror(document.querySelector('#code-editor')!, {
-                lineNumbers: true,
-                mode: 'javascript',
-                styleActiveLine: true,
-                // @ts-ignore
-                matchBrackets: true,
-                theme: 'idea',
-                indentUnit: 4,
-                value: '// your code will be written here\n' + props.code
-                // value: '// your code will be written here\n\nconst value = 42\n\nif(window.body == null) {\n\tconsole.log("hello")\n}'
-            })
+        myCodeMirror = CodeMirror(document.querySelector('#code-editor')!, {
+            lineNumbers: true,
+            mode: 'javascript',
+            styleActiveLine: true,
+            // @ts-ignore
+            matchBrackets: true,
+            theme: 'idea',
+            indentUnit: 4,
+            value: '// your code will be written here\n' + problem.code
+        })
 
-            EditorService.setEditor(myCodeMirror)
-        }
+        EditorService.setEditor(myCodeMirror)
 
-        // Clean something...
-        return () => {}
+        EditorService.onRunCode({
+            before: () => setLoading(true),
+            success: (result: string) => setResult(result),
+            error: (ex: Error) => setResult(ex.toString()),
+            after: () => setLoading(false)
+        })
     }, [])
 
     React.useEffect(() => {
-        myCodeMirror?.setValue('// your code will be written here\n' + props.code)
+        myCodeMirror?.setValue('// your code will be written here\n' + problem.code)
         setResult('')
-    }, [props.problemIndex, props.code])
-
-    const run = () => {
-        setLoading(true)
-
-        const code = myCodeMirror!.getValue()
-
-        try {
-            eval(`
-                console.defaultLog = console.log.bind(console);
-                console.logs = [];
-                console.log = function() {
-                    console.defaultLog.apply(console, arguments);
-                    console.logs.push(Array.from(arguments));
-                }
-
-                ${code}
-            `)
-            
-            // @ts-ignore
-            setResult(console.logs.map(item => item.join(' ')).join('\n'))
-        } catch (ex) {
-            setResult(ex.toString())
-        } finally {
-            // @ts-ignore
-            if (console.defaultLog) {
-                // @ts-ignore
-                console.log = console.defaultLog.bind(console)
-                // @ts-ignore
-                delete console['defaultLog']
-            }
-        }
-
-        // @ts-ignore
-        delete console['logs']
-
-        setTimeout(() => setLoading(false), 1500)
-    }
+    }, [problem.index, problem.code])
 
     return (
         <div>
@@ -83,7 +52,7 @@ export default React.memo(function Editor(props: { code: string; problemIndex: n
                 <div className="filename">
                     MyLittleDarkAge.js
                     <span
-                        onClick={run}
+                        onClick={() => EditorService.runCode()}
                         title="Click here to run this file"
                         className={`${loading ? 'loading' : ''}`}
                     >

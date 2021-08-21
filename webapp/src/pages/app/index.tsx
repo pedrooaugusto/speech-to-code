@@ -10,9 +10,9 @@ import { VoiceRecognitionHook } from '../../services/use-voice-recognition'
 import './index.scss'
 
 export function factory(useVoiceRecognition?: VoiceRecognitionHook) {
-    return function App(props: any) {
+    return function App(props: { initialLang?: string }) {
         return (
-            <GloablContext>
+            <GloablContext lang={props.initialLang}>
                 <div>
                     <Header />
                     <Router

@@ -3,7 +3,11 @@ import { ParsedPhrase, Editor, WildCard } from '../../d'
 async function Expression(command: ExpressionParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "Expression"')
 
-    const { expression, parent, wildCard } = command
+    let { expression, parent, wildCard, booleanConstants } = command
+
+    // really ??? (fix later)
+    if (booleanConstants != null)
+        expression = booleanConstants == 1 ? 'true' : 'false'
 
     if (parent) {
         return expression ? expression : { value: wildCard, isWildCard: true }
@@ -14,7 +18,8 @@ async function Expression(command: ExpressionParsedArgs, editor: Editor, context
 
 type ExpressionParsedArgs = {
     expression: string,
-    wildCard: string
+    wildCard: string,
+    booleanConstants: number
 } & ParsedPhrase
 
 export default Expression

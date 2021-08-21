@@ -24,7 +24,7 @@ O automata seguinte é reponsável por reconhecer o comando `Executar arquivo` e
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Executar arquivo`:
 
-1. execute arquivo atual
+1. executar arquivo atual
 2. execute este arquivo
 
 ### Implementation
@@ -32,16 +32,13 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function run(command: RunParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "run."')
 
     const info = await editor.fileInfo() as { fileName: string }
-
-    return await editor.writeOnTerminal('node "' + info.fileName + '"')
-}
-
-type RunParsedArgs = {
-    
 
 (...)
 ```

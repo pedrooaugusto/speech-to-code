@@ -23,13 +23,14 @@ digraph TypeScript {
     0 -> 10 [label="(multi_word_token)"];
     0 -> 11 [label="(new_line)"];
     0 -> 12 [label="(number)"];
-    0 -> 13 [label="(repetition)"];
-    0 -> 14 [label="(run)"];
-    0 -> 15 [label="(select)"];
-    0 -> 16 [label="(string)"];
-    0 -> 17 [label="(variable_assignment)"];
-    0 -> 18 [label="(variable_reference)"];
-    0 -> 19 [label="(write)"];
+    0 -> 13 [label="(remove_ln_sec)"];
+    0 -> 14 [label="(repetition)"];
+    0 -> 15 [label="(run)"];
+    0 -> 16 [label="(select)"];
+    0 -> 17 [label="(string)"];
+    0 -> 18 [label="(variable_assignment)"];
+    0 -> 19 [label="(variable_reference)"];
+    0 -> 20 [label="(write)"];
     // END GENERATED
 
     title="Typescript voice commands";

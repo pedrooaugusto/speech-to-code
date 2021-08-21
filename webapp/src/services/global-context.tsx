@@ -22,9 +22,9 @@ type State = {
 // @ts-ignore
 export const GlobalContext = React.createContext<MyContextType>({})
 
-export default function GloablContext(props: { children: any }) {
+export default function GloablContext(props: { children: any, lang?: string }) {
     const [state, setState] = React.useState<State>({
-        language: 'pt-BR',
+        language: props.lang || 'pt-BR',
         shadeIsOpen: false,
         __debug: !false,
         spokenIsLoaded: false,

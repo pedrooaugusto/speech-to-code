@@ -1,4 +1,4 @@
-import { ElectronIpc } from '../electron-ipc'
+import { ElectronIpc } from '../../../services/electron-ipc'
 import SpokenInterface from './spoken-interface'
 
 declare global {
@@ -13,12 +13,12 @@ class IPCService implements ElectronIpc {
     private handles = new Map<string, (event: IPCEvent, ...args: any) => void>()
 
     constructor() {        
-        this.on('Spoken:executeCommand', SpokenInterface.onComand)
-        this.on('Config:changeEditor', (event: IPCEvent, editor: any) => {
+        this.onMain('Spoken:executeCommand', SpokenInterface.onComand)
+        this.onMain('Config:changeEditor', (event: IPCEvent, editor: any) => {
             this.send('Config:onChangeEditorState', [{ name: 'CODEMIRROR', status: 'ON', current: true }])
         })
 
-        this.on('VoiceRecognition:setRecording', (event: IPCEvent, value: boolean) => {
+        this.onMain('VoiceRecognition:setRecording', (event: IPCEvent, value: boolean) => {
             this.send('VoiceRecognition:toggleRecording', value)
         })
     }
@@ -27,10 +27,7 @@ class IPCService implements ElectronIpc {
         if (this.handles.has(channel)) {
             const cb = this.handles.get(channel)!
 
-            // please dont do that
-            // @ts-ignore
-            if (cb.length === 1) setTimeout(() => cb(...args), 75)
-            else setTimeout(() => cb({ reply: this.send.bind(this) }, ...args), 75)
+            setTimeout(() => cb({ reply: this.send.bind(this) }, ...args), 75)
         }
     }
 
@@ -38,7 +35,12 @@ class IPCService implements ElectronIpc {
         this.handles.delete(channel)
     }
 
-    on(channel: string, cb: (event: IPCEvent, ...args: any) => void) {
+    on(channel: string, cb: (...args: any) => void) {
+        // Remove Event argument
+        this.handles.set(channel, (event: IPCEvent, ...args) => cb(...args))
+    }
+
+    onMain(channel: string, cb: (event: IPCEvent, ...args: any) => void) {
         this.handles.set(channel, cb)
     }
 }

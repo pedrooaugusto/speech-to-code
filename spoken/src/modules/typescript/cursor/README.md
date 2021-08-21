@@ -14,12 +14,12 @@ The following automata is responsible for recognizing the command `Move cursor` 
 
 The following are some examples of phrases, in english, used to trigger the command `Move cursor`:
 
-1. cursor line 42
-2. pointer symbol g
-3. pointer 1ª symbol K
-4. cursor begin line
+1. pointer line 1
+2. cursor symbol K
+3. cursor 1ª letter g
+4. cursor end line
 5. pointer next symbol
-6. cursor next 1 symbol
+6. pointer next 42 symbol
 
 #### Português
 
@@ -29,25 +29,25 @@ O automata seguinte é reponsável por reconhecer o comando `Mover o cursor` em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Mover o cursor`:
 
-1. cursor linha 42
+1. cursor linha 1
 2. ponteiro símbolo a
-3. cursor 42ª símbolo a
+3. ponteiro 1ª símbolo B
 4. cursor começo linha
-5. ponteiro próximo letra
-6. ponteiro próximo 42 letra
+5. cursor próximo símbolo
+6. ponteiro próximo 42 símbolo
 
 ### Implementation
 
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function cursor(args: CursorParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "cursor."')
 
     if (args.linePosition != null) {
-        const pos = args.linePosition === LinePostionEnum.BEGIN ? 'BEGIN_LINE' : 'END_LINE'
-
-        return await editor.moveCurs
+        const pos = args.linePosition === LinePostionEnum.BEGIN ? 'BEGI
 
 (...)
 ```

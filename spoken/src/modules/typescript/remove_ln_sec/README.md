@@ -1,6 +1,6 @@
-## New line
+## Remove
 
-Creates a new line above or below the current line
+Removes the current line or the current selection
 
 ### Languages
 
@@ -8,54 +8,39 @@ This command is available in the following languages
 
 #### English
 
-The following automata is responsible for recognizing the command `New line` in english:
+The following automata is responsible for recognizing the command `Remove` in english:
 
 ![English](phrase_en-US.png)
 
-The following are some examples of phrases, in english, used to trigger the command `New line`:
+The following are some examples of phrases, in english, used to trigger the command `Remove`:
 
-1. new line
-2. create new line
-3. create line
-4. new line below
-5. line below
-6. create new line below
-7. create line below
+1. remove line
+2. remove selection
 
 #### Português
 
-O automata seguinte é reponsável por reconhecer o comando `Linha nova` em português:
+O automata seguinte é reponsável por reconhecer o comando `Remover` em português:
 
 ![Português](phrase_pt-BR.png)
 
-Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Linha nova`:
+Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Remover`:
 
-1. nova linha
-2. linha nova
-3. crie nova linha
-4. crie linha
-5. nova linha abaixo
-6. linha nova abaixo
-7. linha abaixo
-8. crie nova linha abaixo
-9. crie linha acima
+1. remova linha
+2. remova seleção
 
 ### Implementation
 
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
-async function newLine(command: NewLineParsedArgs, editor: Editor, context: {}) {
-    console.log('[Spoken]: Executing: "new line."')
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor, WildCard } from '../../d'
 
-    return await editor.newLine(command.position)
-}
+async function remove(command: RemoveParsedArgs, editor: Editor, context: Context) {
+    console.log('[Spoken]: Executing: "remove line/selection."')
 
-type NewLineParsedArgs = {
-    position: PositionEnum
-} & ParsedPhrase
-
-export default newLine
+    if (command.isLine) {
+        
 
 (...)
 ```

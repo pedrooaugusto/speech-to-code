@@ -19,7 +19,7 @@ async function Condition(command: ConditionParsedArgs, editor: Editor, context: 
 
     await editor.goToLine(line._line + 1 as any)
 
-    if (condition === anything) {
+    if (condition.includes(anything)) {
         const pos = await editor.findPositionOf(anything) as number[][]
 
         if (pos.length) {

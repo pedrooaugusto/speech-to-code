@@ -1,32 +1,19 @@
 import React from 'react'
 import Problems from './problems'
+import { GlobalContext } from '../services/global-context'
 import './style.scss'
 
-interface Props {
-    setProblemIndex: (fn: (index: number) => number) => void
-    problemIndex: number
-    problem: {
-        title: string,
-        statement: string,
-        code: string,
-        placeholder: string,
-        solution: string[]
-    }
-    lang: string
-}
-console.error('ARRUMAR preposição ao ---> igual "ao"')
-console.error('ARRUMAR preposição por --> dividido "por"')
+interface Props {}
+
 console.error('ARRUMAR ao dizer igual vira "="')
-console.error('ARRUMAR ao dizer if/else for deve continuar na mesma linha')
 
 export default function Tutorial(props: Props) {
-
-    const { problemIndex, problem, lang, setProblemIndex } = props
+    const { language: lang, problem, changeProblem } = React.useContext(GlobalContext)
 
     return (
         <div className="tutorial-problem">
             <div className="title">
-                {(problemIndex + 1)}. {problem.title}
+                {(problem.index + 1)}. {problem.title}
             </div>
             <div className="placeholder" dangerouslySetInnerHTML={{__html: problem.placeholder}}>
             </div>
@@ -48,10 +35,10 @@ export default function Tutorial(props: Props) {
             </div>
             <div className="footer">
                 <div className="prev">
-                    {problemIndex > 0 ? <button onClick={() => setProblemIndex((d) => d - 1)}>{'<<'} Prev</button> : null}
+                    {problem.index > 0 ? <button onClick={() => changeProblem(problem.index - 1)}>{'<<'} Prev</button> : null}
                 </div>
                 <div className="next">
-                    {problemIndex < Problems.length - 1 ? <button onClick={() => setProblemIndex((d) => d + 1)}>Next {'>>'}</button> : null}
+                    {problem.index < Problems.length - 1 ? <button onClick={() => changeProblem(problem.index + 1)}>Next {'>>'}</button> : null}
                 </div>
             </div>
         </div>
@@ -61,3 +48,51 @@ export default function Tutorial(props: Props) {
 const fmt = (str: string) => {
     return str.replace(/"(.*)"/gi, '<b>$1</b>')
 }
+
+// @ts-ignore
+function happy(value, visited) {
+    if (value === 1) {
+        return true
+    }
+
+    if (visited.has(value)) {
+        return false
+    }
+
+    visited.add(value)
+
+    let sum = 0
+    for (const item of value.toString()) {
+        sum = sum + item * item
+    }
+
+    return happy(sum, visited)
+}
+
+/*
+
+// your code will be written here
+var mostrar = console.log
+
+function feliz(valor, visitados) {
+    if(valor === 1) {
+        return true
+    }
+    if(visitados.gap(valor)) {
+        return true
+    }
+    visitados.gap(valor)
+    let soma = 0
+    for(const item of valor + "") {
+        soma = soma + item * item
+    }
+    return feliz(soma, visitados)
+}
+
+mostrar(23, feliz(23, new Set()))
+mostrar(4, feliz(4, new Set()))
+mostrar(440, feliz(440, new Set()))
+mostrar(3, feliz(3, new Set()))
+
+
+*/

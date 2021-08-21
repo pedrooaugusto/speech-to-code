@@ -17,9 +17,9 @@ The following are some examples of phrases, in english, used to trigger the comm
 1. new line
 2. create new line
 3. create line
-4. new line below
-5. line below
-6. create new line below
+4. new line above
+5. line above
+6. create new line above
 7. create line below
 
 #### Português
@@ -34,28 +34,24 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 2. linha nova
 3. crie nova linha
 4. crie linha
-5. nova linha abaixo
+5. nova linha acima
 6. linha nova abaixo
-7. linha abaixo
+7. linha acima
 8. crie nova linha abaixo
-9. crie linha acima
+9. crie linha abaixo
 
 ### Implementation
 
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor, PositionEnum } from '../../d'
+
 async function newLine(command: NewLineParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "new line."')
 
-    return await editor.newLine(command.position)
-}
-
-type NewLineParsedArgs = {
-    position: PositionEnum
-} & ParsedPhrase
-
-export default newLine
+    return await editor.newLine(command.positio
 
 (...)
 ```

@@ -31,11 +31,12 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function WriteElementarMathOperation(command: WriteElementarMathOperationParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "WriteElementarMathOperation"')
 
-    let operation = toArray(command.operation) as { operator: string, isNegative: boolean }[]
-    let r
+    let operation = toArray(command.operatio
 
 (...)
 ```

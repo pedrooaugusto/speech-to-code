@@ -31,14 +31,13 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function MultiWordTokens(command: MultiWordTokensParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "MultiWordTokens"')
 
-    function camelCase(words: string[]) {
-        return words.map((a, i) => i ? a.charAt(0).toUpperCase() + a.slice(1) : a)
-    }
-
-    
+    function camelCase(words:
 
 (...)
 ```

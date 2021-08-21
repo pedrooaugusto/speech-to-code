@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from 'react'
 import Spoken from 'spoken'
-import './ipc-service-emulator'
 import IpcRenderer from '../electron-ipc'
 import { VoiceRecognitionHook, RecognitionRequest } from '../use-voice-recognition'
 import MyRecognizer from './voice-recognizer'

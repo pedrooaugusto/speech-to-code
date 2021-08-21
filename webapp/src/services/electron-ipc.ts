@@ -8,6 +8,7 @@ declare global {
     interface Window { ipcRenderer: ElectronIpc }
 }
 
+// Debug only ignore!
 class FakeIpc implements ElectronIpc {
     editors = [{
         name: 'VSCODE',

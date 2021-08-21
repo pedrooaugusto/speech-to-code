@@ -48,12 +48,13 @@ main.webapp {
     }
 
     .output {
-        height: 75px;
+        height: 85px;
         margin-top: 10px;
         border: solid 1px lightgray;
         border-radius: 5px;
         padding: 10px;
         display: flex;
+        overflow: auto;
         div {
             position: relative;
         }
@@ -76,4 +77,15 @@ main.webapp {
             }
         }
     }
+
+    @media only screen and (max-width: 900px) {
+        .code-editor-wrapper {
+            #code-editor {
+                .CodeMirror {
+                    height: 300px;
+                }
+            }
+        }
+    }
+
 }

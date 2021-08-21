@@ -11,7 +11,7 @@
         display: flex;
         align-items: center; 
     }
-    a {
+    & > a, .language {
         display: flex;
         font-size: 18px;
         font-weight: 400;
@@ -27,6 +27,58 @@
 
         &.selected {
             background-color: #704dac
+        }
+    }
+    .language {
+        font-size: 14px;
+        margin-left: 15px;
+        a {
+            color: white;
+            text-decoration: none;
+            &.selected {
+                font-weight: bold;
+                text-decoration: underline;
+                font-size: 16px;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 900px) {
+        & {
+            height: 40px;
+            padding: 0 10px;
+
+            figure {
+                margin-right: 5px;
+            }
+
+            figure img {
+                height: 30px;
+            }
+
+            & > a, .language {
+                font-size: 14px;
+                padding: 0px 8px;
+
+                &:not(:last-child) {
+                    margin-right: 5px;
+                }
+        
+                &.selected {
+                    background-color: #704dac
+                }
+            }
+
+            .language {
+                font-size: 12px;
+                margin-left: 0px;
+                padding-right: 0px;
+                a {
+                    &.selected {
+                        font-size: 12px;
+                    }
+                }
+            }
         }
     }
 }

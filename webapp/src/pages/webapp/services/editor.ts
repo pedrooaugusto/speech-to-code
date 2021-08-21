@@ -8,8 +8,16 @@ import { Editor } from 'spoken'
  * to be used in the web.
  */
 
+interface RunCodeLifeCycle {
+    before: () => void,
+    success: (result: string) => void,
+    error: (ex: Error) => void,
+    after: () => void
+}
+
 class CodeMirrorEditor implements Editor {
     private editor: CodeMirror.Editor | null = null
+    private runCodeLifecycle: RunCodeLifeCycle | null = null
 
     public getEditor(): [CodeMirror.Editor | null, Error | null] {
         const editor = this.editor
@@ -21,6 +29,20 @@ class CodeMirrorEditor implements Editor {
 
     public setEditor(editor: CodeMirror.Editor) {
         this.editor = editor
+    }
+
+    public onRunCode(lifecycle: RunCodeLifeCycle): void {
+        this.runCodeLifecycle = lifecycle
+    }
+
+    public runCode(): void {
+        const { after, before, error, success } = this.runCodeLifecycle!
+
+        before()
+
+        const code = this.getEditor()[0]!.getValue()
+
+        this.runThisCode(code).then(success).catch(error).finally(after)
     }
 
     /**
@@ -304,7 +326,8 @@ class CodeMirrorEditor implements Editor {
      */
     async writeOnTerminal(text: string): Promise<void | Error> {
 
-        Log('NOT IMPLEMENTED!!!')
+        // major short cut :(
+        this.runCode()
 
         return
     }
@@ -321,6 +344,35 @@ class CodeMirrorEditor implements Editor {
         }
     }
 
+    private runThisCode(code: string) {
+        return new Promise<string>((res, rej) => {
+            try {
+                eval(`
+                    console.defaultLog = console.log.bind(console);
+                    console.logs = [];
+                    console.log = function() {
+                        console.defaultLog.apply(console, arguments);
+                        console.logs.push(Array.from(arguments));
+                    }
+    
+                    ${code}
+                `)
+
+                const text = console.logs!.map(item => item.join(' ')).join('\n')
+
+                setTimeout(() => res(text), 1500)
+            } catch (ex) {
+                setTimeout(() => rej(ex.toString()), 1500)
+            } finally {
+                if (console.defaultLog) {
+                    console.log = console.defaultLog.bind(console)
+                    delete console['defaultLog']
+                }
+
+                delete console['logs']
+            }
+        })
+    }
 }
 
 function Log(item: any) {

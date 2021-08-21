@@ -15,14 +15,20 @@ The following automata is responsible for recognizing the command `Write text` i
 The following are some examples of phrases, in english, used to trigger the command `Write text`:
 
 1. print
-2. write
+2. write down
 3. write it
 4. print space
-5. write space
-6. write it down space
+5. write down space
+6. write it space
 7. print the universe is cracked who are you
-8. write down who are you the universe is cracked
-9. write it who are you the universe is cracked
+8. write down the universe is cracked who are you
+9. write it the universe is cracked the universe is cracked
+10. print letter M
+11. write letter M
+12. write it down letter M
+13. print dot
+14. write dot
+15. write it dot
 
 #### Português
 
@@ -34,22 +40,25 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 
 1. escreva
 2. escreva espaço
-3. escreva isto é um teste quem é você
+3. escreva isto é um teste isto é um teste
+4. escreva a letra a
+5. escreva ponto
 
 ### Implementation
 
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
-async function write(command: WriteParsedArgs, editor: Editor, context: {}) {
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor } from '../../d'
+
+async function write(command: WriteParsedArgs, editor: Editor, context: Context) {
     console.log('[Spoken]: Executing: "write."')
 
-    const text = command.isSpace ? ' ' : Array.isArray(command.text) ? command.text?.join(' ') : command.text
+    let text = null
 
-    return await editor.write(text)
-}
-
-type WritePars
+    if (command.isSpace) text = ' '
+   
 
 (...)
 ```

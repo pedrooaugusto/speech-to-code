@@ -1,6 +1,6 @@
 ## Writes a math operator
 
-Writes a math operator (*, -, +, /) meant to be used inside expressions
+Writes a math operator (*, -, +, /, %) meant to be used inside expressions
 
 ### Languages
 
@@ -14,7 +14,7 @@ The following automata is responsible for recognizing the command `Writes a math
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a math operator`:
 
-1. times
+1. module by
 
 #### Português
 
@@ -24,24 +24,21 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operado
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operador matemático`:
 
-1. vezes
+1. vezes por
 
 ### Implementation
 
 The full implementation of this command can be found on this directory under the file [impl.ts](impl.ts)
 
 ```typescript
+import { Context } from '../../../modules-loader'
+import { ParsedPhrase, Editor, WildCard } from '../../d'
+
 async function MathOperator(command: MathOperatorParsedArgs, editor: Editor, context: {}) {
     console.log('[Spoken]: Executing: "MathOperator"')
 
     const { mathOperator } = command
 
-    const operator = ['+', '*', '-', '/'][mathOperator] || 'error'
-
-    return { operator }
-}
-
-type Math
 
 (...)
 ```
