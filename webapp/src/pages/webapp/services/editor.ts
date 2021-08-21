@@ -152,7 +152,7 @@ class CodeMirrorEditor implements Editor {
     }
 
     private findAllOccurrences(lineNumber: number, regex: RegExp, pad: number = 0) {
-        const [editor, e] = this.getEditor()
+        const [editor,] = this.getEditor()
 
         if (editor == null) return []
 
@@ -189,7 +189,7 @@ class CodeMirrorEditor implements Editor {
             return editor.setCursor({ line: cursor.line, ch: cursor.ch + leapSize! })
         }
 
-        if (to === 'SYMBOL' && symbol != undefined) {
+        if (to === 'SYMBOL' && symbol !== undefined) {
             const indices = this.findAllOccurrences(cursor.line, new RegExp(symbol, 'gi'), cursor.ch)
 
             if (leapSize === -1) leapSize = indices.length
@@ -348,6 +348,7 @@ class CodeMirrorEditor implements Editor {
     private runThisCode(code: string) {
         return new Promise<string>((res, rej) => {
             try {
+                // eslint-disable-next-line no-eval
                 eval(`
                     console.defaultLog = console.log.bind(console);
                     console.logs = [];

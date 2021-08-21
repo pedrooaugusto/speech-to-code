@@ -18,7 +18,7 @@
 	"scripts": {
 		"start": "SET PORT=5000 && react-scripts start",
 		"build": "npm run build-spoken && react-scripts build",
-		"build-only": "react-scripts build",
+		"build-only": "react-scripts build --silent",
 		"test": "react-scripts test --watchAll=false",
 		"eject": "react-scripts eject",
 		"prestart": "npm run build-spoken",

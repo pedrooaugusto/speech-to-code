@@ -39,6 +39,7 @@ export default React.memo(function Editor(props: Props) {
             error: (ex: Error) => setResult(ex.toString()),
             after: () => setLoading(false)
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     React.useEffect(() => {

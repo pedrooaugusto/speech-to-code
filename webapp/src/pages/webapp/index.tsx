@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from '../@components/header'
 import Editor from './editor'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Speech2Code from './speech2code'
 import Tutorial from './tutorial'
 import GlobalContext from './services/global-context'

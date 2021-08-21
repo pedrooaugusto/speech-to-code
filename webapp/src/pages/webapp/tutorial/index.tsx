@@ -66,6 +66,7 @@ function happy(value, visited) {
         sum = sum + item * item
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return happy(sum, visited)
 }
 
