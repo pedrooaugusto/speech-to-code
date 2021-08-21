@@ -30,8 +30,12 @@ This project can be divided into 3 main modules:
 
 Voice commands are transformed into text using the [Azure Speech to Text](https://azure.microsoft.com/en-us/services/cognitive-services/speech-to-text/?cdn=disable#features) service and later parsed by [Spoken](/spoken), which makes use of several pushdown automaton to extract information of the text.
 
-Currently, Speech2Code only supports voice commands for the JavaScript language, a list of all those commands can be found [here](spoken/src/modules/typescript). All commands are available in english and portuguese ~~HU3BR~~.
+Currently, Speech2Code only supports voice commands for the JavaScript language, a list of all those commands can be found [here](spoken/src/modules/typescript). All commands can be said in both english and portuguese ~~HU3BR~~.
 
 ### Controlling Visual Studio Code
 
-Bruh...
+Speech2Code was designed to work with any IDE that implements its [interface](https://github.com/pedrooaugusto/speech-to-code/blob/main/spoken/src/modules/d.ts#L17), this is usually done through plugins and extensions. Currently, it has support for Visual Studio Code and CodeMirror.
+
+For example, the voice command _"call function fish with two arguments"_ will eventually call  for [`editor.write(...)`](https://github.com/pedrooaugusto/speech-to-code/blob/main/spoken/src/modules/typescript/function_call/impl.ts#L30) where editor can be any IDE/Editor like vscode, codemirror and sublime and each will have a different implementation for `write(...)`. The only common thing is that calling that function will write something in the current open file, no matter the IDE. [VSCode.write(...)](https://github.com/pedrooaugusto/speech-to-code/blob/main/spoken-vscode-driver/src/robot-vscode.ts#L19) x [CodeMirror.write(...)](https://github.com/pedrooaugusto/speech-to-code/blob/main/webapp/src/services/chrome/editor.ts#L30)
+
+Visual Studio Code ...
