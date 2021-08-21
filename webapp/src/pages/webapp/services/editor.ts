@@ -15,6 +15,7 @@ interface RunCodeLifeCycle {
     after: () => void
 }
 
+// @ts-ignore
 class CodeMirrorEditor implements Editor {
     private editor: CodeMirror.Editor | null = null
     private runCodeLifecycle: RunCodeLifeCycle | null = null
