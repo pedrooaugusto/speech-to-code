@@ -17,10 +17,10 @@ export default React.memo(function Webapp(props: { lang: string }) {
                 </div>
                 <div className="code-editor">
                     <Editor />
-                </div> 
-                {/* <div className="speech2code">
+                </div>
+                <div className="speech2code">
                     <Speech2Code />
-                </div> */}
+                </div>
             </main>
         </GlobalContext>
     )

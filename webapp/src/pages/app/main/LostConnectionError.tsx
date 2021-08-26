@@ -5,7 +5,7 @@ import { GlobalContext } from '../../../services/global-context'
 export default function LostConnectionError() {
 	const context = React.useContext(GlobalContext)
 
-	if (context.connectedToVSCode) return null
+	if (context.connectedToVSCode || context.mode === 'widget') return null
 
     return (
 		<React.Fragment>

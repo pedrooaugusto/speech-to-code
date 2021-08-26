@@ -8,7 +8,8 @@ declare global {
 export type MyContextType = {
     changeProblem: (id: number) => void
     changeLanguage: (lang: string) => any
-    problem: ReturnType<typeof concretize>
+    problem: ReturnType<typeof concretize>,
+    isMobile: boolean
 } & State
 
 type State = {
@@ -29,13 +30,16 @@ export default function GloablContext(props: { children: any, lang: string }) {
 
     const changeProblem = React.useCallback((id: number) => setState((s) => ({ ...s, problemIndex: id })), [])
 
+    const isMobile = window.matchMedia("only screen and (max-width: 900px)").matches
+
     const value = React.useMemo(() => ({
         language: state.language,
         problemIndex: state.problemIndex,
         changeProblem,
         changeLanguage,
+        isMobile,
         problem: concretize(state.problemIndex, state.language as 'en-US' | 'pt-BR'),
-    }), [state.language, state.problemIndex, changeLanguage, changeProblem])
+    }), [state.language, state.problemIndex, changeLanguage, changeProblem, isMobile])
 
     return (
         <GlobalContext.Provider value={value}>

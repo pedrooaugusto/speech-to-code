@@ -20,6 +20,8 @@ export default function Header() {
         setLangs(langs_)
     }, [])
 
+    if (context.mode === 'widget') return null
+
     return (
         <header>
             <div className="menu">

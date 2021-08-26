@@ -9,15 +9,23 @@ import GloablContext from '../../services/global-context'
 import { VoiceRecognitionHook } from '../../services/use-voice-recognition'
 import './index.scss'
 
+interface Props {
+    initialLang?: string,
+    mode?: 'widget' | 'modalx',
+    onOpen?: Function
+    onClose?: Function
+}
 export function factory(useVoiceRecognition?: VoiceRecognitionHook) {
-    return function App(props: { initialLang?: string }) {
+    const main = Main(useVoiceRecognition)
+
+    return function App(props: Props) {
         return (
-            <GloablContext lang={props.initialLang}>
+            <GloablContext lang={props.initialLang} mode={props.mode} onOpen={props.onOpen} onClose={props.onOpen}>
                 <div>
                     <Header />
                     <Router
                         pages={[
-                            { hash: '', component: Main(useVoiceRecognition) },
+                            { hash: '', component: main },
                             { hash: 'spoken', component: Modules },
                             { hash: 'help', component: Help },
                             { hash: 'about', component: About }

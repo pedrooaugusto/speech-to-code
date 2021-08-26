@@ -40,20 +40,23 @@ export default function factory(useVoiceRecognition: VoiceRecognitionHook = useA
         }, [])
 
         return (
-            <main className="main">
+            <main className={`main ${context.mode === 'widget' ? 'widget' : context.mode === 'modalx' ? 'modalx' : ''}`}>
                 <LostConnectionError />
                 <MicrophoneButton
                     recording={recording}
                     toggleRecording={toggleRecording}
                     connectedToVSCode={context.connectedToVSCode}
                     language={context.language}
+                    mode={context.mode}
+                    onOpen={context.onOpen}
                 />
                 <TranscriptionHistory
                     results={results as RecognitionRequest}
                     language={context.language}
                     recording={recording}
+                    mode={context.mode}
                 />
-                {context.__debug && (<div className="debug">
+                {context.__debug && context.mode !== 'widget' && (<div className="debug">
                     <label>Debug:</label>
                     <textarea className="transcription-text input" style={{display: 'block', width: '100%'}}></textarea>
                     <button onClick={analyze}>Analyze</button>
@@ -67,10 +70,24 @@ function TranscriptionHistory(
     props: {
         results: RecognitionRequest,
         language: string,
-        recording: boolean
+        recording: boolean,
+        mode?: string
     }
 ) {
-    const [history, setHistory] = React.useState<RecognitionRequest[]>([])
+    const [history, setHistory] = React.useState<RecognitionRequest[]>([] || [
+        {
+            text: 'escreva ola',
+            isFinal: true,
+            id: 1,
+            recognized: true
+        },
+        {
+            text: 'write it down sqrt',
+            isFinal: true,
+            id: 2,
+            recognized: !false
+        }
+    ])
 
     useEffect(() => {
         const h = document.querySelector('.transcription-history .content')

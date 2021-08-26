@@ -1,12 +1,16 @@
-main.webapp .speech2code-wrapper {
-    z-index: 1512;
+main.webapp .speech2code .react-draggable {
+    position: absolute;
+    z-index: 999;
+}
+
+main.webapp .speech2code-wrapper.modalx {
+    z-index: 2912;
     position: relative;
     --window-size-width: 321px;
     --window-size-height: 685px;
     width: var(--window-size-width);
 
     .window {
-        // border: solid 1px #cacaca;
         box-shadow: 0px 2px 5px 0px #757575;
         width: var(--window-size-width);
         height: var(--window-size-height);
@@ -35,12 +39,14 @@ main.webapp .speech2code-wrapper {
                 justify-content: flex-end;
                 div {
                     color: #4a4a4a;
-                    cursor: not-allowed;
                     width: 20px;
                     height: 20px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    &.disabled {
+                        cursor: not-allowed;
+                    }
                 }
             }
         }
@@ -49,7 +55,6 @@ main.webapp .speech2code-wrapper {
             overflow-x: hidden;
             overflow-y: auto;
             max-height: calc(var(--window-size-height) - 32px);
-            position: relative;
             height: 100%;
         }
     }
@@ -69,5 +74,126 @@ main.webapp .speech2code-wrapper {
         .menu-items {
             height: 100%;
         }
+    }
+
+    @media only screen and (max-width: 900px) {
+        --window-size-width: calc(100% - 20px);
+        --window-size-height: calc(100vh - 25px);
+        position: absolute;
+        top: 10px;
+        left: 10px;
+
+        .window {
+            width: 100%;
+            main.modalx .record {
+                height: 220px;
+                .btn {
+                    border: solid 2px #43B0F1;
+                }
+                &.on .btn {
+                    border-color: #ef5350;
+                }
+            }
+        }
+    }
+}
+
+main.webapp .speech2code-wrapper.widget {
+    .handle, .overlay.modalx { display: none; }
+
+    main.widget {
+        position: fixed;
+        top: 70%;
+        z-index: 999;
+        right: 15px;
+        display: flex;
+        align-items: center;
+
+        .record {
+            display: block;
+            height: auto;
+            order: 1;
+            .info {
+                display: none;
+            }
+
+            .btn {
+                height: calc(var(--size) + 3px);
+                width: calc(var(--size) + 3px);
+                background-color: #43B0F1;
+                box-shadow: 1px 4px 7px rgba(0,0,0, 0.25);
+                i {
+                    color: white;
+                    font-size: 21px;
+                }
+            }
+
+            &.on .btn {
+                background-color: #ef5350;
+            }
+        }
+
+        .transcription-history {
+            height: auto;
+            padding: 0px;
+            border-radius: 5px;
+            width: 150px;
+            margin-bottom: 0px;
+            margin-right: 10px;
+            //box-shadow: 1px 4px 7px rgba(0,0,0, 0.25);
+            label {
+                display: none;
+            }
+
+            .content {
+                height: auto;
+                border-radius: 0px;
+                border: none;
+                padding: 0px;
+                overflow: initial;
+                .help {
+                    display: none;
+                }
+                .phrase {
+                    margin: 0px;
+                    border-radius: 5px;
+                    box-shadow: 1px 4px 7px rgba(0,0,0, 0.25);
+            
+                }
+                .phrase:not(:last-child) {
+                    display: none;
+                }
+                .phrase:last-child {
+                    animation-name: tangerine;
+                    animation-delay: 2s;
+                    animation-timing-function: ease-in;
+                    animation-duration: 0.9s;
+                    animation-fill-mode: forwards;
+                }
+                @keyframes tangerine {
+                    from {
+                        opacity: 1;
+                        clip-path: inset(0 0 0 0);
+                        overflow: hidden;
+                    }
+                    to {
+                        opacity: 0;
+                        clip-path: inset(0 0 0 100%);
+                        visibility: hidden;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    main.webapp .speech2code .overlay.modalx {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        z-index: 100;
+        background: rgba(0,0,0, 0.65);
     }
 }

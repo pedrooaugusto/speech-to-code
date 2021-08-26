@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { MouseEvent, useEffect } from 'react'
 
 export function MicrophoneButton(
     props: {
@@ -6,6 +6,8 @@ export function MicrophoneButton(
         connectedToVSCode: boolean
         toggleRecording: () => void
         language: string
+        mode?: 'modalx' | 'widget'
+        onOpen?: Function
     }
 ) {
 
@@ -16,7 +18,7 @@ export function MicrophoneButton(
         let streamSource: MediaStreamAudioSourceNode | null = null
         let processor: ScriptProcessorNode | null = null
 
-        if (ctx == null)
+        if (ctx == null || props.mode === 'widget')
             return
 
         drawCircle(ctx, canvas)
@@ -71,11 +73,23 @@ export function MicrophoneButton(
 
     const disabled = !props.connectedToVSCode
 
+    const size = props.mode === 'widget' ? 50 : 122
+
+    const onClickMic = (e: MouseEvent) => {
+        if (disabled) return null
+        if (props.mode === 'widget') return props.onOpen?.()
+
+        return props.toggleRecording()
+    }
+
     return (
-        <div className={`record ${props.recording ? 'on' : 'off'} ${disabled ? 'error' : ''}`}>
+        <div
+            className={`record ${props.recording ? 'on' : 'off'} ${disabled ? 'error' : ''}`}
+            style={{'--size': size + 'px'} as any}
+        >
             <div
                 className={`btn ${disabled ? 'disabled' : ''}`}
-                onClick={disabled ? () => {} : props.toggleRecording}
+                onClick={onClickMic}
                 title={
                     disabled
                         ? `We could not connect to Visual Studio Code!`
@@ -83,7 +97,7 @@ export function MicrophoneButton(
                 }
             >
                 <i className="fa fa-microphone" />
-                <canvas id="micCanvas" width="122" height="122"></canvas>
+                <canvas id="micCanvas" width={size} height={size}></canvas>
             </div>
             <span className="info">
                 {i18n(props.language)(props.recording ? 'rec' : 'not-rec')()}
@@ -98,9 +112,9 @@ function drawCircle(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
 
     ctx.fillStyle = rec ? '#ef5350' : '#3da2de'
     ctx.strokeStyle = rec ? '#ef5350' : '#3da2de'
-    ctx.lineWidth = 2
+    ctx.lineWidth = 1
     ctx.beginPath()
-    ctx.arc(canvas.width / 2, canvas.height / 2, 60, 0, 2 * Math.PI)
+    ctx.arc(canvas.width / 2, canvas.height / 2, (canvas.width / 2) - 2, 0, 2 * Math.PI)
     ctx.stroke()
     ctx.closePath()
 }
