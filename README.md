@@ -39,3 +39,21 @@ Speech2Code was designed to work with any IDE that implements its [interface](ht
 For example, the voice command _"call function fish with two arguments"_ will eventually call  for [`editor.write(...)`](https://github.com/pedrooaugusto/speech-to-code/blob/main/spoken/src/modules/typescript/function_call/impl.ts#L30) where editor can be any IDE/Editor like vscode, codemirror and sublime and each will have a different implementation for `write(...)`. The only common thing is that calling that function will write something in the current open file, no matter the IDE. [VSCode.write(...)](https://github.com/pedrooaugusto/speech-to-code/blob/main/spoken-vscode-driver/src/robot-vscode.ts#L19) x [CodeMirror.write(...)](https://github.com/pedrooaugusto/speech-to-code/blob/main/webapp/src/services/chrome/editor.ts#L30)
 
 Visual Studio Code ...
+
+### Running this project
+
+First, install all the  required dependencies with:
+
+`node scripts.js install`
+
+Then, you can start the server with:
+
+`./run.sh`
+
+A web based demo of *Speech2Code* will be accessible through: http://localhost:3000/webapp
+
+Finnaly, if you wish to start the actual application run (make sure that VSCode is running before doing that):
+
+`npm --prefix client start`
+
+_Dont forget to edit .env with your azure speech-to-text keys._
