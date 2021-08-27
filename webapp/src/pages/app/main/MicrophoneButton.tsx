@@ -66,6 +66,7 @@ export function MicrophoneButton(
                 audioContext.close()
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     // @ts-ignore Yeah I know, I know...

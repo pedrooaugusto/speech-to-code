@@ -25,6 +25,7 @@ class SpokenInterface {
 
     private async execute(command: SpokenCommand, parent?: string): Promise<[object | null, Error | null]> {
         try {
+            // eslint-disable-next-line no-eval
             const fn = eval(`var exports = {};\n` + command.impl)
             const [args, err] = await this.parseArgs(command.args, command.id)
             
