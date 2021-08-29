@@ -58,23 +58,24 @@ const welcome: Problem = {
             'Diga a frase: "texto olá mundo texto".',
             `Diga a frase: "execute o arquivo atual" ou clique no ícone verde acima do editor de código
                 para executar o código.`,
+            '<i>Valide a saída do programa no seção abaixo do editor de código.</i>',
             'Fim.'
         ],
         'en-US': [
             'Click on the microphone to start recording.',
             'Click on the first line of the code editor.',
-            'Say the phrase: "go to line number 2."',
-            'Say the phrase: "call function log on gap with one argument".',
-            'Say the phrase: "select the word gap".',
-            'Say the phrase: "variable console".',
+            'Say the phrase: "go to line number 4."',
+            'Say the phrase: "call function print with one argument".',
             'Say the phrase: "select the word gap".',
             'Say the phrase: "string hello world string".',
+            `Say the phrase: "run current file" or click on the green icon above the code editor.`,
+            '<i>Check the program output in the section below the code editor.</i>',
             'Done.'
         ]
     },
     code: {
         'pt-BR': `const mostrar = console.log\n\n`,
-        'en-US': `const show = console.log\n\n`
+        'en-US': `const print = console.log\n\n`
     }
 }
 
@@ -86,7 +87,7 @@ const avg: Problem = {
     },
     placeholder: {
         'pt-BR': 'Computar a média entre dois números.<br/><br/>É possível dizer "remover linha" para remover a linha atual.',
-        'en-US': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        'en-US': 'Calculate the mean between two numbers.<br/><br/>It\'s possible to say "remove line" to remove the current line.'
     },
     statement: {
         'pt-BR': 'Crie uma função que retorne a média de entre dois números.',
@@ -115,17 +116,26 @@ const avg: Problem = {
             'Click on the microphone to start recording.',
             'Click on the first line of the code editor.',
             'Say the phrase: "go to line number 2."',
-            'Say the phrase: "call function log on gap with one argument".',
+            'Say the phrase: "new function mean with 2 arguments returning gap".',
+            'Say the phrase: "variable b".',
             'Say the phrase: "select the word gap".',
-            'Say the phrase: "variable console".',
+            'Say the phrase: "variable c".',
+            'Say the phrase: "line 3".',
+            'Say the phrase: "new line".',
+            'Say the phrase: "line 3".',
+            'Say the phrase: "new constant sum equals gap".',
+            'Say the phrase: "expression variable b plus variable c".',
+            'Say the phrase: "line 4".',
             'Say the phrase: "select the word gap".',
-            'Say the phrase: "string hello world string".',
+            'Say the phrase: "expression variable sum divided by number 2".',
+            `Say the phrase: "run current file" or click on the green icon above the code editor.`,
+            '<i>Check the program output in the section below the code editor.</i>',
             'Done.'
         ]
     },
     code: {
         'pt-BR': `\n\nconsole.log(média(23, 7))`,
-        'en-US': `const show = console.log\n\n`
+        'en-US': `\n\nconsole.log(mean(23, 7))`
     }
 }
 
@@ -137,12 +147,13 @@ const perfectSquare: Problem = {
     },
     placeholder: {
         'pt-BR': 'Teste se um número é um quadrado perfeito.<br/><br/>É possível dizer "escreva ..." para escrever qualquer coisa na linha atual.',
-        'en-US': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        'en-US': 'Test if a number is a perfect square.<br/><br/>It\'s possible to say "write ..." to write anything in the current line.'
     },
     statement: {
-        'pt-BR': `Crie uma função para checar se um número é um quadrado perfeito. Escreva na tela 
-        'quadrado perfeito' em caso positivo e 'quadrado imperfeito' em caso negativo.`,
-        'en-US': 'Write a function to compute the average of two numbers.'
+        'pt-BR': `Crie uma função para checar se um número é um quadrado perfeito. Escreva na tela
+            'quadrado perfeito' em caso positivo e 'quadrado imperfeito' em caso negativo.`,
+        'en-US': `Write a function to check if a given number is a perfect square.
+            Write to the standard output <i>'perfect square'</i> if yes and <i>'imperfect square'</i> if no.`
     },
     solution: {
         'pt-BR': [
@@ -178,17 +189,30 @@ const perfectSquare: Problem = {
             'Click on the microphone to start recording.',
             'Click on the first line of the code editor.',
             'Say the phrase: "go to line number 2."',
-            'Say the phrase: "call function log on gap with one argument".',
+            'Say the phrase: "new function square with one argument".',
+            'Say the phrase: "variable number".',
+            'Say the phrase: "line 3".',
+            'Say the phrase: "variable number equals gap".',
+            'Say the phrase: "call function gap on namespace math with one argument".',
+            'Say the phrase: "write SQRT".<br/><i>Just say the letters, you can try multiple times</i>.',
             'Say the phrase: "select the word gap".',
-            'Say the phrase: "variable console".',
-            'Say the phrase: "select the word gap".',
-            'Say the phrase: "string hello world string".',
+            'Say the phrase: "variable number".',
+            'Say the phrase: "pointer end of line".',
+            'Say the phrase: "new line".',
+            'Say the phrase: "conditional statement if else expression gap equals number 0".',
+            'Say the phrase: "expression variable number module number 1".',
+            'Say the phrase: "line 5".',
+            'Say the phrase: "call function print with the argument string perfect square string".',
+            'Say the phrase: "line 7".',
+            'Say the phrase: "call function print with the argument string imperfect square string".',
+            `Say the phrase: "run current file" or click on the green icon above the code editor.`,
+            '<i>Check the program output in the section below the code editor.</i>',
             'Done.'
         ]
     },
     code: {
         'pt-BR': '\n\nvar mostrar = console.log\nquadrado(4)\nquadrado(13)',
-        'en-US': ''
+        'en-US': '\n\nvar print = console.log\nsquare(4)\nsquare(13)'
     }
 }
 
@@ -196,17 +220,20 @@ const multiplesOfSevenAndSix: Problem = {
     id: 'multipleSevenSix',
     title: {
         'pt-BR': 'Múltiplos de 6 ou 7',
-        'en-US': 'Perfect Square'
+        'en-US': 'Multiples of 6 and 7'
     },
     placeholder: {
         'pt-BR': `Use um <i>for loop</i> para listar múltiplos de 6 ou 7.<br/><br/>
-            É possível dizer "selecione da linha 3 até a linha 6" para selecionar o intervalo entre estas linhas ou ainda
-            "selecione da letra A até a letra T" para selecionar o texto entre essas letras na linha atual.`,
-        'en-US': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+            É possível dizer "selecione da linha 3 até a linha 6" para selecionar o intervalo
+            entre estas linhas ou ainda "selecione da letra A até a letra T" para selecionar o
+            texto entre essas letras na linha atual.`,
+        'en-US': `Use a <i>for loop</i> to list every multiple of 6 or 7.<br/><br/>
+            It's possible to say "select from line 3 to line 6" to select the interval between those lines or even
+            "select from letter A to the letter T" to select the interval between those letters in the current line.`
     },
     statement: {
-        'pt-BR': `Escreva na tela todos os múltiplos dos números 6 ou 7 no intervalo 0..256`,
-        'en-US': 'Write a function to compute the average of two numbers.'
+        'pt-BR': `Escreva na tela todos os múltiplos dos números 6 ou 7 no intervalo 0..256.`,
+        'en-US': `Write a function to list every multiple of the number 6 or 7 in the inverval 0..256.`
     },
     solution: {
         'pt-BR': [
@@ -230,18 +257,25 @@ const multiplesOfSevenAndSix: Problem = {
         'en-US': [
             'Click on the microphone to start recording.',
             'Click on the first line of the code editor.',
-            'Say the phrase: "go to line number 2."',
-            'Say the phrase: "call function log on gap with one argument".',
+            'Say the phrase: "go to line number 4."',
+            'Say the phrase: "repetition statement from number 0 to number 256".',
+            'Say the phrase: "line 5".',
+            'Say the phrase: "conditional statement expression gap or gap".',
+            'Say the phrase: "expression gap module number 6 equals number 0".',
+            'Say the phrase: "variable i".',
             'Say the phrase: "select the word gap".',
-            'Say the phrase: "variable console".',
-            'Say the phrase: "select the word gap".',
-            'Say the phrase: "string hello world string".',
+            'Say the phrase: "expression gap module number 7 equals number 0".',
+            'Say the phrase: "variável i".',
+            'Say the phrase: "line 6".',
+            'Say the phrase: "call function print with argument variable i".',
+            `Say the phrase: "run current file" or click on the green icon above the code editor.`,
+            '<i>Check the program output in the section below the code editor.</i>',
             'Done.'
         ]
     },
     code: {
         'pt-BR': 'var mostrar = console.log\n\n',
-        'en-US': ''
+        'en-US': 'var print = console.log\n\n'
     }
 }
 
@@ -249,26 +283,27 @@ const happyNumber: Problem = {
     id: 'happyNumber',
     title: {
         'pt-BR': 'Número Feliz',
-        'en-US': 'Perfect Square'
+        'en-US': 'Happy Number'
     },
     placeholder: {
         'pt-BR': `Teste se um número qualquer <i>N</i> é um <a target="_blank" href="https://pt.wikipedia.org/wiki/N%C3%BAmero_feliz">Número Feliz</a>.<br/><br/>
             É possível dizer "troque a linguagem para inglês" para mudar o idioma de entrada para inglês.`,
-        'en-US': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        'en-US': `Test if a given number <i>N</i> is a <a target="_blank" href="https://en.wikipedia.org/wiki/Happy_number">Happy Number</a>.<br/><br/>
+            It's possible to say "change language to portuguese" to change the input language to portuguese.`
     },
     statement: {
         'pt-BR': `Complete a função para determinar se um número natural qualquer é um
             <a target="_blank" href="https://pt.wikipedia.org/wiki/N%C3%BAmero_feliz">número feliz</a>.`,
-        'en-US': 'Write a function to compute the average of two numbers.'
+        'en-US': `Complete the function to test if a given natural number is a 
+            <a target="_blank" href="https://en.wikipedia.org/wiki/Happy_number">Happy Number</a>.`
     },
     solution: {
         'pt-BR': [
             'Clique no microfone para começar a gravação.',
             'Clique na segunda linha do editor de código.',
-            'Diga a frase: "vá para a linha 2."',
-            'Diga a frase: "nova função média com 2 argumentos retornando gap".',
             'Diga a frase: "linha 5".',
             'Diga a frase: "nova linha".',
+            'Diga a frase: "linha 5".',
             'Diga a frase: "estrutura condicional expressão gap igual a número 1".',
             'Diga a frase: "variável valor".',
             'Diga a frase: "linha 6".',
@@ -279,10 +314,11 @@ const happyNumber: Problem = {
             'Diga a frase: "execute a função gap na variável visitados com o argumento variável valor".',
             'Diga a frase: "linha 9".',
             'Diga a frase: "retorne falso".',
-            'Diga a frase: "linha 10".',
+            'Diga a frase: "linha 11".',
             'Diga a frase: "nova linha".',
+            'Diga a frase: "linha 11".',
             'Diga a frase: "execute a função gap na variável visitados com o argumento variável valor".',
-            'Diga a frase: "linha 12".',
+            'Diga a frase: "ponteiro final da linha".',
             'Diga a frase: "nova linha".',
             'Diga a frase: "nova variável soma igual a número 0".',
             'Diga a frase: "nova linha".',
@@ -336,7 +372,16 @@ const happyNumber: Problem = {
             'mostrar(4, feliz(4, new Set()))\n' +
             'mostrar(440, feliz(440, new Set()))\n' +
             'mostrar(3, feliz(3, new Set()))\n',
-        'en-US': ''
+        'en-US':
+            'var print = console.log\n\n' +
+            'function happy(valor, visitados) {\n' +
+            '    return gap\n' +
+            '}\n' +
+            '\n' +
+            'print(23, happy(23, new Set()))\n' +
+            'print(4, happy(4, new Set()))\n' +
+            'print(440, happy(440, new Set()))\n' +
+            'print(3, happy(3, new Set()))\n',
     }
 }
 

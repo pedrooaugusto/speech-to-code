@@ -21,7 +21,7 @@ export default function factory(useVoiceRecognition: VoiceRecognitionHook = useA
 
         const analyze = () => {
             const text = (document.querySelector('.transcription-text.input') as HTMLTextAreaElement)?.value
-            setTimeout(() => analyzeSentence(text), 4000)
+            setTimeout(() => analyzeSentence(text), 2000)
         }
 
         useEffect(() => {
@@ -56,38 +56,21 @@ export default function factory(useVoiceRecognition: VoiceRecognitionHook = useA
                     recording={recording}
                     mode={context.mode}
                 />
-                {context.__debug && context.mode !== 'widget' && (<div className="debug">
-                    <label>Debug:</label>
-                    <textarea className="transcription-text input" style={{display: 'block', width: '100%'}}></textarea>
-                    <button onClick={analyze}>Analyze</button>
-                </div>)}
+                <Debug show={context.__debug} analyze={analyze} mode={context.mode} language={context.language} />
             </main>
         )
     }
 }
 
-function TranscriptionHistory(
-    props: {
-        results: RecognitionRequest,
-        language: string,
-        recording: boolean,
-        mode?: string
-    }
-) {
-    const [history, setHistory] = React.useState<RecognitionRequest[]>([] || [
-        {
-            text: 'escreva ola',
-            isFinal: true,
-            id: 1,
-            recognized: true
-        },
-        {
-            text: 'write it down sqrt',
-            isFinal: true,
-            id: 2,
-            recognized: !false
-        }
-    ])
+interface TranscriptionHistroyProps {
+    results: RecognitionRequest,
+    language: string,
+    recording: boolean,
+    mode?: string
+}
+
+function TranscriptionHistory(props: TranscriptionHistroyProps) {
+    const [history, setHistory] = React.useState<RecognitionRequest[]>([])
 
     useEffect(() => {
         const h = document.querySelector('.transcription-history .content')
@@ -137,6 +120,39 @@ function TranscriptionHistory(
     )
 }
 
+interface DebugProps {
+    show: boolean,
+    mode?: 'widget' | 'modalx',
+    analyze: () => void,
+    language: string
+}
+
+function Debug(props: DebugProps) {
+    const [loading, setLoading] = React.useState(false)
+
+    const analyze = () => {
+        setLoading(true)
+
+        props.analyze()
+        setTimeout(() => setLoading(false), 5000)
+    }
+
+    if (!props.show || props.mode === 'widget') return null
+
+    return (
+        <div className="debug">
+            <label>
+                Debug:
+                <span data-tip={i18n(props.language)('debug_desc')()}>
+                    <i className="fa fa-question-circle" />
+                </span>
+            </label>
+            <textarea className="transcription-text input" style={{display: 'block', width: '100%'}}></textarea>
+            <button style={{ cursor: loading ? 'progress' : 'pointer' }} onClick={analyze} disabled={loading}>Analyze</button>
+        </div>
+    )
+}
+
 const texts: Record<string, Record<string, any>> = {
     'en-US': {
         'empty-command-list': () => (
@@ -147,7 +163,8 @@ const texts: Record<string, Record<string, any>> = {
                 The complete list of voice commands can be found on <i>Menu {'>>'} Modules</i>.
             </React.Fragment>
         ),
-        'say-some': () => 'Experiment saying: "new constant answer equals number 42".'
+        'say-some': () => 'Experiment saying: "new constant answer equals number 42".',
+        'debug_desc': () => 'Use this option to write voice commands instead of saying it.'
     },
     'pt-BR': {
         'empty-command-list': () => (
@@ -160,7 +177,8 @@ const texts: Record<string, Record<string, any>> = {
         ),
         'say-some': () => 'Experimente dizer: "nova constante valor igual a número 42".',
         'Dialog history': () => 'Histórico da conversa',
-        'List of all voice commands said': () => 'Lista de todos os comandos ditos'
+        'List of all voice commands said': () => 'Lista de todos os comandos ditos',
+        'debug_desc': () => 'Utilize essa opção para escrever comandos de voz ao invés de dizê-los.'
     }
 }
 
