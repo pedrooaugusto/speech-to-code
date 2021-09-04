@@ -4,7 +4,9 @@
 
 ### Web Demo
 
-You can try a live demo ported to the web of this project here: https://pedrooaugusto.github.io/speech-to-code/webapp 
+You can try a live demo of this project here: https://pedrooaugusto.github.io/speech-to-code/webapp 
+
+_(for this demo the app was ported to the web, to run directly on the browser)_
 
 ### Overview
 
