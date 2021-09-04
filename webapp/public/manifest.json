@@ -1,6 +1,7 @@
 {
   "short_name": "Speech To Code",
-  "name": "speech2code.io",
+  "name": "speech2code",
+  "version": "0.0.1-beta.1",
   "icons": [
     {
       "src": "favicon.ico",

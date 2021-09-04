@@ -21,7 +21,7 @@ const DOC_LINK = 'https://github.com/pedrooaugusto/speech-to-code/tree/main/spok
 
 export default function SpokenModules() {
     const [modalInfo, setModalInfo] = useState<null | ModalInfo>(null)
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(!false)
     const context = useContext(GlobalContext)
     const lang = context.language
 

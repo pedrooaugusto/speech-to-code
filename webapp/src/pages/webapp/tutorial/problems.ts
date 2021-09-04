@@ -309,6 +309,7 @@ const happyNumber: Problem = {
             'Diga a frase: "linha 6".',
             'Diga a frase: "retorne verdadeiro".',
             'Diga a frase: "linha 7".',
+            'Diag a frase: "ponteiro final da linha"',
             'Diga a frase: "nova linha".',
             'Diga a frase: "estrutura condicional".',
             'Diga a frase: "execute a função gap na variável visitados com o argumento variável valor".',
@@ -325,7 +326,7 @@ const happyNumber: Problem = {
             'Diga a frase: "estrutura de repetição para todo item em gap".',
             'Diga a frase: "expressão variável valor mais texto texto".',
             'Diga a frase: "linha 14".',
-            'Diga a frase: "variável soma igual a expressão variável soma mais gap vezes gap".',
+            'Diga a frase: "variável soma igual a expressão variável soma mais gap vezes gap".', // maybe fix that: select gap when its done.
             'Diga a frase: "selecione a palavra gap".',
             'Diga a frase: "variável item".',
             'Diga a frase: "selecione a palavra gap".',

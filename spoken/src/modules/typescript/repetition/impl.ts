@@ -28,7 +28,9 @@ async function Repetition(command: RepetitionParsedArgs, editor: Editor, context
     await editor.write(text)
     await editor.indentSelection()
 
-    if (command.collection && toValue(command.collection).includes(gap)) {
+    await editor.goToLine(line._line + 1 as any)
+
+    if (command.collection && text.includes(gap)) {
         const pos = await editor.findPositionOf(gap) as number[][]
 
         if (pos.length) {

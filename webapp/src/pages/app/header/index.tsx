@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Spoken from 'spoken'
-import ReactTooltip from 'react-tooltip';
+import ReactTooltip from 'react-tooltip'
 import { GlobalContext } from '../../../services/global-context'
 
 export default function Header() {
@@ -8,13 +8,21 @@ export default function Header() {
     const [langs, setLangs] = useState<{ lang: any, langName: any}[]>([])
     const context = React.useContext(GlobalContext)
     const selectedEditor = (context.editorState || []).find((a: any) => (a.status === 'ON' && a.current)) || {}
+    const [appVersion, setAppVersion] = React.useState(window.electronShellInfo?.appVersion)
 
     React.useEffect(() => {
         const langs_ = []
-        for (const module of Spoken.modules as { grammar: Record<string, Record<string, any>> }[]) {
+
+        for (const module of Spoken.modules) {
             for (const item of Object.values(module.grammar)) {
-                langs_.push({ lang: item[0].value.lang, langName: item[0].value.langName,})
+                langs_.push({ lang: item[0].value.lang, langName: item[0].value.langName })
             }
+        }
+
+        if (appVersion == null) {
+            fetch('/manifest.json').then(res => res.json()).then(manifest => {
+                setAppVersion(manifest.version ? manifest.version + ' (web)' : appVersion)
+            })
         }
 
         setLangs(langs_)
@@ -118,7 +126,7 @@ export default function Header() {
                         </div>
                         <div className="setting">
                             <label>
-                                Client version: <b>{window.electronShellInfo?.appVersion || 'error ??'}</b>
+                                Client version: <b>{appVersion || 'error ??'}</b>
                             </label>
                         </div>
                     </div>
