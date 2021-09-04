@@ -121,7 +121,9 @@ async function loadModules(val?: SpokenModules): Promise<SpokenModules> {
         json = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'grammar.json'), 'utf-8'))
 
     } else if(typeof fetch === 'function') {
-        const r = await fetch('/grammar.json')
+        // @ts-ignore yeah! couldnt care less!
+        const homepage = window.__HOME_PAGE__ ?? ''
+        const r = await fetch(homepage + '/grammar.json')
 
         json = await r.json()
     }

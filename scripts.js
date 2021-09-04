@@ -72,7 +72,18 @@ if (task === 'install') {
  */
 if (task === 'gh-pages') {
     console.log('[Building /webapp]')
+
+    // In Github Pages the homepage is '/speech-to-code/'
+    const jsonPath = path.resolve('webapp', 'package.json')
+    const package = JSON.parse(fs.readFileSync(jsonPath, 'utf-8'))
+
+    package.homepage = 'speech-to-code'
+    fs.writeFileSync(jsonPath, JSON.stringify(package, null, '\t'))
+
     exec('npm --prefix webapp run build')
+
+    package.homepage = void 0
+    fs.writeFileSync(jsonPath, JSON.stringify(package, null, '\t'))
 
     console.log('[Copying webapp/build to ./docs]')
     exec('cp -R webapp/build/* docs/')

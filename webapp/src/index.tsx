@@ -7,8 +7,11 @@ const WebApp = React.lazy(() => import('./pages/webapp'))
 declare global {
 	interface Window {
 		electronShellInfo: any
+		__HOME_PAGE__: string
 	}
 }
+
+window.__HOME_PAGE__ = process.env.PUBLIC_URL
 
 const OuterRouter = (props: any) => {
 	const { lang, route } = parseRoute()

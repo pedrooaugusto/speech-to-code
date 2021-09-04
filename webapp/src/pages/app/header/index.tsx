@@ -20,7 +20,7 @@ export default function Header() {
         }
 
         if (appVersion == null) {
-            fetch('/manifest.json').then(res => res.json()).then(manifest => {
+            fetch(window.__HOME_PAGE__ + '/manifest.json').then(res => res.json()).then(manifest => {
                 setAppVersion(manifest.version ? manifest.version + ' (web)' : appVersion)
             })
         }
@@ -43,7 +43,7 @@ export default function Header() {
                     <div className="title">
                         Speech2Code
                         <figure onClick={() => context.toggleDebug()}>
-                            <img src="/logo48x48.png" width="25" height="25" alt="Speech2Code logo"/>
+                            <img src={window.__HOME_PAGE__ + '/logo48x48.png'} width="25" height="25" alt="Speech2Code logo"/>
                         </figure>
                     </div>
                 </div>
