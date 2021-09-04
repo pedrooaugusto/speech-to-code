@@ -36,9 +36,9 @@ Currently, Speech2Code only supports voice commands for the JavaScript language,
 
 Speech2Code was designed to work with any IDE that implements its [interface](https://github.com/pedrooaugusto/speech-to-code/blob/main/spoken/src/modules/d.ts#L17), this is usually done through plugins and extensions. Currently, it has support for Visual Studio Code and CodeMirror.
 
-For example, the voice command _"call function fish with two arguments"_ will eventually call  for [`editor.write(...)`](https://github.com/pedrooaugusto/speech-to-code/blob/main/spoken/src/modules/typescript/function_call/impl.ts#L30) where editor can be any IDE/Editor like vscode, codemirror and sublime and each will have a different implementation for `write(...)`. The only common thing is that calling that function will write something in the current open file, no matter the IDE. [VSCode.write(...)](https://github.com/pedrooaugusto/speech-to-code/blob/main/spoken-vscode-driver/src/robot-vscode.ts#L19) x [CodeMirror.write(...)](https://github.com/pedrooaugusto/speech-to-code/blob/main/webapp/src/services/chrome/editor.ts#L30)
+For example, the voice command _"call function fish with two arguments"_ will eventually call  for [`editor.write(...)`](https://github.com/pedrooaugusto/speech-to-code/blob/main/spoken/src/modules/typescript/function_call/impl.ts#L30) where editor can be any IDE/Editor like vscode, codemirror and sublime and each will have a different implementation for `write(...)`. The only common thing is that calling that function will write something in the current open file, no matter the IDE. Here you have an example of different implementations of the same function: [VSCode.write(...)](https://github.com/pedrooaugusto/speech-to-code/blob/main/spoken-vscode-driver/src/robot-vscode.ts#L19) x [CodeMirror.write(...)](https://github.com/pedrooaugusto/speech-to-code/blob/main/webapp/src/services/chrome/editor.ts#L30)
 
-Visual Studio Code ...
+The connection between VSCode and Speech2Code is done through a custom VSCode extension and Inter-Process Communication.
 
 ### Running this project
 
@@ -56,4 +56,13 @@ Finnaly, if you wish to start the actual application run (make sure that VSCode 
 
 `npm --prefix client start`
 
-_Dont forget to edit .env with your azure speech-to-text keys._
+_Dont forget to edit .env with your azure speech-to-text API keys._
+
+### Resources
+
+Non code-like material produced in the creation of this project:
+
+1. [Undergratuate dissertation on this project](https://pedrooaugusto.github.io/Programming%20With%20Voice%20-%20Assistive%20Technology%20Tool%20For%20Programming%20In%20JavaScript%20Using%20Voice%20-%20Pedro%20Silva.pdf).
+2. [Figma design: application screens, icons and images used in the dissertation](https://www.figma.com/file/glanqRtfVtW2Va1wybr5pkCh/TCC?node-id=18%3A2).
+3. [Trello board used  before everything went south](https://trello.com/b/vdqj47pg/tcc).
+
