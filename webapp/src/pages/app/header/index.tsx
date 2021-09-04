@@ -26,6 +26,7 @@ export default function Header() {
         }
 
         setLangs(langs_)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     if (context.mode === 'widget') return null

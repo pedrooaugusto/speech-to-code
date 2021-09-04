@@ -64,3 +64,16 @@ if (task === 'install') {
 
     console.log('Project installed! Try running `./run.sh`')
 }
+
+/**
+ * Builds and install latest demo page in github pages
+ * 
+ * Usage: `node install gh-pages`
+ */
+if (task === 'gh-pages') {
+    console.log('[Building /webapp]')
+    exec('npm --prefix webapp run build')
+
+    console.log('[Copying webapp/build to ./docs]')
+    exec('cp -R webapp/build/* docs/')
+}
