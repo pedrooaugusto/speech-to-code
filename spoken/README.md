@@ -27,9 +27,7 @@ _.isEqal(result, {
         varName: 'doctorWho',
         value: {
             command: 'number',
-            args: {
-                value: 42
-            }
+            args: { value: 42 },
             impl: "function(args, editor, common) {...}"
         }
     },
