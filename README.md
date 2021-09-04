@@ -2,6 +2,12 @@
 
 > Code using your own voice
 
+### Web Demo
+
+You can try a live demo of this project here: https://pedrooaugusto.github.io/speech-to-code/webapp 
+
+_(for this demo the app was ported to the web, to run directly on the browser)_
+
 ### Overview
 
 Speech2Code is an application that enables you to code using just voice comands, with Speech2Code instead of using the keyboard to write code in the code editor ~~like a caveman~~ you can just express in natural language what you wish to do and that will be automatically written, as code, in the code editor.
