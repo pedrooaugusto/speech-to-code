@@ -3,6 +3,7 @@
 	"description": "The webapp react implementation of the speech2code frontend",
 	"version": "0.0.1-beta.1",
 	"private": true,
+	"homepage": ".",
 	"dependencies": {
 		"codemirror": "^5.62.0",
 		"microsoft-cognitiveservices-speech-sdk": "^1.16.0",
