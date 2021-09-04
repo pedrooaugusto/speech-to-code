@@ -87,4 +87,27 @@ if (task === 'gh-pages') {
 
     console.log('[Copying webapp/build to ./docs]')
     exec('cp -R webapp/build/* docs/')
+
+    // I wish a had a normal server
+    fs.mkdirSync('docs/en/webapp', { recursive: true })
+    fs.mkdirSync('docs/pt/webapp', { recursive: true })
+    fs.mkdirSync('docs/webapp', { recursive: true })
+
+    fs.copyFileSync('docs/index.html', 'docs/en/webapp/index.html')
+    fs.copyFileSync('docs/index.html', 'docs/pt/webapp/index.html')
+    fs.copyFileSync('docs/index.html', 'docs/webapp/index.html')
+
+
+    fs.copyFileSync('docs/index.html', 'docs/en/index.html')
+    fs.copyFileSync('docs/index.html', 'docs/pt/index.html')
+
+
+    fs.mkdirSync('docs/en/about', { recursive: true })
+    fs.mkdirSync('docs/pt/about', { recursive: true })
+    fs.mkdirSync('docs/about', { recursive: true })
+
+    fs.copyFileSync('docs/index.html', 'docs/en/about/index.html')
+    fs.copyFileSync('docs/index.html', 'docs/pt/about/index.html')
+    fs.copyFileSync('docs/index.html', 'docs/about/index.html')
+
 }
