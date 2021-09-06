@@ -62,7 +62,7 @@ Finnaly, if you wish to start the actual application run (make sure that VSCode 
 
 `npm --prefix client start`
 
-_Dont forget to edit .env with your azure speech-to-text API keys._
+_Dont forget to edit `server/.env` with your azure speech-to-text API keys._
 
 ### Resources
 
