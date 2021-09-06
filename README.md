@@ -32,6 +32,10 @@ This project can be divided into 3 main modules:
 
 3. [Spoken  VSCode Extension](/spoken-vscode-driver): is a Visual Studio Code extension able to receive commands to manipulate VSCode. Is through this extension that Speech2Code is able to control the Visual Studio Code.
 
+Those modules interact as follows:
+
+![All modules](/docs/all-modules.png)
+
 ### Voice Commands
 
 Voice commands are transformed into text using the [Azure Speech to Text](https://azure.microsoft.com/en-us/services/cognitive-services/speech-to-text/?cdn=disable#features) service and later parsed by [Spoken](/spoken), which makes use of several pushdown automaton to extract information of the text.
