@@ -6,7 +6,9 @@ import { GlobalContext } from '../services/global-context'
 import { factory as AppFactory } from '../../app'
 import './style.scss'
 
-const App = AppFactory(useVoiceRecognition)
+const stt = localStorage.getItem('STT') || 'azure'
+
+const App = AppFactory(stt === 'azure' ? undefined : useVoiceRecognition)
 
 export default React.memo(function Editor() {
     const { language, isMobile } = React.useContext(GlobalContext)

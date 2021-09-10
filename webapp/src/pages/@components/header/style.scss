@@ -11,7 +11,7 @@
         display: flex;
         align-items: center; 
     }
-    & > a, .language {
+    & > a, .language, .config {
         display: flex;
         font-size: 18px;
         font-weight: 400;
@@ -29,7 +29,7 @@
             background-color: #704dac
         }
     }
-    .language {
+    .language, .config {
         font-size: 14px;
         margin-left: 15px;
         a {
@@ -41,6 +41,18 @@
                 font-size: 16px;
             }
         }
+    }
+
+    .config {
+        margin-left: 0px;
+        .help {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+    }
+
+    .custom-tooltip.tooltip-header {
+        max-width: 210px;
     }
 
     @media only screen and (max-width: 900px) {

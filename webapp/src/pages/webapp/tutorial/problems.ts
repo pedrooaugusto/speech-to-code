@@ -321,6 +321,7 @@ const happyNumber: Problem = {
             'Diga a frase: "execute a função gap na variável visitados com o argumento variável valor".',
             'Diga a frase: "ponteiro final da linha".',
             'Diga a frase: "nova linha".',
+// stop here
             'Diga a frase: "nova variável soma igual a número 0".',
             'Diga a frase: "nova linha".',
             'Diga a frase: "estrutura de repetição para todo item em gap".',
@@ -353,12 +354,42 @@ const happyNumber: Problem = {
         'en-US': [
             'Click on the microphone to start recording.',
             'Click on the first line of the code editor.',
-            'Say the phrase: "go to line number 2."',
-            'Say the phrase: "call function log on gap with one argument".',
+            'Say the phrase: "line 5".',
+            'Say the phrase: "new line".',
+            'Say the phrase: "line 5".',
+            'Say the phrase: "conditional statement expression gap equals number 1".',
+            'Say the phrase: "variable value".',
+            'Say the phrase: "line 6".',
+            'Say the phrase: "return true".',
+            'Say the phrase: "line 7".',
+            'Say the phrase: "pointer end of line"',
+            'Say the phrase: "new line".',
+            'Say the phrase: "conditional statement".',
+            'Say the phrase: "call function has on variable visited with argument variable value".',
+            'Say the phrase: "line 9".',
+            'Say the phrase: "return false".',
+            'Say the phrase: "line 11".',
+            'Say the phrase: "new line".',
+            'Say the phrase: "line 11".',
+            'Say the phrase: "call function add on variable visited with argument variable value".',
+            'Say the phrase: "pointer end of line".',
+            'Say the phrase: "new line".',
+
+            'Say the phrase: "new variable sum equals number 0".',
+            'Say the phrase: "new line".',
+            'Say the phrase: "repetition statement for every item in gap".',
+            'Say the phrase: "call function asterisk to string asterisk on variable value".',
+            'Say the phrase: "line 14".',
+            'Say the phrase: "variable sum equals expression variable sum plus gap times gap".', // maybe fix that: select gap when its done.
             'Say the phrase: "select the word gap".',
-            'Say the phrase: "variable console".',
+            'Say the phrase: "variable item".',
             'Say the phrase: "select the word gap".',
-            'Say the phrase: "string hello world string".',
+            'Say the phrase: "variable item".',
+            'Say the phrase: "line 16".',
+            'Say the phrase: "select the word gap".',
+            'Say the phrase: "call function happy with arguments variable sum and variable visited".',
+            `Say the phrase: "run current file" or click on the green icon above the code editor.`,
+            '<i>Check the program output in the section below the code editor.</i>',
             'Done.'
         ]
     },
@@ -375,7 +406,7 @@ const happyNumber: Problem = {
             'mostrar(3, feliz(3, new Set()))\n',
         'en-US':
             'var print = console.log\n\n' +
-            'function happy(valor, visitados) {\n' +
+            'function happy(value, visited) {\n' +
             '    return gap\n' +
             '}\n' +
             '\n' +

@@ -23,7 +23,7 @@ export const GlobalContext = React.createContext<MyContextType>({})
 export default function GloablContext(props: { children: any, lang: string }) {
     const [state, setState] = React.useState<State>({
         language: props.lang,
-        problemIndex: 0
+        problemIndex: 4
     })
 
     const changeLanguage = React.useCallback((lang: string) => setState((s) => ({...s, language: lang})), [])
