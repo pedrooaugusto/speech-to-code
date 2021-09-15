@@ -2,8 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const exec1 = require('child_process').execSync
 
-const exec = (str) => {
-    const b = exec1(str)
+const exec = (str, opts) => {
+    const b = exec1(str, opts)
 
     console.log(b.toString())
 
@@ -71,6 +71,7 @@ if (task === 'install') {
  * Usage: `node install gh-pages`
  */
 if (task === 'gh-pages') {
+    // fs.renameSync(path.resolve('speech-to-code'), path.resolve('docs'))
     console.log('[Building /webapp]')
 
     // In Github Pages the homepage is '/speech-to-code/'
@@ -79,11 +80,13 @@ if (task === 'gh-pages') {
 
     package.homepage = 'speech-to-code'
     fs.writeFileSync(jsonPath, JSON.stringify(package, null, '\t'))
+    fs.renameSync(path.resolve('webapp', '.env.gh'), path.resolve('webapp', '.env.local'))
 
     exec('npm --prefix webapp run build')
 
     package.homepage = void 0
     fs.writeFileSync(jsonPath, JSON.stringify(package, null, '\t'))
+    fs.renameSync(path.resolve('webapp', '.env.local'), path.resolve('webapp', '.env.gh'))
 
     console.log('[Copying webapp/build to ./docs]')
     exec('cp -R webapp/build/* docs/')
@@ -110,4 +113,5 @@ if (task === 'gh-pages') {
     fs.copyFileSync('docs/index.html', 'docs/pt/about/index.html')
     fs.copyFileSync('docs/index.html', 'docs/about/index.html')
 
+    // fs.renameSync(path.resolve('docs'), path.resolve('speech-to-code'))
 }

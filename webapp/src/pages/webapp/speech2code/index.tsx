@@ -1,14 +1,15 @@
 import React from 'react'
 import Draggable from 'react-draggable'
 import '../services/ipc-service-emulator'
-import useVoiceRecognition from '../../../services/chrome/use-voice-recognition'
+import useChromeVoiceRecognition from '../../../services/chrome/use-voice-recognition'
+import useAzureVoiceRecognition from '../../../services/azure/use-voice-recognition'
 import { GlobalContext } from '../services/global-context'
 import { factory as AppFactory } from '../../app'
 import './style.scss'
 
 const stt = localStorage.getItem('STT') || 'azure'
 
-const App = AppFactory(stt === 'azure' ? undefined : useVoiceRecognition)
+const App = AppFactory(stt === 'azure' ? useAzureVoiceRecognition : useChromeVoiceRecognition)
 
 export default React.memo(function Editor() {
     const { language, isMobile } = React.useContext(GlobalContext)

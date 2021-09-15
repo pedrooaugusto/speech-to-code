@@ -47,6 +47,7 @@ http.listen(process.env.PORT || 3000, () => {
 	console.log('[server.app] Listening on port *:3000')
 	console.log('[server.app] To access the web version demo you can visit: http://localhost:3000/webapp/')
 	console.log('[server.app] To start the electron client run: `npm --prefix client start`')
+	console.log('[server.app] To start the development server run: `npm --prefix webapp start`')
 	console.log('[server.app] Dont forget to edit /server/.env with your Azure speech-to-text API keys')
 })
 

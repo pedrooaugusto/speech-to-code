@@ -83,7 +83,17 @@ export default class MyRecognizer {
 
 async function getAuthToken() {
     try {
-        const res = await fetch('/api/azure/token')
+        const hn = process.env.REACT_APP_HN
+        const hv = process.env.REACT_APP_HV
+        const sttEndpoint = process.env.REACT_APP_STT_ENDPOINT || ''
+
+        const headers = new Headers()
+
+        if (hn && hv) {
+            headers.append(hn, hv)
+        }
+
+        const res = await fetch(sttEndpoint + '/api/azure/token', { headers })
 
         return await res.json()
     } catch(e) {

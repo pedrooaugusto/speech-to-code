@@ -4,6 +4,7 @@ dist
 bin
 .env.prod
 .env.local
+.env.gh
 *.deploy
 server/public
 server/key.json
