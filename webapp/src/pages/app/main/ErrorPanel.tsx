@@ -2,32 +2,54 @@ import React from 'react'
 import Modal from '../Modal'
 import { GlobalContext } from '../../../services/global-context'
 
-export default function LostConnectionError() {
-	const context = React.useContext(GlobalContext)
+interface ErrorPanelProps {
+	show: boolean
+	mainTitle: string
+	title: string
+	subTitle: string
+	body: string | JSX.Element
+	onShowDetails: () => void
+	showDetails: boolean
+}
 
-	if (context.connectedToVSCode || context.mode === 'widget') return null
+export default function ErrorPanel(props: ErrorPanelProps) {
+	if (!props.show) return null
 
     return (
 		<React.Fragment>
-			<div className="panel error" onClick={() => context.toggleShade()} title="Click for more information">
-				<div>{i18n(context.language)('no-connection-1')()}</div>
+			<div className="panel error" onClick={() => props.onShowDetails()} title="Click for more information">
+				<div>{props.mainTitle}</div>
 			</div>
-			<Modal isOpen={context.shadeIsOpen}>
+			<Modal isOpen={props.showDetails}>
 				<div className="modal-content lost-connection">
 					<div className="wrapper">
 						<div className="main-header">
-							<h2>{i18n(context.language)('no-connection-2')()}</h2>
-							<div>{i18n(context.language)('no-connection-sub')()}</div>
+							<h2>{props.title}</h2>
+							<div>{props.subTitle}</div>
 						</div>
 						<div className="divider"></div>
-						<div className="body">
-							{i18n(context.language)('no-connection-reason')()}
-						</div>
+						<div className="body" dangerouslySetInnerHTML={{ __html: props.body as string }} />
 					</div>
 				</div>
 			</Modal>
 		</React.Fragment>
     )
+}
+
+export function LostConnectionError() {
+	const context = React.useContext(GlobalContext)
+	
+	return (
+		<ErrorPanel
+			show={!(context.connectedToVSCode || context.mode === 'widget')}
+			mainTitle={i18n(context.language)('no-connection-1')()}
+			title={i18n(context.language)('no-connection-2')()}
+			subTitle={i18n(context.language)('no-connection-sub')()}
+			body={i18n(context.language)('no-connection-reason')()}
+			showDetails={context.shadeIsOpen}
+			onShowDetails={context.toggleShade}
+		/>
+	)
 }
 
 const SpokenLink = () => (

@@ -118,12 +118,14 @@ export default function Header() {
                                     <i className="fa fa-question-circle" />
                                 </span>
                             </label>
-                            <input
-                                type="checkbox"
-                                checked={context.__debug}
-                                name="debug"
-                                onChange={() => context.toggleDebug()}
-                            />
+                            <div>
+                                <input
+                                    type="checkbox"
+                                    checked={context.__debug}
+                                    name="debug"
+                                    onChange={() => context.toggleDebug()}
+                                />
+                            </div>
                         </div>
                         <div className="setting">
                             <label>

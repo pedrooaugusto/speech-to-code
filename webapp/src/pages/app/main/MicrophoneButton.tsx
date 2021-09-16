@@ -3,7 +3,7 @@ import React, { MouseEvent, useEffect } from 'react'
 export function MicrophoneButton(
     props: {
         recording: boolean
-        connectedToVSCode: boolean
+        active: boolean
         toggleRecording: () => void
         language: string
         mode?: 'modalx' | 'widget'
@@ -72,7 +72,7 @@ export function MicrophoneButton(
     // @ts-ignore Yeah I know, I know...
     window.recording = props.recording
 
-    const disabled = !props.connectedToVSCode
+    const disabled = !props.active
 
     const size = props.mode === 'widget' ? 50 : 122
 
@@ -93,7 +93,7 @@ export function MicrophoneButton(
                 onClick={onClickMic}
                 title={
                     disabled
-                        ? `We could not connect to Visual Studio Code!`
+                        ? `Something is wrong, click on the red panel above for more details.`
                         : `Click on it to ${props.recording ? 'stop' : 'start'} recording!`
                 }
             >

@@ -72,7 +72,7 @@ main.webapp .speech2code-wrapper.modalx {
     .window-content header {
         .menu-items-shade.open,
         .menu-items {
-            height: 100%;
+            height: calc(100% - 32px);
         }
     }
 

@@ -1,13 +1,14 @@
 import { useState, useEffect, useContext } from 'react'
 import * as SpeechSDK from 'microsoft-cognitiveservices-speech-sdk'
 import Spoken from 'spoken'
-import { VoiceRecognitionHook, RecognitionRequest } from '../use-voice-recognition'
+import { VoiceRecognitionHook, RecognitionRequest, RecognitionError } from '../use-voice-recognition'
 import MyRecognizer from './voice-recognizer'
 import IpcRenderer from '../electron-ipc'
 import { GlobalContext } from '../global-context'
 
 const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
     const [results, setResults] = useState<RecognitionRequest | null>(null)
+    const [error, setError] = useState<RecognitionError | null>(null)
     const { language = 'pt-BR', executeInternalCommand } = useContext(GlobalContext)
     const recognizer = MyRecognizer.getRecognizer()
 
@@ -44,6 +45,14 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
                 setResults(attempt)
             })
             .on('error', (err) => {
+                setError({
+                    __error: err,
+                    mainTitle: 'Could not connect to Azure Speech to Text',
+                    title: 'Azure STT does\'nt seem to be working',
+                    subTitle: 'Try switching STT provider to Chrome',
+                    body: `This project is powered by Azure Speech to Text, which is a paid service, so maybe my free credits are over.
+                        If you are in the demo page try switching the STT provider to Chrome (free, works on Chrome and Edge).`
+                })
                 console.error('[webapp.services.azure-voice-recognition.onResultError]: Error', err.toString())
             })
             .init(language)
@@ -87,6 +96,7 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
         results,
         start,
         stop,
+        error,
         analyzeSentence
     }
 }

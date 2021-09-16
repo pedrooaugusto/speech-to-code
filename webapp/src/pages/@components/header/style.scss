@@ -45,6 +45,7 @@
 
     .config {
         margin-left: 0px;
+        margin-right: 0px;
         .help {
             margin-left: 10px;
             font-size: 18px;
@@ -52,13 +53,14 @@
     }
 
     .custom-tooltip.tooltip-header {
-        max-width: 210px;
+        max-width: 230px;
     }
 
     @media only screen and (max-width: 900px) {
         & {
             height: 40px;
             padding: 0 10px;
+            overflow: auto;
 
             figure {
                 margin-right: 5px;
@@ -86,9 +88,26 @@
                 margin-left: 0px;
                 padding-right: 0px;
                 a {
+                    width: 36px;
                     &.selected {
                         font-size: 12px;
                     }
+                }
+            }
+
+            .config {
+                margin-left: 0px;
+                margin-right: 0px !important;
+
+                &, a {
+                    font-size: 12px;
+                }
+                a.selected {
+                    font-size: 12px;
+                }
+                .help {
+                    margin-left: 5px;
+                    font-size: 14px;
                 }
             }
         }

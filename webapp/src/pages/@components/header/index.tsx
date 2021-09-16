@@ -80,11 +80,13 @@ const i18n: Record<string, any> = {
     'en-US': {
         'help': `Which Speech to Text provider should be used ?<br/>
         Azure is the default option, but since it is a paid service it may not be available all the time.<br/>
-        Chrome is the native Speech to Text provider of the Google Chrome browser, it's a free service and only works on Chrome.`
+        Chrome is the native Speech to Text provider of your browser, it's a free service and was
+         tested on Google Chrome and MS Edge (it may work on any browser that supports the SpeechRecognition API).`
     },
     'pt-BR': {
         'help': `Qual o provedor de Speech to Text deve ser usado ?<br/>
         Azure é a opção padrão, por se tratar de um serviço pago, pode não estar disponível a todo momento.<br/>
-        Chrome é o serviço nativo de conversão de fala em texto do navegador Google Chrome, é um serviço grátis e só funciona no Chrome.`
+        Chrome é o serviço nativo de conversão de fala em texto do seu navegador, é um serviço grátis e funciona
+            no Google Chrome e no MS Edge (pode funcionar em qualquer browser que suporte a SpeechRecognition API).`
     }
 }

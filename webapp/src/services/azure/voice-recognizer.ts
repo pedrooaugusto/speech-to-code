@@ -16,11 +16,11 @@ export default class MyRecognizer {
     }
 
     async init(lang: string) {
-        const authConfig = await getAuthToken()
+        const [authConfig, err] = await getAuthToken()
 
         if (authConfig == null) {
             // @ts-ignore
-            return this.handlers.has('error') && this.handlers.get('error')()
+            return this.handlers.has('error') && this.handlers.get('error')(err)
         }
 
         this.speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(authConfig.token, authConfig.region)
@@ -95,9 +95,11 @@ async function getAuthToken() {
 
         const res = await fetch(sttEndpoint + '/api/azure/token', { headers })
 
-        return await res.json()
+        return [await res.json(), null]
     } catch(e) {
-        return null
+        console.error(e)
+
+        return [null, e]
     } 
 }
 

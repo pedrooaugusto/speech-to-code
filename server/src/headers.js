@@ -1,7 +1,7 @@
 const cors = require('cors')
 
 module.exports = function config(app) {
-    return process.env.PROD == 'TRUE' ? dev(app) : prod(app)
+    return process.env.PROD !== 'TRUE' ? dev(app) : prod(app)
 }
 
 function prod(app) {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ReactTooltip from 'react-tooltip'
-import LostConnectionError  from './LostConnectionError'
+import ErrorPanel, { LostConnectionError }  from './ErrorPanel'
 import { MicrophoneButton } from './MicrophoneButton'
 import IpcRenderer from '../../../services/electron-ipc'
 import useAzureVoiceRecognition from '../../../services/azure/use-voice-recognition'
@@ -11,7 +11,7 @@ export default function factory(useVoiceRecognition: VoiceRecognitionHook = useA
     return function Main() {
         const [recording, setRecording] = useState(false)
 
-        const { results, start, stop, analyzeSentence } = useVoiceRecognition()
+        const { results, start, stop, analyzeSentence, error } = useVoiceRecognition()
         const context = React.useContext(GlobalContext)
 
         const toggleRecording = () => {
@@ -42,10 +42,18 @@ export default function factory(useVoiceRecognition: VoiceRecognitionHook = useA
         return (
             <main className={`main ${context.mode === 'widget' ? 'widget' : context.mode === 'modalx' ? 'modalx' : ''}`}>
                 <LostConnectionError />
+                {error && (
+                    <ErrorPanel
+                        {...error}
+                        show={context.mode !== 'widget'}
+                        showDetails={context.shadeIsOpen}
+                        onShowDetails={context.toggleShade}
+                    />
+                )}
                 <MicrophoneButton
                     recording={recording}
                     toggleRecording={toggleRecording}
-                    connectedToVSCode={context.connectedToVSCode}
+                    active={context.connectedToVSCode && error == null}
                     language={context.language}
                     mode={context.mode}
                     onOpen={context.onOpen}

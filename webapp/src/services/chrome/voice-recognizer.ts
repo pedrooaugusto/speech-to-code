@@ -14,26 +14,32 @@ export default class MyRecognizer {
     }
 
     async init(lang: string) {
-        // @ts-ignore
-        this.recognizer = new webkitSpeechRecognition()
-
-        if (this.recognizer == null) {
+        try {
             // @ts-ignore
-            return this.handlers.get('error') != null ? this.handlers.get('error')() : null
+            this.recognizer = new webkitSpeechRecognition()
+        } catch (err) {
+            // @ts-ignore
+            return this.handlers.get('error') != null ? this.handlers.get('error')(err) : null
         }
 
-        // @ts-ignore
-        const speechRecognitionList: SpeechGrammarList = new webkitSpeechGrammarList()
-        speechRecognitionList.addFromString('#JSGF V1.0; grammar one; public <gap> = gap;', 1)
-        speechRecognitionList.addFromString('#JSGF V1.0; grammar one; public <string> = string;', 1)
+        try {
+            // @ts-ignore
+            const speechRecognitionList: SpeechGrammarList = new webkitSpeechGrammarList()
+            speechRecognitionList.addFromString('#JSGF V1.0; grammar one; public <gap> = gap;', 1)
+            speechRecognitionList.addFromString('#JSGF V1.0; grammar one; public <string> = string;', 1)
 
-        this.recognizer.grammars = speechRecognitionList
-        this.recognizer.continuous = true
-        this.recognizer.lang = lang
-        this.recognizer.interimResults = false
-        this.recognizer.maxAlternatives = 1
+            this.recognizer!.grammars = speechRecognitionList
 
-        this.recognizer.onresult = (event) => {
+        } catch(err) {
+            console.info('Safara does not implements webkitSpeechGrammarList.')
+        }
+
+        this.recognizer!.continuous = true
+        this.recognizer!.lang = lang
+        this.recognizer!.interimResults = false
+        this.recognizer!.maxAlternatives = 1
+
+        this.recognizer!.onresult = (event) => {
             // console.log('Results', event.results)
 
             const fn = this.handlers.get('results')
@@ -41,15 +47,15 @@ export default class MyRecognizer {
             if (fn != null) fn(event.results, true)
         }
 
-        this.recognizer.onspeechend = () => {
+        this.recognizer!.onspeechend = () => {
             this.recognizer!.stop()
         }
 
-        this.recognizer.onnomatch = (event) => {
+        this.recognizer!.onnomatch = (event) => {
             console.log('could not recognize that!')
         }
 
-        this.recognizer.onerror = (event) => {
+        this.recognizer!.onerror = (event) => {
             const fn = this.handlers.get('error')
 
             if (fn != null) fn(event.error)

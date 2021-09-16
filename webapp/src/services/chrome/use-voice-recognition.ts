@@ -1,12 +1,13 @@
 import { useState, useEffect, useContext } from 'react'
 import Spoken from 'spoken'
 import IpcRenderer from '../electron-ipc'
-import { VoiceRecognitionHook, RecognitionRequest } from '../use-voice-recognition'
+import { VoiceRecognitionHook, RecognitionRequest, RecognitionError } from '../use-voice-recognition'
 import MyRecognizer from './voice-recognizer'
 import { GlobalContext } from '../global-context'
 
 const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
     const [results, setResults] = useState<RecognitionRequest | null>(null)
+    const [error, setError] = useState<RecognitionError | null>(null)
     const { language = 'pt-BR', executeInternalCommand } = useContext(GlobalContext)
     const recognizer = MyRecognizer.getRecognizer()
 
@@ -52,6 +53,14 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
                 setResults(attempt)
             })
             .on('error', (err) => {
+                setError({
+                    __error: err,
+                    mainTitle: 'Chrome STT provider is vendor specific',
+                    title: 'This browser does not support the SpeechRecognition API',
+                    subTitle: 'Try switching STT provider to Azure or accessing this website using Chrome or Edge',
+                    body: `Not all browsers support the <i>webkitSpeechRecognition</i> API which powers this project, currently only Google Chrome,
+                    MS Edge and Safari* have support to it. Try viewing this website on a supported browser or change the STT provider to Azure.`
+                })
                 console.error('[webapp.services.chrome-voice-recognition.onResultError]: Error', err)
             })
             .init(language)
@@ -96,6 +105,7 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
         results,
         start,
         stop,
+        error,
         analyzeSentence
     }
 }
