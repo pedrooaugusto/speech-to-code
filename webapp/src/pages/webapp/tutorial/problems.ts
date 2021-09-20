@@ -40,7 +40,7 @@ const welcome: Problem = {
         'en-US': `Speech2Code is a desktop application that enables you to code using just voice commands, 
         it achieves that by connecting to your favorite IDE and issuing commands to it. This page is a demo
         of said application <u>ported to the web</u>, here you can learn how to use this tool by solving simple 
-        programming problems using just voice commands.<br/><br/>
+        programming problems using just voice commands. <b>You may change the input language to pt-BR.</b> <br/><br/>
         The first problem is the classic "hello world" where you are meant to write "hello world" to
         the standard output.`
     },
@@ -65,10 +65,9 @@ const welcome: Problem = {
             'Click on the microphone to start recording.',
             'Click on the first line of the code editor.',
             'Say the phrase: "go to line number 4."',
-            'Say the phrase: "call function print with one argument".',
-            'Say the phrase: "select the word gap".',
-            'Say the phrase: "string hello world string".',
-            `Say the phrase: "run current file" or click on the green icon above the code editor.`,
+            'Say the phrase: "execute function print with one argument".',
+            'Say the phrase: "text hello world text".',
+            `Say the phrase: "please the run current file" or click on the green icon above the code editor.`,
             '<i>Check the program output in the section below the code editor.</i>',
             'Done.'
         ]
@@ -103,7 +102,8 @@ const avg: Problem = {
             'Diga a frase: "selecione a palavra gap".',
             'Diga a frase: "variável c".',
             'Diga a frase: "linha 3".',
-            'Diga a frase: "nova linha".',
+            'Diga a frase: "criar linha".',
+            'Diga a frase: "linha 3"',
             'Diga a frase: "nova constante soma igual a gap".',
             'Diga a frase: "expressão variável b mais variável c".',
             'Diga a frase: "linha 4".',
@@ -121,7 +121,7 @@ const avg: Problem = {
             'Say the phrase: "select the word gap".',
             'Say the phrase: "variable c".',
             'Say the phrase: "line 3".',
-            'Say the phrase: "new line".',
+            'Say the phrase: "please create a line".',
             'Say the phrase: "line 3".',
             'Say the phrase: "new constant sum equals gap".',
             'Say the phrase: "expression variable b plus variable c".',
@@ -295,7 +295,8 @@ const happyNumber: Problem = {
         'pt-BR': `Complete a função para determinar se um número natural qualquer é um
             <a target="_blank" href="https://pt.wikipedia.org/wiki/N%C3%BAmero_feliz">número feliz</a>.`,
         'en-US': `Complete the function to test if a given natural number is a 
-            <a target="_blank" href="https://en.wikipedia.org/wiki/Happy_number">Happy Number</a>.`
+            <a target="_blank" href="https://en.wikipedia.org/wiki/Happy_number">Happy Number</a>. 
+            <a target="_blank" href="https://www.youtube.com/watch?v=ee2If8jSxUo&t=19s">(happy primes)</a>`
     },
     solution: {
         'pt-BR': [

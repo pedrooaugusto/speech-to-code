@@ -1,0 +1,32 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+nav#top-nav .config {
+    display: none;
+}
+
+main.about {
+    padding: 0 35px;
+    font-family: Roboto;
+
+    .main-title {
+        margin-block-end: 21px;
+        margin-block-start: 21px;
+        h1, h1, h3 {
+            margin: 0px;
+        }
+        div {
+            color: #646464;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    }
+}

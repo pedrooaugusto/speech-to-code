@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { parseRoute } from './pages/@components/utils'
 const App = React.lazy(() => import('./pages/app'))
 const WebApp = React.lazy(() => import('./pages/webapp'))
+const About = React.lazy(() => import('./pages/about'))
 
 declare global {
 	interface Window {
@@ -20,6 +21,7 @@ const OuterRouter = (props: any) => {
 
 	if (route === 'app') Page = App
 	else if (route === 'webapp') Page = WebApp
+	else if (route === 'about') Page = About
 	else if (route === 'index') Page = lazy(UnderConstruction)
 	else Page = lazy(NotFound)
 

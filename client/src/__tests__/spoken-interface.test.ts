@@ -5,6 +5,13 @@
 
 
 
+
+
+/**
+ * Keep this file open in vscode and run `npm run test`
+ * (all the lines above will automatically edited by the comands on this file)
+ * (Spoken extension need to be installed in vscode)
+ */
 import Spoken, { SpokenCommand } from 'spoken'
 import { IpcMainEvent } from 'electron'
 import SpokenInterface from '../spoken-interface'

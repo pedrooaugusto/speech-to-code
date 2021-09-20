@@ -7,3 +7,13 @@ Besides presenting the results and options to the end user in a friendly way thi
 <img src="./print-1.png" alt="recording screen" width=230/> <img src="./print-2.png" alt="modules screen" width=230/>
 
 *Image showing the two main screens of the application*
+
+
+### Useful Scripts
+
+1. `npm run build` to build the frontend (this folder).
+
+2. `npm run test` to run the tests.
+
+3. `npm start` to start the development server.
+

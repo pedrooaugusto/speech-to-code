@@ -40,3 +40,14 @@ VSCode version 1.55.2 or newer
 Initial release of Spoken, just common commands
 
 **Enjoy!**
+
+
+## Development
+
+When developing this extension
+
+### Useful Scripts
+
+1. `npm run build` To build and pack this vscode extension (check for a `*.vsix` file at root)
+2. `npm run vscode-install` To install the `*.vsix` file (the vscode extension) on your local vscode.
+In the vscode extension list look for one called `Spoken`.
