@@ -37,6 +37,9 @@ export default React.memo(function Webapp(props: { lang: string }) {
                         <a href="https://github.com/pedrooaugusto/speech-to-code/">Github</a>
                     </li>
                     <li>
+                        <a href="https://github.com/pedrooaugusto/speech-to-code/tree/main/spoken/src/modules/typescript">List of commands</a>
+                    </li>
+                    <li>
                         <a href="https://pedrooaugusto.github.io/Programming%20With%20Voice%20-%20Assistive%20Technology%20Tool%20For%20Programming%20In%20JavaScript%20Using%20Voice%20-%20Pedro%20Silva.pdf">
                             Dissertation (pt-br)
                         </a>

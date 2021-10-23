@@ -9,7 +9,7 @@ digraph MathOperator {
     node[shape=doublecircle]; 1;
     node[shape=circle];
 
-    0 -> 1 [label="(plus, times, minus, divided, module)", store=mathOperator];
+    0 -> 1 [label="(plus, times, minus, divided, module, +, x, -, /, %)", store=mathOperator];
     1 -> 1 [label="(by)"];
 
     title="Writes a math operator";

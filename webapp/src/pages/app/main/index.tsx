@@ -45,7 +45,7 @@ export default function factory(useVoiceRecognition: VoiceRecognitionHook = useA
                 {error && (
                     <ErrorPanel
                         {...error}
-                        show={context.mode !== 'widget'}
+                        show={context.mode !== 'widget' && error != null}
                         showDetails={context.shadeIsOpen}
                         onShowDetails={context.toggleShade}
                     />
@@ -53,7 +53,7 @@ export default function factory(useVoiceRecognition: VoiceRecognitionHook = useA
                 <MicrophoneButton
                     recording={recording}
                     toggleRecording={toggleRecording}
-                    active={context.connectedToVSCode && error == null}
+                    active={context.mode === 'widget' || (context.connectedToVSCode && error == null)}
                     language={context.language}
                     mode={context.mode}
                     onOpen={context.onOpen}
@@ -97,9 +97,7 @@ function TranscriptionHistory(props: TranscriptionHistroyProps) {
         <div className="transcription-history">
             <label>
                 {i18n(props.language)('Dialog history')()}:
-                <span
-                    data-tip={i18n(props.language)('List of all voice commands said')()}
-                >
+                <span data-tip={i18n(props.language)('List of all voice commands said')()}>
                     <i className="fa fa-question-circle" />
                 </span>
             </label>
@@ -114,17 +112,37 @@ function TranscriptionHistory(props: TranscriptionHistroyProps) {
                         {i18n(props.language)('say-some')()}
                     </div>
                 )}
-                {history.map(item => {
-                    return (
-                        <div key={item.id} className={`phrase ${item.isFinal ? 'final' : ''} ${item.recognized ? 'recognized' : ''}`}>
-                            {item.text}
-                            {item.recognized && <i className="fa fa-bolt" />}
-                        </div>
-                    )
-                })}
+                {history.map(item => <RecognizedPhrase item={item} language={props.language} />)}
             </div>
             <ReactTooltip multiline effect="solid" className="custom-tooltip" />
         </div>
+    )
+}
+
+const base = 'https://github.com/pedrooaugusto/speech-to-code/tree/main/spoken/src/modules/typescript/'
+function makeCommandUrl(command: RecognitionRequest, language: string): string {
+    return base + command.command + '#' + (language === 'pt-BR' ? 'português' : 'english')
+}
+
+function RecognizedPhrase({item, language}: {item: RecognitionRequest, language: string}): JSX.Element {
+    if (!item.recognized)
+        return (
+            <div key={item.id} className={`phrase ${item.isFinal ? 'final' : ''}`}>
+                {item.text}
+            </div>
+        )
+
+    return (
+        <a
+            key={item.id}
+            className={`phrase ${item.isFinal ? 'final' : ''} recognized`}
+            href={makeCommandUrl(item, language)}
+            target="_blank"
+            rel="noreferrer"
+        >
+            {item.text}
+            <i className="fa fa-bolt" />
+        </a>
     )
 }
 

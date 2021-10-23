@@ -32,7 +32,7 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
 
                 result.text = result.transcript.trim()
 
-                const attempt = {
+                const attempt: RecognitionRequest = {
                     text: sanitizePonctuation(result.text),
                     isFinal,
                     id: Date.now(),
@@ -43,6 +43,7 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
                     const match = findComand(result, language)
 
                     attempt.recognized = !!match
+                    attempt.command = match?.id
 
                     if (attempt.recognized) {
                         if (match?.id?.startsWith('__')) executeInternalCommand(match)
@@ -82,11 +83,12 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
     const analyzeSentence = async (phrase: string, timeout:number | null = 3000) => {        
         const match = findComand({ text: sanitizePonctuation(phrase) }, language)
 
-        const attempt = {
+        const attempt: RecognitionRequest = {
             text: phrase,
             isFinal: true,
             id: Date.now(),
-            recognized: !!match
+            recognized: !!match,
+            command: match?.id
         }
 
         const fn = () => {

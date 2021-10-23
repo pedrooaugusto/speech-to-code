@@ -10,7 +10,8 @@ export type RecognitionRequest = {
     text: string,
     isFinal: boolean,
     id: number,
-    recognized: boolean
+    recognized: boolean,
+    command?: string
 }
 
 export type RecognitionError = {

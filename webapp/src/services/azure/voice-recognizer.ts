@@ -23,6 +23,8 @@ export default class MyRecognizer {
             return this.handlers.has('error') && this.handlers.get('error')(err)
         }
 
+        SpeechSDK.Recognizer.enableTelemetry(false)
+
         this.speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(authConfig.token, authConfig.region)
         this.speechConfig.speechRecognitionLanguage = lang
         this.speechConfig.setServiceProperty('punctuation', 'explicit', SpeechSDK.ServicePropertyChannel.UriQueryParameter)

@@ -9,11 +9,11 @@ digraph LogicalOperator {
     node[shape=doublecircle]; 1 7 5;
     node[shape=circle];
 
-    {0 2} -> 1 [label="(e, ou, igual)", store=logicalOperator];
+    {0 2} -> 1 [label="(e, ou, igual, =)", store=logicalOperator];
     0 -> 2 [label="(não, negativo)", store=isNegative, normalizer=boolean];
     {0 2} -> 3 [label="(menor, maior)", store=inequalityOperator, disableSpellcheck=true];
     3 -> 4 [label="(ou)"];
-    4 -> 5 [label="(igual)", store=orEqual, normalizer=boolean];
+    4 -> 5 [label="(igual, =)", store=orEqual, normalizer=boolean];
     3 -> 7 [label="(que)"];
     5 -> 7 [label="(a)"];
 

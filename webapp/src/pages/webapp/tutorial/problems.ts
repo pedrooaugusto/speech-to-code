@@ -110,6 +110,7 @@ const avg: Problem = {
             'Diga a frase: "selecione a palavra gap".',
             'Diga a frase: "expressão variável soma dividido por número 2".',
             'Diga a frase: "execute o arquivo atual".',
+            '<i>Valide a saída do programa.</i>',
             'Fim.'
         ],
         'en-US': [
@@ -167,14 +168,14 @@ const perfectSquare: Problem = {
             'Diga a frase: "mude a linguagem para inglês".',
             '<i>A partir de agora os comandos de voz serão ditos em inglês.</i>',
             'Say the phrase: "select the word gap".',
-            'Say the phrase: "call function gap on namespace math with one argument".',
+            'Say the phrase: "execute function gap on namespace math with one argument".',
             'Say the phrase: "write SQRT".<br/><i>Just say the letters, you can try multiple times</i>.',
             'Say the phrase: "switch back language back to portuguese".',
             '<i>A partir de agora os comandos de voz serão ditos em português.</i>',
             'Diga a frase: "selecione a palavra gap".',
             'Diga a frase: "variável número".',
             'Diga a frase: "ponteiro final da linha".',
-            'Diga a frase: "nova linha".',
+            'Diga a frase: "linha nova".',
             'Diga a frase: "estrutura condicional se senão expressão gap igual ao número 0".',
             'Diga a frase: "expressão variável número módulo número 1".',
             'Diga a frase: "linha 5".',
@@ -198,13 +199,14 @@ const perfectSquare: Problem = {
             'Say the phrase: "select the word gap".',
             'Say the phrase: "variable number".',
             'Say the phrase: "pointer end of line".',
-            'Say the phrase: "new line".',
+            'Say the phrase: "create a line".',
             'Say the phrase: "conditional statement if else expression gap equals number 0".',
             'Say the phrase: "expression variable number module number 1".',
             'Say the phrase: "line 5".',
             'Say the phrase: "call function print with the argument string perfect square string".',
             'Say the phrase: "line 7".',
-            'Say the phrase: "call function print with the argument string imperfect square string".',
+            'Say the phrase: "execute function print with one argument".',
+            'Say the phrase: "text imperfect square text".',
             `Say the phrase: "run current file" or click on the green icon above the code editor.`,
             '<i>Check the program output in the section below the code editor.</i>',
             'Done.'
@@ -220,7 +222,7 @@ const multiplesOfSevenAndSix: Problem = {
     id: 'multipleSevenSix',
     title: {
         'pt-BR': 'Múltiplos de 6 ou 7',
-        'en-US': 'Multiples of 6 and 7'
+        'en-US': 'Multiples of 6 or 7'
     },
     placeholder: {
         'pt-BR': `Use um <i>for loop</i> para listar múltiplos de 6 ou 7.<br/><br/>
@@ -267,7 +269,7 @@ const multiplesOfSevenAndSix: Problem = {
             'Say the phrase: "expression gap module number 7 equals number 0".',
             'Say the phrase: "variável i".',
             'Say the phrase: "line 6".',
-            'Say the phrase: "call function print with argument variable i".',
+            'Say the phrase: "call function print with the argument variable i".',
             `Say the phrase: "run current file" or click on the green icon above the code editor.`,
             '<i>Check the program output in the section below the code editor.</i>',
             'Done.'

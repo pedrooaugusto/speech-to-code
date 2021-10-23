@@ -7,7 +7,7 @@ async function LogicalOperator(command: LogicalOperatorParsedArgs, editor: Edito
     const { logicalOperator, isNegative = false, inequalityOperator, orEqual = false } = command
 
     if (logicalOperator !== undefined) {
-        const operator = ['&&', '||', '==='][logicalOperator]
+        const operator = ['&&', '||', '===', '==='][logicalOperator]
 
         return { operator, isNegative }
 

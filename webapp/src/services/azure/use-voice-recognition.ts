@@ -29,12 +29,19 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
             .on('results', (result: SpeechSDK.SpeechRecognitionResult, isFinal: boolean) => {
                 if (!result.text || result.text.trim() === '') return
 
-                const attempt = { text: sanitizePonctuation(result.text), isFinal, id: Date.now(), recognized: false }
+                const attempt: RecognitionRequest = {
+                    text: sanitizePonctuation(result.text),
+                    isFinal,
+                    id: Date.now(),
+                    recognized: false,
+                    command: undefined
+                }
 
                 if (isFinal) {
                     const match = findComand(result, language)
 
                     attempt.recognized = !!match
+                    attempt.command = match?.id
 
                     if (attempt.recognized) {
                         if (match?.id?.startsWith('__')) executeInternalCommand(match)
@@ -75,10 +82,15 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 
     const analyzeSentence = async (phrase: string, timeout:number | null = 3000) => {
         const w = { text: sanitizePonctuation(phrase) }
-        const attempt = { text: phrase, isFinal: true, id: Date.now(), recognized: false }
         const match = findComand(w as unknown as SpeechSDK.SpeechRecognitionResult, language)
 
-        attempt.recognized = !!match
+        const attempt: RecognitionRequest = {
+            text: phrase,
+            isFinal: true,
+            id: Date.now(),
+            recognized: !!match,
+            command: match?.id
+        }
 
         const fn = () => {
             setResults(attempt)

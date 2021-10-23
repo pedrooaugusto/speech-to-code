@@ -100,6 +100,7 @@ return {
             if (val !== -1) return val.toString()
 
             // for some reason this is valid #42
+            // FUCKIN HELL
             if (/^(#\d+)$/.test(word)) return word.substr(1)
 
             return undefined

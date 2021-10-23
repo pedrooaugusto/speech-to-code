@@ -39,7 +39,12 @@ const NotFound: ComponentType<any> = () => {
 }
 
 const UnderConstruction: ComponentType<any> = () => {
-	return <h3>🚧 Under construction 🚧 - Later!</h3>
+	return (
+		<React.Fragment>
+			<h3>🚧 Under construction 🚧 - Later!</h3>
+			<h3><a href="/webapp">Go to demo page</a></h3>
+		</React.Fragment>
+	)
 }
 
 ReactDOM.render(

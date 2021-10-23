@@ -13,7 +13,7 @@ digraph variable_assignment {
     2 -> 3 [label="(chamada)"];
     3 -> 4 [label="([multi_word_token])", store=varName, extraArgs="{\"case\": \"camel\"}"];
     {2 3} -> 7 [label="({term})", store=varName];
-    {4 7} -> 5 [label="(igual)"];
+    {4 7} -> 5 [label="(igual, =)"];
     5 -> 6 [label="([expressions])", store=expression];
 
     title="Guarda um valor em uma variável";

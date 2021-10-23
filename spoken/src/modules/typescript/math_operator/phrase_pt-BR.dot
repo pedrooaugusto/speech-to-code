@@ -9,7 +9,7 @@ digraph MathOperator {
     node[shape=doublecircle]; 1;
     node[shape=circle];
 
-    0 -> 1 [label="(mais, vezes, menos, dividido, módulo)", store=mathOperator, disableSpellcheck=true];
+    0 -> 1 [label="(mais, vezes, menos, dividido, módulo, +, x, -, /, %)", store=mathOperator, disableSpellcheck=true];
     1 -> 1 [label="(por)"];
 
     title="Escreve uma operador matemático";
