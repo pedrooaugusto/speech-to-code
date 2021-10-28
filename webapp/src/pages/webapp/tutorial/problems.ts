@@ -85,8 +85,8 @@ const avg: Problem = {
         'en-US': 'Mean'
     },
     placeholder: {
-        'pt-BR': 'Computar a média entre dois números.<br/><br/>É possível dizer "remover linha" para remover a linha atual.',
-        'en-US': 'Calculate the mean between two numbers.<br/><br/>It\'s possible to say "remove line" to remove the current line.'
+        'pt-BR': 'Computar a média entre dois números.<br/><br/><i class="fa fa-question-circle"></i> É possível dizer "remover linha" para remover a linha atual.',
+        'en-US': 'Calculate the mean between two numbers.<br/><br/><i class="fa fa-question-circle"></i> It\'s possible to say "remove line" to remove the current line.'
     },
     statement: {
         'pt-BR': 'Crie uma função que retorne a média de entre dois números.',
@@ -147,8 +147,8 @@ const perfectSquare: Problem = {
         'en-US': 'Perfect Square'
     },
     placeholder: {
-        'pt-BR': 'Teste se um número é um quadrado perfeito.<br/><br/>É possível dizer "escreva ..." para escrever qualquer coisa na linha atual.',
-        'en-US': 'Test if a number is a perfect square.<br/><br/>It\'s possible to say "write ..." to write anything in the current line.'
+        'pt-BR': 'Teste se um número é um quadrado perfeito.<br/><br/><i class="fa fa-question-circle"></i> É possível dizer "escreva ..." para escrever qualquer coisa na linha atual.',
+        'en-US': 'Test if a number is a perfect square.<br/><br/><i class="fa fa-question-circle"></i> It\'s possible to say "write ..." to write anything in the current line.'
     },
     statement: {
         'pt-BR': `Crie uma função para checar se um número é um quadrado perfeito. Escreva na tela
@@ -226,12 +226,12 @@ const multiplesOfSevenAndSix: Problem = {
     },
     placeholder: {
         'pt-BR': `Use um <i>for loop</i> para listar múltiplos de 6 ou 7.<br/><br/>
-            É possível dizer "selecione da linha 3 até a linha 6" para selecionar o intervalo
+            <i class="fa fa-question-circle"></i> É possível dizer "selecione da linha 3 até a linha 6" para selecionar o intervalo
             entre estas linhas ou ainda "selecione da letra A até a letra T" para selecionar o
             texto entre essas letras na linha atual.`,
         'en-US': `Use a <i>for loop</i> to list every multiple of 6 or 7.<br/><br/>
-            It's possible to say "select from line 3 to line 6" to select the interval between those lines or even
-            "select from letter A to the letter T" to select the interval between those letters in the current line.`
+            <i class="fa fa-question-circle"></i> It's possible to say "select from line 3 to line 6" to select the interval between
+            those lines or even "select from letter A to the letter T" to select the interval between those letters in the current line.`
     },
     statement: {
         'pt-BR': `Escreva na tela todos os múltiplos dos números 6 ou 7 no intervalo 0..256.`,
@@ -289,9 +289,9 @@ const happyNumber: Problem = {
     },
     placeholder: {
         'pt-BR': `Teste se um número qualquer <i>N</i> é um <a target="_blank" href="https://pt.wikipedia.org/wiki/N%C3%BAmero_feliz">Número Feliz</a>.<br/><br/>
-            É possível dizer "troque a linguagem para inglês" para mudar o idioma de entrada para inglês.`,
+            <i class="fa fa-question-circle"></i> É possível dizer "troque a linguagem para inglês" para mudar o idioma de entrada para inglês.`,
         'en-US': `Test if a given number <i>N</i> is a <a target="_blank" href="https://en.wikipedia.org/wiki/Happy_number">Happy Number</a>.<br/><br/>
-            It's possible to say "change language to portuguese" to change the input language to portuguese.`
+            <i class="fa fa-question-circle"></i> It's possible to say "change language to portuguese" to change the input language to portuguese.`
     },
     statement: {
         'pt-BR': `Complete a função para determinar se um número natural qualquer é um
@@ -305,7 +305,7 @@ const happyNumber: Problem = {
             'Clique no microfone para começar a gravação.',
             'Clique na segunda linha do editor de código.',
             'Diga a frase: "linha 5".',
-            'Diga a frase: "nova linha".',
+            'Diga a frase: "criar linha".',
             'Diga a frase: "linha 5".',
             'Diga a frase: "estrutura condicional expressão gap igual a número 1".',
             'Diga a frase: "variável valor".',
@@ -313,20 +313,19 @@ const happyNumber: Problem = {
             'Diga a frase: "retorne verdadeiro".',
             'Diga a frase: "linha 7".',
             'Diag a frase: "ponteiro final da linha"',
-            'Diga a frase: "nova linha".',
+            'Diga a frase: "criar linha".',
             'Diga a frase: "estrutura condicional".',
             'Diga a frase: "execute a função gap na variável visitados com o argumento variável valor".',
             'Diga a frase: "linha 9".',
             'Diga a frase: "retorne falso".',
             'Diga a frase: "linha 11".',
-            'Diga a frase: "nova linha".',
+            'Diga a frase: "criar linha".',
             'Diga a frase: "linha 11".',
             'Diga a frase: "execute a função gap na variável visitados com o argumento variável valor".',
             'Diga a frase: "ponteiro final da linha".',
-            'Diga a frase: "nova linha".',
-// stop here
+            'Diga a frase: "criar linha".',
             'Diga a frase: "nova variável soma igual a número 0".',
-            'Diga a frase: "nova linha".',
+            'Diga a frase: "criar linha".',
             'Diga a frase: "estrutura de repetição para todo item em gap".',
             'Diga a frase: "expressão variável valor mais texto texto".',
             'Diga a frase: "linha 14".',
@@ -345,7 +344,7 @@ const happyNumber: Problem = {
             'Say the phrase: "select the word gap".',
             'Say the phrase: "print has".',
 
-            'Say the phrase: "please go to line 11".',
+            'Say the phrase: "line 11".',
             'Say the phrase: "select the word gap".',
             'Say the phrase: "print add".',
 
@@ -358,7 +357,7 @@ const happyNumber: Problem = {
             'Click on the microphone to start recording.',
             'Click on the first line of the code editor.',
             'Say the phrase: "line 5".',
-            'Say the phrase: "new line".',
+            'Say the phrase: "create line".',
             'Say the phrase: "line 5".',
             'Say the phrase: "conditional statement expression gap equals number 1".',
             'Say the phrase: "variable value".',
@@ -366,24 +365,26 @@ const happyNumber: Problem = {
             'Say the phrase: "return true".',
             'Say the phrase: "line 7".',
             'Say the phrase: "pointer end of line"',
-            'Say the phrase: "new line".',
+            'Say the phrase: "create a line".',
             'Say the phrase: "conditional statement".',
-            'Say the phrase: "call function has on variable visited with argument variable value".',
+            'Say the phrase: "execute function has on variable visited with one argument".',
+            'Say the phrase: "variable value".',
             'Say the phrase: "line 9".',
             'Say the phrase: "return false".',
             'Say the phrase: "line 11".',
-            'Say the phrase: "new line".',
+            'Say the phrase: "create line".',
             'Say the phrase: "line 11".',
-            'Say the phrase: "call function add on variable visited with argument variable value".',
+            'Say the phrase: "execute function add on variable visited with argument variable value".',
             'Say the phrase: "pointer end of line".',
-            'Say the phrase: "new line".',
+            'Say the phrase: "create line".',
 
             'Say the phrase: "new variable sum equals number 0".',
-            'Say the phrase: "new line".',
+            'Say the phrase: "create line".',
             'Say the phrase: "repetition statement for every item in gap".',
-            'Say the phrase: "call function asterisk to string asterisk on variable value".',
+            // change to quote
+            'Say the phrase: "execute function quote to string quote on variable value".',
             'Say the phrase: "line 14".',
-            'Say the phrase: "variable sum equals expression variable sum plus gap times gap".', // maybe fix that: select gap when its done.
+            'Say the phrase: "variable sum equals expression variable sum plus gap times gap".',
             'Say the phrase: "select the word gap".',
             'Say the phrase: "variable item".',
             'Say the phrase: "select the word gap".',

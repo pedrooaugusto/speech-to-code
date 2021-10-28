@@ -11,7 +11,7 @@ export default function factory(useVoiceRecognition: VoiceRecognitionHook = useA
     return function Main() {
         const [recording, setRecording] = useState(false)
 
-        const { results, start, stop, analyzeSentence, error } = useVoiceRecognition()
+        const { results, start, stop, analyzeSentence, error, setError } = useVoiceRecognition()
         const context = React.useContext(GlobalContext)
 
         const toggleRecording = () => {
@@ -57,6 +57,8 @@ export default function factory(useVoiceRecognition: VoiceRecognitionHook = useA
                     language={context.language}
                     mode={context.mode}
                     onOpen={context.onOpen}
+                    changingLanguage={context.changingLanguage}
+                    setError={setError}
                 />
                 <TranscriptionHistory
                     results={results as RecognitionRequest}
@@ -186,6 +188,7 @@ const texts: Record<string, Record<string, any>> = {
                 The microphone above is a button, click on it to start recording.<br/><br/>
                 After that, you can say a voice command and it will appear on this list.<br/><br/>
                 Experiment saying: "new constant answer equals number 42".<br/><br/>
+                Alternatively, instead of saying a phrase, you can use the debug option below <b>to write it</b>.<br/><br/>
                 The complete list of voice commands can be found on <i>Menu {'>>'} Modules</i>.
             </React.Fragment>
         ),
@@ -198,6 +201,7 @@ const texts: Record<string, Record<string, any>> = {
                 O microfone acima é um botão, clique nele para começar a gravação.<br/><br/>
                 Depois disso, você pode dizer um comando de voz e ele irá aparecer nessa lista.<br/><br/>
                 Experimente dizer: "nova constante valor igual a número 42".<br/><br/>
+                Alternativamente, você pode usar a secção de debug abaixo para <b>escrever</b> a frase.<br/><br/>
                 A lista completa de comandos de voz pode ser encontrada em <i>Menu {'>>'} Modules</i>.
             </React.Fragment>
         ),

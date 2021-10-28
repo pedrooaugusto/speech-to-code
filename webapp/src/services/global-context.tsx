@@ -16,6 +16,7 @@ type State = {
     editorState: Record<string, any>[]
     spokenIsLoaded: boolean
     connectedToVSCode: boolean
+    changingLanguage: boolean
     mode?: 'widget' | 'modalx'
     onOpen?: Function
     onClose?: Function
@@ -39,6 +40,7 @@ export default function GloablContext(props: Props) {
         __debug: !false,
         spokenIsLoaded: false,
         connectedToVSCode: false,
+        changingLanguage: false,
         editorState: []
     })
 
@@ -64,10 +66,14 @@ export default function GloablContext(props: Props) {
 
     const executeInternalCommand = (command: SpokenCommand) => {
         if (command.id === '__change_lang') {
+            setState((sstate) => ({ ...sstate, changingLanguage: true }))
             IpcRenderer.send('VoiceRecognition:setRecording', false)
             // fix that, should support more languages
             setTimeout(() => changeLanguage(command.lang === 'pt-BR' ? 'en-US' : 'pt-BR'), 1500)
-            setTimeout(() => IpcRenderer.send('VoiceRecognition:setRecording', true), 3000)
+            setTimeout(() => {
+                IpcRenderer.send('VoiceRecognition:setRecording', true)
+                setState((sstate) => ({ ...sstate, changingLanguage: false }))
+            }, 3000)
         }
     }
 

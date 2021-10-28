@@ -33,7 +33,7 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
                 result.text = result.transcript.trim()
 
                 const attempt: RecognitionRequest = {
-                    text: sanitizePonctuation(result.text),
+                    text: sanitizePonctuation(result.text, language),
                     isFinal,
                     id: Date.now(),
                     recognized: false
@@ -60,7 +60,8 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
                     title: 'This browser does not support the SpeechRecognition API',
                     subTitle: 'Try switching STT provider to Azure or accessing this website using Chrome or Edge',
                     body: `Not all browsers support the <i>webkitSpeechRecognition</i> API which powers this project, currently only Google Chrome,
-                    MS Edge and Safari* have support to it. Try viewing this website on a supported browser or change the STT provider to Azure.`
+                    MS Edge and Safari* have support to it. Try viewing this website on a supported browser or change the STT provider to Azure.<br/><br/>
+                    <b>You can still use the debug option to write comands instead saying them.</b>`
                 })
                 console.error('[webapp.services.chrome-voice-recognition.onResultError]: Error', err)
             })
@@ -81,7 +82,7 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
     }
 
     const analyzeSentence = async (phrase: string, timeout:number | null = 3000) => {        
-        const match = findComand({ text: sanitizePonctuation(phrase) }, language)
+        const match = findComand({ text: sanitizePonctuation(phrase, language) }, language)
 
         const attempt: RecognitionRequest = {
             text: phrase,
@@ -108,12 +109,13 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
         start,
         stop,
         error,
+        setError,
         analyzeSentence
     }
 }
 
 function findComand(voiceToTextResponse: { text: string }, language: string) {
-    const text = sanitizePonctuation(voiceToTextResponse.text)
+    const text = sanitizePonctuation(voiceToTextResponse.text, language)
     const result = Spoken.recognizePhrase(text.toLocaleLowerCase(), language)
 
     if (result != null) {
@@ -124,8 +126,17 @@ function findComand(voiceToTextResponse: { text: string }, language: string) {
     return result
 }
 
-function sanitizePonctuation(text: string) {
-    return text.replace(/(?<! )(:|\*|,|\.|\?|!)/gi, ' $1')
+function sanitizePonctuation(text: string, language: string) {
+    text = text.replace(/(?<! )(:|\*|,|\.|\?|!)/gi, ' $1')
+
+    // sorry...
+    // TODO: FIXME
+    if (language === 'pt-BR') {
+        return text.replaceAll(/aspa(s|)/gi, '*')
+    } else {
+        return text.replaceAll(/quote(s|)/gi, '*')
+    }
+
 }
 
 export default useChromeVoiceRecognition

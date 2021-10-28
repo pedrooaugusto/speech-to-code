@@ -10,7 +10,7 @@ import IpcRenderer from '../electron-ipc'
  */
 export const useVoiceRecognition: VoiceRecognitionHook = () => {
     const [results, setResults] = useState('')
-    const [error, setError] = useState(null)
+    const [error, setError] = useState<any>(null)
     const myRecorder = MyRecorder.getRecorder()
 
     useEffect(() => {
@@ -64,6 +64,7 @@ export const useVoiceRecognition: VoiceRecognitionHook = () => {
         start,
         stop,
         error,
+        setError,
         analyzeSentence
     }
 }

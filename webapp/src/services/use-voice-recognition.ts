@@ -3,6 +3,7 @@ export type VoiceRecognitionHook = () => ({
     start: () => Promise<void>,
     stop: () => Promise<void>,
     error: RecognitionError | null,
+    setError: (error: RecognitionError) => void,
     analyzeSentence: (phrase: string, timeout?: number | null) => Promise<void>
 })
 

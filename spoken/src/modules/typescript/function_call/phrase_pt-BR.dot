@@ -6,7 +6,7 @@ digraph function_call {
     pad="0.2";
     rankdir=LR;
     priority="2";
-    node[shape=doublecircle]; 4 5 7 10;
+    node[shape=doublecircle]; 3 4 5 7 10;
     node[shape=circle];
 
     0 -> 1 [label="(chame, chamar, execute)"];

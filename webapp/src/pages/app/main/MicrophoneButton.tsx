@@ -6,6 +6,8 @@ export function MicrophoneButton(
         active: boolean
         toggleRecording: () => void
         language: string
+        changingLanguage: boolean
+        setError: (error: any) => void
         mode?: 'modalx' | 'widget'
         onOpen?: Function
     }
@@ -56,6 +58,17 @@ export function MicrophoneButton(
             processor.addEventListener('audioprocess', draw)
 
             return rawStream
+        }).catch(err => {
+            // alert('Speech2Code could not access your microphone.\n\nErr: '+err.message + '.')
+            props.setError({
+                __error: err,
+                mainTitle: 'Could not access your microphone',
+                title: 'Microphone access is not required but recomended',
+                subTitle: 'Speech2Code? More like Text2Code!',
+                body: `Without microphone access you gonna have to <b>write</b> your voice commands on the debug option below.<br/><br/>
+                This app cannot use the microphone because of <i>${err}</i>`
+            })
+            console.error(err)
         })
 
         return () => {
@@ -72,7 +85,7 @@ export function MicrophoneButton(
     // @ts-ignore Yeah I know, I know...
     window.recording = props.recording
 
-    const disabled = !props.active
+    const disabled = !props.active || props.changingLanguage
 
     const size = props.mode === 'widget' ? 50 : 122
 
@@ -97,7 +110,8 @@ export function MicrophoneButton(
                         : `Click on it to ${props.recording ? 'stop' : 'start'} recording!`
                 }
             >
-                <i className="fa fa-microphone" />
+                {!props.changingLanguage && <i className="fa fa-microphone" />}
+                {props.changingLanguage && <i className="fa fa-circle-o-notch fa-spin fa-3x"></i>}
                 <canvas id="micCanvas" width={size} height={size}></canvas>
             </div>
             <span className="info">

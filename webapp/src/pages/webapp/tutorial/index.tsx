@@ -5,15 +5,13 @@ import './style.scss'
 
 interface Props {}
 
-console.error('ARRUMAR ao dizer igual vira "="')
-
 export default function Tutorial(props: Props) {
     const { language: lang, problem, changeProblem } = React.useContext(GlobalContext)
 
     return (
         <div className="tutorial-problem">
             <div className="title">
-                {(problem.index + 1)}. {problem.title}
+                {problem.title}&nbsp;<span style={{fontSize: '14px'}}>{(problem.index + 1)}/5</span>
             </div>
             <div className="placeholder" dangerouslySetInnerHTML={{__html: problem.placeholder}}>
             </div>
@@ -37,10 +35,18 @@ export default function Tutorial(props: Props) {
             </div>
             <div className="footer">
                 <div className="prev">
-                    {problem.index > 0 ? <button onClick={() => changeProblem(problem.index - 1)}>{'<<'} Prev</button> : null}
+                    {problem.index <= 0 ? null : (
+                        <button onClick={() => changeProblem(problem.index - 1)}>
+                            {'<<'} {lang === 'pt-BR' ? 'Anterior' : 'Previous'}
+                        </button>
+                    )}
                 </div>
                 <div className="next">
-                    {problem.index < Problems.length - 1 ? <button onClick={() => changeProblem(problem.index + 1)}>Next {'>>'}</button> : null}
+                    {!(problem.index < Problems.length - 1) ? null : (
+                        <button onClick={() => changeProblem(problem.index + 1)}>
+                            {lang === 'pt-BR' ? 'Próximo' : 'Next'} {'>>'}
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

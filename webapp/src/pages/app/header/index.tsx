@@ -48,20 +48,30 @@ export default function Header() {
                     </div>
                 </div>
                 <ul>
-                    <li><a href="#/" onClick={() => setOpen(!open)}>Home</a></li>
-                    <li><a href="#/spoken/" onClick={() => setOpen(!open)}>{i18n(context.language)('Modules')()}</a></li>
-                    <li><a href="#/help/" onClick={() => setOpen(!open)}>{i18n(context.language)('Help')()}</a></li>
-                    <li><a href="#/about/" onClick={() => setOpen(!open)}>About</a></li>
+                    <li>
+                        <a href="#/" onClick={() => setOpen(!open)}>
+                            <span>{i18n(context.language)('Home')}</span>
+                        </a>
+                    </li>
+                    <li><a href="#/spoken/" onClick={() => setOpen(!open)}>{i18n(context.language)('Modules')}</a></li>
+                    <li><a href="#/help/" onClick={() => setOpen(!open)}>{i18n(context.language)('Help')}</a></li>
+                    <li>
+                        <a href="#/about/" onClick={() => setOpen(!open)}>
+                            <span>{i18n(context.language)('About')}</span>
+                        </a>
+                    </li>
                 </ul>
                 <div className="divider"></div>
                 <div className="settings">
-                    <div className="title">Settings</div>
+                    <div className="title">
+                        {i18n(context.language)('Settings')}
+                    </div>
                     <div className="settings-list">
                         <div className="setting">
                             <label>
-                                Current editor:
+                                {i18n(context.language)('Current editor')}:
                                 <span
-                                    data-tip="Which code editor is Speech2Code controlling ? <br/><br/>Preferred option is Visual Studio Code."
+                                    data-tip={i18n(context.language)('current_editor_exp')}
                                 >
                                     <i className="fa fa-question-circle" />
                                 </span>
@@ -87,9 +97,9 @@ export default function Header() {
                         </div>
                         <div className="setting">
                             <label>
-                                Input language:
+                                {i18n(context.language)('Input language')}:
                                 <span
-                                    data-tip="In what language are the voice commands be said ?"
+                                    data-tip={i18n(context.language)('In what language are the voice commands be said ?')}
                                 >
                                     <i className="fa fa-question-circle" />
                                 </span>
@@ -111,9 +121,9 @@ export default function Header() {
                         </div>
                         <div className="setting">
                             <label>
-                                Enable Debug:
+                                {i18n(context.language)('Enable debug')}:
                                 <span
-                                    data-tip="Displays a text box where you can write commands instead of saying it"
+                                    data-tip={i18n(context.language)('Displays a text box where you can write commands instead of saying it')}
                                 >
                                     <i className="fa fa-question-circle" />
                                 </span>
@@ -146,12 +156,24 @@ export default function Header() {
 
 const texts: Record<string, Record<string, any>> = {
     'en-US': {
-
+        'current_editor_exp': 'Which code editor is Speech2Code controlling ? <br/><br/>Preferred option is Visual Studio Code.'
     },
     'pt-BR': {
-        'Help': () => 'Ajuda',
-        'Modules': () => 'Módulos'
+        'Help': 'Ajuda',
+        'Modules': 'Módulos',
+        'Home': 'Início',
+        'Article': 'Artigo',
+        'About': 'Sobre',
+        'Settings': 'Configurações',
+        'Current editor': 'Editor atual',
+        'Input language': 'Linguagem de entrada',
+        'Enable debug': 'Ativar depuração',
+        'Displays a text box where you can write commands instead of saying it':
+            'Exibe uma caixa de texto onde você pode escrever comandos ao invés de dizêlos',
+        'In what language are the voice commands be said ?': 'Em que idioma os comandos de voz serão ditos ?',
+        'current_editor_exp':
+            'Qual é o editor de código que está sendo controlado pelo Speech2Code ? <br/><br/>A opção preferida é o Visual Studio Code.'
     }
 }
 
-const i18n = (lang: string) => (textId: string) => texts[lang][textId] || (() => textId)
+const i18n = (lang: string) => (textId: string) => texts[lang][textId] || textId

@@ -29,7 +29,7 @@ export default function Header(props: any) {
                 />
             </figure>
             <a href={makeUrl('')} className={isSelected('home')}>
-                Home
+                {i18n[lang]['Home']}
             </a>
             <a href={makeUrl('webapp/')} className={isSelected('webapp')}>
                 Demo
@@ -42,10 +42,10 @@ export default function Header(props: any) {
                 }
                 target="_blank"
             >
-                Article
+                {i18n[lang]['Article']}
             </a>
             <a href={makeUrl('about/')} className={isSelected('about')}>
-                About
+                {i18n[lang]['About']}    
             </a>
             <div className="language">
                 <a href={process.env.PUBLIC_URL + "/en/webapp/"} className={lang === 'en-US' ? `selected` : ''}>en-US</a>&nbsp;/&nbsp;
@@ -79,14 +79,20 @@ export default function Header(props: any) {
 const i18n: Record<string, any> = {
     'en-US': {
         'help': `Which Speech to Text provider should be used ?<br/>
-        Azure is the default option, but since it is a paid service it may not be available all the time.<br/>
-        Chrome is the native Speech to Text provider of your browser, it's a free service and was
-         tested on Google Chrome and MS Edge (it may work on any browser that supports the SpeechRecognition API).`
+                Azure is the default option, but since it is a paid service it may not be available all the time.<br/>
+                Chrome is the native Speech to Text provider of your browser, it's a free service and was
+                tested on Google Chrome and MS Edge (it may work on any browser that supports the SpeechRecognition API).`,
+        'Home': 'Home',
+        'About': 'About',
+        'Article': 'Article'
     },
     'pt-BR': {
         'help': `Qual o provedor de Speech to Text deve ser usado ?<br/>
         Azure é a opção padrão, por se tratar de um serviço pago, pode não estar disponível a todo momento.<br/>
         Chrome é o serviço nativo de conversão de fala em texto do seu navegador, é um serviço grátis e funciona
-            no Google Chrome e no MS Edge (pode funcionar em qualquer browser que suporte a SpeechRecognition API).`
+            no Google Chrome e no MS Edge (pode funcionar em qualquer browser que suporte a SpeechRecognition API).`,
+        'Home': 'Início',
+        'About': 'Sobre',
+        'Article': 'Artigo'
     }
 }

@@ -30,7 +30,7 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
                 if (!result.text || result.text.trim() === '') return
 
                 const attempt: RecognitionRequest = {
-                    text: sanitizePonctuation(result.text),
+                    text: sanitizePonctuation(result.text, language),
                     isFinal,
                     id: Date.now(),
                     recognized: false,
@@ -81,7 +81,7 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
     }
 
     const analyzeSentence = async (phrase: string, timeout:number | null = 3000) => {
-        const w = { text: sanitizePonctuation(phrase) }
+        const w = { text: sanitizePonctuation(phrase, language) }
         const match = findComand(w as unknown as SpeechSDK.SpeechRecognitionResult, language)
 
         const attempt: RecognitionRequest = {
@@ -109,13 +109,14 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
         start,
         stop,
         error,
+        setError,
         analyzeSentence
     }
 }
 
 
 function findComand(voiceToTextResponse: SpeechSDK.SpeechRecognitionResult, language: string) {
-    const text = sanitizePonctuation(voiceToTextResponse.text)
+    const text = sanitizePonctuation(voiceToTextResponse.text, language)
     const result = Spoken.recognizePhrase(text.toLocaleLowerCase(), language)
 
     if (result != null) {
@@ -126,8 +127,16 @@ function findComand(voiceToTextResponse: SpeechSDK.SpeechRecognitionResult, lang
     return result
 }
 
-function sanitizePonctuation(text: string) {
-    return text.replace(/(?<! )(:|\*|,|\.|\?|!)/gi, ' $1')
+function sanitizePonctuation(text: string, language: string) {
+    text = text.replace(/(?<! )(:|\*|,|\.|\?|!)/gi, ' $1')
+
+    // sorry...
+    // TODO: FIXME
+    if (language === 'pt-BR') {
+        return text.replaceAll(/aspa(s|)/gi, '*')
+    } else {
+        return text.replaceAll(/quote(s|)/gi, '*')
+    }
 }
 
 export default useAzureVoiceRecognition
