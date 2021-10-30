@@ -5,6 +5,7 @@ module.exports = function config(app) {
 }
 
 function prod(app) {
+    console.log('[server.app] Running on production mode!')
     // Allow only requests from the demo page
     app.use(cors({ origin: 'https://pedrooaugusto.github.io', optionsSuccessStatus: 200 }))
 
@@ -33,6 +34,8 @@ function prod(app) {
 }
 
 function dev(app) {
+    console.log('[server.app] Running on development mode!')
+
     // Enable cors for react-dev-server
     app.use(cors())
 }
