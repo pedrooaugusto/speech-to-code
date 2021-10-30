@@ -26,28 +26,14 @@ And many many more...
 
 VSCode version 1.55.2 or newer
 
-## Release Notes
-
-### 0.0.2
-
-**New interactions**:
-* Get current file info, like name and path
-* Write on terminal
-* Major bugfixes on *#select()* and *#getLine()*
-
-### 0.0.1
-
-Initial release of Spoken, just common commands
-
-**Enjoy!**
-
-
 ## Development
 
-When developing this extension
+When developing for this extension:
 
 ### Useful Scripts
 
 1. `npm run build` To build and pack this vscode extension (check for a `*.vsix` file at root)
 2. `npm run vscode-install` To install the `*.vsix` file (the vscode extension) on your local vscode.
 In the vscode extension list look for one called `Spoken`.
+
+**Enjoy!**
