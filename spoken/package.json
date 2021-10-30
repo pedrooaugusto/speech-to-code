@@ -1,6 +1,6 @@
 {
 	"name": "speech2code.spoken",
-	"version": "0.0.1-beta.1",
+	"version": "0.0.2-beta.1",
 	"description": "Transforming natural language in code",
 	"main": "dist/index.js",
 	"scripts": {

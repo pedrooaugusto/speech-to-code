@@ -1,7 +1,7 @@
 {
 	"name": "speech2code.webapp",
 	"description": "The webapp react implementation of the speech2code frontend",
-	"version": "0.0.1-beta.1",
+	"version": "0.0.2-beta.1",
 	"private": true,
 	"dependencies": {
 		"codemirror": "^5.62.0",
