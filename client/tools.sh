@@ -27,7 +27,7 @@ cp -r ./src/resources/** ./dist/resources
 cp ./src/*.html ./dist
 
 # build spoken
-cd ../spoken && npm run build && cd ../client
+# cd ../spoken && npm run build && cd ../client
 
 # fixing environment
 

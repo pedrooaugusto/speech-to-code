@@ -85,8 +85,8 @@ const avg: Problem = {
         'en-US': 'Mean'
     },
     placeholder: {
-        'pt-BR': 'Computar a média entre dois números.<br/><br/><i class="fa fa-question-circle"></i> É possível dizer "remover linha" para remover a linha atual.',
-        'en-US': 'Calculate the mean between two numbers.<br/><br/><i class="fa fa-question-circle"></i> It\'s possible to say "remove line" to remove the current line.'
+        'pt-BR': 'Computar a média entre dois números.<br/><br/><i class="fa fa-info-circle"></i> É possível dizer "remover linha" para remover a linha atual.',
+        'en-US': 'Calculate the mean between two numbers.<br/><br/><i class="fa fa-info-circle"></i> It\'s possible to say "remove line" to remove the current line.'
     },
     statement: {
         'pt-BR': 'Crie uma função que retorne a média de entre dois números.',
@@ -147,8 +147,8 @@ const perfectSquare: Problem = {
         'en-US': 'Perfect Square'
     },
     placeholder: {
-        'pt-BR': 'Teste se um número é um quadrado perfeito.<br/><br/><i class="fa fa-question-circle"></i> É possível dizer "escreva ..." para escrever qualquer coisa na linha atual.',
-        'en-US': 'Test if a number is a perfect square.<br/><br/><i class="fa fa-question-circle"></i> It\'s possible to say "write ..." to write anything in the current line.'
+        'pt-BR': 'Teste se um número é um quadrado perfeito.<br/><br/><i class="fa fa-info-circle"></i> É possível dizer "escreva ..." para escrever qualquer coisa na linha atual.',
+        'en-US': 'Test if a number is a perfect square.<br/><br/><i class="fa fa-info-circle"></i> It\'s possible to say "write ..." to write anything in the current line.'
     },
     statement: {
         'pt-BR': `Crie uma função para checar se um número é um quadrado perfeito. Escreva na tela
@@ -226,11 +226,11 @@ const multiplesOfSevenAndSix: Problem = {
     },
     placeholder: {
         'pt-BR': `Use um <i>for loop</i> para listar múltiplos de 6 ou 7.<br/><br/>
-            <i class="fa fa-question-circle"></i> É possível dizer "selecione da linha 3 até a linha 6" para selecionar o intervalo
+            <i class="fa fa-info-circle"></i> É possível dizer "selecione da linha 3 até a linha 6" para selecionar o intervalo
             entre estas linhas ou ainda "selecione da letra A até a letra T" para selecionar o
             texto entre essas letras na linha atual.`,
         'en-US': `Use a <i>for loop</i> to list every multiple of 6 or 7.<br/><br/>
-            <i class="fa fa-question-circle"></i> It's possible to say "select from line 3 to line 6" to select the interval between
+            <i class="fa fa-info-circle"></i> It's possible to say "select from line 3 to line 6" to select the interval between
             those lines or even "select from letter A to the letter T" to select the interval between those letters in the current line.`
     },
     statement: {
@@ -289,9 +289,9 @@ const happyNumber: Problem = {
     },
     placeholder: {
         'pt-BR': `Teste se um número qualquer <i>N</i> é um <a target="_blank" href="https://pt.wikipedia.org/wiki/N%C3%BAmero_feliz">Número Feliz</a>.<br/><br/>
-            <i class="fa fa-question-circle"></i> É possível dizer "troque a linguagem para inglês" para mudar o idioma de entrada para inglês.`,
+            <i class="fa fa-info-circle"></i> É possível dizer "troque a linguagem para inglês" para mudar o idioma de entrada para inglês.`,
         'en-US': `Test if a given number <i>N</i> is a <a target="_blank" href="https://en.wikipedia.org/wiki/Happy_number">Happy Number</a>.<br/><br/>
-            <i class="fa fa-question-circle"></i> It's possible to say "change language to portuguese" to change the input language to portuguese.`
+            <i class="fa fa-info-circle"></i> It's possible to say "change language to portuguese" to change the input language to portuguese.`
     },
     statement: {
         'pt-BR': `Complete a função para determinar se um número natural qualquer é um

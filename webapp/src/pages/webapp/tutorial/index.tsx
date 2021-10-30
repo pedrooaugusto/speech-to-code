@@ -36,14 +36,24 @@ export default function Tutorial(props: Props) {
             <div className="footer">
                 <div className="prev">
                     {problem.index <= 0 ? null : (
-                        <button onClick={() => changeProblem(problem.index - 1)}>
+                        <button
+                            onClick={() => {
+                                window.ipcRenderer.send('VoiceRecognition:toggleRecording', false)
+                                changeProblem(problem.index - 1)
+                            }}
+                        >
                             {'<<'} {lang === 'pt-BR' ? 'Anterior' : 'Previous'}
                         </button>
                     )}
                 </div>
                 <div className="next">
                     {!(problem.index < Problems.length - 1) ? null : (
-                        <button onClick={() => changeProblem(problem.index + 1)}>
+                        <button
+                            onClick={() => {
+                                window.ipcRenderer.send('VoiceRecognition:toggleRecording', false)
+                                changeProblem(problem.index + 1)
+                            }}
+                        >
                             {lang === 'pt-BR' ? 'Próximo' : 'Next'} {'>>'}
                         </button>
                     )}

@@ -28,7 +28,8 @@ export default function ErrorPanel(props: ErrorPanelProps) {
 							<div>{props.subTitle}</div>
 						</div>
 						<div className="divider"></div>
-						<div className="body" dangerouslySetInnerHTML={{ __html: props.body as string }} />
+						{typeof props.body === 'string' && (<div className="body" dangerouslySetInnerHTML={{ __html: props.body as string }} />)}
+						{typeof props.body !== 'string' && (<div className="body">{props.body}</div>)}
 					</div>
 				</div>
 			</Modal>
