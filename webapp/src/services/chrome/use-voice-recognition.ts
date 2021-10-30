@@ -60,7 +60,8 @@ const useChromeVoiceRecognition: VoiceRecognitionHook = () => {
                     title: 'This browser does not support the SpeechRecognition API',
                     subTitle: 'Try switching STT provider to Azure or accessing this website using Chrome or Edge',
                     body: `Not all browsers support the <i>webkitSpeechRecognition</i> API which powers this project, currently only Google Chrome,
-                    MS Edge and Safari* have support to it. Try viewing this website on a supported browser or change the STT provider to Azure.<br/><br/>
+                    MS Edge and Safari* have support to it. Try viewing this website on a supported browser or change the STT provider to Azure on
+                    top bar menu.<br/><br/>
                     <b>You can still use the debug option to write comands instead saying them.</b>`
                 })
                 console.error('[webapp.services.chrome-voice-recognition.onResultError]: Error', err)

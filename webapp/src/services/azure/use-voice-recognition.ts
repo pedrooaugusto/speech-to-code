@@ -58,7 +58,9 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
                     title: 'Azure STT does\'nt seem to be working',
                     subTitle: 'Try switching STT provider to Chrome',
                     body: `This project is powered by Azure Speech to Text, which is a paid service, so maybe my free credits are over.
-                        If you are in the demo page try switching the STT provider to Chrome (free, works on Chrome and Edge).`
+                        If you are in the demo page try switching the STT provider to Chrome (free, works on Chrome and Edge).<br/><br/>
+                        <b>You can switch the STT provider to Chrome on the topbar menu or use the debug option to issue voice
+                            comands in text.</b>`
                 })
                 console.error('[webapp.services.azure-voice-recognition.onResultError]: Error', err.toString())
             })

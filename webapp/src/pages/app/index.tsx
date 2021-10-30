@@ -14,13 +14,20 @@ interface Props {
     mode?: 'widget' | 'modalx',
     onOpen?: Function
     onClose?: Function
+    onToggleRecording?: Function
 }
 export function factory(useVoiceRecognition?: VoiceRecognitionHook) {
     const main = Main(useVoiceRecognition)
 
     return function App(props: Props) {
         return (
-            <GloablContext lang={props.initialLang} mode={props.mode} onOpen={props.onOpen} onClose={props.onOpen}>
+            <GloablContext
+                lang={props.initialLang}
+                mode={props.mode}
+                onOpen={props.onOpen}
+                onClose={props.onOpen}
+                onToggleRecording={props.onToggleRecording}
+            >
                 <div>
                     <Header />
                     <Router

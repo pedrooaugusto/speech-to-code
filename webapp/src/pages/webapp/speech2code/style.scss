@@ -94,6 +94,19 @@ main.webapp .speech2code-wrapper.modalx {
                     border-color: #ef5350;
                 }
             }
+
+            .window-content header {
+                .menu-items-shade.open,
+                .menu-items {
+                    max-height: 100%;
+                    overflow: auto;
+                }
+            }
+
+            .window-content {
+                // max-height: initial;
+                // height: initial;
+            }
         }
     }
 }

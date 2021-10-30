@@ -17,6 +17,7 @@ export default function factory(useVoiceRecognition: VoiceRecognitionHook = useA
         const toggleRecording = () => {
             recording ? stop() : start()
             setRecording(!recording)
+            context.onToggleRecording?.(!recording)
         }
 
         const analyze = () => {
@@ -114,7 +115,7 @@ function TranscriptionHistory(props: TranscriptionHistroyProps) {
                         {i18n(props.language)('say-some')()}
                     </div>
                 )}
-                {history.map(item => <RecognizedPhrase item={item} language={props.language} />)}
+                {history.map(item => <RecognizedPhrase key={item.id} item={item} language={props.language} />)}
             </div>
             <ReactTooltip multiline effect="solid" className="custom-tooltip" />
         </div>

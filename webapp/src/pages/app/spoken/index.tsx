@@ -30,7 +30,7 @@ export default function SpokenModules() {
             <div className="wrapper">
                 <div className="title">
                     <h2>{i18n(lang)('Modules')()}</h2>
-                    <div className="sub">{i18n(lang)('Each module represents a set of commands that can be said out loud')()}.</div>
+                    <div className="sub">{i18n(lang)('modules_exp')()}.</div>
                 </div>
                 <div className="modules">
                     {Spoken.modules.map(mod => {
@@ -111,13 +111,18 @@ const capitalize = (s: string) => {
 
 const texts: Record<string, Record<string, any>> = {
     'en-US': {
-
+        'modules_exp': () => <>
+            Each module represents a set of commands that can be said out loud.&nbsp;
+            <a href={DOC_LINK + '/typescript#readme'}>Click here to see the complete list.</a>
+    </>,
     },
     'pt-BR': {
         'Help': () => 'Ajuda',
         'Modules': () => 'Módulos',
-        'Each module represents a set of commands that can be said out loud': () =>
-            'Cada módulo representa um conjunto de comandos que podem ser ditos em voz alta',
+        'modules_exp': () => <>
+            Cada módulo representa um conjunto de comandos que podem ser ditos em voz alta.&nbsp;
+            <a href={DOC_LINK + '/typescript#readme'}>Clique aqui para a lista completa.</a>
+        </>,
         'Accepted phrases': () => 'Frases reconhecidas'
     }
 }

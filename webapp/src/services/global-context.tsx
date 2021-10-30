@@ -17,10 +17,11 @@ type State = {
     spokenIsLoaded: boolean
     connectedToVSCode: boolean
     changingLanguage: boolean
+    __debug: boolean
     mode?: 'widget' | 'modalx'
     onOpen?: Function
     onClose?: Function
-    __debug: boolean
+    onToggleRecording?: Function
 }
 
 // @ts-ignore
@@ -28,10 +29,12 @@ export const GlobalContext = React.createContext<MyContextType>({})
 
 interface Props {
     children: any,
+    // Non Standalone mode
     lang?: string,
     mode?: 'widget' | 'modalx',
     onOpen?: Function,
     onClose?: Function
+    onToggleRecording?: Function
 }
 export default function GloablContext(props: Props) {
     const [state, setState] = React.useState<State>({
@@ -113,7 +116,8 @@ export default function GloablContext(props: Props) {
                 executeInternalCommand,
                 mode: props.mode,
                 onOpen: props.onOpen,
-                onClose: props.onClose
+                onClose: props.onClose,
+                onToggleRecording: props.onToggleRecording
             }}
         >
             {state.spokenIsLoaded ? props.children : (<div>Loading...</div>)}

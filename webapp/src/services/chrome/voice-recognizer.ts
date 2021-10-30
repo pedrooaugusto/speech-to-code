@@ -4,6 +4,7 @@ export default class MyRecognizer {
     public recognizing = false
     private recognizer: SpeechRecognition | null = null
     private handlers = new Map<string, Function>()
+    private isAndroid = navigator.userAgent.toLowerCase().indexOf('android') > -1
 
     static getRecognizer(): MyRecognizer {
         if (MyRecognizer.instance == null) {
@@ -40,15 +41,26 @@ export default class MyRecognizer {
         this.recognizer!.maxAlternatives = 1
 
         this.recognizer!.onresult = (event) => {
-            // console.log('Results', event.results)
+            console.log('[Chrome Recognizer] Results', event.results)
 
             const fn = this.handlers.get('results')
 
             if (fn != null) fn(event.results, true)
         }
 
-        this.recognizer!.onspeechend = () => {
-            this.recognizer!.stop()
+        this.recognizer!.onspeechend = (event) => {
+            console.log('[Chrome Recognizer] SpeechEnd', event)
+        }
+
+        this.recognizer!.onend = (event) => {
+            console.log('[Chrome Recognizer] End', event)
+
+            // Mobile Android Google Chrome does not respect cotinous mode.
+            // I dont know about other browsers.
+            if (this.isAndroid && this.recognizing) {
+                console.log('[Buggy Android Chrome Recognizer] Premature ending! We are still talking.')
+                this.start()
+            }
         }
 
         this.recognizer!.onnomatch = (event) => {
@@ -73,11 +85,11 @@ export default class MyRecognizer {
     }
 
     stop() {
+        this.recognizing = false
+
         if (this.recognizer == null) return console.error('[webapp.services.chrome-voice-recognition]: Session is closed!')
 
         this.recognizer.stop()
-
-        this.recognizing = false
 
         console.info('[webapp.services.chrome-voice-recognition]: Stopped')
     }

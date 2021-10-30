@@ -33,7 +33,17 @@ export default React.memo(function Editor() {
 })
 
 const AppMobile = (props: { language: string }) => {
-    const [mode, setMode] = React.useState<'widget' | 'modalx'>('widget')
+    const [mode, setMode] = React.useState<'widget' | 'modalx'>(
+        // Yep, I know...
+        window.location.pathname.includes('webapp') && window.location.hash !== '' ? 'modalx' : 'widget'
+    )
+
+    const wrapper = document.querySelector('.speech2code-wrapper')
+
+    if (wrapper && mode === 'modalx') {
+        // @ts-ignore
+        wrapper.setAttribute('style', `--window-size-height: ${window.visualViewport.height - 25}px`)
+    }
 
     return (
         <React.Fragment>
@@ -86,6 +96,13 @@ const Speech2Code = (props: {
                             // @ts-ignore
                             document.querySelector('#root').style = 'position: fixed'
                             props.openModal()
+                        }}
+                        onToggleRecording={(recording: boolean) => {
+                            if (recording && props.closeModal) {
+                                // @ts-ignore
+                                document.querySelector('#root').style = 'position: unset'
+                                props.closeModal()
+                            }
                         }}
                     />
                 </div>
