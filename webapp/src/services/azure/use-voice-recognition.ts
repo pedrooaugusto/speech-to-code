@@ -135,9 +135,9 @@ function sanitizePonctuation(text: string, language: string) {
     // sorry...
     // TODO: FIXME
     if (language === 'pt-BR') {
-        return text.replaceAll(/aspa(s|)/gi, '*')
+        return text.replace(/aspa(s|)/gi, '*')
     } else {
-        return text.replaceAll(/quote(s|)/gi, '*')
+        return text.replace(/quote(s|)/gi, '*')
     }
 }
 
