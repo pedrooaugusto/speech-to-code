@@ -5,18 +5,18 @@
     "static/js/1.397e68b0.chunk.js": "/speech-to-code/static/js/1.397e68b0.chunk.js",
     "static/js/1.397e68b0.chunk.js.map": "/speech-to-code/static/js/1.397e68b0.chunk.js.map",
     "static/css/2.25a6a755.chunk.css": "/speech-to-code/static/css/2.25a6a755.chunk.css",
-    "static/js/2.8f2467f5.chunk.js": "/speech-to-code/static/js/2.8f2467f5.chunk.js",
-    "static/js/2.8f2467f5.chunk.js.map": "/speech-to-code/static/js/2.8f2467f5.chunk.js.map",
+    "static/js/2.321dac41.chunk.js": "/speech-to-code/static/js/2.321dac41.chunk.js",
+    "static/js/2.321dac41.chunk.js.map": "/speech-to-code/static/js/2.321dac41.chunk.js.map",
     "main.js": "/speech-to-code/static/js/main.ce6866f8.chunk.js",
     "main.js.map": "/speech-to-code/static/js/main.ce6866f8.chunk.js.map",
-    "runtime-main.js": "/speech-to-code/static/js/runtime-main.9cee90cf.js",
-    "runtime-main.js.map": "/speech-to-code/static/js/runtime-main.9cee90cf.js.map",
+    "runtime-main.js": "/speech-to-code/static/js/runtime-main.efc8b793.js",
+    "runtime-main.js.map": "/speech-to-code/static/js/runtime-main.efc8b793.js.map",
     "static/css/5.cc57471a.chunk.css": "/speech-to-code/static/css/5.cc57471a.chunk.css",
     "static/js/5.d6ae49d4.chunk.js": "/speech-to-code/static/js/5.d6ae49d4.chunk.js",
     "static/js/5.d6ae49d4.chunk.js.map": "/speech-to-code/static/js/5.d6ae49d4.chunk.js.map",
     "static/css/6.ad24396c.chunk.css": "/speech-to-code/static/css/6.ad24396c.chunk.css",
-    "static/js/6.d6ca93c5.chunk.js": "/speech-to-code/static/js/6.d6ca93c5.chunk.js",
-    "static/js/6.d6ca93c5.chunk.js.map": "/speech-to-code/static/js/6.d6ca93c5.chunk.js.map",
+    "static/js/6.51ea4c07.chunk.js": "/speech-to-code/static/js/6.51ea4c07.chunk.js",
+    "static/js/6.51ea4c07.chunk.js.map": "/speech-to-code/static/js/6.51ea4c07.chunk.js.map",
     "static/js/7.c590dc33.chunk.js": "/speech-to-code/static/js/7.c590dc33.chunk.js",
     "static/js/7.c590dc33.chunk.js.map": "/speech-to-code/static/js/7.c590dc33.chunk.js.map",
     "static/css/8.a78cb31e.chunk.css": "/speech-to-code/static/css/8.a78cb31e.chunk.css",
@@ -32,7 +32,7 @@
     "static/js/7.c590dc33.chunk.js.LICENSE.txt": "/speech-to-code/static/js/7.c590dc33.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.9cee90cf.js",
+    "static/js/runtime-main.efc8b793.js",
     "static/js/7.c590dc33.chunk.js",
     "static/js/main.ce6866f8.chunk.js"
   ]
