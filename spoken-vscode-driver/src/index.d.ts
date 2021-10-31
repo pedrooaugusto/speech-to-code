@@ -95,4 +95,18 @@ export interface Robot {
      * @returns 
      */
     fileInfo(text?: string): Promise<Record<string, any> | Error>
+
+    /**
+     * Undo the last operation - CTRL+Z
+     * 
+     * @returns 
+     */
+    undo(): Promise<void | Error>
+
+    /**
+     * Redo the last operation - CTRL+Y
+     * 
+     * @returns 
+     */
+    redo(): Promise<void | Error>
 }

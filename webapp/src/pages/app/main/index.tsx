@@ -170,9 +170,10 @@ function Debug(props: DebugProps) {
 
     return (
         <div className="debug">
+            <ReactTooltip multiline effect="solid" className="custom-tooltip" id="debug" />
             <label>
                 Debug:
-                <span data-tip={i18n(props.language)('debug_desc')()}>
+                <span data-tip={i18n(props.language)('debug_desc')()} data-for="debug">
                     <i className="fa fa-question-circle" />
                 </span>
             </label>

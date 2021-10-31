@@ -20,14 +20,14 @@ The following are some examples of phrases, in english, used to trigger the comm
 4. print space
 5. write down space
 6. write it space
-7. print the universe is cracked who are you
-8. write down the universe is cracked who are you
+7. print who are you the universe is cracked
+8. write who are you who are you
 9. write it the universe is cracked the universe is cracked
 10. print letter M
-11. write letter M
+11. write letter g
 12. write it down letter M
 13. print dot
-14. write dot
+14. write down dot
 15. write it dot
 
 #### Português
@@ -40,8 +40,8 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 
 1. escreva
 2. escreva espaço
-3. escreva isto é um teste isto é um teste
-4. escreva a letra a
+3. escreva isto é um teste quem é você
+4. escreva a letra A
 5. escreva ponto
 
 ### Implementation

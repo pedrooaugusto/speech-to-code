@@ -14,18 +14,18 @@ The following automata is responsible for recognizing the command `Select` in en
 
 The following are some examples of phrases, in english, used to trigger the command `Select`:
 
-1. select letter K
-2. select word value
-3. select fourth symbol M
-4. select 42ª word value
-5. select from letter M to symbol M
-6. select from symbol K to first g
-7. select from 42ª letter g to letter g
-8. select from 1ª letter M to 1ª K
-9. select from line 1 to line 1
+1. select letter M
+2. select word graph
+3. select first symbol g
+4. select fourth word value
+5. select from letter M to K
+6. select from symbol M to last symbol g
+7. select from first letter g to letter K
+8. select from fourth symbol g to first symbol g
+9. select from line 42 to line 1
 10. select from line number 42 to 42
 11. select word [multi_word_token]
-12. select first word [multi_word_token]
+12. select fourth word [multi_word_token]
 
 #### Português
 
@@ -35,18 +35,18 @@ O automata seguinte é reponsável por reconhecer o comando `Selecionar` em port
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Selecionar`:
 
-1. selecionar símbolo z
-2. selecione palavra a
-3. selecione 1ª símbolo z
-4. selecionar último palavra lista
-5. selecionar de símbolo a até símbolo A
-6. selecione de letra A até 42ª letra a
-7. selecionar de sétimo letra B até símbolo z
-8. selecionar da primeiro letra B até 42ª letra A
-9. selecionar da linha 42 até 42
-10. selecionar da linha número 1 até 1
-11. selecione palavra [multi_word_token]
-12. selecionar primeiro palavra [multi_word_token]
+1. selecione símbolo a
+2. selecione palavra lista
+3. selecionar 1ª símbolo z
+4. selecione sétimo palavra valor
+5. selecione de letra B até letra z
+6. selecione da letra B até 42ª símbolo B
+7. selecionar de último símbolo A até símbolo B
+8. selecione da primeiro símbolo A até 1ª letra z
+9. selecione da linha 1 até 42
+10. selecione de linha número 42 até linha 42
+11. selecionar palavra [multi_word_token]
+12. selecione 1ª palavra [multi_word_token]
 
 ### Implementation
 

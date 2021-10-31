@@ -101,6 +101,20 @@ export type Editor = {
      */
     fileInfo(text?: string): Promise<Record<string, any> | Error>
 
+    /**
+     * Undo the last operation - CTRL+Z
+     * 
+     * @returns 
+     */
+    undo(): Promise<void | Error>
+
+    /**
+     * Redo the last operation - CTRL+Y
+     * 
+     * @returns 
+     */
+    redo(): Promise<void | Error>
+
 	/**
 	 * Everything else - custom editor may choose to implement custom methods
 	 */

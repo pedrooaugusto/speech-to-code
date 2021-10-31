@@ -1,0 +1,20 @@
+digraph UndoRedo {
+    id="undo_redo";
+    label="Desfaz ou refaz o último comando";
+    lang="pt-BR";
+    langName="Português";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 3 5 6;
+    node[shape=circle];
+
+    0 -> 1 [label="(desfazer, refazer)", store=task];
+    0 -> 2 [label="(desfaça, refaça)", store=task];
+    {1 2} -> 3 [label="(isso)"];
+    {1 2} -> 4 [label="(último)"];
+    4 -> 5 [label="(comando, operação)"];
+    {3 5} -> 6 [label="(também)"];
+
+    title="Refazer ou desfazer a última operação";
+    desc="Refazer ou desfazer a última operação, usado para corrgir erros.";
+}

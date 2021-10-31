@@ -30,6 +30,7 @@ export abstract class Editor {
 }
 
 // Microsoft Notepad editor
+// @Deprecated - use VSCODE instead
 class MSNotepadEditor extends Editor {
 	spawn: any = null
     #pythonScriptPath = require('path').resolve(__dirname, 'robot-impl.py')

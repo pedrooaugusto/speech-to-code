@@ -1,0 +1,19 @@
+digraph UndoRedo {
+    id="undo_redo";
+    label="Undo or redo the last command";
+    lang="en-US";
+    langName="English";
+    pad="0.2";
+    rankdir=LR;
+    node[shape=doublecircle]; 2 4;
+    node[shape=circle];
+
+    0 -> 1 [label="(undo, redo)", store=task];
+    1 -> 2 [label="(that)"];
+    1 -> 3 [label="(last)"];
+    3 -> 4 [label="(operation, command)"];
+    {2 4} -> 5 [label="(again)"];
+
+    title="Undo or redo the last operation/command";
+    desc="Undo or redo the last operation, used to correct mistakes. Just like CTRL + (Z | Y).";
+}

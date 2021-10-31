@@ -326,6 +326,37 @@ const usefulCommands = [
         }
     },
     {
+        "id": "undo_redo",
+        "en-US": {
+            "title": "Undo / Redo",
+            "pattern": [
+                "(undo | redo) (that | last command)",
+            ],
+            "phrases": [
+                "undo that",
+                "undo last command",
+                "redo that",
+                "redo last command",
+            ],
+            "desc": "Used to undo or redo the last command. Useful to fix mistakes. CTRL+Z and CTRL+Y"
+        },
+        "pt-BR": {
+            "title": "Desfazer / Refazer",
+            "pattern": [
+                "(desfaça | refaça) isso",
+                "(desfaça | refaça) o último comando",
+            ],
+            "phrases": [
+                "desfaça isso",
+                "desfaça o último comando",
+                "refaça isso",
+                "refaça o último comando",
+                "desfazer o último comando"
+            ],
+            "desc": "CTRL+Z and CTRL+Y: Usada para desfazer e refazer o último comando."
+        }
+    },
+    {
         "id": "variable_assignment",
         "en-US": {
             "title": "Variable Assignment",

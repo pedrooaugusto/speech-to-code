@@ -230,7 +230,7 @@ class CodeMirrorEditor implements Editor {
     }
 
     /**
-     * Select a pice of text in the editor.
+     * Select a piece of text in the editor.
      * 
      * @param from Where to start the selection
      * @param to Where to stop the selection
@@ -343,6 +343,24 @@ class CodeMirrorEditor implements Editor {
         return {
             fileName: 'MyLittleDarkAge.js'
         }
+    }
+
+    async undo(): Promise<void | Error> {
+        console.log('hereee')
+        const [editor, e] = this.getEditor()
+
+        if (e != null || editor == null) throw e
+
+        return editor.undo()
+    }
+
+    async redo(): Promise<void | Error> {
+        console.log('hereee333')
+        const [editor, e] = this.getEditor()
+
+        if (e != null || editor == null) throw e
+
+        return editor.redo()
     }
 
     private runThisCode(code: string) {

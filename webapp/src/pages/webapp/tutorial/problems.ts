@@ -85,8 +85,12 @@ const avg: Problem = {
         'en-US': 'Mean'
     },
     placeholder: {
-        'pt-BR': 'Computar a média entre dois números.<br/><br/><i class="fa fa-info-circle"></i> É possível dizer "remover linha" para remover a linha atual.',
-        'en-US': 'Calculate the mean between two numbers.<br/><br/><i class="fa fa-info-circle"></i> It\'s possible to say "remove line" to remove the current line.'
+        'pt-BR': `Computar a média entre dois números.<br/><br/>
+            <i class="fa fa-info-circle"></i> É possível dizer "remover linha" para remover a linha atual.<br/>
+            <i class="fa fa-info-circle"></i> Diga "desfaça isso" ou "refaça isso" para desfazer e refazer o último comando.`,
+        'en-US': `Calculate the mean between two numbers.<br/><br/>
+            <i class="fa fa-info-circle"></i> It's possible to say "remove line" to remove the current line.<br/>
+            <i class="fa fa-info-circle"></i> Say "undo that" or "redo that" to undo or redo the last command.`
     },
     statement: {
         'pt-BR': 'Crie uma função que retorne a média de entre dois números.',

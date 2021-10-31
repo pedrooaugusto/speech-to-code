@@ -1,5 +1,5 @@
 import * as vscode from './vscode'
-import { Robot } from './index'
+import { Robot } from './index' // should import this from 'spoken' ?
 import Log from './logger'
 
 class RobotVscode implements Robot {
@@ -372,6 +372,31 @@ class RobotVscode implements Robot {
         }
     }
 
+    /**
+     * Undo the last operation - CTRL+Z
+     * 
+     * @returns 
+     */
+    async undo(): Promise<void | Error> {
+        try {
+            return vscode.commands.executeCommand('undo')
+        } catch (err) {
+            throw err
+        }
+    }
+
+    /**
+     * Redo the last operation - CTRL+Y
+     * 
+     * @returns 
+     */
+    async redo(): Promise<void | Error> {
+        try {
+            return vscode.commands.executeCommand('redo')
+        } catch (err) {
+            throw err
+        }
+    }
 }
 
 export default new RobotVscode()

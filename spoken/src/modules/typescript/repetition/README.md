@@ -17,7 +17,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 1. repetition statement
 2. repetition statement from [expressions] to [expressions]
 3. repetition statement from [expressions] to [expressions] step [expressions]
-4. repetition statement for every value of [expressions]
+4. repetition statement for every graph [expressions]
 
 #### Português
 
@@ -28,9 +28,9 @@ O automata seguinte é reponsável por reconhecer o comando `Estrutura de repeti
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Estrutura de repetição`:
 
 1. estrutura repetição
-2. estrutura repetição [expressions] até [expressions]
-3. estrutura repetição de [expressions] até [expressions] etapa [expressions]
-4. estrutura repetição para todo texto de [expressions]
+2. estrutura repetição do [expressions] até [expressions]
+3. estrutura repetição da [expressions] até [expressions] etapa [expressions]
+4. estrutura repetição para todo temp do [expressions]
 
 ### Implementation
 

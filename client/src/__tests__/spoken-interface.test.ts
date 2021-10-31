@@ -10,7 +10,7 @@
 /**
  * Keep this file open in vscode and run `npm run test`
  * (all the lines above will be automatically edited by the comands on this file)
- * (The Spoken extension for VSCODE needed to run this test)
+ * (The Spoken extension for VSCODE is needed to run this test)
  */
 import Spoken, { SpokenCommand } from 'spoken'
 import { IpcMainEvent } from 'electron'

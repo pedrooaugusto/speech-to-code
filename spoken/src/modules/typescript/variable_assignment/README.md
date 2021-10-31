@@ -14,18 +14,18 @@ The following automata is responsible for recognizing the command `Stores a valu
 
 The following are some examples of phrases, in english, used to trigger the command `Stores a value in a variable`:
 
-1. declare constant named [multi_word_token]
+1. new constant named [multi_word_token]
 2. variable named [multi_word_token]
-3. new variable called [multi_word_token] equals [expressions]
-4. new constant named graph equals [expressions]
-5. create variable temp equals [expressions]
-6. constant called [multi_word_token] equals [expressions]
-7. variable called a equals [expressions]
-8. constant temp equals [expressions]
-9. create variable named temp
-10. declare variable text
-11. constant called value
-12. variable value
+3. new constant called [multi_word_token] = [expressions]
+4. new variable named temp = [expressions]
+5. new variable graph = [expressions]
+6. constant called [multi_word_token] = [expressions]
+7. variable called value = [expressions]
+8. constant value equals [expressions]
+9. new variable named a
+10. create variable value
+11. variable named a
+12. variable number
 
 #### Português
 
@@ -37,15 +37,15 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 
 1. declare variável chamada [multi_word_token]
 2. variável chamada [multi_word_token]
-3. declare constante chamada [multi_word_token] igual [expressions]
-4. nova variável chamada temp igual [expressions]
-5. crie constante a igual [expressions]
-6. variável chamada [multi_word_token] igual [expressions]
-7. constante chamada numero igual [expressions]
-8. constante a igual [expressions]
-9. nova variável chamada texto
-10. declare constante numero
-11. variável chamada valor
+3. crie constante chamada [multi_word_token] igual [expressions]
+4. crie constante chamada lista = [expressions]
+5. nova constante a = [expressions]
+6. variável chamada [multi_word_token] = [expressions]
+7. variável chamada valor = [expressions]
+8. constante a = [expressions]
+9. nova variável chamada valor
+10. nova constante a
+11. variável chamada a
 12. variável texto
 
 ### Implementation

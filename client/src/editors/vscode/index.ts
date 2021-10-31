@@ -200,6 +200,26 @@ class VSCodeEditor extends Editor {
         })
     }
 
+    undo() {
+        console.log('[client.VSCodeRobot.Undo]: Sending request to execute undo(...)')
+
+        return this.runTask({
+            type: 'undo',
+            context: {},
+            extra: { args: [] }
+        })
+    }
+
+    redo() {
+        console.log('[client.VSCodeRobot.Redo]: Sending request to execute Redo(...)')
+
+        return this.runTask({
+            type: 'redo',
+            context: {},
+            extra: { args: [] }
+        })
+    }
+
     indentSelection(p1: [string, string], p2: [string, string]): Promise<void | Error> {
         console.log('[client.VSCodeRobot.indentSelection]: Sending request to execute indentSelection(...)')
         const task = {

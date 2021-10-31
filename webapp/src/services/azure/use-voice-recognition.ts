@@ -14,7 +14,7 @@ const useAzureVoiceRecognition: VoiceRecognitionHook = () => {
 
     useEffect(() => {
         IpcRenderer.on('Spoken:executeCommandResult', (result: any) => {
-            console.log('[webapp.services.azure-voice-recognition.onResultError]: Execute command result: ' + result)
+            console.log('[webapp.services.azure-voice-recognition.onResult]: Execute command result: ' + result)
         })
 
         return () => {
