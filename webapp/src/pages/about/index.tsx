@@ -15,7 +15,9 @@ export default React.memo(function Webapp(props: { lang: string }) {
                 </div>
                 <p>
                     Speech2Code is an desktop application that let's you control your favorite IDE using just voice commands, <br/>
-                    that means you can write programs using just your voice, without typing on the keyboard. It was developed <br/> as part of my undergraduate dissertation in Computer Science.
+                    that means you can write programs using just your voice, without typing on the keyboard. It was developed <br/>
+                    as part of my undergraduate dissertation in Computer Science, in which I proposed and developed<br/> an assistive
+                    technology tool to help programmers suffering from Repetitive Strain Injury (RSI).
                 </p>
                 <p>
                     This demo website allows you test Speech2Code in the browser without installing it

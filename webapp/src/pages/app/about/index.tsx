@@ -13,12 +13,12 @@ export default function About() {
                     as part of my undergraduate thesis in computer science at UNICARIOCA university.
                     The purpose of this application is to help programmers suffering from
                     RSI (repetitive strain injury) to continue exercising their main activity: programming.<br/><br/>
-                    If you speak portuguese you can read all about my <ThesisLink>thesis here</ThesisLink>.<br/><br/>
+                    If you speak portuguese you can read all about my <ThesisLink>dissertation here</ThesisLink>.<br/><br/>
                     Big thanks to everyone involved in the development of the following open source projects ({'❤︎'}):
                     Graphviz, Visual Studio Code, Graphviz (DOT) for VSCode, Graphlib, Graphlib-DOT, @hpcc-js/wasm,
                     svg2img, jest and node-ipc.<br/><br/>
 
-                    Again, if you wanna know how this works read <ThesisLink>my thesis</ThesisLink>{' '}
+                    Again, if you wanna know how this works read <ThesisLink>my dissertation</ThesisLink>{' '}
                     or watch <RickLink>this <b>simple</b> video</RickLink>.<br/><br/>
 
                     Github: <a rel="noreferrer" target="_blank" href="https://github.com/pedrooaugusto/speech-to-code"><small>https://github.com/pedrooaugusto/speech-to-code</small></a><br/><br/>

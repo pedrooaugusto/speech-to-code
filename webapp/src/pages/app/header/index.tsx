@@ -21,7 +21,7 @@ export default function Header() {
 
         if (appVersion == null) {
             fetch(window.__HOME_PAGE__ + '/manifest.json').then(res => res.json()).then(manifest => {
-                setAppVersion(manifest.version ? manifest.version + ' (web)' : appVersion)
+                setAppVersion(manifest.version ? manifest.version : appVersion)
             })
         }
 
@@ -139,7 +139,7 @@ export default function Header() {
                         </div>
                         <div className="setting">
                             <label>
-                                Client version: <b>{appVersion || 'error ??'}</b>
+                                Client version: <b><VersionLink version={appVersion} /></b>
                             </label>
                         </div>
                     </div>
@@ -151,6 +151,18 @@ export default function Header() {
             </div>
             <ReactTooltip multiline effect="solid" className="custom-tooltip" />
         </header>
+    )
+}
+
+function VersionLink(props: { version?: string }): JSX.Element {
+    const { version } = props
+
+    if (version == null) return <React.Fragment>error ??</React.Fragment>
+
+    return (
+        <a href={`https://github.com/pedrooaugusto/speech-to-code/releases/tag/v${version}`}>
+            {version}
+        </a>
     )
 }
 
