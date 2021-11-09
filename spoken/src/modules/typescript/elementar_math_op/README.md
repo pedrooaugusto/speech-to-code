@@ -26,7 +26,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operaç
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operação matemática elementar`:
 
-1. expressão [expressions] [math_operator] [expressions]
+1. expressão [expressions] [logical_operator] [expressions]
 
 ### Implementation
 

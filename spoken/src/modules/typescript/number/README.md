@@ -17,7 +17,7 @@ The following automata is responsible for recognizing the command `Writes a numb
 The following are some examples of phrases, in english, used to trigger the command `Writes a number`:
 
 1. number 1
-2. 1
+2. 42
 
 #### Português
 
@@ -27,7 +27,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve um número`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve um número`:
 
-1. número 42
+1. número 1
 
 ### Implementation
 

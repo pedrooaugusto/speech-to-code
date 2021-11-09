@@ -17,7 +17,7 @@ The following automata is responsible for recognizing the command `Undo or redo 
 The following are some examples of phrases, in english, used to trigger the command `Undo or redo the last operation/command`:
 
 1. undo that
-2. undo last operation
+2. redo last operation
 
 #### Português
 
@@ -30,11 +30,11 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 1. refazer isso
 2. refaça isso
 3. desfazer último operação
-4. desfaça último operação
-5. desfazer isso também
-6. desfazer último operação também
+4. refaça último comando
+5. refazer isso também
+6. desfazer último comando também
 7. refaça isso também
-8. desfaça último comando também
+8. refaça último comando também
 
 ### Implementation
 

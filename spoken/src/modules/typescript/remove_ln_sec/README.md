@@ -27,7 +27,7 @@ O automata seguinte é reponsável por reconhecer o comando `Remover` em portugu
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Remover`:
 
-1. remove linha
+1. remova linha
 2. remove seleção
 
 ### Implementation

@@ -32,7 +32,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 
 1. estrutura condicional
 2. estrutura condicional se
-3. estrutura condicional se senão
+3. estrutura condicional se sinal
 4. estrutura condicional se se não
 5. estrutura condicional se senão [expressions]
 6. estrutura condicional se se não [expressions]

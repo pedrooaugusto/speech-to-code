@@ -16,9 +16,9 @@ The following automata is responsible for recognizing the command `Writes a expr
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a expression`:
 
-1. [variable_reference]
+1. [elementar_math_op]
 2. gap
-3. true
+3. false
 
 #### Português
 
@@ -28,7 +28,7 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma express
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma expressão`:
 
-1. [string]
+1. [number]
 2. gap
 3. verdadeiro
 
