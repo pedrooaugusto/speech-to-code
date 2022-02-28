@@ -18,4 +18,11 @@ digraph NovaLinha {
 
     title="Linha nova";
     desc="Cria uma linha nova abaixo ou acima da linha atual";
+
+    examples="
+        criar linha,
+        nova linha,
+        nova linha acima,
+        nova linha abaixo
+    ";
 }

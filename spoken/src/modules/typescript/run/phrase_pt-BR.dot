@@ -16,4 +16,8 @@ digraph Run {
 
     title="Executar arquivo";
     desc="Executa o arquivo atual no terminal usando node";
+    examples="
+        executar este arquivo,
+        executar arquivo atual
+    ";
 }

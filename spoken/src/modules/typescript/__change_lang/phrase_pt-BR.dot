@@ -10,8 +10,15 @@ digraph change_lang {
 
     0 -> 1 [label="(troque, trocar, mude, mudar)"];
     1 -> 2 [label="(linguagem)"];
-    2 -> 4 [label="(inglês)"];
+    2 -> 4 [label="(inglês)", sem="para"];
 
     title="Mudar linguagem de entrada";
     desc="Mudar linguagem de entrada para inglês";
+
+    examples="
+      mude a linguagem para inglês,
+      troque a linguagem para inglês,
+      mudar linguagem para francês,
+      trocar linguagem para inglês
+    "
 }

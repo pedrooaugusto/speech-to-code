@@ -32,4 +32,18 @@ digraph Select {
 
     title="Select";
     desc="Select a piece of the text in the current line";
+    examples="
+        select the letter B,
+        select the symbol 5,
+        select the letter Q,
+        select the first letter B,
+        select the second letter K,
+        select the last workd this,
+        select the word ball,
+        select the word [multi_word_token],
+        select from line 2 to line 15,
+        select from line number 45 to line 90,
+        select from letter A to letter Z,
+        select from second leter G to last letter P
+    ";
 }

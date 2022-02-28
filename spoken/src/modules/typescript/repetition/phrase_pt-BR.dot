@@ -25,4 +25,12 @@ digraph Condition {
 
     title="Estrutura de repetição";
     desc="Cria uma estrutura de repetição for";
+
+    examples="
+        estrutura de repetição do [number] até [number],
+        estrutura de repetição do [number] até [number] etapa expressão variável i mais número 5,
+        estrutura de repetição para todo carro em constante carros,
+        estrutura de repetição para todo animal na terra,
+        estrutura de repetição para todo primo na variável primos,
+    ";
 }

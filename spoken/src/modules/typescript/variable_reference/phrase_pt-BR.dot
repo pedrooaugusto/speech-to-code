@@ -18,4 +18,21 @@ digraph VariableReference {
 
     title="Referencia a uma variável";
     desc="Refere a uma variável ou constante já declarada";
+
+    examples="
+      variável valor,
+      variável descrição,
+      constante name,
+      constante idade,
+      constante linguagem,
+      namespace cor,
+      referência variável cavalo,
+      referência constante bicicleta,
+      referência namespace bicicleta,
+      namespace chamado [multi_word_token],
+      constante chamada [multi_word_token],
+      variável chamada [multi_word_token],
+      referêncie variável chamada [multi_word_token],
+      referêncie constante chamada [multi_word_token]
+    ";
 }

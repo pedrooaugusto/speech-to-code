@@ -109,7 +109,7 @@ class SpokenModule {
 
         this.json.grammar[lang].push(graph)
     }
-    
+
     toJson() {
         return this.json
     }

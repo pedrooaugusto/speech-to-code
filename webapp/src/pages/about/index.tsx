@@ -32,14 +32,14 @@ export default React.memo(function Webapp(props: { lang: string }) {
                 <ul>
                     <li>
                         <a href="https://github.com/pedrooaugusto/speech-to-code/releases">
-                            Download Speech2Code binaries
+                            Download Speech2Code Binaries
                         </a>
                     </li>
                     <li>
                         <a href="https://github.com/pedrooaugusto/speech-to-code/">Github</a>
                     </li>
                     <li>
-                        <a href="https://github.com/pedrooaugusto/speech-to-code/tree/main/spoken/src/modules/typescript">List of commands</a>
+                        <a href="https://github.com/pedrooaugusto/speech-to-code/tree/main/spoken/src/modules/typescript">List of Commands</a>
                     </li>
                     <li>
                         <a href="https://pedrooaugusto.github.io/Programming%20With%20Voice%20-%20Assistive%20Technology%20Tool%20For%20Programming%20In%20JavaScript%20Using%20Voice%20-%20Pedro%20Silva.pdf">
@@ -48,7 +48,7 @@ export default React.memo(function Webapp(props: { lang: string }) {
                     </li>
                     <li>
                         <a href="https://www.figma.com/file/glanqRtfVtW2Va1wybr5pkCh/TCC?node-id=18%3A2">
-                            Application UI Design
+                            Application UI Design (Figma)
                         </a>
                     </li>
                 </ul>

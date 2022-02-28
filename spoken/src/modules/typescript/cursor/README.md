@@ -16,12 +16,13 @@ The following automata is responsible for recognizing the command `Move cursor` 
 
 The following are some examples of phrases, in english, used to trigger the command `Move cursor`:
 
-1. pointer line 42
-2. pointer symbol g
-3. cursor 1ª letter M
-4. pointer end line
-5. cursor next symbol
-6. pointer next 1 symbol
+1. pointer line 21
+2. pointer line 44
+3. cursor line 23
+4. pointer end of line
+5. pointer begin of line
+6. pointer first letter A
+7. pointer next five symbols
 
 #### Português
 
@@ -31,12 +32,13 @@ O automata seguinte é reponsável por reconhecer o comando `Mover o cursor` em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Mover o cursor`:
 
-1. cursor linha 42
-2. cursor letra A
-3. cursor último símbolo a
-4. ponteiro começo linha
-5. ponteiro próximo letra
-6. ponteiro próximo 1 símbolo
+1. ponteiro linha 21
+2. ponteiro linha 44
+3. cursor linha 23
+4. ponteiro final da linha
+5. ponteiro começo da linha
+6. ponteiro primeira letra A
+7. ponteiro próximos 5 símbolos
 
 ### Implementation
 

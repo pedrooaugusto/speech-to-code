@@ -20,4 +20,10 @@ digraph function_declaration {
 
     title="Creates a function";
     desc="Creates a function with the desired number of args and return value";
+
+    examples="
+        declare function multiply with [number] arguments,
+        declare function multiply with 2 arguments return [expressions],
+        declare function divide return [expressions]
+    ";
 }

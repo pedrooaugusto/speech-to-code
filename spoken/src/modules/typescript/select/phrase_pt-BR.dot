@@ -32,4 +32,19 @@ digraph Select {
 
     title="Selecionar";
     desc="Seleciona um pedaço de texto na linha atual";
+
+    examples="
+        selecione a letra B,
+        selecione a símbolo 5,
+        selecione a letra Q,
+        selecione a primeira letra B,
+        selecione a segunda letra K,
+        selecione a última palavra valor,
+        selecione a palavra lista,
+        selecione a palavra [multi_word_token],
+        selecione da linha 2 até a linha 15,
+        selecione da linha número 45 até a linha 90,
+        selecione da letra A até a letra Z,
+        selecione da segunda letra G até a última letra P
+    ";
 }

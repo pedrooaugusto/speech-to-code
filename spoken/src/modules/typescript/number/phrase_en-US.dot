@@ -15,4 +15,17 @@ digraph Number {
 
     title="Writes a number";
     desc="Writes a number in the editor";
+
+    examples="
+      number one,
+      number four,
+      number five,
+      number 43,
+      number 14,
+      number 140,
+      140,
+      123,
+      42,
+      18
+    ";
 }

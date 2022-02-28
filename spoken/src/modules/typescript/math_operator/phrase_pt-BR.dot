@@ -14,4 +14,12 @@ digraph MathOperator {
 
     title="Escreve uma operador matemático";
     desc="Escreve um operador matemático (*, -, +, /, '%') pensando para ser usado com expressões";
+
+    examples="
+      mais,
+      vezes,
+      menos,
+      dividido por,
+      módulo
+    ";
 }

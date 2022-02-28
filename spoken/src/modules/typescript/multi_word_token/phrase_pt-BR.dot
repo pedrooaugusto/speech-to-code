@@ -15,4 +15,18 @@ digraph multi_word_token {
 
     title="Agrupa múltiplas palavras";
     desc="Agrupa múltiplas palavras juntas, projetado para ser usado dentro de outros automatas";
+
+    examples="
+      aspas carro azul aspas,
+      aspas nome composto de múltiplas palavras aspas,
+      aspas frase parseada aspas,
+      aspas transação crédito texto aspas,
+      aspas preço total aspas,
+      aspas preço por item aspas,
+      aspas W H O aspas,
+      aspas N U L L aspas,
+      aspas A B C D aspas,
+      aspas camel case aspas,
+      * hola me nombre es felipe *
+    ";
 }

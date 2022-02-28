@@ -17,4 +17,15 @@ digraph expressions {
 
     title="Escreve uma expressão";
     desc="Escreve uma expressão no editor de texto, esse automata foi projetado para ser usado em outros automatas";
+
+    examples="
+      falso,
+      verdadeiro,
+      gap,
+      [number],
+      [string],
+      [variable_reference],
+      [elementar_math_op],
+      [function_call]
+    ";
 }

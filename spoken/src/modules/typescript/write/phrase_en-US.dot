@@ -25,4 +25,10 @@ digraph Write {
 
     title="Write text";
     desc="Write some text in the editor";
+    examples="
+        write hello how are you friend,
+        print my name is Giovani,
+        print it down how are you mate,
+        write letter B and letter E and letter T
+    ";
 }

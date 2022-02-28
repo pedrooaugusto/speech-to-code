@@ -20,4 +20,10 @@ digraph function_declaration {
 
     title="Cria uma função";
     desc="Cria uma função com o número de argumentos especificados e um valor de retorno";
+
+    examples="
+        nova função multiplicar com [number] argumentos,
+        nova função multiplicar com 2 argumentos retorna [expressions],
+        declare a função dividir retornando [expressions]
+    ";
 }

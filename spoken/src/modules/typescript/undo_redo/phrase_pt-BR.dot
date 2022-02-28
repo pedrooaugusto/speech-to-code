@@ -17,4 +17,11 @@ digraph UndoRedo {
 
     title="Refazer ou desfazer a última operação";
     desc="Refazer ou desfazer a última operação, usado para corrgir erros.";
+    examples="
+        desfaça isso,
+        desfazer isto,
+        desfaça a última operação,
+        refaça isso,
+        refazer a última operação
+    ";
 }

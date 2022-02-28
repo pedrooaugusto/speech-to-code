@@ -19,4 +19,11 @@ digraph Condition {
 
     title="Estrutura condicional";
     desc="Cria uma estrutura condicional if/else";
+
+    examples="
+      estrutura condicional,
+      estrutura condicional [expressions],
+      estrutura condicional se [expressions],
+      estrutura condicional se senão [expressions]
+    ";
 }

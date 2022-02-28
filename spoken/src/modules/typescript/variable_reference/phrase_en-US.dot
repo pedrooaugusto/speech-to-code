@@ -18,4 +18,21 @@ digraph VariableReference {
 
     title="References a variable";
     desc="Writes a variable or constant in the editor";
+
+    examples="
+      variable value,
+      variable label,
+      constant name,
+      constant age,
+      constant language,
+      namespace color,
+      reference variable horse,
+      reference constant bike,
+      reference namespace bike,
+      namespace called [multi_word_token],
+      constant called [multi_word_token],
+      variable called [multi_word_token],
+      reference variable called [multi_word_token],
+      reference constant called [multi_word_token]
+    ";
 }

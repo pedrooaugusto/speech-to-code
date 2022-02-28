@@ -15,4 +15,22 @@ digraph multi_word_token {
 
     title="Group multiple words together";
     desc="Group multiple words together in one variable meant to be used as alias in other commands";
+
+    examples="
+      quote blue car quote,
+      quote multi word token quote,
+      quote to upper case quote,
+      quote to string quote,
+      quote to integer quote,
+      quote is null quote,
+      quote has next quote,
+      quote is full quote,
+      quote camel case quote,
+      quote get string could quote,
+      quote get color quote,
+      quote really good function quote,
+      quote U S A quote,
+      quote W H O quote,
+      quote F A T O S quote
+    ";
 }

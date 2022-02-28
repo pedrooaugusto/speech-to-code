@@ -18,4 +18,9 @@ digraph variable_assignment {
 
     title="Stores a value in a variable";
     desc="Stores a number, string etc in a variable";
+    examples="
+        new variable value equals [expressions],
+        variable called batch equals [expressions],
+        declare variable called [multi_word_token] equals [expressions]
+    ";
 }

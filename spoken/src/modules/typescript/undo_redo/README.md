@@ -17,7 +17,10 @@ The following automata is responsible for recognizing the command `Undo or redo 
 The following are some examples of phrases, in english, used to trigger the command `Undo or redo the last operation/command`:
 
 1. undo that
-2. redo last operation
+2. undo that again
+3. redo the last operation
+4. undo the last operation again
+5. redo that
 
 #### Português
 
@@ -27,14 +30,11 @@ O automata seguinte é reponsável por reconhecer o comando `Refazer ou desfazer
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Refazer ou desfazer a última operação`:
 
-1. refazer isso
-2. refaça isso
-3. desfazer último operação
-4. refaça último comando
-5. refazer isso também
-6. desfazer último comando também
-7. refaça isso também
-8. refaça último comando também
+1. desfaça isso
+2. desfazer isto
+3. desfaça a última operação
+4. refaça isso
+5. refazer a última operação
 
 ### Implementation
 

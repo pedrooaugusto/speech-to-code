@@ -19,4 +19,18 @@ digraph LogicalOperator {
 
     title="Escreve um operador lógico";
     desc="Escreve um operador lógico (===, !==, &&, ||, >, <, >=, <=) pensando para ser usado com expressões";
+
+    examples="
+      e,
+      ou,
+      igual,
+      menor que,
+      maior que,
+      menor ou igual a,
+      maior ou igual a,
+      não igual,
+      negativo igual,
+      não e,
+      não ou
+    ";
 }

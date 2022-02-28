@@ -16,4 +16,11 @@ digraph Condition {
 
     title="Creates a if/else statement";
     desc="Creates a if/else statement with the provided expression as condition";
+
+    examples="
+        conditional statement,
+        conditional statement [expressions],
+        conditional statement if [expressions],
+        conditional statement if else [expressions]
+    ";
 }

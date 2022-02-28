@@ -10,19 +10,25 @@ digraph function_call {
     node[shape=circle];
 
     0 -> 1 [label="(chame, chamar, execute)"];
-    1 -> 2 [label="(função)"];
+    1 -> 2 [label="(função)", sem="a"];
     2 -> 3 [label="([multi_word_token])", store=functionName, extraArgs="{\"case\": \"camel\"}"];
     3 -> 4 [label="(λ)"];
     2 -> 4 [label="({term})", store=functionName];
     4 -> 11 [label="(da, na, do, no)"];
     {4 11} -> 5 [label="([expressions])", store=caller];
-    {4 5} -> 6 [label="(argumentos)"];
+    {4 5} -> 6 [label="(argumentos)", sem="com"];
     6 -> 7 [label="([expressions])", store=args];
     7 -> 8 [label="(e)"];
     8 -> 7 [label="([expressions])", store=args];
-    {4 5} -> 9 [label="({number})", store=argsNumber];
+    {4 5} -> 9 [label="({number})", store=argsNumber, sem="com"];
     9 -> 10 [label="(argumentos)"];
 
     title="Chama uma função";
     desc="Chama uma função com os determinados argumentos no determinado caller";
+
+    examples="
+      execute a função teste,
+      execute a função normalizar no [expressions] com 2 argumentos,
+      execute a função remover no [expressions] com os argumentos [expressions] e [expressions]
+    ";
 }

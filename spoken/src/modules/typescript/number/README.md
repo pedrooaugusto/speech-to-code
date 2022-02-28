@@ -16,8 +16,16 @@ The following automata is responsible for recognizing the command `Writes a numb
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a number`:
 
-1. number 1
-2. 42
+1. number one
+2. number four
+3. number five
+4. number 43
+5. number 14
+6. number 140
+7. 140
+8. 123
+9. 42
+10. 18
 
 #### Português
 
@@ -27,7 +35,12 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve um número`
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve um número`:
 
-1. número 1
+1. número dois
+2. número quatro
+3. número cinco
+4. número 43
+5. número 14
+6. número 140
 
 ### Implementation
 

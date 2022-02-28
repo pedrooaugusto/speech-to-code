@@ -23,4 +23,10 @@ digraph Write {
 
     title="Escrever texto";
     desc="Escreve um pedaço de texto no editor de texto";
+    examples="
+        escreva ola como vai você,
+        escreva apenas um teste,
+        escreva meu nome é giovani girogio,
+        escreva letra a B e letra O e letra I
+    ";
 }

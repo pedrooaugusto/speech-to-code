@@ -14,4 +14,9 @@ digraph remove_ln_sec {
 
     title="Remover";
     desc="Remove a linha atual ou a seleção";
+    examples="
+        remover linha,
+        remova linha,
+        remover seleção
+    ";
 }

@@ -11,12 +11,14 @@ const {
     allRecognizablePhrases,
     automataToImage
 } = require('./build-utils')
+const { getExamples } = require('./examples/index')
 
 const listFiles = (_path, filter) => listArchives('FILES')(_path, filter)
 const listFolders = (_path, filter) => listArchives('FOLDER')(_path, filter)
 
 async function main() {
     const spoken = new SpokenModules()
+    const examples = getExamples()
 
     for (const moduleA of spoken.modules) {
         for (const command of moduleA.commands) {
@@ -24,9 +26,9 @@ async function main() {
                 await automataToImage(automata.path, automata.image)
 
                 const graph = dot.read(fs.readFileSync(automata.path, 'utf-8'))
-                const { lang, title, desc, langName } = graph.graph()
+                const { lang, title, desc, langName, id } = graph.graph()
 
-                automata.phrases = allRecognizablePhrases(graph, spoken.templates).slice(0, 16)
+                automata.phrases = examples[id].examples[lang].map(a => a.phrase)
                 automata.title = title
                 automata.desc = desc
                 automata.langName = langName

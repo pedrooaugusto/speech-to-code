@@ -24,4 +24,11 @@ digraph Repetition {
 
     title="Creates a for loop statement";
     desc="Creates a for loop statement with the provided expressions as parameters";
+    examples="
+        repetition statement from [number] to [number],
+        repetition statement from [number] to [number] step expression variable i plus number 5,
+        repetition statement for every car of constant cars,
+        repetition statement for every animal of earth,
+        repetition statement for every prime of variable primes,
+    ";
 }

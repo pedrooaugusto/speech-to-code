@@ -16,4 +16,15 @@ digraph String {
 
     title="Writes a string";
     desc="Writes a string in the editor";
+
+    examples="
+      string hello world string,
+      string null pointer exeception is bad string,
+      text this can be any piece of writing text,
+      string hello my name is giovani girogio string,
+      text what is happening peter text,
+      text H E L L O text,
+      string O N U string,
+      string U S A string
+    ";
 }

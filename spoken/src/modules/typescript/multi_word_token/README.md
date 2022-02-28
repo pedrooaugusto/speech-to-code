@@ -16,7 +16,21 @@ The following automata is responsible for recognizing the command `Group multipl
 
 The following are some examples of phrases, in english, used to trigger the command `Group multiple words together`:
 
-1. * *
+1. quote blue car quote
+2. quote multi word token quote
+3. quote to upper case quote
+4. quote to string quote
+5. quote to integer quote
+6. quote is null quote
+7. quote has next quote
+8. quote is full quote
+9. quote camel case quote
+10. quote get string could quote
+11. quote get color quote
+12. quote really good function quote
+13. quote U S A quote
+14. quote W H O quote
+15. quote F A T O S quote
 
 #### Português
 
@@ -26,7 +40,17 @@ O automata seguinte é reponsável por reconhecer o comando `Agrupa múltiplas p
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Agrupa múltiplas palavras`:
 
-1. * *
+1. aspas carro azul aspas
+2. aspas nome composto de múltiplas palavras aspas
+3. aspas frase parseada aspas
+4. aspas transação crédito texto aspas
+5. aspas preço total aspas
+6. aspas preço por item aspas
+7. aspas W H O aspas
+8. aspas N U L L aspas
+9. aspas A B C D aspas
+10. aspas camel case aspas
+11. * hola me nombre es felipe *
 
 ### Implementation
 

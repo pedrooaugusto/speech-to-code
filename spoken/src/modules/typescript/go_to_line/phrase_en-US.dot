@@ -16,4 +16,10 @@ digraph GoToLine {
 
     title="Change line";
     desc="Moves the cursor to a different line";
+    examples="
+        go to line [number],
+        go to line number [number],
+        line number [number],
+        line [number]
+    ";
 }

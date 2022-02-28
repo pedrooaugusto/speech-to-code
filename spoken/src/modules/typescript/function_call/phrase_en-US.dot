@@ -16,13 +16,19 @@ digraph function_call {
     2 -> 4 [label="({term})", store=functionName];
     4 -> 11 [label="(of, on, at)", disableSpellcheck="true"];
     {4 11} -> 5 [label="([expressions])", store=caller];
-    {4 5} -> 6 [label="(arguments)"];
+    {4 5} -> 6 [label="(arguments)", sem="with"];
     6 -> 7 [label="([expressions])", store=args];
     7 -> 8 [label="(and)"];
     8 -> 7 [label="([expressions])", store=args];
-    {4 5} -> 9 [label="({number})", store=argsNumber];
+    {4 5} -> 9 [label="({number})", store=argsNumber, sem="with"];
     9 -> 10 [label="(arguments)"];
 
     title="Calls a function";
     desc="Calls a function with the specified arguments in the desired caller";
+
+    examples="
+      call function test,
+      execute function normalize on [expressions] with 2 arguments,
+      execute function remove on [expressions] with arguments [expressions] and [expressions],
+    ";
 }

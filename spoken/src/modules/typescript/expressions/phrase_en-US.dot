@@ -17,4 +17,15 @@ digraph expressions {
 
     title="Writes a expression";
     desc="Writes a expression in the editor, this is meant to be used inside another automatas";
+
+    examples="
+      false,
+      true,
+      gap,
+      [number],
+      [string],
+      [variable_reference],
+      [elementar_math_op],
+      [function_call]
+    ";
 }

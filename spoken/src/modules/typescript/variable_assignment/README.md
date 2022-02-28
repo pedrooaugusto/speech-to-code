@@ -16,18 +16,9 @@ The following automata is responsible for recognizing the command `Stores a valu
 
 The following are some examples of phrases, in english, used to trigger the command `Stores a value in a variable`:
 
-1. create variable called [multi_word_token]
-2. constant named [multi_word_token]
-3. create constant named [multi_word_token] = [expressions]
-4. create variable called a equals [expressions]
-5. declare variable temp equals [expressions]
-6. constant called [multi_word_token] equals [expressions]
-7. constant named a = [expressions]
-8. variable number = [expressions]
-9. declare variable called a
-10. create constant value
-11. variable named text
-12. variable a
+1. new variable value equals false
+2. variable called batch equals expression number 140 negative or number 140
+3. declare variable called quote really good function quote equals true
 
 #### Português
 
@@ -37,18 +28,9 @@ O automata seguinte é reponsável por reconhecer o comando `Guarda um valor em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Guarda um valor em uma variável`:
 
-1. declare variável chamada [multi_word_token]
-2. constante chamada [multi_word_token]
-3. crie variável chamada [multi_word_token] igual [expressions]
-4. nova variável chamada temp igual [expressions]
-5. nova constante valor igual [expressions]
-6. constante chamada [multi_word_token] = [expressions]
-7. constante chamada a = [expressions]
-8. constante texto igual [expressions]
-9. nova variável chamada valor
-10. nova constante valor
-11. variável chamada valor
-12. variável lista
+1. nova variável valor igual a gap
+2. variável valor igual a verdadeiro
+3. nova variável chamada aspas transação crédito texto aspas igual a gap
 
 ### Implementation
 

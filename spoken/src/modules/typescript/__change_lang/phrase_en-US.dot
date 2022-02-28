@@ -11,8 +11,15 @@ digraph change_lang {
     0 -> 1 [label="(change, switch)"];
     1 -> 2 [label="(language)"];
     2 -> 3 [label="(back)"];
-    {2  3} -> 4 [label="(portuguese)"];
+    {2  3} -> 4 [label="(portuguese)", sem="to"];
 
     title="Change input language";
     desc="Changes input language to portuguese";
+
+    examples="
+      change language to portuguese,
+      switch language to portuguese,
+      switch language to english,
+      switch language back to french
+    ";
 }

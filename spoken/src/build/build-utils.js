@@ -1,9 +1,15 @@
+const dot = require('graphlib-dot')
 const path = require('path')
 const fs = require('fs')
 const svg2img = require('svg2img')
 const { graphviz } = require('@hpcc-js/wasm')
 
-exports.allRecognizablePhrases = function allRecognizablePhrases(graph, templates) {
+/**
+ * @deprecated in favor of examples/index#getExamples (Which was kind of a dumb decision)
+ * @returns All valid paths from the begin to the end
+ */
+function allRecognizablePhrases(graph, templates) {
+
     const finalStates = graph.nodes().filter((a) => graph.node(a).shape === 'doublecircle').map(a => parseInt(a, 10))
     const results = []
     const isVisited = new Array()
@@ -25,14 +31,13 @@ exports.allRecognizablePhrases = function allRecognizablePhrases(graph, template
             tmp.push(sanitizeTransitionString(graph.edge(a, b).label))
         }
 
-        // @ts-ignore
         phrases.push(fillTemplates(tmp, graph.graph().lang, templates).join(' '))
     }
 
     return phrases
 }
 
-exports.listArchives = function listArchives(filter, all = false) {
+function listArchives(filter, all = false) {
     const type = filter === 'FOLDER' ? 0 : 1
 
     return (folder, aditionalFilter = () => true) => {
@@ -49,7 +54,7 @@ exports.listArchives = function listArchives(filter, all = false) {
     }
 }
 
-exports.automataToImage = async function automataToImage(automataPath, fileName) {
+async function automataToImage(automataPath, fileName) {
     const fileContent = fs.readFileSync(automataPath, 'utf-8')
     const svg = await graphviz.layout(fileContent, 'svg', 'dot')
 
@@ -63,6 +68,12 @@ exports.automataToImage = async function automataToImage(automataPath, fileName)
         })
     })
 }
+
+exports.allRecognizablePhrases = allRecognizablePhrases
+
+exports.listArchives = listArchives
+
+exports.automataToImage = automataToImage
 
 function allPaths(
     graph,
@@ -95,7 +106,9 @@ function allPaths(
     isVisited[u] = false
 }
 
-function fillTemplates(choices, lang, templates) {
+function fillTemplates(choices, graph, templates, root) {
+    const lang = graph.graph().lang
+
     return choices.map(item => {
         let choice = item
 
@@ -106,6 +119,19 @@ function fillTemplates(choices, lang, templates) {
             const k = templates[choice].examples[lang]
 
             return k[Math.floor(Math.random() * k.length)]
+        }  else if (choice.startsWith('[') && choice.endsWith(']')) {
+            const command = root + '\\' + choice.replace(/\]|\[/gi, '') + `\\phrase_${lang}.dot`
+
+            // This causes a hell of a loop...
+            /* console.log(command)
+
+            if (choice === '[expressions]') return choice
+
+            const graph = dot.read(fs.readFileSync(command, 'utf-8'))
+            const f = allRecognizablePhrases(graph, templates, root).slice(0, 16)
+
+            return f[0]*/
+
         } else if (choice === 'λ') {
             return undefined
         }

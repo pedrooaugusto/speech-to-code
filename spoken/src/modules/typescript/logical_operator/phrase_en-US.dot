@@ -18,4 +18,18 @@ digraph LogicalOperator {
 
     title="Writes a logical operator";
     desc="Writes a logical operator (===, !==, &&, ||, >, <, >=, <=) meant to be used inside expressions";
+
+    examples="
+      and,
+      or,
+      equals,
+      less than,
+      greater than,
+      less or equals than,
+      greater or equals than,
+      not equals,
+      negative equals,
+      negative and,
+      negative or
+    ";
 }

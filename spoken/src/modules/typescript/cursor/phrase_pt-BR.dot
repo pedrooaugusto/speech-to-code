@@ -17,7 +17,7 @@ digraph Cursor {
     5 -> 6 [label="({char})", store=symbol];
 
     1 -> 8 [label="(começo, final)", store=linePosition];
-    8 -> 10 [label="(linha)"];
+    8 -> 10 [label="(linha)", sem="da"];
 
     1 -> 11 [label="(próximo)"];
     11 -> 13 [label="({number})", store=leapSize];
@@ -25,4 +25,14 @@ digraph Cursor {
 
     title="Mover o cursor";
     desc="Move o cursor para uma linha ou símbolo";
+
+    examples="
+        ponteiro linha 21,
+        ponteiro linha 44,
+        cursor linha 23,
+        ponteiro final da linha,
+        ponteiro começo da linha,
+        ponteiro primeira letra A,
+        ponteiro próximos 5 símbolos
+    ";
 }

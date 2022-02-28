@@ -16,4 +16,15 @@ digraph string {
 
     title="Escreve uma string";
     desc="Escreve uma string no editor";
+
+    examples="
+      string olá mundo string,
+      string erros de ponteiro nulos são ruims string,
+      texto podemos dizer qualquer frase texto,
+      string Olá meu nome é Giovani Giorgio string,
+      texto e ele vai ligar pra todas até achar uma gata pra dar um passeio texto,
+      texto U S A texto,
+      texto B R T texto,
+      string G R A S S string
+    ";
 }

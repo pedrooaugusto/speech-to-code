@@ -16,9 +16,14 @@ The following automata is responsible for recognizing the command `Writes a expr
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a expression`:
 
-1. [elementar_math_op]
-2. gap
-3. false
+1. false
+2. true
+3. gap
+4. number 140
+5. string hello my name is giovani girogio string
+6. reference constant called quote is full quote
+7. expression number 140 negative or number 140
+8. execute function remove on number 140 with arguments number 140 and false
 
 #### Português
 
@@ -28,9 +33,14 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma express
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma expressão`:
 
-1. [number]
-2. gap
-3. verdadeiro
+1. falso
+2. verdadeiro
+3. gap
+4. número 140
+5. string erros de ponteiro nulos são ruims string
+6. constante idade
+7. expressão gap maior que falso
+8. execute a função remover no [elementar_math_op] com os argumentos string erros de ponteiro nulos são ruims string e número 140
 
 ### Implementation
 

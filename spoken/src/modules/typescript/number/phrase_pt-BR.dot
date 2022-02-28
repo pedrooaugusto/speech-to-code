@@ -14,4 +14,13 @@ digraph Number {
 
     title="Escreve um número";
     desc="Escreve um número no editor";
+
+    examples="
+      número dois,
+      número quatro,
+      número cinco,
+      número 43,
+      número 14,
+      número 140
+    ";
 }

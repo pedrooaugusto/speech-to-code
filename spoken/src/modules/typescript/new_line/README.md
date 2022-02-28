@@ -16,13 +16,10 @@ The following automata is responsible for recognizing the command `New line` in 
 
 The following are some examples of phrases, in english, used to trigger the command `New line`:
 
-1. new line
-2. create new line
-3. create line
-4. new line above
-5. line below
-6. create new line above
-7. create line above
+1. create line
+2. create a line
+3. create line above
+4. create line below
 
 #### Português
 
@@ -32,15 +29,10 @@ O automata seguinte é reponsável por reconhecer o comando `Linha nova` em port
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Linha nova`:
 
-1. nova linha
-2. linha nova
-3. crie nova linha
-4. crie linha
-5. nova linha abaixo
-6. linha nova abaixo
-7. linha abaixo
-8. crie nova linha abaixo
-9. crie linha acima
+1. criar linha
+2. nova linha
+3. nova linha acima
+4. nova linha abaixo
 
 ### Implementation
 

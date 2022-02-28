@@ -9,7 +9,7 @@
     "{term}": {
         "value": "^(?![\\* ]$).*",
         "examples": {
-            "pt-BR": ["valor", "lista", "numero", "texto", "temp", "a"],
+            "pt-BR": ["valor", "lista", "yellow", "dog", "andar", "a"],
             "en-US": ["value", "graph", "number", "text", "temp", "a"]
         }
     },
@@ -30,8 +30,8 @@
     "{number}": {
         "value": "^(?![\\* ]$).*",
         "examples": {
-            "pt-BR": ["1", "42"],
-            "en-US": ["1", "42"]
+            "pt-BR": ["1", "2", "three", "four", "five", "six", "42", "21", "19"],
+            "en-US": ["1", "2", "três", "quatro", "cinco", "seis", "42", "21", "19"]
         },
         "defaultNormalizer": "number"
     },

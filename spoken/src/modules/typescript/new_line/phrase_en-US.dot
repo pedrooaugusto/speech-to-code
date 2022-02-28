@@ -17,4 +17,10 @@ digraph NewLine {
 
     title="New line";
     desc="Creates a new line above or below the current line";
+    examples="
+        create line,
+        create a line,
+        create line above,
+        create line below
+    ";
 }

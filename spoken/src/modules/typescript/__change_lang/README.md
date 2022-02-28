@@ -14,8 +14,8 @@ The following automata is responsible for recognizing the command `Change input 
 
 The following are some examples of phrases, in english, used to trigger the command `Change input language`:
 
-1. switch language back portuguese
-2. change language portuguese
+1. switch language back to portuguese
+2. change language to portuguese
 
 **Português**
 
@@ -25,7 +25,8 @@ O automata seguinte é reponsável por reconhecer o comando `Mudar linguagem de 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Mudar linguagem de entrada`:
 
-1. mudar linguagem inglês
+1. mudar linguagem para inglês
+2. mude a linguagem para inglês
 
 ### Implementation
 

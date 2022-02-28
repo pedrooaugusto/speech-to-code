@@ -160,7 +160,7 @@ function VersionLink(props: { version?: string }): JSX.Element {
     if (version == null) return <React.Fragment>error ??</React.Fragment>
 
     return (
-        <a href={`https://github.com/pedrooaugusto/speech-to-code/releases/tag/v${version}`}>
+        <a target="_blank" rel="noreferrer" href={`https://github.com/pedrooaugusto/speech-to-code/releases/tag/v${version}`}>
             {version}
         </a>
     )

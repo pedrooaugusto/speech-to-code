@@ -16,7 +16,11 @@ The following automata is responsible for recognizing the command `Writes a math
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a math operator`:
 
-1. x by
+1. plus
+2. times
+3. minus
+4. divided by
+5. module
 
 #### Português
 
@@ -26,7 +30,11 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operado
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operador matemático`:
 
-1. x por
+1. mais
+2. vezes
+3. menos
+4. dividido por
+5. módulo
 
 ### Implementation
 

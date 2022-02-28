@@ -16,4 +16,11 @@ digraph UndoRedo {
 
     title="Undo or redo the last operation/command";
     desc="Undo or redo the last operation, used to correct mistakes. Just like CTRL + (Z | Y).";
+    examples="
+        undo that,
+        undo that again,
+        redo the last operation,
+        undo the last operation again
+        redo that
+    ";
 }

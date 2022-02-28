@@ -17,4 +17,9 @@ digraph elementar_math_op {
 
     title="Writes a elementar math operation";
     desc="Writes a elementar math operation (*, -, +, /)";
+
+    examples="
+      expression [expressions] [math_operator] [expressions],
+      expression [expressions] [logical_operator] [expressions]
+    ";
 }

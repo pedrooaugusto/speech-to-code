@@ -16,21 +16,10 @@ The following automata is responsible for recognizing the command `Write text` i
 
 The following are some examples of phrases, in english, used to trigger the command `Write text`:
 
-1. print
-2. write
-3. write it down
-4. print space
-5. write space
-6. write it down space
-7. print the universe is cracked who are you
-8. write the universe is cracked who are you
-9. write it who are you the universe is cracked
-10. print letter M
-11. write down letter M
-12. write it down letter g
-13. print dot
-14. write down dot
-15. write it down dot
+1. write hello how are you friend
+2. print my name is Giovani
+3. print it down how are you mate
+4. write letter B and letter E and letter T
 
 #### Português
 
@@ -40,11 +29,10 @@ O automata seguinte é reponsável por reconhecer o comando `Escrever texto` em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escrever texto`:
 
-1. escreva
-2. escreva espaço
-3. escreva quem é você quem é você
-4. escreva a letra B
-5. escreva ponto
+1. escreva ola como vai você
+2. escreva apenas um teste
+3. escreva meu nome é giovani girogio
+4. escreva letra a B e letra O e letra I
 
 ### Implementation
 

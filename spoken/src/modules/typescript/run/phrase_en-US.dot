@@ -14,4 +14,8 @@ digraph Run {
 
     title="Run current file";
     desc="Run the current file in the terminal using node";
+    examples="
+        run current file,
+        run this file
+    ";
 }
