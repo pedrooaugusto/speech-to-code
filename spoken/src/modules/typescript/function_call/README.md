@@ -17,8 +17,8 @@ The following automata is responsible for recognizing the command `Calls a funct
 The following are some examples of phrases, in english, used to trigger the command `Calls a function`:
 
 1. call function test
-2. execute function normalize on string hello my name is giovani girogio string with 2 arguments
-3. execute function remove on number 140 with arguments number 140 and false
+2. execute function normalize on true with 2 arguments
+3. execute function remove on true with arguments text H E L L O text and text H E L L O text
 
 #### Português
 
@@ -29,8 +29,8 @@ O automata seguinte é reponsável por reconhecer o comando `Chama uma função`
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Chama uma função`:
 
 1. execute a função teste
-2. execute a função normalizar no [elementar_math_op] com 2 argumentos
-3. execute a função remover no [elementar_math_op] com os argumentos string erros de ponteiro nulos são ruims string e número 140
+2. execute a função normalizar no verdadeiro com 2 argumentos
+3. execute a função remover no verdadeiro com os argumentos [function_call] e falso
 
 ### Implementation
 

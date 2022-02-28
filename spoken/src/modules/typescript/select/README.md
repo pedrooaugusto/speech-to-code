@@ -23,7 +23,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 5. select the second letter K
 6. select the last workd this
 7. select the word ball
-8. select the word quote is full quote
+8. select the word quote get color quote
 9. select from line 2 to line 15
 10. select from line number 45 to line 90
 11. select from letter A to letter Z
@@ -44,7 +44,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 5. selecione a segunda letra K
 6. selecione a última palavra valor
 7. selecione a palavra lista
-8. selecione a palavra aspas preço por item aspas
+8. selecione a palavra aspas camel case aspas
 9. selecione da linha 2 até a linha 15
 10. selecione da linha número 45 até a linha 90
 11. selecione da letra A até a letra Z

@@ -17,9 +17,9 @@ The following automata is responsible for recognizing the command `Creates a if/
 The following are some examples of phrases, in english, used to trigger the command `Creates a if/else statement`:
 
 1. conditional statement
-2. conditional statement number 140
-3. conditional statement if reference constant called quote is full quote
-4. conditional statement if else gap
+2. conditional statement gap
+3. conditional statement if expression text H E L L O text less or equals than [elementar_math_op]
+4. conditional statement if else text H E L L O text
 
 #### Português
 
@@ -30,9 +30,9 @@ O automata seguinte é reponsável por reconhecer o comando `Estrutura condicion
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Estrutura condicional`:
 
 1. estrutura condicional
-2. estrutura condicional gap
-3. estrutura condicional se verdadeiro
-4. estrutura condicional se senão número 140
+2. estrutura condicional texto U S A texto
+3. estrutura condicional se expressão verdadeiro módulo texto U S A texto
+4. estrutura condicional se senão constante chamada aspas preço total aspas
 
 ### Implementation
 

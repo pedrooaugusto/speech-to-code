@@ -17,8 +17,8 @@ The following automata is responsible for recognizing the command `Stores a valu
 The following are some examples of phrases, in english, used to trigger the command `Stores a value in a variable`:
 
 1. new variable value equals false
-2. variable called batch equals expression number 140 negative or number 140
-3. declare variable called quote really good function quote equals true
+2. variable called batch equals reference constant called quote blue car quote
+3. declare variable called quote F A T O S quote equals text H E L L O text
 
 #### Português
 
@@ -28,9 +28,9 @@ O automata seguinte é reponsável por reconhecer o comando `Guarda um valor em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Guarda um valor em uma variável`:
 
-1. nova variável valor igual a gap
-2. variável valor igual a verdadeiro
-3. nova variável chamada aspas transação crédito texto aspas igual a gap
+1. nova variável valor igual a texto U S A texto
+2. variável valor igual a falso
+3. nova variável chamada aspas W H O aspas igual a expressão verdadeiro módulo texto U S A texto
 
 ### Implementation
 

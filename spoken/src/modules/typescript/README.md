@@ -25,9 +25,9 @@ The following automata is responsible for recognizing the command `Creates a if/
 The following are some examples of phrases, in english, used to trigger the command `Creates a if/else statement`:
 
 1. conditional statement
-2. conditional statement number 140
-3. conditional statement if reference constant called quote is full quote
-4. conditional statement if else gap
+2. conditional statement gap
+3. conditional statement if expression text H E L L O text less or equals than [elementar_math_op]
+4. conditional statement if else text H E L L O text
 
 #### Português
 
@@ -38,9 +38,9 @@ O automata seguinte é reponsável por reconhecer o comando `Estrutura condicion
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Estrutura condicional`:
 
 1. estrutura condicional
-2. estrutura condicional gap
-3. estrutura condicional se verdadeiro
-4. estrutura condicional se senão número 140
+2. estrutura condicional texto U S A texto
+3. estrutura condicional se expressão verdadeiro módulo texto U S A texto
+4. estrutura condicional se senão constante chamada aspas preço total aspas
 
 ### Implementation
 
@@ -134,8 +134,8 @@ The following automata is responsible for recognizing the command `Writes a elem
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a elementar math operation`:
 
-1. expression reference constant called quote is full quote minus string hello my name is giovani girogio string
-2. expression number 140 negative or number 140
+1. expression [elementar_math_op] minus 123
+2. expression text H E L L O text less or equals than [elementar_math_op]
 
 #### Português
 
@@ -145,8 +145,8 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operaç
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operação matemática elementar`:
 
-1. expressão verdadeiro vezes gap
-2. expressão gap maior que falso
+1. expressão verdadeiro módulo texto U S A texto
+2. expressão gap não e número 14
 
 ### Implementation
 
@@ -184,11 +184,11 @@ The following are some examples of phrases, in english, used to trigger the comm
 1. false
 2. true
 3. gap
-4. number 140
-5. string hello my name is giovani girogio string
-6. reference constant called quote is full quote
-7. expression number 140 negative or number 140
-8. execute function remove on number 140 with arguments number 140 and false
+4. 123
+5. text H E L L O text
+6. reference constant called quote blue car quote
+7. expression text H E L L O text less or equals than [elementar_math_op]
+8. execute function remove on true with arguments text H E L L O text and text H E L L O text
 
 #### Português
 
@@ -201,11 +201,11 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 1. falso
 2. verdadeiro
 3. gap
-4. número 140
-5. string erros de ponteiro nulos são ruims string
-6. constante idade
-7. expressão gap maior que falso
-8. execute a função remover no [elementar_math_op] com os argumentos string erros de ponteiro nulos são ruims string e número 140
+4. número 14
+5. texto U S A texto
+6. constante chamada aspas preço total aspas
+7. expressão verdadeiro módulo texto U S A texto
+8. execute a função remover no verdadeiro com os argumentos [function_call] e falso
 
 ### Implementation
 
@@ -243,8 +243,8 @@ The following automata is responsible for recognizing the command `Calls a funct
 The following are some examples of phrases, in english, used to trigger the command `Calls a function`:
 
 1. call function test
-2. execute function normalize on string hello my name is giovani girogio string with 2 arguments
-3. execute function remove on number 140 with arguments number 140 and false
+2. execute function normalize on true with 2 arguments
+3. execute function remove on true with arguments text H E L L O text and text H E L L O text
 
 #### Português
 
@@ -255,8 +255,8 @@ O automata seguinte é reponsável por reconhecer o comando `Chama uma função`
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Chama uma função`:
 
 1. execute a função teste
-2. execute a função normalizar no [elementar_math_op] com 2 argumentos
-3. execute a função remover no [elementar_math_op] com os argumentos string erros de ponteiro nulos são ruims string e número 140
+2. execute a função normalizar no verdadeiro com 2 argumentos
+3. execute a função remover no verdadeiro com os argumentos [function_call] e falso
 
 ### Implementation
 
@@ -292,9 +292,9 @@ The following automata is responsible for recognizing the command `Creates a fun
 
 The following are some examples of phrases, in english, used to trigger the command `Creates a function`:
 
-1. declare function multiply with 140 arguments
-2. declare function multiply with 2 arguments return false
-3. declare function divide return reference constant called quote is full quote
+1. declare function multiply with 123 arguments
+2. declare function multiply with 2 arguments return 123
+3. declare function divide return reference constant called quote blue car quote
 
 #### Português
 
@@ -304,9 +304,9 @@ O automata seguinte é reponsável por reconhecer o comando `Cria uma função` 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Cria uma função`:
 
-1. nova função multiplicar com número quatro argumentos
-2. nova função multiplicar com 2 argumentos retorna verdadeiro
-3. declare a função dividir retornando expressão gap maior que falso
+1. nova função multiplicar com número 43 argumentos
+2. nova função multiplicar com 2 argumentos retorna expressão verdadeiro módulo texto U S A texto
+3. declare a função dividir retornando falso
 
 ### Implementation
 
@@ -342,10 +342,10 @@ The following automata is responsible for recognizing the command `Change line` 
 
 The following are some examples of phrases, in english, used to trigger the command `Change line`:
 
-1. go to line 42
-2. go to line number 123
-3. line number number 43
-4. line 18
+1. go to line number 14
+2. go to line number number one
+3. line number 123
+4. line number five
 
 #### Português
 
@@ -356,9 +356,9 @@ O automata seguinte é reponsável por reconhecer o comando `Trocar linha` em po
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Trocar linha`:
 
 1. linha número 14
-2. vá para a linha número cinco
+2. vá para a linha número 14
 3. linha número número dois
-4. linha número dois
+4. linha número 14
 
 ### Implementation
 
@@ -748,8 +748,8 @@ The following automata is responsible for recognizing the command `Creates a for
 
 The following are some examples of phrases, in english, used to trigger the command `Creates a for loop statement`:
 
-1. repetition statement from 42 to 123
-2. repetition statement from 42 to 140 step expression variable i plus number 5
+1. repetition statement from number four to 123
+2. repetition statement from number 43 to number four step expression variable i plus number 5
 3. repetition statement for every car of constant cars
 4. repetition statement for every animal of earth
 5. repetition statement for every prime of variable primes
@@ -762,8 +762,8 @@ O automata seguinte é reponsável por reconhecer o comando `Estrutura de repeti
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Estrutura de repetição`:
 
-1. estrutura de repetição do número dois até número quatro
-2. estrutura de repetição do número 43 até número dois etapa expressão variável i mais número 5
+1. estrutura de repetição do número cinco até número cinco
+2. estrutura de repetição do número 43 até número cinco etapa expressão variável i mais número 5
 3. estrutura de repetição para todo carro em constante carros
 4. estrutura de repetição para todo animal na terra
 5. estrutura de repetição para todo primo na variável primos
@@ -857,7 +857,7 @@ The following are some examples of phrases, in english, used to trigger the comm
 5. select the second letter K
 6. select the last workd this
 7. select the word ball
-8. select the word quote is full quote
+8. select the word quote get color quote
 9. select from line 2 to line 15
 10. select from line number 45 to line 90
 11. select from letter A to letter Z
@@ -878,7 +878,7 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 5. selecione a segunda letra K
 6. selecione a última palavra valor
 7. selecione a palavra lista
-8. selecione a palavra aspas preço por item aspas
+8. selecione a palavra aspas camel case aspas
 9. selecione da linha 2 até a linha 15
 10. selecione da linha número 45 até a linha 90
 11. selecione da letra A até a letra Z
@@ -1035,8 +1035,8 @@ The following automata is responsible for recognizing the command `Stores a valu
 The following are some examples of phrases, in english, used to trigger the command `Stores a value in a variable`:
 
 1. new variable value equals false
-2. variable called batch equals expression number 140 negative or number 140
-3. declare variable called quote really good function quote equals true
+2. variable called batch equals reference constant called quote blue car quote
+3. declare variable called quote F A T O S quote equals text H E L L O text
 
 #### Português
 
@@ -1046,9 +1046,9 @@ O automata seguinte é reponsável por reconhecer o comando `Guarda um valor em 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Guarda um valor em uma variável`:
 
-1. nova variável valor igual a gap
-2. variável valor igual a verdadeiro
-3. nova variável chamada aspas transação crédito texto aspas igual a gap
+1. nova variável valor igual a texto U S A texto
+2. variável valor igual a falso
+3. nova variável chamada aspas W H O aspas igual a expressão verdadeiro módulo texto U S A texto
 
 ### Implementation
 
@@ -1093,11 +1093,11 @@ The following are some examples of phrases, in english, used to trigger the comm
 7. reference variable horse
 8. reference constant bike
 9. reference namespace bike
-10. namespace called quote really good function quote
-11. constant called quote to string quote
-12. variable called quote is full quote
-13. reference variable called quote to upper case quote
-14. reference constant called quote is full quote
+10. namespace called quote is full quote
+11. constant called quote U S A quote
+12. variable called quote F A T O S quote
+13. reference variable called quote to integer quote
+14. reference constant called quote blue car quote
 
 #### Português
 
@@ -1116,11 +1116,11 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 7. referência variável cavalo
 8. referência constante bicicleta
 9. referência namespace bicicleta
-10. namespace chamado * hola me nombre es felipe *
-11. constante chamada aspas W H O aspas
-12. variável chamada aspas nome composto de múltiplas palavras aspas
-13. referêncie variável chamada * hola me nombre es felipe *
-14. referêncie constante chamada * hola me nombre es felipe *
+10. namespace chamado aspas nome composto de múltiplas palavras aspas
+11. constante chamada aspas preço total aspas
+12. variável chamada aspas preço total aspas
+13. referêncie variável chamada aspas nome composto de múltiplas palavras aspas
+14. referêncie constante chamada aspas preço por item aspas
 
 ### Implementation
 

@@ -16,8 +16,8 @@ The following automata is responsible for recognizing the command `Writes a elem
 
 The following are some examples of phrases, in english, used to trigger the command `Writes a elementar math operation`:
 
-1. expression reference constant called quote is full quote minus string hello my name is giovani girogio string
-2. expression number 140 negative or number 140
+1. expression [elementar_math_op] minus 123
+2. expression text H E L L O text less or equals than [elementar_math_op]
 
 #### Português
 
@@ -27,8 +27,8 @@ O automata seguinte é reponsável por reconhecer o comando `Escreve uma operaç
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Escreve uma operação matemática elementar`:
 
-1. expressão verdadeiro vezes gap
-2. expressão gap maior que falso
+1. expressão verdadeiro módulo texto U S A texto
+2. expressão gap não e número 14
 
 ### Implementation
 

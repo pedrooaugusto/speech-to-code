@@ -16,9 +16,9 @@ The following automata is responsible for recognizing the command `Creates a fun
 
 The following are some examples of phrases, in english, used to trigger the command `Creates a function`:
 
-1. declare function multiply with 140 arguments
-2. declare function multiply with 2 arguments return false
-3. declare function divide return reference constant called quote is full quote
+1. declare function multiply with 123 arguments
+2. declare function multiply with 2 arguments return 123
+3. declare function divide return reference constant called quote blue car quote
 
 #### Português
 
@@ -28,9 +28,9 @@ O automata seguinte é reponsável por reconhecer o comando `Cria uma função` 
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Cria uma função`:
 
-1. nova função multiplicar com número quatro argumentos
-2. nova função multiplicar com 2 argumentos retorna verdadeiro
-3. declare a função dividir retornando expressão gap maior que falso
+1. nova função multiplicar com número 43 argumentos
+2. nova função multiplicar com 2 argumentos retorna expressão verdadeiro módulo texto U S A texto
+3. declare a função dividir retornando falso
 
 ### Implementation
 

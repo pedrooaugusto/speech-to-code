@@ -16,10 +16,10 @@ The following automata is responsible for recognizing the command `Change line` 
 
 The following are some examples of phrases, in english, used to trigger the command `Change line`:
 
-1. go to line 42
-2. go to line number 123
-3. line number number 43
-4. line 18
+1. go to line number 14
+2. go to line number number one
+3. line number 123
+4. line number five
 
 #### Português
 
@@ -30,9 +30,9 @@ O automata seguinte é reponsável por reconhecer o comando `Trocar linha` em po
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Trocar linha`:
 
 1. linha número 14
-2. vá para a linha número cinco
+2. vá para a linha número 14
 3. linha número número dois
-4. linha número dois
+4. linha número 14
 
 ### Implementation
 

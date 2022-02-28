@@ -6,10 +6,13 @@ const {
     allRecognizablePhrases,
 } = require('./build-utils.js')
 
+const { getExamples } = require('./examples/index')
+
 const listFiles = (_path, filter) => listArchives('FILES')(_path, filter)
 
 async function main() {
     const spokenModules = new SpokenModules()
+    const examples = getExamples()
 
     for (const moduleA of spokenModules.modules) {
         const moduleInfo = dot.read(fs.readFileSync(moduleA.automata, 'utf-8')).graph()
@@ -27,10 +30,8 @@ async function main() {
                     const graphInfo = graphObject.graph()
 
                     graphInfo.impl = command.code
-                    graphInfo.phrases = allRecognizablePhrases(
-                        graphObject,
-                        spokenModules.templates
-                    ).slice(0, 16)
+
+                    graphInfo.phrases = examples[graphInfo.id].examples[graphInfo.lang].map(a => a.phrase).slice(0, 16)
 
                     moduleA.addCommandGraph(graphInfo.lang, dot.graphlib.json.write(graphObject))
                 }

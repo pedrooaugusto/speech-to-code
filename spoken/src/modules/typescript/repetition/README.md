@@ -16,8 +16,8 @@ The following automata is responsible for recognizing the command `Creates a for
 
 The following are some examples of phrases, in english, used to trigger the command `Creates a for loop statement`:
 
-1. repetition statement from 42 to 123
-2. repetition statement from 42 to 140 step expression variable i plus number 5
+1. repetition statement from number four to 123
+2. repetition statement from number 43 to number four step expression variable i plus number 5
 3. repetition statement for every car of constant cars
 4. repetition statement for every animal of earth
 5. repetition statement for every prime of variable primes
@@ -30,8 +30,8 @@ O automata seguinte é reponsável por reconhecer o comando `Estrutura de repeti
 
 Os seguintes exemplos de frases, em português, podem ser usadas para ativar o comando `Estrutura de repetição`:
 
-1. estrutura de repetição do número dois até número quatro
-2. estrutura de repetição do número 43 até número dois etapa expressão variável i mais número 5
+1. estrutura de repetição do número cinco até número cinco
+2. estrutura de repetição do número 43 até número cinco etapa expressão variável i mais número 5
 3. estrutura de repetição para todo carro em constante carros
 4. estrutura de repetição para todo animal na terra
 5. estrutura de repetição para todo primo na variável primos

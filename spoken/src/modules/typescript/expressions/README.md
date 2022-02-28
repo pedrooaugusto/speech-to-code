@@ -19,11 +19,11 @@ The following are some examples of phrases, in english, used to trigger the comm
 1. false
 2. true
 3. gap
-4. number 140
-5. string hello my name is giovani girogio string
-6. reference constant called quote is full quote
-7. expression number 140 negative or number 140
-8. execute function remove on number 140 with arguments number 140 and false
+4. 123
+5. text H E L L O text
+6. reference constant called quote blue car quote
+7. expression text H E L L O text less or equals than [elementar_math_op]
+8. execute function remove on true with arguments text H E L L O text and text H E L L O text
 
 #### Português
 
@@ -36,11 +36,11 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 1. falso
 2. verdadeiro
 3. gap
-4. número 140
-5. string erros de ponteiro nulos são ruims string
-6. constante idade
-7. expressão gap maior que falso
-8. execute a função remover no [elementar_math_op] com os argumentos string erros de ponteiro nulos são ruims string e número 140
+4. número 14
+5. texto U S A texto
+6. constante chamada aspas preço total aspas
+7. expressão verdadeiro módulo texto U S A texto
+8. execute a função remover no verdadeiro com os argumentos [function_call] e falso
 
 ### Implementation
 

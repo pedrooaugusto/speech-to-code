@@ -2,6 +2,9 @@ const { listArchives } = require('../build-utils')
 const path = require('path')
 const fs = require('fs')
 const dot = require('graphlib-dot')
+const proc = require('process')
+
+const __HOME_PATH = proc.cwd()
 
 class Node {
     constructor (name) {
@@ -55,9 +58,8 @@ class Node {
 
 exports.getExamples = function getExamples() {
     const nodes = {}
-
-    const root = path.resolve(__dirname, '..', '..', 'modules', 'typescript')
-    const commands = listArchives('FOLDER')(root)
+    const root = path.resolve(__HOME_PATH, 'src', 'modules', 'typescript')
+    const commands = listArchives('FOLDER', true)(root)
 
     for (const command of commands) {
         const node = new Node()

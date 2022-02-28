@@ -25,11 +25,11 @@ The following are some examples of phrases, in english, used to trigger the comm
 7. reference variable horse
 8. reference constant bike
 9. reference namespace bike
-10. namespace called quote really good function quote
-11. constant called quote to string quote
-12. variable called quote is full quote
-13. reference variable called quote to upper case quote
-14. reference constant called quote is full quote
+10. namespace called quote is full quote
+11. constant called quote U S A quote
+12. variable called quote F A T O S quote
+13. reference variable called quote to integer quote
+14. reference constant called quote blue car quote
 
 #### Português
 
@@ -48,11 +48,11 @@ Os seguintes exemplos de frases, em português, podem ser usadas para ativar o c
 7. referência variável cavalo
 8. referência constante bicicleta
 9. referência namespace bicicleta
-10. namespace chamado * hola me nombre es felipe *
-11. constante chamada aspas W H O aspas
-12. variável chamada aspas nome composto de múltiplas palavras aspas
-13. referêncie variável chamada * hola me nombre es felipe *
-14. referêncie constante chamada * hola me nombre es felipe *
+10. namespace chamado aspas nome composto de múltiplas palavras aspas
+11. constante chamada aspas preço total aspas
+12. variável chamada aspas preço total aspas
+13. referêncie variável chamada aspas nome composto de múltiplas palavras aspas
+14. referêncie constante chamada aspas preço por item aspas
 
 ### Implementation
 
