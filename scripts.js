@@ -68,7 +68,7 @@ if (task === 'install') {
 /**
  * Builds and install latest demo page in github pages
  * 
- * Usage: `node install gh-pages`
+ * Usage: `node scripts.js gh-pages`
  */
 if (task === 'gh-pages') {
     // fs.renameSync(path.resolve('speech-to-code'), path.resolve('docs'))

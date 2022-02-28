@@ -14,6 +14,24 @@ nav#top-nav .config {
 main.about {
     padding: 0 35px;
     font-family: Roboto;
+    display: flex;
+
+    .content {
+        flex: 0.5;
+    }
+
+    .pic {
+        flex: 0.5;
+        img {
+            margin-top: 50px;
+            max-width: 100%;
+        }
+        figcaption {
+            text-align: center;
+            color: #2f2f2f;
+            font-size: 14px;
+        }
+    }
 
     .main-title {
         margin-block-end: 21px;
