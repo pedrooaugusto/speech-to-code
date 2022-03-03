@@ -28,7 +28,7 @@ export default function Header(props: any) {
                     title="Brand logo"
                 />
             </figure>
-            <a href={makeUrl('')} className={isSelected('home')}>
+            <a href={makeUrl('')} className={isSelected('index')}>
                 {i18n[lang]['Home']}
             </a>
             <a href={makeUrl('webapp/')} className={isSelected('webapp')}>

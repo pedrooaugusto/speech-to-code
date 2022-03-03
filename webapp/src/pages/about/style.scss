@@ -17,11 +17,11 @@ main.about {
     display: flex;
 
     .content {
-        flex: 0.5;
+        flex: 0.52;
     }
 
     .pic {
-        flex: 0.5;
+        flex: 0.48;
         img {
             margin-top: 50px;
             max-width: 100%;
@@ -45,6 +45,17 @@ main.about {
             font-weight: 600;
             font-size: 12px;
             margin-top: 5px;
+        }
+    }
+
+    @media only screen and (max-width: 900px) {
+        display: block;
+        figure {
+            margin: 0;
+        }
+
+        .pic {
+            margin-bottom: 25px;
         }
     }
 }

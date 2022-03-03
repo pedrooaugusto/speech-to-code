@@ -43,7 +43,7 @@ async function createWindow(): Promise<void> {
 		icon: path.resolve(__dirname, 'icons', 'icon36x36.ico')
 	})
 
-	window.setMenuBarVisibility(isDev())
+	window.setMenuBarVisibility(false && isDev())
 
 	window.webContents.on('new-window', function(e, url) {
 		e.preventDefault()
