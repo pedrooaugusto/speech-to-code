@@ -19,7 +19,9 @@ digraph elementar_math_op {
     desc="Writes a elementar math operation (*, -, +, /)";
 
     examples="
-      expression [expressions] [math_operator] [expressions],
-      expression [expressions] [logical_operator] [expressions]
+      expression number 35 [math_operator] number 89 [math_operator] [string],
+      expression [variable_reference] [math_operator] [variable_reference],
+      expression [variable_reference] [logical_operator] [variable_reference],
+      expression [variable_reference] [math_operator] [function_call] [logical_operator] number 42
     ";
 }

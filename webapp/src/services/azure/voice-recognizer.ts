@@ -26,6 +26,12 @@ export default class MyRecognizer {
         SpeechSDK.Recognizer.enableTelemetry(false)
 
         this.speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(authConfig.token, authConfig.region)
+
+        // Custom english model
+        if (lang === 'en-US') {
+            this.speechConfig.endpointId = '801d722d-af95-463a-89e0-78ac8ea625fb'
+        }
+
         this.speechConfig.speechRecognitionLanguage = lang
         this.speechConfig.setServiceProperty('punctuation', 'explicit', SpeechSDK.ServicePropertyChannel.UriQueryParameter)
         this.audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput()

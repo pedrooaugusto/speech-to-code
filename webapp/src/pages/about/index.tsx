@@ -1,7 +1,7 @@
 import React from 'react'
 import Nav from '../@components/header'
 import './style.scss'
-import diagram from './inner-workings-diagram-pr-br.png'
+import diagram from './inner-workings-diagram-en-us.png'
 
 export default React.memo(function Webapp(props: { lang: string }) {
     return (
@@ -58,7 +58,7 @@ export default React.memo(function Webapp(props: { lang: string }) {
                 <div className="pic">
                     <figure>
                         <img src={diagram} alt="System Inner Workings" />
-                        <figcaption>How does this application work in a picture.</figcaption>
+                        <figcaption>How does this application works in a picture.</figcaption>
                     </figure>
                 </div>
             </main>

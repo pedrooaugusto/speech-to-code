@@ -41,7 +41,16 @@ class Node {
 
     completeExamples(nodes, lang) {
         for (const example of this.examples[lang]) {
-            if (example.phrase != null) continue
+            if (example.phrase != null) {
+                let dep = (example.phrase.match(/\[(.*?)\]/gi) || [])[0]
+
+                if (dep != null) {
+                    dep = dep.replace(/\[|\]/gi, '')
+                    example.phrase = example.phrase.replace(/\[(.*)\]/, nodes[dep].getRandomCompletedExample(lang))
+                }
+
+                continue
+            }
 
             example.phrase = example.originalPhrase
 
@@ -56,7 +65,7 @@ class Node {
     }
 }
 
-exports.getExamples = function getExamples() {
+function getExamples() {
     const nodes = {}
     const root = path.resolve(__HOME_PATH, 'src', 'modules', 'typescript')
     const commands = listArchives('FOLDER', true)(root)
@@ -86,3 +95,21 @@ exports.getExamples = function getExamples() {
 
     return nodes
 }
+
+exports.getExamples = getExamples
+
+function main() {
+    const val = getExamples()
+    let text = ''
+
+    for (const key in val) {
+
+        val[key].getCompletedExamples('en-US').map(a => {
+            text += a.phrase + '\n'
+        })
+    }
+
+    fs.writeFileSync('./phrases.txt', text)
+}
+
+// main()

@@ -10,6 +10,8 @@ export default function Header(props: any) {
     const isSelected = (page: string) => route === page ? 'selected' : '' 
     const stt = localStorage.getItem('STT') || 'azure'
 
+    const page = route === 'index' ? '' : route + '/'
+
     const changeStt = (val: string, evt: React.MouseEvent) => {
         evt.preventDefault()
 
@@ -48,8 +50,8 @@ export default function Header(props: any) {
                 {i18n[lang]['About']}    
             </a>
             <div className="language">
-                <a href={process.env.PUBLIC_URL + "/en/webapp/"} className={lang === 'en-US' ? `selected` : ''}>en-US</a>&nbsp;/&nbsp;
-                <a href={process.env.PUBLIC_URL + "/pt/webapp/"} className={lang === 'pt-BR' ? `selected` : ''}>pt-BR</a>
+                <a href={process.env.PUBLIC_URL + "/en/" + page} className={lang === 'en-US' ? `selected` : ''}>en-US</a>&nbsp;/&nbsp;
+                <a href={process.env.PUBLIC_URL + "/pt/" + page} className={lang === 'pt-BR' ? `selected` : ''}>pt-BR</a>
                 <span className="help" data-tip="This website language" data-for="header">
                     <i className="fa fa-question-circle" />
                 </span>
