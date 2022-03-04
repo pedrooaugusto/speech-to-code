@@ -1,0 +1,137 @@
+conditional statement
+conditional statement number 14
+conditional statement if execute function normalize on reference variable horse with 2 arguments
+conditional statement if else execute function normalize on reference variable horse with 2 arguments
+pointer line 21
+pointer line 44
+cursor line 23
+pointer end of line
+pointer begin of line
+pointer first letter A
+pointer next five symbols
+expression number 35 divided by number 89 times string O N U string
+expression constant name module variable value
+expression constant age less than constant name
+expression constant language times execute function remove on number 14 with arguments reference variable horse and true greater than number 42
+false
+true
+gap
+number 14
+string hello world string
+reference variable horse
+expression number 35 divided by number 89 times string O N U string
+execute function normalize on reference variable horse with 2 arguments
+call function test
+execute function normalize on reference variable horse with 2 arguments
+execute function remove on number 14 with arguments reference variable horse and true
+declare function multiply with 42 arguments
+declare function multiply with 2 arguments return number 14
+declare function divide return number 14
+go to line 140
+go to line number number 43
+line number number 14
+line number 43
+and
+or
+equals
+less than
+greater than
+less or equals than
+greater or equals than
+not equals
+negative equals
+negative and
+negative or
+plus
+times
+minus
+divided by
+module
+quote blue car quote
+quote multi word token quote
+quote to upper case quote
+quote to string quote
+quote to integer quote
+quote is null quote
+quote has next quote
+quote is full quote
+quote camel case quote
+quote get string could quote
+quote get color quote
+quote really good function quote
+quote U S A quote
+quote W H O quote
+quote F A T O S quote
+create line
+create a line
+create line above
+create line below
+number one
+number four
+number five
+number 43
+number 14
+number 140
+140
+123
+42
+18
+remove line
+remove selection
+repetition statement from 42 to number one
+repetition statement from 123 to number one step expression variable i plus number 5
+repetition statement for every car of constant cars
+repetition statement for every animal of earth
+repetition statement for every prime of variable primes
+run current file
+run this file
+select the letter B
+select the symbol 5
+select the letter Q
+select the first letter B
+select the second letter K
+select the last workd this
+select the word ball
+select the word quote multi word token quote
+select from line 2 to line 15
+select from line number 45 to line 90
+select from letter A to letter Z
+select from second leter G to last letter P
+string hello world string
+string null pointer exeception is bad string
+text this can be any piece of writing text
+string hello my name is giovani girogio string
+text what is happening peter text
+text H E L L O text
+string O N U string
+string U S A string
+undo that
+undo that again
+redo the last operation
+undo the last operation again
+redo that
+new variable value equals expression number 35 divided by number 89 times string O N U string
+variable called batch equals gap
+declare variable called quote to string quote equals reference variable horse
+variable value
+variable label
+constant name
+constant age
+constant language
+namespace color
+reference variable horse
+reference constant bike
+reference namespace bike
+namespace called quote is full quote
+constant called quote is full quote
+variable called quote to integer quote
+reference variable called quote U S A quote
+reference constant called quote really good function quote
+write hello how are you friend
+print my name is Giovani
+print it down how are you mate
+write letter B and letter E and letter T
+change language to portuguese
+switch language to portuguese
+switch language to english
+switch language back to french
