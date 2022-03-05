@@ -32,7 +32,7 @@ This project can be divided into 3 main modules:
 
 3. [Spoken  VSCode Extension](/spoken-vscode-driver): is a Visual Studio Code extension able to receive commands to manipulate VSCode. Is through this extension that Speech2Code is able to control the Visual Studio Code.
 
-Those modules interact as follows:
+**Those modules interact as follows:**
 
 ```mermaid
 
