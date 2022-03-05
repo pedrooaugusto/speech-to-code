@@ -39,7 +39,7 @@ const NotFound: ComponentType<any> = () => {
 	return <h3>Error 404 - Cannot get {window.location.pathname}</h3>
 }
 
-const UnderConstruction: ComponentType<any> = () => {
+/*const UnderConstruction: ComponentType<any> = () => {
 	return (
 		<React.Fragment>
 			<h2><a href="webapp">Go to demo page</a></h2>
@@ -52,7 +52,7 @@ const UnderConstruction: ComponentType<any> = () => {
 			/>
 		</React.Fragment>
 	)
-}
+}*/
 
 ReactDOM.render(
 	<React.StrictMode>
