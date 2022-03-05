@@ -34,7 +34,25 @@ This project can be divided into 3 main modules:
 
 Those modules interact as follows:
 
-![All modules](/docs/all-modules.png)
+```mermaid
+
+flowchart TB
+    A[fab:fa-microsoft MS Azure Speech to Text] <-->|HTTP/Sockets| B(Server)
+
+    B <--> |HTTP| C(Client)
+    B --> |Serves| E(Webapp)
+    C <--> |Inter Process-Communication| D(VS Code Extension)
+    E --- |NPM Dependency| F(Spoken)
+    C --- |NPM Dependency| F(Spoken)
+    D <--> G(Visual Studio Code)
+
+    style B fill:white,stroke:gold,stroke-width:2px
+    style C fill:white,stroke:gold,stroke-width:2px
+    style D fill:white,stroke:gold,stroke-width:2px
+    style E fill:white,stroke:gold,stroke-width:2px
+    style F fill:white,stroke:gold,stroke-width:2px
+
+```
 
 ### Voice Commands
 
