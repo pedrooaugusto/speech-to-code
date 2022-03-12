@@ -13,8 +13,14 @@ const exec = (str, opts) => {
 
 const task = process.argv[2]
 
-if (task == null || task === '') return console.log('Nothing to do!')
+if (task == null || task === '') {
+    console.log('Nothing to do, valid commands are:\n')
+    console.log('1. `node scripts.js version 0.0.1` (to update version)')
+    console.log('2. `node scripts.js install` (cloning this project for the first time)')
+    console.log('3. `node scripts.js gh-pages` (build webapp for github pages)')
 
+    return
+}
 /**
  * Update all packages on this project to a new version.
  * 
