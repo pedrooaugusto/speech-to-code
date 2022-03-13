@@ -1,12 +1,16 @@
 # Speech To Code <img alt="Toolkit audit status" src="client/icons/icon36x36.png/" />&nbsp;&nbsp;[<img alt="Toolkit audit status" src="https://github.com/pedrooaugusto/speech-to-code/workflows/Node.js CI/badge.svg" style="align:right"/>](https://github.com/pedrooaugusto/speech-to-code/actions)
 
-> Code using your own voice
+> Code using your voice
 
 ### Web Demo
 
-You can try a live demo of this project here: https://pedrooaugusto.github.io/speech-to-code/webapp 
+You can try a live demo of Speech2Code here: https://pedrooaugusto.github.io/speech-to-code/webapp 
+
+You can also check this video on how to solve the FizzBuzz problem using Speech2Code: https://www.youtube.com/watch?v=I71ETEeqa5E
 
 _(for this demo the app was ported to the web, to run directly on the browser)_
+
+You can also check this video at
 
 ### Overview
 
