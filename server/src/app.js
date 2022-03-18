@@ -17,6 +17,11 @@ app.get('/api/azure/token', async (req, res) => {
 	const speechKey = process.env.SPEECH_KEY
     const speechEndpoint = process.env.ENDPOINT
 	const speechRegion = process.env.REGION
+	let customModel = undefined
+
+	if (req.query.lang === 'en-US') {
+		customModel = process.env.CUSTOM_MODEL_ENGLISH
+	}
 
 	if (speechKey == '' || speechKey == null) res.status(401).send({ message: 'ENV variables not configured!' })
 
@@ -30,7 +35,7 @@ app.get('/api/azure/token', async (req, res) => {
 	try {
 		const tokenResponse = await axios.post(speechEndpoint, null, headers)
 
-		res.status(200).send({ token: tokenResponse.data, region: speechRegion })
+		res.status(200).send({ token: tokenResponse.data, region: speechRegion, endpointId: customModel })
 
 	} catch (err) {
 		console.error(err)

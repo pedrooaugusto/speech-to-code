@@ -16,7 +16,7 @@ export default class MyRecognizer {
     }
 
     async init(lang: string) {
-        const [authConfig, err] = await getAuthToken()
+        const [authConfig, err] = await getAuthToken(lang)
 
         if (authConfig == null) {
             // @ts-ignore
@@ -26,11 +26,7 @@ export default class MyRecognizer {
         SpeechSDK.Recognizer.enableTelemetry(false)
 
         this.speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(authConfig.token, authConfig.region)
-
-        // Custom english model
-        if (lang === 'en-US') {
-            this.speechConfig.endpointId = '801d722d-af95-463a-89e0-78ac8ea625fb'
-        }
+        this.speechConfig.endpointId = authConfig.endpointId
 
         this.speechConfig.speechRecognitionLanguage = lang
         this.speechConfig.setServiceProperty('punctuation', 'explicit', SpeechSDK.ServicePropertyChannel.UriQueryParameter)
@@ -89,7 +85,7 @@ export default class MyRecognizer {
     }
 }
 
-async function getAuthToken() {
+async function getAuthToken(lang: string = ''): Promise<[{ token: string; region: string; endpointId: string } | null, Error | null]> {
     try {
         const hn = process.env.REACT_APP_HN
         const hv = process.env.REACT_APP_HV
@@ -101,13 +97,13 @@ async function getAuthToken() {
             headers.append(hn, hv)
         }
 
-        const res = await fetch(sttEndpoint + '/api/azure/token', { headers })
+        const res = await fetch(sttEndpoint + '/api/azure/token?lang=' + lang, { headers })
 
         return [await res.json(), null]
     } catch(e) {
         console.error(e)
 
-        return [null, e]
+        return [null, e as Error]
     } 
 }
 
