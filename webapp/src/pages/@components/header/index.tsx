@@ -49,6 +49,9 @@ export default function Header(props: any) {
             <a href={makeUrl('about/')} className={isSelected('about')}>
                 {i18n[lang]['About']}    
             </a>
+            <a href={'https://github.com/pedrooaugusto/speech-to-code'} target="_blank" rel="noreferrer">
+                <i className='fa fa-github' style={{ marginRight: '5px', fontSize: '20px' }}/> GitHub
+            </a>
             <div className="language">
                 <a href={process.env.PUBLIC_URL + "/en/" + page} className={lang === 'en-US' ? `selected` : ''}>en-US</a>&nbsp;/&nbsp;
                 <a href={process.env.PUBLIC_URL + "/pt/" + page} className={lang === 'pt-BR' ? `selected` : ''}>pt-BR</a>
